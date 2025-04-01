@@ -8,43 +8,42 @@ import masjidNewImage from "@assets/WhatsApp Image 2024-06-29 at 19.33.33_a41e9b
 import masjidInteriorImage from "@assets/IMG_20230318_150704_129.jpg";
 import masjidOutsideImage from "@assets/IMG_20230318_150712_252.jpg";
 import masjidExteriorImage from "@assets/IMG_20230318_151014_122.jpg";
+import masjidHeroImage from "@assets/1.png";
 
 const Hero = () => {
   return (
     <section id="home" className="relative">
-      <div className="h-[70vh] bg-cover bg-center relative" style={{backgroundColor: "#000000"}}>
-        <div className="absolute inset-0 bg-[#000000]"></div>
+      <div className="h-[85vh] relative overflow-hidden">
+        <div className="absolute inset-0 bg-black z-0"></div>
         
-        <div className="container mx-auto px-4 h-full relative z-10">
-          <div className="grid md:grid-cols-2 h-full">
-            <div className="flex items-center justify-center h-full">
-              <img 
-                src={masjidInteriorImage} 
-                alt="Masjid Nabvi Qureshi Hashmi" 
-                className="h-full object-contain p-4" 
-              />
-            </div>
-            
-            <div className="flex items-center h-full">
-              <div className="text-white max-w-xl p-6 rounded-lg bg-black bg-opacity-70">
-                <h1 className="text-4xl md:text-6xl font-heading font-bold mb-4">
-                  <span className="text-[#D4AF37]">Jamia Masjid Nabvi</span> Qureshi Hashmi
-                </h1>
-                <p className="text-xl mb-4 font-bold">مسجد نبوی كے طرز پر سارے اعمال كا آغاز مسجد ھٰذا سے</p>
-                <p className="text-lg mb-8">Building a masjid based on Masjid e Nabawi's model - transforming masajid for the AI era</p>
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <Link href="/donation-page">
-                    <div className="bg-[#D4AF37] hover:bg-opacity-90 text-white text-center px-6 py-3 rounded-md transition-colors font-medium cursor-pointer">
-                      Support Our Masjid
-                    </div>
-                  </Link>
-                  <Link href="/services-page">
-                    <div className="border-2 border-white hover:bg-white hover:text-[#0C6E4E] text-center text-white px-6 py-3 rounded-md transition-colors font-medium cursor-pointer">
-                      Our Services
-                    </div>
-                  </Link>
+        <div className="absolute inset-0 z-10">
+          <img 
+            src={masjidHeroImage} 
+            alt="Masjid Nabvi Qureshi Hashmi"
+            className="w-full h-full object-contain"
+            style={{filter: "blur(0px)"}}
+          />
+        </div>
+        
+        <div className="container mx-auto px-4 h-full relative z-20 flex items-center justify-center">
+          <div className="text-white max-w-2xl p-8 text-center">
+            <h1 className="text-4xl md:text-6xl font-heading font-bold mb-6">
+              <span className="text-[#D4AF37] drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">Jamia Masjid Nabvi</span> 
+              <span className="drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]"> Qureshi Hashmi</span>
+            </h1>
+            <p className="text-xl mb-6 font-bold drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">مسجد نبوی كے طرز پر سارے اعمال كا آغاز مسجد ھٰذا سے</p>
+            <p className="text-xl mb-8 drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">Based on Masjid-E-Nabawi's Model</p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-6">
+              <Link href="/donation-page">
+                <div className="bg-[#D4AF37] hover:bg-opacity-90 text-white text-center px-8 py-4 rounded-md transition-colors font-medium cursor-pointer text-lg shadow-lg">
+                  Support Our Masjid
                 </div>
-              </div>
+              </Link>
+              <Link href="/services-page">
+                <div className="border-2 border-white hover:bg-white hover:text-[#0C6E4E] text-center text-white px-8 py-4 rounded-md transition-colors font-medium cursor-pointer text-lg shadow-lg">
+                  Our Services
+                </div>
+              </Link>
             </div>
           </div>
         </div>
