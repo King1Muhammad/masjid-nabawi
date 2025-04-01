@@ -54,7 +54,7 @@ const Madrasa = () => {
         
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
-            <img src="https://images.unsplash.com/photo-1625629107885-9a1016d5ed12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80" alt="Students learning Quran" className="rounded-lg shadow-lg w-full h-auto" />
+            <img src="../assets/IMG_20230318_144743_2.jpg" alt="Students at our Madrasa" className="rounded-lg shadow-lg w-full h-auto" />
           </div>
           
           <div>
