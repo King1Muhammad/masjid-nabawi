@@ -78,7 +78,7 @@ const HistoryPage = () => {
           
           <div className="mb-8">
             <img 
-              src="https://images.unsplash.com/photo-1526547199948-e8d297f2d9f7?q=80&w=1000" 
+              src="https://images.unsplash.com/photo-1585129918930-eef8f5f2d283?q=80&w=1300" 
               alt="Islamic Contributions" 
               className="w-full h-64 object-cover object-center rounded-lg shadow-md mb-6" 
             />

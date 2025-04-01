@@ -63,28 +63,28 @@ export const TIMELINE_ITEMS = [
     title: 'Pre-Islamic Arabia',
     description: 'Before Islam, Arabian society was marked by tribalism, warfare, idol worship, and injustice. The Kaaba in Mecca, originally built for monotheistic worship, had become a center for idolatry.',
     content: 'Pre-Islamic Arabian society was deeply divided along tribal lines, leading to frequent conflicts and warfare. Idol worship was prevalent, hindering spiritual development. Injustice and inequality were widespread, with the rights of common people, especially slaves, virtually non-existent.',
-    image: 'https://images.unsplash.com/photo-1565019011521-b3677c8c9e9d?q=80&w=1000'
+    image: 'https://images.unsplash.com/photo-1535568824253-d7db5fe54af2?q=80&w=1300'
   },
   {
     id: 2,
     title: 'Prophet Muhammad ﷺ',
     description: 'The life and teachings of Prophet Muhammad ﷺ brought monotheism, justice, education, and moral values to humanity, shifting society from tribalism to unity.',
     content: 'With the arrival of Islam and the message brought by Prophet Muhammad ﷺ, a transformation occurred. Muslims embraced monotheism (belief in one God), adopted a code of ethics, and gained a sense of unity as a community (Ummah). Islam emphasized equality, justice, improved the status of women, and promoted education and knowledge.',
-    image: 'https://images.unsplash.com/photo-1591002801535-807895a69cf0?q=80&w=1000'
+    image: 'https://images.unsplash.com/photo-1590439471071-9a89cc8ae1a1?q=80&w=1300'
   },
   {
     id: 3,
     title: 'Masjid-e-Nabawi',
     description: 'Prophet Muhammad\'s migration to Madina in 622 CE led to the establishment of Masjid e Nabawi, which became more than just a place of worship - it was the center of a new nation.',
     content: 'Prophet Muhammad designated Masjid e Nabawi as the spiritual and administrative heart of the nascent Islamic state. It served as more than just a place of worship; it became a hub for decision-making, discussions, and community gatherings. The Constitution of Madina established a framework for a pluralistic society, where diverse communities coexisted harmoniously under Islamic governance.',
-    image: 'https://images.unsplash.com/photo-1581258624948-a1e691a21a27?q=80&w=1000'
+    image: 'https://images.unsplash.com/photo-1519817650390-64a93db51149?q=80&w=1300'
   },
   {
     id: 4,
     title: 'Islamic Civilization',
     description: 'Islam encouraged education and knowledge, leading to the Islamic Golden Age with remarkable advancements in science, mathematics, medicine, and philosophy.',
     content: 'The message of Islam continues to inspire individuals to strive for a better world and a more just and inclusive society. Islamic scholars made significant contributions to various fields, including science, mathematics, medicine, and philosophy. The Islamic Golden Age witnessed remarkable advancements in these areas, shaping the world as we know it today.',
-    image: 'https://images.unsplash.com/photo-1542702215-6918e3c71dd4?q=80&w=1000'
+    image: 'https://images.unsplash.com/photo-1549877452-9c113f7c3fce?q=80&w=1300'
   }
 ];
 

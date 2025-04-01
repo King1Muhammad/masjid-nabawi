@@ -13,7 +13,7 @@ const VisionPage = () => {
       <section className="relative min-h-[90vh] flex items-center bg-black">
         <div className="absolute inset-0 z-0">
           <img 
-            src="https://images.unsplash.com/photo-1581258624948-a1e691a21a27?q=80&w=1300" 
+            src="https://images.unsplash.com/photo-1519817650390-64a93db51149?q=80&w=1300" 
             alt="Masjid-e-Nabawi Model" 
             className="w-full h-full object-cover opacity-40"
           />
@@ -27,17 +27,21 @@ const VisionPage = () => {
             Join us in rebuilding the true purpose of masajids and creating an AI-driven, transparent system for a just and empowered world.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/donation-page">
-              <a className="bg-[#D4AF37] hover:bg-opacity-90 text-white text-center px-8 py-4 rounded-md transition-colors font-bold text-lg shadow-xl">
+            <Link href="/donate">
+              <div className="bg-[#D4AF37] hover:bg-opacity-90 text-white text-center px-8 py-4 rounded-md transition-colors font-bold text-lg shadow-xl cursor-pointer">
                 Donate Now
-              </a>
+              </div>
             </Link>
-            <button className="bg-[#0C6E4E] hover:bg-opacity-90 text-white text-center px-8 py-4 rounded-md transition-colors font-bold text-lg shadow-xl">
-              Join the Revolution
-            </button>
-            <button className="bg-white text-[#0C6E4E] hover:bg-opacity-90 text-center px-8 py-4 rounded-md transition-colors font-bold text-lg shadow-xl border border-[#0C6E4E]">
-              Learn More
-            </button>
+            <Link href="/community">
+              <div className="bg-[#0C6E4E] hover:bg-opacity-90 text-white text-center px-8 py-4 rounded-md transition-colors font-bold text-lg shadow-xl cursor-pointer">
+                Join the Revolution
+              </div>
+            </Link>
+            <Link href="/history">
+              <div className="bg-white text-[#0C6E4E] hover:bg-opacity-90 text-center px-8 py-4 rounded-md transition-colors font-bold text-lg shadow-xl border border-[#0C6E4E] cursor-pointer">
+                Learn More
+              </div>
+            </Link>
           </div>
         </div>
       </section>
@@ -81,7 +85,7 @@ const VisionPage = () => {
             </div>
             <div className="order-1 md:order-2">
               <img 
-                src="https://images.unsplash.com/photo-1621281252294-5fd4a80bec53?q=80&w=1300" 
+                src="https://images.unsplash.com/photo-1535568824253-d7db5fe54af2?q=80&w=1300" 
                 alt="Before Islam" 
                 className="w-full h-80 object-cover rounded-xl shadow-lg"
               />
@@ -91,7 +95,7 @@ const VisionPage = () => {
           <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
             <div>
               <img 
-                src="https://images.unsplash.com/photo-1591002800200-c13bbedd71a1?q=80&w=1300" 
+                src="https://images.unsplash.com/photo-1590439471071-9a89cc8ae1a1?q=80&w=1300" 
                 alt="After Islam" 
                 className="w-full h-80 object-cover rounded-xl shadow-lg"
               />

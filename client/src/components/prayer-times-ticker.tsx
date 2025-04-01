@@ -74,12 +74,12 @@ const PrayerTimesTicker = () => {
       
       // Convert prayer times to comparable values
       const prayers = [
-        { name: 'Fajr', time: prayerTimes?.Fajr || DEFAULT_PRAYER_TIMES.Fajr },
-        { name: 'Sunrise', time: prayerTimes?.Sunrise || DEFAULT_PRAYER_TIMES.Sunrise },
-        { name: 'Dhuhr', time: prayerTimes?.Dhuhr || DEFAULT_PRAYER_TIMES.Dhuhr },
-        { name: 'Asr', time: prayerTimes?.Asr || DEFAULT_PRAYER_TIMES.Asr },
-        { name: 'Maghrib', time: prayerTimes?.Maghrib || DEFAULT_PRAYER_TIMES.Maghrib },
-        { name: 'Isha', time: prayerTimes?.Isha || DEFAULT_PRAYER_TIMES.Isha },
+        { name: 'Fajr', time: DEFAULT_PRAYER_TIMES.Fajr },
+        { name: 'Sunrise', time: DEFAULT_PRAYER_TIMES.Sunrise },
+        { name: 'Dhuhr', time: DEFAULT_PRAYER_TIMES.Dhuhr },
+        { name: 'Asr', time: DEFAULT_PRAYER_TIMES.Asr },
+        { name: 'Maghrib', time: DEFAULT_PRAYER_TIMES.Maghrib },
+        { name: 'Isha', time: DEFAULT_PRAYER_TIMES.Isha },
       ];
       
       // Convert time to minutes
@@ -109,12 +109,12 @@ const PrayerTimesTicker = () => {
   const formattedTimes: PrayerTimes = isLoading || isError 
     ? DEFAULT_PRAYER_TIMES as unknown as PrayerTimes
     : {
-        Fajr: formatTime(prayerTimes?.Fajr || DEFAULT_PRAYER_TIMES.Fajr),
-        Sunrise: formatTime(prayerTimes?.Sunrise || DEFAULT_PRAYER_TIMES.Sunrise),
-        Dhuhr: formatTime(prayerTimes?.Dhuhr || DEFAULT_PRAYER_TIMES.Dhuhr),
-        Asr: formatTime(prayerTimes?.Asr || DEFAULT_PRAYER_TIMES.Asr),
-        Maghrib: formatTime(prayerTimes?.Maghrib || DEFAULT_PRAYER_TIMES.Maghrib),
-        Isha: formatTime(prayerTimes?.Isha || DEFAULT_PRAYER_TIMES.Isha),
+        Fajr: formatTime((prayerTimes as any)?.Fajr || DEFAULT_PRAYER_TIMES.Fajr),
+        Sunrise: formatTime((prayerTimes as any)?.Sunrise || DEFAULT_PRAYER_TIMES.Sunrise),
+        Dhuhr: formatTime((prayerTimes as any)?.Dhuhr || DEFAULT_PRAYER_TIMES.Dhuhr),
+        Asr: formatTime((prayerTimes as any)?.Asr || DEFAULT_PRAYER_TIMES.Asr),
+        Maghrib: formatTime((prayerTimes as any)?.Maghrib || DEFAULT_PRAYER_TIMES.Maghrib),
+        Isha: formatTime((prayerTimes as any)?.Isha || DEFAULT_PRAYER_TIMES.Isha),
         Juma: '1:30 PM'
       };
 
