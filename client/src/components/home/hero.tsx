@@ -9,7 +9,7 @@ import masjidInteriorImage from "@assets/IMG_20230318_150704_129.jpg";
 import masjidOutsideImage from "@assets/IMG_20230318_150712_252.jpg";
 import masjidExteriorImage from "@assets/IMG_20230318_151014_122.jpg";
 import masjidHeroImage from "@assets/1.png";
-import chairmanImage from "@assets/chairman_new.png";
+import chairmanImage from "@assets/chairman_updated.png";
 import blueprintImage from "@assets/masjid_blueprint.jpg";
 import constructionApprovalImage from "@assets/construction_approval.jpg";
 import constructionSiteImage from "@assets/construction_site.jpg";

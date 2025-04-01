@@ -1,4 +1,5 @@
 import { TIMELINE_ITEMS } from '@/lib/constants';
+import { useEffect } from 'react';
 
 interface TimelineItemProps {
   title: string;
@@ -28,6 +29,11 @@ const TimelineItem = ({ title, description, image, isReversed = false, content }
 };
 
 const HistoryPage = () => {
+  // Scroll to top on component mount
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  
   // Extended content for each timeline item
   const extendedContent = [
     "The Arabian Peninsula before Islam was primarily a tribal society with a rich oral tradition. The majority of Arabs were polytheists, worshipping numerous deities through idols. The Kaaba in Makkah housed 360 idols and was a major pilgrimage site. Trade was the economic backbone, with Makkah serving as a commercial hub due to its location on trade routes. The social structure was tribal, and warfare between tribes was common. Women had few rights, and female infanticide was practiced. This period, known as 'Jahiliyyah' (age of ignorance), was characterized by tribal loyalty above all else and limited central authority.",
@@ -69,9 +75,28 @@ const HistoryPage = () => {
         
         <div className="mt-16 bg-white rounded-lg shadow-lg p-8">
           <h2 className="text-3xl font-heading text-[#0C6E4E] mb-6">Islamic Contributions to Modern Civilization</h2>
+          
+          <div className="mb-8">
+            <img 
+              src="https://images.unsplash.com/photo-1526547199948-e8d297f2d9f7?q=80&w=1000" 
+              alt="Islamic Contributions" 
+              className="w-full h-64 object-cover object-center rounded-lg shadow-md mb-6" 
+            />
+            <p className="text-lg text-center text-gray-700 italic">
+              "Islamic civilization has contributed significantly to many fields of human knowledge and development"
+            </p>
+          </div>
+          
           <div className="grid md:grid-cols-2 gap-8">
-            <div>
-              <h3 className="text-xl font-medium text-[#0C6E4E] mb-3">Science & Medicine</h3>
+            <div className="bg-[#F7F3E9] p-6 rounded-lg shadow">
+              <div className="flex items-center mb-4">
+                <div className="w-12 h-12 rounded-full bg-[#0C6E4E] flex items-center justify-center mr-4 text-white">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-medium text-[#0C6E4E]">Science & Medicine</h3>
+              </div>
               <ul className="list-disc pl-5 space-y-2">
                 <li>Ibn al-Haytham's pioneering work in optics</li>
                 <li>Al-Khwarizmi's foundational contributions to algebra</li>
@@ -80,8 +105,16 @@ const HistoryPage = () => {
                 <li>Development of the scientific method through empirical observation</li>
               </ul>
             </div>
-            <div>
-              <h3 className="text-xl font-medium text-[#0C6E4E] mb-3">Arts & Architecture</h3>
+            
+            <div className="bg-[#F7F3E9] p-6 rounded-lg shadow">
+              <div className="flex items-center mb-4">
+                <div className="w-12 h-12 rounded-full bg-[#D4AF37] flex items-center justify-center mr-4 text-white">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-medium text-[#0C6E4E]">Arts & Architecture</h3>
+              </div>
               <ul className="list-disc pl-5 space-y-2">
                 <li>Islamic calligraphy as a sophisticated art form</li>
                 <li>Architectural innovations including the pointed arch and dome</li>
@@ -90,8 +123,16 @@ const HistoryPage = () => {
                 <li>Development of musical instruments and music theory</li>
               </ul>
             </div>
-            <div>
-              <h3 className="text-xl font-medium text-[#0C6E4E] mb-3">Literature & Philosophy</h3>
+            
+            <div className="bg-[#F7F3E9] p-6 rounded-lg shadow">
+              <div className="flex items-center mb-4">
+                <div className="w-12 h-12 rounded-full bg-[#0C6E4E] flex items-center justify-center mr-4 text-white">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-medium text-[#0C6E4E]">Literature & Philosophy</h3>
+              </div>
               <ul className="list-disc pl-5 space-y-2">
                 <li>Al-Farabi's and Ibn Rushd's commentaries on Aristotle</li>
                 <li>Persian poetry of Rumi, Hafez, and Omar Khayyam</li>
@@ -100,8 +141,16 @@ const HistoryPage = () => {
                 <li>Preservation and translation of ancient Greek philosophical works</li>
               </ul>
             </div>
-            <div>
-              <h3 className="text-xl font-medium text-[#0C6E4E] mb-3">Social Innovations</h3>
+            
+            <div className="bg-[#F7F3E9] p-6 rounded-lg shadow">
+              <div className="flex items-center mb-4">
+                <div className="w-12 h-12 rounded-full bg-[#D4AF37] flex items-center justify-center mr-4 text-white">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                  </svg>
+                </div>
+                <h3 className="text-xl font-medium text-[#0C6E4E]">Social Innovations</h3>
+              </div>
               <ul className="list-disc pl-5 space-y-2">
                 <li>Establishment of the world's first degree-granting universities</li>
                 <li>Development of advanced hospital systems with specialized wards</li>

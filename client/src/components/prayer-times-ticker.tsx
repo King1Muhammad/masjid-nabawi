@@ -74,12 +74,12 @@ const PrayerTimesTicker = () => {
       
       // Convert prayer times to comparable values
       const prayers = [
-        { name: 'Fajr', time: prayerTimes.Fajr },
-        { name: 'Sunrise', time: prayerTimes.Sunrise },
-        { name: 'Dhuhr', time: prayerTimes.Dhuhr },
-        { name: 'Asr', time: prayerTimes.Asr },
-        { name: 'Maghrib', time: prayerTimes.Maghrib },
-        { name: 'Isha', time: prayerTimes.Isha },
+        { name: 'Fajr', time: prayerTimes?.Fajr || DEFAULT_PRAYER_TIMES.Fajr },
+        { name: 'Sunrise', time: prayerTimes?.Sunrise || DEFAULT_PRAYER_TIMES.Sunrise },
+        { name: 'Dhuhr', time: prayerTimes?.Dhuhr || DEFAULT_PRAYER_TIMES.Dhuhr },
+        { name: 'Asr', time: prayerTimes?.Asr || DEFAULT_PRAYER_TIMES.Asr },
+        { name: 'Maghrib', time: prayerTimes?.Maghrib || DEFAULT_PRAYER_TIMES.Maghrib },
+        { name: 'Isha', time: prayerTimes?.Isha || DEFAULT_PRAYER_TIMES.Isha },
       ];
       
       // Convert time to minutes
@@ -109,12 +109,12 @@ const PrayerTimesTicker = () => {
   const formattedTimes: PrayerTimes = isLoading || isError 
     ? DEFAULT_PRAYER_TIMES as unknown as PrayerTimes
     : {
-        Fajr: formatTime(prayerTimes.Fajr),
-        Sunrise: formatTime(prayerTimes.Sunrise),
-        Dhuhr: formatTime(prayerTimes.Dhuhr),
-        Asr: formatTime(prayerTimes.Asr),
-        Maghrib: formatTime(prayerTimes.Maghrib),
-        Isha: formatTime(prayerTimes.Isha),
+        Fajr: formatTime(prayerTimes?.Fajr || DEFAULT_PRAYER_TIMES.Fajr),
+        Sunrise: formatTime(prayerTimes?.Sunrise || DEFAULT_PRAYER_TIMES.Sunrise),
+        Dhuhr: formatTime(prayerTimes?.Dhuhr || DEFAULT_PRAYER_TIMES.Dhuhr),
+        Asr: formatTime(prayerTimes?.Asr || DEFAULT_PRAYER_TIMES.Asr),
+        Maghrib: formatTime(prayerTimes?.Maghrib || DEFAULT_PRAYER_TIMES.Maghrib),
+        Isha: formatTime(prayerTimes?.Isha || DEFAULT_PRAYER_TIMES.Isha),
         Juma: '1:30 PM'
       };
 
