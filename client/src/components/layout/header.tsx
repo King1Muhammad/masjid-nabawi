@@ -126,6 +126,15 @@ const Header = () => {
               Contact
             </div>
             <div 
+              className={cn(
+                "text-[#0C6E4E] hover:text-[#D4AF37] transition-colors cursor-pointer", 
+                location === "/vision" && "font-medium"
+              )}
+              onClick={() => window.location.href = "/vision"}
+            >
+              Vision
+            </div>
+            <div 
               className="bg-[#D4AF37] hover:bg-opacity-90 text-white px-4 py-2 rounded-md transition-colors cursor-pointer"
               onClick={() => window.location.href = "/donate"}
             >
@@ -231,6 +240,15 @@ const Header = () => {
               }}
             >
               Contact
+            </div>
+            <div 
+              className="px-4 py-2 hover:bg-[#F7F3E9] transition-colors cursor-pointer"
+              onClick={() => {
+                closeMenu();
+                window.location.href = "/vision";
+              }}
+            >
+              Vision & Mission
             </div>
             <div 
               className="bg-[#D4AF37] mx-4 my-2 text-center text-white px-4 py-2 rounded-md cursor-pointer"

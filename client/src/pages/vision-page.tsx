@@ -1,0 +1,700 @@
+import { useEffect } from 'react';
+import { Link } from 'wouter';
+
+const VisionPage = () => {
+  // Scroll to top on component mount
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  return (
+    <div className="bg-[#F7F3E9]">
+      {/* Hero Section */}
+      <section className="relative min-h-[90vh] flex items-center bg-black">
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="https://images.unsplash.com/photo-1581258624948-a1e691a21a27?q=80&w=1300" 
+            alt="Masjid-e-Nabawi Model" 
+            className="w-full h-full object-cover opacity-40"
+          />
+        </div>
+        <div className="container mx-auto px-4 z-10 text-center py-20">
+          <h1 className="text-4xl md:text-6xl font-heading text-white mb-6">
+            <span className="text-[#D4AF37]">Reviving Masjid-e-Nabawi's Model</span><br/>
+            <span className="font-light">The Future of Humanity Begins Here!</span>
+          </h1>
+          <p className="text-xl md:text-2xl text-white mb-12 max-w-3xl mx-auto">
+            Join us in rebuilding the true purpose of masajids and creating an AI-driven, transparent system for a just and empowered world.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link href="/donation-page">
+              <a className="bg-[#D4AF37] hover:bg-opacity-90 text-white text-center px-8 py-4 rounded-md transition-colors font-bold text-lg shadow-xl">
+                Donate Now
+              </a>
+            </Link>
+            <button className="bg-[#0C6E4E] hover:bg-opacity-90 text-white text-center px-8 py-4 rounded-md transition-colors font-bold text-lg shadow-xl">
+              Join the Revolution
+            </button>
+            <button className="bg-white text-[#0C6E4E] hover:bg-opacity-90 text-center px-8 py-4 rounded-md transition-colors font-bold text-lg shadow-xl border border-[#0C6E4E]">
+              Learn More
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Introduction to Islam & Role of Masajids */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-4xl font-heading text-[#0C6E4E] text-center mb-16">
+            Islam & The Role of Masajids
+          </h2>
+          
+          <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
+            <div className="order-2 md:order-1">
+              <h3 className="text-2xl font-heading text-[#D4AF37] mb-6">Before Islam</h3>
+              <ul className="space-y-4">
+                <li className="flex items-start">
+                  <div className="mt-1 mr-3 flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-full bg-[#D4AF37] text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <p>The world was ruled by oppression, ignorance, and power-hungry elites</p>
+                </li>
+                <li className="flex items-start">
+                  <div className="mt-1 mr-3 flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-full bg-[#D4AF37] text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <p>No justice, no education, and slavery was the norm</p>
+                </li>
+                <li className="flex items-start">
+                  <div className="mt-1 mr-3 flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-full bg-[#D4AF37] text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <p>Women and the poor had no rights</p>
+                </li>
+              </ul>
+            </div>
+            <div className="order-1 md:order-2">
+              <img 
+                src="https://images.unsplash.com/photo-1621281252294-5fd4a80bec53?q=80&w=1300" 
+                alt="Before Islam" 
+                className="w-full h-80 object-cover rounded-xl shadow-lg"
+              />
+            </div>
+          </div>
+          
+          <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
+            <div>
+              <img 
+                src="https://images.unsplash.com/photo-1591002800200-c13bbedd71a1?q=80&w=1300" 
+                alt="After Islam" 
+                className="w-full h-80 object-cover rounded-xl shadow-lg"
+              />
+            </div>
+            <div>
+              <h3 className="text-2xl font-heading text-[#0C6E4E] mb-6">After Islam</h3>
+              <ul className="space-y-4">
+                <li className="flex items-start">
+                  <div className="mt-1 mr-3 flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-full bg-[#0C6E4E] text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <p>Prophet Muhammad ﷺ revolutionized humanity by introducing equality, justice, education, and economic systems</p>
+                </li>
+                <li className="flex items-start">
+                  <div className="mt-1 mr-3 flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-full bg-[#0C6E4E] text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <p>Masjid-e-Nabawi became the first center of governance, knowledge, business, and welfare</p>
+                </li>
+                <li className="flex items-start">
+                  <div className="mt-1 mr-3 flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-full bg-[#0C6E4E] text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <p>Islamic systems created the most prosperous and just civilization in history</p>
+                </li>
+              </ul>
+            </div>
+          </div>
+          
+          <div className="bg-[#F7F3E9] rounded-2xl p-8 shadow-lg">
+            <h3 className="text-2xl font-heading text-center text-[#0C6E4E] mb-6">Masajids in the Golden Era of Islam</h3>
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="bg-white p-6 rounded-xl shadow">
+                <div className="w-12 h-12 rounded-full bg-[#0C6E4E] text-white flex items-center justify-center mb-4 mx-auto">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                  </svg>
+                </div>
+                <h4 className="text-xl font-semibold text-center mb-2">Education</h4>
+                <p className="text-center">Free education for all (men & women), teaching various sciences, arts, and practical skills</p>
+              </div>
+              <div className="bg-white p-6 rounded-xl shadow">
+                <div className="w-12 h-12 rounded-full bg-[#D4AF37] text-white flex items-center justify-center mb-4 mx-auto">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                  </svg>
+                </div>
+                <h4 className="text-xl font-semibold text-center mb-2">Governance</h4>
+                <p className="text-center">Center of administration, public decision-making, and transparent governance</p>
+              </div>
+              <div className="bg-white p-6 rounded-xl shadow">
+                <div className="w-12 h-12 rounded-full bg-[#0C6E4E] text-white flex items-center justify-center mb-4 mx-auto">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
+                  </svg>
+                </div>
+                <h4 className="text-xl font-semibold text-center mb-2">Justice</h4>
+                <p className="text-center">Courts where justice was dispensed equally regardless of status or wealth</p>
+              </div>
+              <div className="bg-white p-6 rounded-xl shadow">
+                <div className="w-12 h-12 rounded-full bg-[#D4AF37] text-white flex items-center justify-center mb-4 mx-auto">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                  </svg>
+                </div>
+                <h4 className="text-xl font-semibold text-center mb-2">Social Welfare</h4>
+                <p className="text-center">Providing for the needy, orphans, travelers, and the sick through Zakat and Sadaqah</p>
+              </div>
+              <div className="bg-white p-6 rounded-xl shadow">
+                <div className="w-12 h-12 rounded-full bg-[#0C6E4E] text-white flex items-center justify-center mb-4 mx-auto">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <h4 className="text-xl font-semibold text-center mb-2">Economy</h4>
+                <p className="text-center">Interest-free financial system and ethical business practices</p>
+              </div>
+              <div className="bg-white p-6 rounded-xl shadow">
+                <div className="w-12 h-12 rounded-full bg-[#D4AF37] text-white flex items-center justify-center mb-4 mx-auto">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                  </svg>
+                </div>
+                <h4 className="text-xl font-semibold text-center mb-2">Defense</h4>
+                <p className="text-center">Organizing protection for the society and strategic planning</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* The Decline of Muslims & How We Lost Our System */}
+      <section className="py-16 bg-[#F7F3E9]">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-4xl font-heading text-[#0C6E4E] text-center mb-16">
+            The Decline of Muslims & How We Lost Our System
+          </h2>
+          
+          <div className="grid md:grid-cols-2 gap-12 mb-16">
+            <div className="bg-white p-8 rounded-xl shadow-lg">
+              <h3 className="text-2xl font-heading text-[#D4AF37] mb-6">Why Did the Muslim World Decline?</h3>
+              <ul className="space-y-6">
+                <li className="flex">
+                  <div className="flex-shrink-0 flex items-center justify-center w-10 h-10 rounded-full bg-[#D4AF37] text-white mr-4">
+                    <span className="font-bold">1</span>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-lg mb-1">Departure from Islamic Values</h4>
+                    <p className="text-gray-700">Muslims moved away from Islam's true teachings and integrated foreign practices.</p>
+                  </div>
+                </li>
+                <li className="flex">
+                  <div className="flex-shrink-0 flex items-center justify-center w-10 h-10 rounded-full bg-[#D4AF37] text-white mr-4">
+                    <span className="font-bold">2</span>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-lg mb-1">Colonial Mental Enslavement</h4>
+                    <p className="text-gray-700">British enslaved Muslims mentally through imposed education & employment systems.</p>
+                  </div>
+                </li>
+                <li className="flex">
+                  <div className="flex-shrink-0 flex items-center justify-center w-10 h-10 rounded-full bg-[#D4AF37] text-white mr-4">
+                    <span className="font-bold">3</span>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-lg mb-1">Reduction of Masjid's Role</h4>
+                    <p className="text-gray-700">Masajids lost their original comprehensive role and became limited to prayers only.</p>
+                  </div>
+                </li>
+                <li className="flex">
+                  <div className="flex-shrink-0 flex items-center justify-center w-10 h-10 rounded-full bg-[#D4AF37] text-white mr-4">
+                    <span className="font-bold">4</span>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-lg mb-1">Continuation of Colonial Systems</h4>
+                    <p className="text-gray-700">Despite independence in 1947, Pakistan continued the British governance system instead of reviving Islamic governance.</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            
+            <div className="bg-white p-8 rounded-xl shadow-lg">
+              <h3 className="text-2xl font-heading text-[#0C6E4E] mb-6">Current Problems</h3>
+              <div className="space-y-6">
+                <div className="flex items-center">
+                  <div className="w-16 h-16 flex-shrink-0 mr-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="w-full h-full text-[#0C6E4E]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-lg mb-1">Corrupt Governance</h4>
+                    <p className="text-gray-700">Lack of transparency, accountability, and public interest in decision-making.</p>
+                  </div>
+                </div>
+                <div className="flex items-center">
+                  <div className="w-16 h-16 flex-shrink-0 mr-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="w-full h-full text-[#0C6E4E]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-lg mb-1">Economic Inequality</h4>
+                    <p className="text-gray-700">Growing gap between rich and poor, exploitation through interest-based banking.</p>
+                  </div>
+                </div>
+                <div className="flex items-center">
+                  <div className="w-16 h-16 flex-shrink-0 mr-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="w-full h-full text-[#0C6E4E]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path d="M12 14l9-5-9-5-9 5 9 5z" />
+                      <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-lg mb-1">Lack of Real Education</h4>
+                    <p className="text-gray-700">Education focused only on degrees for jobs, not innovation or critical thinking.</p>
+                  </div>
+                </div>
+                <div className="flex items-center">
+                  <div className="w-16 h-16 flex-shrink-0 mr-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="w-full h-full text-[#0C6E4E]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-lg mb-1">Brain Drain</h4>
+                    <p className="text-gray-700">Youth leaving Pakistan due to broken systems and lack of opportunities.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="bg-[#0C6E4E] text-white p-8 rounded-xl shadow-lg text-center">
+            <h3 className="text-2xl font-heading text-[#D4AF37] mb-4">It's Time for a Change</h3>
+            <p className="text-lg mb-6">We must revive the original model of Islam that created the most successful civilization in history.</p>
+            <div className="inline-block bg-[#D4AF37] text-white px-6 py-3 rounded-md font-bold">
+              Join Our Movement
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Our Vision & Mission */}
+      <section className="py-16 bg-white" id="vision">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-4xl font-heading text-[#0C6E4E] text-center mb-16">
+            Our Vision & Mission – Reviving the Masjid-e-Nabawi Model
+          </h2>
+          
+          <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
+            <div>
+              <h3 className="text-2xl font-heading text-[#D4AF37] mb-6">About Jamia Masjid Nabvi Qureshi Hashmi</h3>
+              <p className="mb-4">Located in G-11/4 Islamabad, Pakistan, our masjid is built fully on volunteerism and dedicated to reviving the true model of Islamic governance and society.</p>
+              <p className="mb-4">Founded by Molana Abdul Ghaffar Qureshi & Haji Ghulam Yasin, our mission continues under the leadership of Muhammad Qureshi, Ahmed Qureshi & Hamid Qureshi.</p>
+              <p className="mb-6">We are not just building a physical structure, but a complete system to transform our community and ultimately, the world.</p>
+              <div className="flex items-center space-x-4">
+                <img src="https://images.unsplash.com/photo-1563292769-4e05b714fe5e?q=80&w=1387&auto=format&fit=crop" alt="Team" className="w-16 h-16 rounded-full object-cover" />
+                <div>
+                  <h4 className="font-semibold">Our Team</h4>
+                  <p className="text-sm text-gray-600">A dedicated group of volunteers working for the revival</p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <img 
+                src="https://images.unsplash.com/photo-1564694401219-b6c6abc4a80d?q=80&w=1000" 
+                alt="Our Masjid" 
+                className="w-full h-auto rounded-xl shadow-xl"
+              />
+            </div>
+          </div>
+          
+          <div className="mt-12">
+            <h3 className="text-2xl font-heading text-[#0C6E4E] text-center mb-8">Our Mission</h3>
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="bg-[#F7F3E9] rounded-xl p-6 shadow-lg transform transition-transform hover:scale-105">
+                <div className="w-16 h-16 bg-[#0C6E4E] text-white rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                  </svg>
+                </div>
+                <h4 className="text-xl font-semibold text-center mb-2">Restore Masajid's Role</h4>
+                <p className="text-center">Revive masajids as centers of governance, knowledge, and social welfare</p>
+              </div>
+              <div className="bg-[#F7F3E9] rounded-xl p-6 shadow-lg transform transition-transform hover:scale-105">
+                <div className="w-16 h-16 bg-[#D4AF37] text-white rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+                  </svg>
+                </div>
+                <h4 className="text-xl font-semibold text-center mb-2">AI-Powered Transparency</h4>
+                <p className="text-center">Implement self-governance through AI transparency & live tracking</p>
+              </div>
+              <div className="bg-[#F7F3E9] rounded-xl p-6 shadow-lg transform transition-transform hover:scale-105">
+                <div className="w-16 h-16 bg-[#0C6E4E] text-white rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <h4 className="text-xl font-semibold text-center mb-2">Global Platform</h4>
+                <p className="text-center">Create a futuristic platform for economic, political, and social justice</p>
+              </div>
+              <div className="bg-[#F7F3E9] rounded-xl p-6 shadow-lg transform transition-transform hover:scale-105">
+                <div className="w-16 h-16 bg-[#D4AF37] text-white rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path d="M12 14l9-5-9-5-9 5 9 5z" />
+                    <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
+                  </svg>
+                </div>
+                <h4 className="text-xl font-semibold text-center mb-2">Knowledge Revolution</h4>
+                <p className="text-center">Build a knowledge-based society with Islamic & scientific education for all</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Our AI-Driven Platform */}
+      <section className="py-16 bg-[#F7F3E9]" id="platform">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-4xl font-heading text-[#0C6E4E] text-center mb-16">
+            Our AI-Driven Platform – The Future of Governance & Economy
+          </h2>
+          
+          <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
+            <div>
+              <h3 className="text-2xl font-heading text-[#D4AF37] mb-6">What We Are Creating</h3>
+              <p className="mb-6">We are developing a comprehensive digital platform that integrates multiple functions to create a complete ecosystem for community governance:</p>
+              <ul className="space-y-4">
+                <li className="flex items-start">
+                  <div className="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-[#0C6E4E] text-white mr-4 mt-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold">AI-driven Transparent Governance</h4>
+                    <p className="text-gray-700">A voting & decision-making system where every member of the community has a voice.</p>
+                  </div>
+                </li>
+                <li className="flex items-start">
+                  <div className="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-[#0C6E4E] text-white mr-4 mt-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold">Blockchain-based Economy</h4>
+                    <p className="text-gray-700">An interest-free financial system for fair and ethical economic activities.</p>
+                  </div>
+                </li>
+                <li className="flex items-start">
+                  <div className="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-[#0C6E4E] text-white mr-4 mt-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold">Comprehensive Education System</h4>
+                    <p className="text-gray-700">Combining Islamic knowledge with modern science and practical skills.</p>
+                  </div>
+                </li>
+                <li className="flex items-start">
+                  <div className="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-[#0C6E4E] text-white mr-4 mt-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold">Community Marketplace</h4>
+                    <p className="text-gray-700">A platform for ethical business and services within the community.</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <img 
+                src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1526&auto=format&fit=crop" 
+                alt="AI Platform" 
+                className="w-full h-auto rounded-xl shadow-xl"
+              />
+            </div>
+          </div>
+          
+          <div className="bg-white rounded-xl shadow-xl p-8">
+            <h3 className="text-2xl font-heading text-[#0C6E4E] text-center mb-8">How It Will Solve Global Problems</h3>
+            <div className="grid md:grid-cols-2 gap-8">
+              <div className="flex">
+                <div className="flex-shrink-0 w-12 h-12 bg-[#0C6E4E] rounded-full flex items-center justify-center mr-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                  </svg>
+                </div>
+                <div>
+                  <h4 className="text-xl font-semibold mb-2">Eliminating Corruption</h4>
+                  <p>Transparency through blockchain and AI will make corruption impossible, as all transactions and decisions will be visible to everyone.</p>
+                </div>
+              </div>
+              <div className="flex">
+                <div className="flex-shrink-0 w-12 h-12 bg-[#D4AF37] rounded-full flex items-center justify-center mr-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                  </svg>
+                </div>
+                <div>
+                  <h4 className="text-xl font-semibold mb-2">Direct Public Governance</h4>
+                  <p>People make decisions collectively through AI voting, eliminating the problems of representative democracy and elite control.</p>
+                </div>
+              </div>
+              <div className="flex">
+                <div className="flex-shrink-0 w-12 h-12 bg-[#0C6E4E] rounded-full flex items-center justify-center mr-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <div>
+                  <h4 className="text-xl font-semibold mb-2">Fair Economic System</h4>
+                  <p>No interest, no exploitation - a system that prevents wealth concentration and ensures equitable distribution of resources.</p>
+                </div>
+              </div>
+              <div className="flex">
+                <div className="flex-shrink-0 w-12 h-12 bg-[#D4AF37] rounded-full flex items-center justify-center mr-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path d="M12 14l9-5-9-5-9 5 9 5z" />
+                    <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222" />
+                  </svg>
+                </div>
+                <div>
+                  <h4 className="text-xl font-semibold mb-2">Knowledge Revolution</h4>
+                  <p>Education focused on skills & innovation, not just degrees, creating problem-solvers and innovators.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Roadmap */}
+      <section className="py-16 bg-white" id="roadmap">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl md:text-4xl font-heading text-[#0C6E4E] text-center mb-16">
+            Roadmap – How We Will Achieve This Revolution
+          </h2>
+          
+          <div className="relative max-w-4xl mx-auto">
+            {/* Center line */}
+            <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-[#D4AF37]"></div>
+            
+            {/* Phase 1 */}
+            <div className="relative z-10 mb-16">
+              <div className="absolute left-1/2 transform -translate-x-1/2 -mt-3">
+                <div className="w-16 h-16 bg-[#0C6E4E] rounded-full border-4 border-[#D4AF37] flex items-center justify-center text-white font-bold">
+                  1
+                </div>
+              </div>
+              <div className="grid md:grid-cols-2 gap-8 items-center">
+                <div className="md:text-right md:pr-12">
+                  <h3 className="text-2xl font-heading text-[#D4AF37] mb-4">Phase 1: Masjid Construction & Awareness</h3>
+                  <p className="mb-2">• Complete the physical masjid construction</p>
+                  <p className="mb-2">• Educate the local community about Masjid-e-Nabawi's model</p>
+                  <p className="mb-2">• Build a core team of volunteers and supporters</p>
+                  <p>• Establish initial educational programs</p>
+                </div>
+                <div className="md:pl-12">
+                  <img 
+                    src="https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?q=80&w=1470&auto=format&fit=crop" 
+                    alt="Phase 1" 
+                    className="rounded-xl shadow-lg"
+                  />
+                </div>
+              </div>
+            </div>
+            
+            {/* Phase 2 */}
+            <div className="relative z-10 mb-16">
+              <div className="absolute left-1/2 transform -translate-x-1/2 -mt-3">
+                <div className="w-16 h-16 bg-[#0C6E4E] rounded-full border-4 border-[#D4AF37] flex items-center justify-center text-white font-bold">
+                  2
+                </div>
+              </div>
+              <div className="grid md:grid-cols-2 gap-8 items-center">
+                <div className="md:order-2 md:text-left md:pl-12">
+                  <h3 className="text-2xl font-heading text-[#D4AF37] mb-4">Phase 2: Building the Digital Platform</h3>
+                  <p className="mb-2">• Develop AI governance & voting system</p>
+                  <p className="mb-2">• Launch education & business modules</p>
+                  <p className="mb-2">• Implement blockchain-based financial system</p>
+                  <p>• Local implementation in Pakistan</p>
+                </div>
+                <div className="md:order-1 md:pr-12">
+                  <img 
+                    src="https://images.unsplash.com/photo-1480694313141-fce5e697ee25?q=80&w=1470&auto=format&fit=crop" 
+                    alt="Phase 2" 
+                    className="rounded-xl shadow-lg"
+                  />
+                </div>
+              </div>
+            </div>
+            
+            {/* Phase 3 */}
+            <div className="relative z-10">
+              <div className="absolute left-1/2 transform -translate-x-1/2 -mt-3">
+                <div className="w-16 h-16 bg-[#0C6E4E] rounded-full border-4 border-[#D4AF37] flex items-center justify-center text-white font-bold">
+                  3
+                </div>
+              </div>
+              <div className="grid md:grid-cols-2 gap-8 items-center">
+                <div className="md:text-right md:pr-12">
+                  <h3 className="text-2xl font-heading text-[#D4AF37] mb-4">Phase 3: Global Expansion</h3>
+                  <p className="mb-2">• Partner with Masajids worldwide to implement the system</p>
+                  <p className="mb-2">• Create an AI-powered global governance model</p>
+                  <p className="mb-2">• Establish a worldwide network of knowledge centers</p>
+                  <p>• Build a unified ethical economic system</p>
+                </div>
+                <div className="md:pl-12">
+                  <img 
+                    src="https://images.unsplash.com/photo-1623771758970-5e7c7822da1f?q=80&w=1470&auto=format&fit=crop" 
+                    alt="Phase 3" 
+                    className="rounded-xl shadow-lg"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Call to Action */}
+      <section className="py-16 bg-[#0C6E4E] text-white">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-3xl md:text-4xl font-heading text-[#D4AF37] mb-8">
+            Join Our Revolution Today
+          </h2>
+          <p className="text-xl max-w-3xl mx-auto mb-12">
+            Be part of the movement to revive the true model of Masjid-e-Nabawi and transform our societies into just, prosperous, and knowledge-based communities.
+          </p>
+          
+          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <div className="bg-white text-[#0C6E4E] rounded-xl p-6 shadow-lg transform transition-transform hover:scale-105">
+              <div className="w-20 h-20 bg-[#D4AF37] text-white rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold mb-4">Donate</h3>
+              <p className="mb-6">Support the construction of our masjid and the development of our AI platform.</p>
+              <Link href="/donation-page">
+                <a className="inline-block bg-[#0C6E4E] text-white px-6 py-2 rounded-md font-semibold">
+                  Donate Now
+                </a>
+              </Link>
+            </div>
+            
+            <div className="bg-white text-[#0C6E4E] rounded-xl p-6 shadow-lg transform transition-transform hover:scale-105">
+              <div className="w-20 h-20 bg-[#D4AF37] text-white rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold mb-4">Volunteer</h3>
+              <p className="mb-6">Join our team as a volunteer to contribute your skills and time to this noble cause.</p>
+              <button className="inline-block bg-[#0C6E4E] text-white px-6 py-2 rounded-md font-semibold">
+                Join as Volunteer
+              </button>
+            </div>
+            
+            <div className="bg-white text-[#0C6E4E] rounded-xl p-6 shadow-lg transform transition-transform hover:scale-105">
+              <div className="w-20 h-20 bg-[#D4AF37] text-white rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold mb-4">Spread the Word</h3>
+              <p className="mb-6">Help us share this vision with others and grow our community of supporters.</p>
+              <button className="inline-block bg-[#0C6E4E] text-white px-6 py-2 rounded-md font-semibold">
+                Share Our Mission
+              </button>
+            </div>
+          </div>
+          
+          <div className="mt-16">
+            <h3 className="text-2xl font-heading text-[#D4AF37] mb-6">Contact Us</h3>
+            <p className="mb-4">📍 G-11/4, Islamabad, Pakistan</p>
+            <p className="mb-4">📱 +92 333 921 4600</p>
+            <p className="mb-8">📧 jamiamasjidnabviqureshihashmi@gmail.com</p>
+            <div className="flex justify-center space-x-4">
+              <div className="w-12 h-12 bg-white text-[#0C6E4E] rounded-full flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12.001 2.002C6.47895 2.002 2.00195 6.479 2.00195 12.001C2.00195 16.991 5.65795 21.127 10.439 21.88V14.892H7.89895V12.001H10.439V9.798C10.439 7.29 11.932 5.907 14.215 5.907C15.309 5.907 16.455 6.102 16.455 6.102V8.561H15.191C13.951 8.561 13.563 9.333 13.563 10.124V11.999H16.334L15.891 14.89H13.563V21.878C18.344 21.129 22 16.992 22 12.001C22 6.479 17.523 2.002 12.001 2.002Z"></path>
+                </svg>
+              </div>
+              <div className="w-12 h-12 bg-white text-[#0C6E4E] rounded-full flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M19.995 6.68799C20.8914 6.15208 21.5622 5.30823 21.882 4.31399C21.0397 4.81379 20.118 5.16587 19.157 5.35499C17.8246 3.94552 15.7135 3.60251 14.0034 4.51764C12.2933 5.43277 11.4075 7.37948 11.841 9.26999C8.39062 9.09676 5.17598 7.4669 2.99702 4.78599C1.85986 6.74741 2.44097 9.25477 4.32502 10.516C3.64373 10.4941 2.97754 10.3096 2.38202 9.97799C2.38202 9.99599 2.38202 10.014 2.38202 10.032C2.38241 12.0751 3.82239 13.8351 5.82502 14.24C5.19308 14.4119 4.53022 14.4372 3.88702 14.314C4.45022 16.0613 6.06057 17.2583 7.89602 17.294C6.37585 18.4871 4.49849 19.1342 2.56602 19.131C2.22349 19.1315 1.88123 19.1118 1.54102 19.072C3.50341 20.333 5.78739 21.0023 8.12002 21C11.3653 21.0223 14.484 19.7429 16.7787 17.448C19.0734 15.1531 20.3526 12.0342 20.33 8.78899C20.33 8.60299 20.3257 8.41799 20.317 8.23399C21.1575 7.62659 21.8828 6.87414 22.459 6.01199C21.676 6.35905 20.8455 6.58691 19.995 6.68799Z"></path>
+                </svg>
+              </div>
+              <div className="w-12 h-12 bg-white text-[#0C6E4E] rounded-full flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12.001 9C10.3436 9 9.00098 10.3431 9.00098 12C9.00098 13.6573 10.3441 15 12.001 15C13.6583 15 15.001 13.6569 15.001 12C15.001 10.3427 13.6579 9 12.001 9ZM12.001 7C14.7614 7 17.001 9.2371 17.001 12C17.001 14.7605 14.7639 17 12.001 17C9.24051 17 7.00098 14.7629 7.00098 12C7.00098 9.23953 9.23808 7 12.001 7ZM18.501 6.74915C18.501 7.43926 17.9402 7.99917 17.251 7.99917C16.5609 7.99917 16.001 7.4384 16.001 6.74915C16.001 6.0599 16.5617 5.5 17.251 5.5C17.9393 5.49913 18.501 6.0599 18.501 6.74915ZM12.001 4C9.5265 4 9.12318 4.00655 7.97227 4.0578C7.18815 4.09461 6.66253 4.20007 6.17416 4.38738C5.74016 4.55585 5.42709 4.75006 5.09352 5.09295C4.75348 5.43132 4.55585 5.74352 4.38738 6.17487C4.20094 6.6664 4.09461 7.18954 4.0578 7.97452C4.00655 9.12457 4 9.52703 4 12C4 14.4743 4.00655 14.8765 4.0578 16.0255C4.09461 16.8114 4.20007 17.3352 4.38738 17.8251C4.55585 18.2574 4.75006 18.5693 5.09295 18.9039C5.43132 19.2444 5.74352 19.4412 6.17487 19.6106C6.6664 19.7976 7.18954 19.9039 7.97452 19.9422C9.12457 19.9935 9.52703 20 12 20C14.4743 20 14.8765 19.9935 16.0255 19.9422C16.8114 19.9054 17.3352 19.7999 17.8251 19.6126C18.2574 19.4441 18.5693 19.2499 18.9039 18.907C19.2444 18.5687 19.4412 18.2565 19.6106 17.8251C19.7976 17.3336 19.9039 16.8105 19.9422 16.0255C19.9935 14.8754 20 14.473 20 12C20 9.52569 19.9935 9.12345 19.9422 7.97227C19.9054 7.18815 19.7999 6.66253 19.6126 6.17416C19.4441 5.74016 19.2499 5.42709 18.907 5.09352C18.5687 4.75348 18.2565 4.55585 17.8251 4.38738C17.3336 4.20094 16.8105 4.09461 16.0255 4.0578C14.8754 4.00655 14.473 4 12 4H12.001ZM12.001 2C14.7176 2 15.0568 2.01 16.1235 2.06C17.1876 2.10917 17.9135 2.2775 18.551 2.525C19.2101 2.77917 19.7668 3.1225 20.3226 3.67833C20.8776 4.23417 21.221 4.7925 21.476 5.45C21.7226 6.08667 21.891 6.81333 21.94 7.8775C21.99 8.94417 22 9.28333 22 12C22 14.7167 21.99 15.0558 21.94 16.1225C21.8908 17.1867 21.7226 17.9133 21.476 18.55C21.2218 19.2092 20.8776 19.7658 20.3226 20.3217C19.7668 20.8767 19.2076 21.22 18.551 21.475C17.9135 21.7217 17.1876 21.89 16.1235 21.94C15.0568 21.99 14.7176 22 12.001 22C9.28431 22 8.94514 21.99 7.87764 21.94C6.81347 21.8908 6.08681 21.7217 5.45098 21.475C4.79264 21.2208 4.23514 20.8767 3.67931 20.3217C3.12347 19.7658 2.78014 19.2067 2.52598 18.55C2.27848 17.9133 2.11098 17.1867 2.06098 16.1225C2.01098 15.0558 2.00098 14.7167 2.00098 12C2.00098 9.28333 2.01098 8.94417 2.06098 7.8775C2.11014 6.8125 2.27848 6.08583 2.52598 5.45C2.78014 4.79167 3.12347 4.23417 3.67931 3.67833C4.23514 3.1225 4.79431 2.78 5.45098 2.525C6.08681 2.2775 6.81347 2.11 7.87764 2.06C8.94514 2.01 9.28431 2 12.001 2Z"></path>
+                </svg>
+              </div>
+              <div className="w-12 h-12 bg-white text-[#0C6E4E] rounded-full flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M21.543 6.498C22 8.28 22 12 22 12C22 12 22 15.72 21.543 17.502C21.289 18.487 20.546 19.262 19.605 19.524C17.896 20 12 20 12 20C12 20 6.107 20 4.395 19.524C3.45 19.258 2.708 18.484 2.457 17.502C2 15.72 2 12 2 12C2 12 2 8.28 2.457 6.498C2.711 5.513 3.454 4.738 4.395 4.476C6.107 4 12 4 12 4C12 4 17.896 4 19.605 4.476C20.55 4.742 21.292 5.516 21.543 6.498ZM10 15.5L16 12L10 8.5V15.5Z"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Language Selection and Newsletter */}
+      <section className="py-8 bg-[#F7F3E9]">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <div className="mb-6 md:mb-0">
+              <select className="bg-white border border-[#0C6E4E] text-[#0C6E4E] rounded-md px-4 py-2">
+                <option value="en">English</option>
+                <option value="ur">اردو</option>
+                <option value="ar">العربية</option>
+              </select>
+            </div>
+            <div className="flex flex-col md:flex-row items-center">
+              <p className="text-[#0C6E4E] font-semibold mr-4 mb-2 md:mb-0">Subscribe to our Newsletter:</p>
+              <div className="flex">
+                <input type="email" placeholder="Your email" className="px-4 py-2 rounded-l-md border border-[#0C6E4E] focus:outline-none" />
+                <button className="bg-[#0C6E4E] text-white px-4 py-2 rounded-r-md">Subscribe</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+};
+
+export default VisionPage;

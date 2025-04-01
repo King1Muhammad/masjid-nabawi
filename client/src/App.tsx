@@ -13,6 +13,7 @@ import MadrasaPage from "@/pages/madrasa-page";
 import DonationPage from "@/pages/donation-page";
 import CommunityPage from "@/pages/community-page";
 import ContactPage from "@/pages/contact-page";
+import VisionPage from "@/pages/vision-page";
 import Checkout from "@/pages/checkout";
 import DonationSuccess from "@/pages/donation-success";
 
@@ -33,6 +34,7 @@ function Router() {
           <Route path="/donate/success" component={DonationSuccess} />
           <Route path="/community" component={CommunityPage} />
           <Route path="/contact" component={ContactPage} />
+          <Route path="/vision" component={VisionPage} />
           <Route component={NotFound} />
         </Switch>
       </main>

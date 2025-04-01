@@ -1,0 +1,154 @@
+Title: Transforming the Future with Masjid-e-Nabawi’s Model
+
+Description:
+Create a highly engaging, visually appealing, and interactive webpage that explains the vision and mission of Jamia Masjid Nabvi Qureshi Hashmi, Islamabad, Pakistan. This webpage should educate, inspire, and encourage people to join our movement for reviving the original role of masajids and building a futuristic AI-driven governance and economic system based on Islamic principles.
+
+Content & Structure of the Page:
+1. Hero Section (First Screen - Full Visual Impact)
+Headline: "Reviving Masjid-e-Nabawi’s Model – The Future of Humanity Begins Here!"
+
+Subtext: Join us in rebuilding the true purpose of masajids and creating an AI-driven, transparent system for a just and empowered world.
+
+Visual: A beautiful, dynamic, AI-generated image of Masjid-e-Nabawi from Prophet Muhammad’s (S.A.W) time, showing it as a hub of governance, knowledge, and social welfare.
+
+CTA (Call to Action) Button: "Join the Revolution" | "Donate Now" | "Learn More"
+
+2. Introduction to Islam & The Role of Masajids
+Before Islam:
+
+How the world was ruled by oppression, ignorance, and power-hungry elites.
+
+No justice, no education, and slavery was a norm.
+
+Women and the poor had no rights.
+
+After Islam:
+
+Prophet Muhammad (S.A.W) revolutionized humanity by introducing equality, justice, education, and economic systems.
+
+Masjid-e-Nabawi became the first center of governance, knowledge, business, and welfare.
+
+How Masajids Were Used in the Golden Era of Islam:
+
+Education for all (men & women)
+
+Governance & administration
+
+Justice system (courts)
+
+Social welfare & public services
+
+Business & financial systems
+
+3. The Decline of Muslims & How We Lost Our System
+Why Did the Muslim World Decline?
+
+Muslims moved away from Islam’s true teachings.
+
+British enslaved us mentally through education & employment systems.
+
+Masajids lost their original role and became only for prayers.
+
+Pakistan got independence in 1947, but we continued the British system instead of reviving our Islamic governance.
+
+Current Problems:
+
+Corrupt governance
+
+Economic inequality
+
+Lack of real education (only degrees for jobs, no innovation)
+
+Youth leaving Pakistan due to broken system
+
+4. Our Vision & Mission – Reviving the Masjid-e-Nabawi Model
+About Jamia Masjid Nabvi Qureshi Hashmi
+
+Located in G-11/4 Islamabad, Pakistan, built fully on volunteerism.
+
+Founded by Molana Abdul Ghaffar Qureshi & Haji Ghulam Yasin.
+
+Led by Muhammad Qureshi, Ahmed Qureshi & Hamid Qureshi.
+
+Our Mission:
+
+To restore masajids as centers of governance, knowledge, and social welfare.
+
+Self-governance system through AI-powered transparency & live tracking.
+
+Creating a futuristic global platform for economic, political, and social justice.
+
+Building a knowledge-based society with Islamic & scientific education for all.
+
+5. Our AI-Driven Platform – The Future of Governance & Economy
+What We Are Creating:
+
+A digital platform integrating:
+
+AI-driven transparent governance (Voting & decision-making system).
+
+Blockchain-based economy (interest-free financial system).
+
+Education system (Islamic + Science-based).
+
+Marketplace for business & services.
+
+How It Will Solve Global Problems:
+
+Eliminates corruption & middlemen.
+
+Direct public governance – People make decisions through AI voting.
+
+Fair economic system – No interest, no exploitation.
+
+Knowledge revolution – Education focused on skills & innovation.
+
+Reviving Muslim unity & self-sufficiency.
+
+6. Roadmap – How We Will Achieve This Revolution
+Phase 1: Masjid Construction & Awareness
+
+Complete the physical masjid construction.
+
+Educate the local community about Masjid-e-Nabawi’s model.
+
+Phase 2: Building the Digital Platform (Local Implementation in Pakistan)
+
+Develop AI governance & voting system.
+
+Launch education & business modules.
+
+Phase 3: Global Expansion
+
+Partner with Masajids worldwide to implement the system.
+
+Create an AI-powered global governance model.
+
+7. Call to Action – How You Can Join This Revolution
+Donate to Build Masjid-e-Nabawi’s Model in Your Area
+
+Join Us as a Volunteer
+
+Support the Digital Governance Revolution
+
+Design & Visuals:
+Islamic Elegant Theme: Inspired by Masjid-e-Nabawi (Green & Gold).
+
+Interactive Infographics: Showing Islamic governance model vs current failed systems.
+
+Live Statistics Section: Showing corruption, economic inequality, & broken systems.
+
+Videos & Testimonials: Scholars, historians, & experts explaining this model.
+
+Call-to-Action Buttons: Donate | Join the Mission | Learn More
+
+Final Notes for Replit AI:
+The webpage should be fully responsive for desktop & mobile.
+
+The content should be structured in sections with smooth scrolling animations.
+
+It should include an AI chatbot to answer queries about the platform & masjid model.
+
+There should be a multi-language option (English, Urdu, Arabic).
+
+Integrate a donation & volunteer registration form.
