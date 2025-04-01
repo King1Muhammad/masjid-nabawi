@@ -130,15 +130,16 @@ const Contact = () => {
           
           <div>
             <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-              <div className="h-64 bg-gray-100 flex items-center justify-center">
-                <div className="text-center text-gray-500">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 mx-auto mb-2 text-[#0C6E4E] opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                  <p>Google Map showing masjid location</p>
-                  <p className="text-xs mt-2">Map will be displayed here</p>
-                </div>
+              <div className="h-64 bg-gray-100">
+                <iframe 
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3319.4104261294166!2d73.02533177574795!3d33.6883981726636!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38dfbd6dfdd8f9ef%3A0xa494b59df8f75c3c!2sJamia%20Masjid%20Nabvi%20Qureshi%20Hashmi!5e0!3m2!1sen!2s!4v1704037377261!5m2!1sen!2s" 
+                  width="100%" 
+                  height="100%" 
+                  style={{border:0}} 
+                  allowFullScreen={true} 
+                  loading="lazy" 
+                  referrerPolicy="no-referrer-when-downgrade">
+                </iframe>
               </div>
               
               <div className="p-6">

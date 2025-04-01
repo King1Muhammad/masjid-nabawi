@@ -130,14 +130,14 @@ const ContactPage = () => {
             <div className="bg-white rounded-lg shadow-lg overflow-hidden h-full">
               <div className="h-64 overflow-hidden rounded-t-lg">
                 <iframe 
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3319.896583381192!2d73.0274!3d33.6839!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x2bfd9ba6f6d9b673!2zSmFtaWEgTWFzamlkIE5hYnZpIFF1cmVzaGkgSGFzaG1p!5e0!3m2!1sen!2s!4v1680178900000!5m2!1sen!2s" 
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3319.4104261294166!2d73.02533177574795!3d33.6883981726636!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38dfbd6dfdd8f9ef%3A0xa494b59df8f75c3c!2sJamia%20Masjid%20Nabvi%20Qureshi%20Hashmi!5e0!3m2!1sen!2s!4v1704037377261!5m2!1sen!2s" 
                   width="100%" 
                   height="100%" 
                   style={{ border: 0 }} 
                   allowFullScreen={true} 
                   loading="lazy" 
                   referrerPolicy="no-referrer-when-downgrade"
-                  aria-label="Google Maps showing location of Jamia Masjid Nabvi Qureshi Hashmi"
+                  aria-label="Google Maps showing location of Jamia Masjid Nabvi Qureshi Hashmi opposite D-13 Block FGEHF G-11/4 Islamabad Pakistan"
                 ></iframe>
               </div>
               

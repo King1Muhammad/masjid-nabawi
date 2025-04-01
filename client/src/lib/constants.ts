@@ -184,8 +184,8 @@ export const EDUCATIONAL_PROGRAMS = [
 
 // Contact information
 export const CONTACT_INFO = {
-  address: 'G11/4, Islamabad, Pakistan',
-  mapLink: 'https://maps.app.goo.gl/6s6MxCCFU8RXsBuE6',
+  address: 'Jamia Masjid Nabvi Qureshi Hashmi, opposite D-13 Block FGEHF G-11/4 Islamabad, Pakistan',
+  mapLink: 'https://maps.app.goo.gl/fS9FmcFzGBrCbveh7',
   phone: '+92 333 921 4600',
   email: 'jamiamasjidnabviqureshihashmi@gmail.com',
   officeHours: 'Monday to Saturday: 9:00 AM - 6:00 PM\nSunday: Closed (except for prayers)',
