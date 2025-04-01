@@ -136,8 +136,8 @@ const Hero = () => {
           
           <div className="bg-white rounded-xl shadow-2xl overflow-hidden my-8">
             <div className="flex flex-col md:flex-col">
-              <div className="md:h-80 overflow-hidden">
-                <img src={masjidPhilosophy} alt="Masjid Philosophy Diagram" className="w-full h-full object-contain" />
+              <div className="h-[450px] md:h-[550px] overflow-hidden bg-gray-50">
+                <img src={masjidPhilosophy} alt="Masjid Philosophy Diagram" className="w-full h-full object-contain p-4" />
               </div>
               <div className="p-8">
                 <h3 className="text-2xl font-semibold text-[#D4AF37] mb-4">Masjid Nabvi's Model in Modern Times</h3>

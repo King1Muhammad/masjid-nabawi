@@ -2,10 +2,12 @@ import { useEffect } from 'react';
 import { Link } from 'wouter';
 
 // Import custom images
-import preIslamicImage from '../assets/IMG_20220826_175300_109.jpg';
-import islamicCivilizationImage from '../assets/IMG_20220826_183107_305.jpg';
-import masjidConstructionImage from '../assets/IMG_20230124_151302_955.jpg';
-import chairmanImage from '../assets/haji ghulam yasin chairman and cofounder masjid nabvi qureshi hashmi.png';
+import preIslamicImage from '@assets/IMG_20220826_175300_109.jpg';
+import islamicCivilizationImage from '@assets/IMG_20220826_183107_305.jpg';
+import masjidConstructionImage from '@assets/IMG_20230124_151302_955.jpg';
+import chairmanImage from '@assets/haji ghulam yasin chairman and cofounder masjid nabvi qureshi hashmi.png';
+import masjidBlueprint from '@assets/masjid_blueprint.jpg';
+import constructionSiteImage from '@assets/construction_site.jpg';
 
 const VisionPage = () => {
   // Scroll to top on component mount
@@ -62,14 +64,15 @@ const VisionPage = () => {
           <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
             <div className="order-2 md:order-1">
               <h3 className="text-2xl font-heading text-[#D4AF37] mb-6">Before Islam</h3>
-              <ul className="space-y-4">
+              <p className="mb-4 text-gray-800">In pre-Islamic Arabia, society was characterized by injustice, oppression, and lack of moral guidance. The Ka'bah in Makkah, originally built by Prophet Ibrahim (AS) as a house of worship for One God, had been filled with over 360 idols. Society was deeply divided by tribal affiliations and social hierarchy.</p>
+              <ul className="space-y-4 mt-6">
                 <li className="flex items-start">
                   <div className="mt-1 mr-3 flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-full bg-[#D4AF37] text-white">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                       <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
                     </svg>
                   </div>
-                  <p>The world was ruled by oppression, ignorance, and power-hungry elites</p>
+                  <p>Polytheism dominated religious practices, with tribal leaders exploiting the pilgrimage for economic gain</p>
                 </li>
                 <li className="flex items-start">
                   <div className="mt-1 mr-3 flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-full bg-[#D4AF37] text-white">
@@ -77,7 +80,7 @@ const VisionPage = () => {
                       <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
                     </svg>
                   </div>
-                  <p>No justice, no education, and slavery was the norm</p>
+                  <p>Female infanticide was common, usury exploited the poor, and strong tribal affiliations led to endless blood feuds</p>
                 </li>
                 <li className="flex items-start">
                   <div className="mt-1 mr-3 flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-full bg-[#D4AF37] text-white">
@@ -85,14 +88,14 @@ const VisionPage = () => {
                       <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
                     </svg>
                   </div>
-                  <p>Women and the poor had no rights</p>
+                  <p>No organized educational system existed, with knowledge limited to tribal poetry and oral traditions</p>
                 </li>
               </ul>
             </div>
             <div className="order-1 md:order-2">
               <img 
-                src={preIslamicImage} 
-                alt="Before Islam - Plan of the Building" 
+                src={constructionSiteImage} 
+                alt="Before Islam - The chaotic state of pre-Islamic society" 
                 className="w-full h-auto object-cover rounded-xl shadow-lg"
               />
             </div>
@@ -101,21 +104,22 @@ const VisionPage = () => {
           <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
             <div>
               <img 
-                src={islamicCivilizationImage} 
-                alt="After Islam - Islamic Architecture Blueprint" 
+                src={masjidBlueprint} 
+                alt="After Islam - Masjid-e-Nabawi Blueprint" 
                 className="w-full h-auto object-cover rounded-xl shadow-lg"
               />
             </div>
             <div>
               <h3 className="text-2xl font-heading text-[#0C6E4E] mb-6">After Islam</h3>
-              <ul className="space-y-4">
+              <p className="mb-4 text-gray-800">The advent of Islam through Prophet Muhammad ﷺ brought a revolutionary system that transformed society. Masjid-e-Nabawi in Madinah became the first comprehensive institution serving multiple functions - a place of worship, seat of governance, educational institution, social service center, and economic hub.</p>
+              <ul className="space-y-4 mt-6">
                 <li className="flex items-start">
                   <div className="mt-1 mr-3 flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-full bg-[#0C6E4E] text-white">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
                   </div>
-                  <p>Prophet Muhammad ﷺ revolutionized humanity by introducing equality, justice, education, and economic systems</p>
+                  <p>The constitution of Madinah created the first multicultural, multi-religious society with equal rights for all citizens</p>
                 </li>
                 <li className="flex items-start">
                   <div className="mt-1 mr-3 flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-full bg-[#0C6E4E] text-white">
@@ -123,7 +127,7 @@ const VisionPage = () => {
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
                   </div>
-                  <p>Masjid-e-Nabawi became the first center of governance, knowledge, business, and welfare</p>
+                  <p>Masjid-e-Nabawi established an integrated system where spiritual development, education, governance, and economics operated in harmony</p>
                 </li>
                 <li className="flex items-start">
                   <div className="mt-1 mr-3 flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-full bg-[#0C6E4E] text-white">
@@ -131,7 +135,7 @@ const VisionPage = () => {
                       <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                     </svg>
                   </div>
-                  <p>Islamic systems created the most prosperous and just civilization in history</p>
+                  <p>The Islamic Golden Age introduced groundbreaking advances in science, medicine, mathematics, astronomy, and architecture</p>
                 </li>
               </ul>
             </div>
