@@ -128,15 +128,17 @@ const ContactPage = () => {
           
           <div>
             <div className="bg-white rounded-lg shadow-lg overflow-hidden h-full">
-              <div className="h-64 bg-gray-100 flex items-center justify-center">
-                <div className="text-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 mx-auto mb-2 text-[#0C6E4E] opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                  <p className="text-gray-500">Jamia Masjid Nabvi Qureshi Hashmi</p>
-                  <p className="text-gray-500 text-sm">{CONTACT_INFO.address}</p>
-                </div>
+              <div className="h-64 overflow-hidden rounded-t-lg">
+                <iframe 
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3319.896583381192!2d73.0274!3d33.6839!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x2bfd9ba6f6d9b673!2zSmFtaWEgTWFzamlkIE5hYnZpIFF1cmVzaGkgSGFzaG1p!5e0!3m2!1sen!2s!4v1680178900000!5m2!1sen!2s" 
+                  width="100%" 
+                  height="100%" 
+                  style={{ border: 0 }} 
+                  allowFullScreen={true} 
+                  loading="lazy" 
+                  referrerPolicy="no-referrer-when-downgrade"
+                  aria-label="Google Maps showing location of Jamia Masjid Nabvi Qureshi Hashmi"
+                ></iframe>
               </div>
               
               <div className="p-6">
@@ -154,7 +156,7 @@ const ContactPage = () => {
                       <h3 className="text-lg font-medium text-[#0C6E4E] mb-1">Address</h3>
                       <p className="text-gray-600">{CONTACT_INFO.address}</p>
                       <a 
-                        href="https://maps.google.com/?q=Jamia+Masjid+Nabvi+Qureshi+Hashmi+Islamabad+Pakistan" 
+                        href={CONTACT_INFO.mapLink} 
                         target="_blank" 
                         rel="noopener noreferrer"
                         className="text-[#D4AF37] text-sm hover:underline inline-block mt-1"

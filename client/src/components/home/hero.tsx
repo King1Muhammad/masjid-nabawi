@@ -1,11 +1,14 @@
 import { Link } from 'wouter';
 import masjidPlanImage from "@assets/274956820_282699894003089_2825656189918966555_n.jpg";
 import masjidAdminImage from "@assets/masjidnabviadministration.jpg";
+import masjidEntryImage from "@assets/IMG_20230318_150311_747.jpg";
+import masjidAreaImage from "@assets/IMG_20230318_151124_594.jpg";
+import masjidGroundImage from "@assets/IMG_20230318_151137_544.jpg";
 
 const Hero = () => {
   return (
     <section id="home" className="relative">
-      <div className="h-[70vh] bg-cover bg-center relative" style={{backgroundImage: "linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('/attached_assets/IMG-20220513-WA0016.jpg')"}}>
+      <div className="h-[70vh] bg-cover bg-center relative" style={{backgroundImage: "linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('/attached_assets/Bank.png')"}}>
         <div className="absolute inset-0 bg-[#333333] bg-opacity-60"></div>
         <div className="container mx-auto px-4 h-full flex items-center relative z-10">
           <div className="max-w-3xl text-white">
@@ -79,6 +82,54 @@ const Hero = () => {
                 Founder Molana Abdul Ghaffar Qureshi with Naib Imams and Administration
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+      
+      {/* Masjid Showcase */}
+      <div className="bg-gray-50 py-16">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-heading text-center text-[#0C6E4E] mb-4">Our Beautiful Masjid</h2>
+          <p className="text-center max-w-3xl mx-auto mb-12">Explore our masjid facilities and surroundings in Islamabad, where we are building a community center inspired by Masjid-e-Nabawi's model.</p>
+          
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="bg-white rounded-xl overflow-hidden shadow-lg transform transition-transform hover:scale-105">
+              <div className="h-64 overflow-hidden">
+                <img src={masjidEntryImage} alt="Masjid Interior" className="w-full h-full object-cover" />
+              </div>
+              <div className="p-5">
+                <h3 className="text-xl font-semibold text-[#0C6E4E] mb-2">Prayer Hall</h3>
+                <p className="text-gray-600">Our spacious prayer hall accommodates the community for daily prayers, Jumu'ah, and special events.</p>
+              </div>
+            </div>
+            
+            <div className="bg-white rounded-xl overflow-hidden shadow-lg transform transition-transform hover:scale-105">
+              <div className="h-64 overflow-hidden">
+                <img src={masjidAreaImage} alt="Masjid Surroundings" className="w-full h-full object-cover" />
+              </div>
+              <div className="p-5">
+                <h3 className="text-xl font-semibold text-[#0C6E4E] mb-2">Masjid Surroundings</h3>
+                <p className="text-gray-600">Our masjid is surrounded by green spaces providing a peaceful environment for worship and reflection.</p>
+              </div>
+            </div>
+            
+            <div className="bg-white rounded-xl overflow-hidden shadow-lg transform transition-transform hover:scale-105">
+              <div className="h-64 overflow-hidden">
+                <img src={masjidGroundImage} alt="Masjid View" className="w-full h-full object-cover" />
+              </div>
+              <div className="p-5">
+                <h3 className="text-xl font-semibold text-[#0C6E4E] mb-2">Community View</h3>
+                <p className="text-gray-600">The masjid is situated in a prime location of G11/4, Islamabad, serving as a central hub for the community.</p>
+              </div>
+            </div>
+          </div>
+          
+          <div className="mt-12 text-center">
+            <Link href="/contact-page">
+              <div className="inline-block bg-[#0C6E4E] hover:bg-opacity-90 text-white px-6 py-3 rounded-md transition-colors font-medium cursor-pointer">
+                Visit Our Masjid
+              </div>
+            </Link>
           </div>
         </div>
       </div>
