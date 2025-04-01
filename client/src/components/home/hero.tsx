@@ -135,7 +135,10 @@ const Hero = () => {
           <p className="text-center max-w-3xl mx-auto mb-8">Understanding the core philosophy of our masjid and how we plan to transform masajid for the modern era</p>
           
           <div className="bg-white rounded-xl shadow-2xl overflow-hidden my-8">
-            <div className="grid md:grid-cols-2">
+            <div className="flex flex-col md:flex-col">
+              <div className="md:h-80 overflow-hidden">
+                <img src={masjidPhilosophy} alt="Masjid Philosophy Diagram" className="w-full h-full object-contain" />
+              </div>
               <div className="p-8">
                 <h3 className="text-2xl font-semibold text-[#D4AF37] mb-4">Masjid Nabvi's Model in Modern Times</h3>
                 <p className="mb-4">Our platform aims to translate the principles that made Masjid-e-Nabawi the center of society into a modern context through technology and community engagement.</p>
@@ -147,9 +150,6 @@ const Hero = () => {
                   <li>Using AI to enhance community participation</li>
                 </ul>
                 <p className="italic text-gray-600">Our mission is to create a model that can be replicated by masajid worldwide.</p>
-              </div>
-              <div className="bg-gray-100">
-                <img src={masjidPhilosophy} alt="Masjid Philosophy Diagram" className="w-full h-full object-contain" />
               </div>
             </div>
           </div>

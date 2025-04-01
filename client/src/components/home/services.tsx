@@ -86,10 +86,10 @@ const Services = () => {
         </div>
         
         <div className="text-center mt-10">
-          <Link href="/services">
-            <a className="inline-block bg-[#0C6E4E] hover:bg-opacity-90 text-white px-6 py-3 rounded-md transition-colors">
+          <Link href="/services-page">
+            <div className="inline-block bg-[#0C6E4E] hover:bg-opacity-90 text-white px-6 py-3 rounded-md transition-colors cursor-pointer">
               View All Services
-            </a>
+            </div>
           </Link>
         </div>
       </div>
