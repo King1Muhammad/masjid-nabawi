@@ -13,36 +13,38 @@ import masjidHeroImage from "@assets/1.png";
 const Hero = () => {
   return (
     <section id="home" className="relative">
-      <div className="h-[85vh] relative overflow-hidden">
-        <div className="absolute inset-0 bg-white z-0"></div>
-        
-        <div className="absolute inset-0 z-10">
-          <img 
-            src={masjidHeroImage} 
-            alt="Masjid Nabvi Qureshi Hashmi"
-            className="w-full h-full object-contain"
-          />
+      <div className="relative overflow-hidden flex flex-col">
+        <div className="bg-white w-full">
+          <div className="h-[65vh] relative overflow-hidden">
+            <img 
+              src={masjidHeroImage} 
+              alt="Masjid Nabvi Qureshi Hashmi"
+              className="w-full h-full object-contain"
+            />
+          </div>
         </div>
         
-        <div className="container mx-auto px-4 h-full relative z-20 flex items-center justify-center">
-          <div className="bg-white bg-opacity-80 max-w-2xl p-8 text-center rounded-lg shadow-lg">
-            <h1 className="text-4xl md:text-6xl font-heading font-bold mb-6">
-              <span className="text-[#D4AF37]">Jamia Masjid Nabvi</span> 
-              <span className="text-black"> Qureshi Hashmi</span>
-            </h1>
-            <p className="text-xl mb-6 font-bold text-black">مسجد نبوی كے طرز پر سارے اعمال كا آغاز مسجد ھٰذا سے</p>
-            <p className="text-xl mb-8 text-[#0C6E4E] font-semibold">Based on Masjid-E-Nabawi's Model</p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center mt-6">
-              <Link href="/donation-page">
-                <div className="bg-[#D4AF37] hover:bg-opacity-90 text-white text-center px-8 py-4 rounded-md transition-colors font-medium cursor-pointer text-lg shadow-xl border border-[#D4AF37]">
-                  Support Our Masjid
-                </div>
-              </Link>
-              <Link href="/services-page">
-                <div className="bg-[#0C6E4E] hover:bg-opacity-90 text-white text-center px-8 py-4 rounded-md transition-colors font-medium cursor-pointer text-lg shadow-xl border border-[#0C6E4E]">
-                  Our Services
-                </div>
-              </Link>
+        <div className="w-full bg-white py-10">
+          <div className="container mx-auto">
+            <div className="max-w-4xl mx-auto p-8 text-center">
+              <h1 className="text-4xl md:text-6xl font-heading font-bold mb-6">
+                <span className="text-[#D4AF37]">Jamia Masjid Nabvi</span> 
+                <span className="text-black"> Qureshi Hashmi</span>
+              </h1>
+              <p className="text-xl mb-6 font-bold text-black">مسجد نبوی كے طرز پر سارے اعمال كا آغاز مسجد ھٰذا سے</p>
+              <p className="text-xl mb-8 text-[#0C6E4E] font-semibold">Based on Masjid-E-Nabawi's Model</p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center mt-6">
+                <Link href="/donation-page">
+                  <div className="bg-[#D4AF37] hover:bg-opacity-90 text-white text-center px-8 py-4 rounded-md transition-colors font-medium cursor-pointer text-lg shadow-xl border border-[#D4AF37]">
+                    Support Our Masjid
+                  </div>
+                </Link>
+                <Link href="/services-page">
+                  <div className="bg-[#0C6E4E] hover:bg-opacity-90 text-white text-center px-8 py-4 rounded-md transition-colors font-medium cursor-pointer text-lg shadow-xl border border-[#0C6E4E]">
+                    Our Services
+                  </div>
+                </Link>
+              </div>
             </div>
           </div>
         </div>
