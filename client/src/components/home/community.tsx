@@ -56,10 +56,17 @@ const Community = () => {
         </div>
         
         <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-6 mb-12">
-          <h3 className="text-xl font-heading text-[#0C6E4E] mb-4">Our World-Changing Platform</h3>
+          <h3 className="text-2xl font-heading text-[#0C6E4E] mb-4">Revolutionary AI-Powered Platform for the Future</h3>
           <p className="mb-4">
-            Two 25-year-old friends are on a mission to revolutionize the world's educational, political, and all systems by connecting societies with their centers. Our ultimate goal is to build a free nation inspired by the model of Masjid e Nabawi.
+            Muhammad Qureshi is on a mission to revolutionize the world's educational, political, and governance systems by connecting societies with their masajid. Our ultimate goal is to build a decentralized, transparent, and democratic system inspired by the model of Masjid e Nabawi.
           </p>
+          
+          <div className="bg-[#D4AF37] bg-opacity-10 border-l-4 border-[#D4AF37] p-4 my-6 rounded">
+            <h4 className="font-semibold text-lg mb-2">AI-Based Decentralized Governmental System</h4>
+            <p className="mb-2">Our platform aims to address the flaws in current centralized governance systems by creating a decentralized, AI-driven alternative. We believe that in the current era of advanced technology, masajid can play a pivotal role in creating positive change, just as they did during the time of Prophet Muhammad (S.A.W).</p>
+            <p>Through our platform, every society member will have a voice in decision-making, with transparency at every level. This system will empower Muslims to collectively improve their communities through democratic processes and transparent financial management.</p>
+          </div>
+          
           <div className="grid md:grid-cols-3 gap-4 mt-6">
             <div className="text-center p-4 bg-[#0C6E4E] bg-opacity-5 rounded-lg">
               <div className="w-16 h-16 mx-auto mb-3 bg-[#0C6E4E] text-white rounded-full flex items-center justify-center">
@@ -68,7 +75,7 @@ const Community = () => {
                 </svg>
               </div>
               <h4 className="font-medium text-[#0C6E4E]">Live Tracking</h4>
-              <p className="text-sm">Real-time monitoring of community activities and projects with complete visibility</p>
+              <p className="text-sm">Real-time monitoring of community activities and projects with complete visibility on how resources are utilized</p>
             </div>
             <div className="text-center p-4 bg-[#0C6E4E] bg-opacity-5 rounded-lg">
               <div className="w-16 h-16 mx-auto mb-3 bg-[#0C6E4E] text-white rounded-full flex items-center justify-center">
@@ -77,7 +84,7 @@ const Community = () => {
                 </svg>
               </div>
               <h4 className="font-medium text-[#0C6E4E]">Transparent Accounts</h4>
-              <p className="text-sm">Full financial transparency with detailed reporting on income and expenditures</p>
+              <p className="text-sm">Full financial transparency with detailed reporting on income and expenditures, ensuring accountability</p>
             </div>
             <div className="text-center p-4 bg-[#0C6E4E] bg-opacity-5 rounded-lg">
               <div className="w-16 h-16 mx-auto mb-3 bg-[#0C6E4E] text-white rounded-full flex items-center justify-center">
@@ -85,8 +92,19 @@ const Community = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" />
                 </svg>
               </div>
-              <h4 className="font-medium text-[#0C6E4E]">Voting System</h4>
-              <p className="text-sm">Democratic decision-making through a secure and accessible voting platform</p>
+              <h4 className="font-medium text-[#0C6E4E]">Democratic Voting</h4>
+              <p className="text-sm">True democratic decision-making through a secure, accessible, and transparent voting platform</p>
+            </div>
+          </div>
+          
+          <div className="mt-8 grid md:grid-cols-2 gap-6">
+            <div className="bg-[#0C6E4E] bg-opacity-5 p-5 rounded-lg">
+              <h4 className="text-xl font-semibold text-[#0C6E4E] mb-2">Scientific Educational Games</h4>
+              <p>Our platform will include reality-based scientific games to promote interest in science and technology. These educational tools will help Muslims advance in scientific fields, addressing global challenges like climate change, inequality, and access to education and healthcare.</p>
+            </div>
+            <div className="bg-[#0C6E4E] bg-opacity-5 p-5 rounded-lg">
+              <h4 className="text-xl font-semibold text-[#0C6E4E] mb-2">Global Masajid Network</h4>
+              <p>We envision connecting masajid worldwide, creating a global network where Muslims can share resources, knowledge, and support each other. This will foster a sense of unity and collective progress, empowering communities to address their unique challenges together.</p>
             </div>
           </div>
         </div>
