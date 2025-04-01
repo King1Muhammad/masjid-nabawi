@@ -9,7 +9,13 @@ import masjidInteriorImage from "@assets/IMG_20230318_150704_129.jpg";
 import masjidOutsideImage from "@assets/IMG_20230318_150712_252.jpg";
 import masjidExteriorImage from "@assets/IMG_20230318_151014_122.jpg";
 import masjidHeroImage from "@assets/1.png";
-import chairmanImage from "@assets/chairman.png";
+import chairmanImage from "@assets/chairman_new.png";
+import blueprintImage from "@assets/masjid_blueprint.jpg";
+import constructionApprovalImage from "@assets/construction_approval.jpg";
+import constructionSiteImage from "@assets/construction_site.jpg";
+import constructionPanoramaImage from "@assets/construction_panorama.jpg";
+import accountCertificateImage from "@assets/account_certificate.jpg";
+import bankAccountImage from "@assets/bank_account.jpg";
 
 const Hero = () => {
   return (
@@ -145,6 +151,76 @@ const Hero = () => {
               <div className="bg-gray-100">
                 <img src={masjidPhilosophy} alt="Masjid Philosophy Diagram" className="w-full h-full object-contain" />
               </div>
+            </div>
+          </div>
+          
+          {/* Construction Plans & Legal Documentation */}
+          <div className="mt-16 mb-8">
+            <h2 className="text-3xl font-heading text-center text-[#0C6E4E] mb-4">Construction Plans & Documentation</h2>
+            <p className="text-center max-w-3xl mx-auto mb-6">Our masjid construction is officially approved with all legal documentation in place</p>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
+              <div className="bg-white rounded-xl overflow-hidden shadow-lg">
+                <div className="h-48 overflow-hidden">
+                  <img src={blueprintImage} alt="Masjid Blueprint" className="w-full h-full object-contain" />
+                </div>
+                <div className="p-4">
+                  <h3 className="text-lg font-semibold text-[#0C6E4E]">Official Masjid Blueprint</h3>
+                  <p className="text-sm text-gray-600">Approved architectural plans for Masjid Nabvi Qureshi Hashmi</p>
+                </div>
+              </div>
+              
+              <div className="bg-white rounded-xl overflow-hidden shadow-lg">
+                <div className="h-48 overflow-hidden">
+                  <img src={constructionApprovalImage} alt="Construction Approval Document" className="w-full h-full object-contain" />
+                </div>
+                <div className="p-4">
+                  <h3 className="text-lg font-semibold text-[#0C6E4E]">Construction Approval</h3>
+                  <p className="text-sm text-gray-600">Official authorization for the building of Masjid Nabvi Qureshi Hashmi</p>
+                </div>
+              </div>
+              
+              <div className="bg-white rounded-xl overflow-hidden shadow-lg">
+                <div className="h-48 overflow-hidden">
+                  <img src={bankAccountImage} alt="Bank Account Document" className="w-full h-full object-contain" />
+                </div>
+                <div className="p-4">
+                  <h3 className="text-lg font-semibold text-[#0C6E4E]">Official Bank Account</h3>
+                  <p className="text-sm text-gray-600">MCB Islamic Bank Account: PK53 MCIB 0541 0037 6590 0001</p>
+                  <p className="text-sm font-bold text-[#D4AF37] mt-2">Account Number: 0541003765900001</p>
+                </div>
+              </div>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+              <div className="bg-white rounded-xl overflow-hidden shadow-lg">
+                <div className="h-48 overflow-hidden">
+                  <img src={constructionSiteImage} alt="Construction Site" className="w-full h-full object-cover" />
+                </div>
+                <div className="p-4">
+                  <h3 className="text-lg font-semibold text-[#0C6E4E]">Construction in Progress</h3>
+                  <p className="text-sm text-gray-600">Current construction work being done on the masjid site</p>
+                </div>
+              </div>
+              
+              <div className="bg-white rounded-xl overflow-hidden shadow-lg">
+                <div className="h-48 overflow-hidden">
+                  <img src={constructionPanoramaImage} alt="Construction Site Panorama" className="w-full h-full object-cover" />
+                </div>
+                <div className="p-4">
+                  <h3 className="text-lg font-semibold text-[#0C6E4E]">Construction Site Overview</h3>
+                  <p className="text-sm text-gray-600">Panoramic view of the masjid construction area</p>
+                </div>
+              </div>
+            </div>
+            
+            <div className="mt-8 text-center">
+              <Link href="/donation-page">
+                <div className="inline-block bg-[#D4AF37] hover:bg-opacity-90 text-white px-8 py-4 rounded-md transition-colors font-bold text-lg shadow-xl">
+                  Donate for Construction
+                </div>
+              </Link>
+              <p className="mt-4 text-gray-700 font-medium">Bank Account: 0541003765900001 (MCB Islamic Bank)</p>
             </div>
           </div>
           

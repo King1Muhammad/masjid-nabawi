@@ -57,18 +57,9 @@ const PrayerTimesTicker = () => {
   }, []);
   
   useEffect(() => {
-    // Calculate Islamic date (simplified example)
-    const today = new Date();
-    const islamicYear = 1445; // This would normally be calculated
-    const islamicMonths = [
-      'Muharram', 'Safar', 'Rabi al-Awwal', 'Rabi al-Thani',
-      'Jumada al-Awwal', 'Jumada al-Thani', 'Rajab', 'Shaban',
-      'Ramadan', 'Shawwal', 'Dhu al-Qadah', 'Dhu al-Hijjah'
-    ];
-    const islamicMonth = islamicMonths[Math.floor(today.getMonth() % 12)];
-    const islamicDay = (today.getDate() % 30) || 30;
-    
-    setIslamicDate(`${islamicDay} ${islamicMonth}, ${islamicYear}`);
+    // Set the exact Islamic date as requested
+    const islamicYear = 1445;
+    setIslamicDate(`2 Shawwal, ${islamicYear}`);
   }, []);
 
   // Determine next prayer time
