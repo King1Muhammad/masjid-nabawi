@@ -8,7 +8,7 @@ const Community = () => {
   const [isVoting, setIsVoting] = useState(false);
   const { toast } = useToast();
   
-  const { data: campaigns } = useQuery({
+  const { data: campaigns = [] } = useQuery<any[]>({
     queryKey: ['/api/campaigns'],
   });
 
@@ -49,7 +49,46 @@ const Community = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-heading text-[#0C6E4E] mb-4">Community & Transparency</h2>
-          <p className="max-w-3xl mx-auto">We believe in maintaining transparency and involving our community in masjid operations and decision-making.</p>
+          <p className="max-w-3xl mx-auto mb-4">We believe in maintaining transparency and involving our community in masjid operations and decision-making.</p>
+          <p className="max-w-3xl mx-auto font-medium">
+            We are creating a revolutionary platform to connect societies with their centers and provide a self-governance system with live-tracking, transparent accounts, and a voting system.
+          </p>
+        </div>
+        
+        <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-6 mb-12">
+          <h3 className="text-xl font-heading text-[#0C6E4E] mb-4">Our World-Changing Platform</h3>
+          <p className="mb-4">
+            Two 25-year-old friends are on a mission to revolutionize the world's educational, political, and all systems by connecting societies with their centers. Our ultimate goal is to build a free nation inspired by the model of Masjid e Nabawi.
+          </p>
+          <div className="grid md:grid-cols-3 gap-4 mt-6">
+            <div className="text-center p-4 bg-[#0C6E4E] bg-opacity-5 rounded-lg">
+              <div className="w-16 h-16 mx-auto mb-3 bg-[#0C6E4E] text-white rounded-full flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h4 className="font-medium text-[#0C6E4E]">Live Tracking</h4>
+              <p className="text-sm">Real-time monitoring of community activities and projects with complete visibility</p>
+            </div>
+            <div className="text-center p-4 bg-[#0C6E4E] bg-opacity-5 rounded-lg">
+              <div className="w-16 h-16 mx-auto mb-3 bg-[#0C6E4E] text-white rounded-full flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h4 className="font-medium text-[#0C6E4E]">Transparent Accounts</h4>
+              <p className="text-sm">Full financial transparency with detailed reporting on income and expenditures</p>
+            </div>
+            <div className="text-center p-4 bg-[#0C6E4E] bg-opacity-5 rounded-lg">
+              <div className="w-16 h-16 mx-auto mb-3 bg-[#0C6E4E] text-white rounded-full flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" />
+                </svg>
+              </div>
+              <h4 className="font-medium text-[#0C6E4E]">Voting System</h4>
+              <p className="text-sm">Democratic decision-making through a secure and accessible voting platform</p>
+            </div>
+          </div>
         </div>
         
         <div className="grid md:grid-cols-2 gap-12">
@@ -68,7 +107,7 @@ const Community = () => {
                         <div key={campaign.id} className="mb-4">
                           <div className="flex justify-between text-sm mb-1">
                             <span>{campaign.name}</span>
-                            <span>${Number(campaign.raised).toLocaleString()} of ${Number(campaign.goal).toLocaleString()}</span>
+                            <span>Rs. {Number(campaign.raised).toLocaleString()} of Rs. {Number(campaign.goal).toLocaleString()}</span>
                           </div>
                           <div className="w-full bg-gray-200 rounded-full h-2">
                             <div 
@@ -127,7 +166,7 @@ const Community = () => {
                 </div>
               </div>
               
-              <a href="#" className="inline-block text-[#D4AF37] hover:underline">View Detailed Financial Reports</a>
+              <div className="inline-block text-[#D4AF37] hover:underline cursor-pointer">View Detailed Financial Reports</div>
             </div>
           </div>
           
@@ -233,7 +272,7 @@ const Community = () => {
                 </ul>
               </div>
               
-              <a href="#" className="inline-block text-[#D4AF37] hover:underline">View Community Calendar</a>
+              <div className="inline-block text-[#D4AF37] hover:underline cursor-pointer">View Community Calendar</div>
             </div>
           </div>
         </div>

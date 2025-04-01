@@ -21,23 +21,27 @@ const History = () => {
               <div className="p-6">
                 <h3 className="text-xl font-heading text-[#0C6E4E] mb-2">{item.title}</h3>
                 <p className="text-sm mb-4">{item.description}</p>
-                <Link href="/history">
-                  <a className="text-[#D4AF37] hover:underline inline-block">
-                    Learn more 
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 inline-block ml-1" viewBox="0 0 20 20" fill="currentColor">
-                      <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                    </svg>
-                  </a>
-                </Link>
+                <div 
+                  className="text-[#D4AF37] hover:underline inline-block cursor-pointer"
+                  onClick={() => window.location.href = "/history"}
+                >
+                  Learn more 
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 inline-block ml-1" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                  </svg>
+                </div>
               </div>
             </div>
           ))}
         </div>
         
         <div className="text-center mt-8">
-          <Link href="/history">
-            <a className="inline-block bg-[#0C6E4E] hover:bg-opacity-90 text-white px-6 py-3 rounded-md transition-colors">Explore Full Timeline</a>
-          </Link>
+          <div 
+            className="inline-block bg-[#0C6E4E] hover:bg-opacity-90 text-white px-6 py-3 rounded-md transition-colors cursor-pointer"
+            onClick={() => window.location.href = "/history"}
+          >
+            Explore Full Timeline
+          </div>
         </div>
       </div>
     </section>

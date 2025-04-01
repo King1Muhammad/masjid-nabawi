@@ -61,25 +61,29 @@ export const TIMELINE_ITEMS = [
   {
     id: 1,
     title: 'Pre-Islamic Arabia',
-    description: 'The Arabian Peninsula before Islam was characterized by tribal systems, polytheism, and trading communities centered around Makkah.',
+    description: 'Before Islam, Arabian society was marked by tribalism, warfare, idol worship, and injustice. The Kaaba in Mecca, originally built for monotheistic worship, had become a center for idolatry.',
+    content: 'Pre-Islamic Arabian society was deeply divided along tribal lines, leading to frequent conflicts and warfare. Idol worship was prevalent, hindering spiritual development. Injustice and inequality were widespread, with the rights of common people, especially slaves, virtually non-existent.',
     image: 'https://images.unsplash.com/photo-1551041777-ed5954a60fe2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80'
   },
   {
     id: 2,
     title: 'Prophet Muhammad ﷺ',
-    description: 'The life and teachings of Prophet Muhammad ﷺ, from his birth in Makkah to the revelation of the Quran and his migration to Madinah.',
+    description: 'The life and teachings of Prophet Muhammad ﷺ brought monotheism, justice, education, and moral values to humanity, shifting society from tribalism to unity.',
+    content: 'With the arrival of Islam and the message brought by Prophet Muhammad ﷺ, a transformation occurred. Muslims embraced monotheism (belief in one God), adopted a code of ethics, and gained a sense of unity as a community (Ummah). Islam emphasized equality, justice, improved the status of women, and promoted education and knowledge.',
     image: 'https://images.unsplash.com/photo-1591001282774-14b0bd0d53d2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80'
   },
   {
     id: 3,
     title: 'Masjid-e-Nabawi',
-    description: 'The establishment and significance of Masjid-e-Nabawi in Madinah, one of the most sacred sites in Islam and its architectural evolution.',
+    description: 'Prophet Muhammad\'s migration to Madina in 622 CE led to the establishment of Masjid e Nabawi, which became more than just a place of worship - it was the center of a new nation.',
+    content: 'Prophet Muhammad designated Masjid e Nabawi as the spiritual and administrative heart of the nascent Islamic state. It served as more than just a place of worship; it became a hub for decision-making, discussions, and community gatherings. The Constitution of Madina established a framework for a pluralistic society, where diverse communities coexisted harmoniously under Islamic governance.',
     image: 'https://images.unsplash.com/photo-1552867082-0be20c309e14?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80'
   },
   {
     id: 4,
     title: 'Islamic Civilization',
-    description: 'The spread of Islam and the development of Islamic civilization, science, arts, and architecture through the centuries.',
+    description: 'Islam encouraged education and knowledge, leading to the Islamic Golden Age with remarkable advancements in science, mathematics, medicine, and philosophy.',
+    content: 'The message of Islam continues to inspire individuals to strive for a better world and a more just and inclusive society. Islamic scholars made significant contributions to various fields, including science, mathematics, medicine, and philosophy. The Islamic Golden Age witnessed remarkable advancements in these areas, shaping the world as we know it today.',
     image: 'https://images.unsplash.com/photo-1618749049243-d3d865f86b76?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80'
   }
 ];

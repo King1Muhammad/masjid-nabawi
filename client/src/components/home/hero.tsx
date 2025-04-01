@@ -10,18 +10,20 @@ const Hero = () => {
             <h1 className="text-4xl md:text-6xl font-heading font-bold mb-4">
               <span className="text-[#D4AF37]">Jamia Masjid Nabvi</span> Qureshi Hashmi
             </h1>
-            <p className="text-xl mb-8">A center of Islamic education, community service, and spiritual growth in Islamabad.</p>
+            <p className="text-xl mb-8">مسجد نبوی كے طرز پر سارے اعمال كا آغاز مسجد ھٰذا سے - Building a masjid based on Masjid e Nabawi's model</p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/donate">
-                <a className="bg-[#D4AF37] hover:bg-opacity-90 text-white text-center px-6 py-3 rounded-md transition-colors font-medium">
-                  Support Our Masjid
-                </a>
-              </Link>
-              <Link href="/services">
-                <a className="border-2 border-white hover:bg-white hover:text-[#0C6E4E] text-center text-white px-6 py-3 rounded-md transition-colors font-medium">
-                  Our Services
-                </a>
-              </Link>
+              <div 
+                className="bg-[#D4AF37] hover:bg-opacity-90 text-white text-center px-6 py-3 rounded-md transition-colors font-medium cursor-pointer"
+                onClick={() => window.location.href = "/donate"}
+              >
+                Support Our Masjid
+              </div>
+              <div 
+                className="border-2 border-white hover:bg-white hover:text-[#0C6E4E] text-center text-white px-6 py-3 rounded-md transition-colors font-medium cursor-pointer"
+                onClick={() => window.location.href = "/services"}
+              >
+                Our Services
+              </div>
             </div>
           </div>
         </div>
@@ -31,8 +33,9 @@ const Hero = () => {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
             <h2 className="text-3xl font-heading text-[#0C6E4E] mb-6">Our Vision & Mission</h2>
-            <p className="mb-4">Jamia Masjid Nabvi Qureshi Hashmi is dedicated to serving the Muslim community in Islamabad by providing a space for worship, education, and community engagement that embodies the teachings of Islam and the example of Prophet Muhammad ﷺ.</p>
-            <p className="mb-6">Our mission is to foster an inclusive Islamic environment that promotes spiritual growth, educational excellence, and community service while preserving Islamic traditions and values.</p>
+            <p className="mb-4">Chairman Haji Ghulam Yasin, along with the founder, Khateeb, and Imam of Masjid Nabvi Qureshi Hashmi, Molana Abdul Ghaffar Qureshi, are inspired by the vision and mission of Masjid e Nabawi's model.</p>
+            <p className="mb-4">Masajids should serve as capitals for their societies, just like countries have their own capitals. The purpose of Masjid Nabvi Qureshi Hashmi is to replicate the Riasat e Madina's model created by Prophet Muhammad (S.A.W).</p>
+            <p className="mb-6">Two 25-year-old friends are on a mission to revolutionize the world's educational, political, and all systems by connecting societies with their centers. They are creating a platform to connect societies with their centers and provide a self-governance system with live-tracking, transparent accounts, and a voting system.</p>
             <div className="flex items-center space-x-4">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-[#D4AF37]" viewBox="0 0 20 20" fill="currentColor">
                 <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-2 0a6 6 0 11-12 0 6 6 0 0112 0zm-1 0a5 5 0 11-10 0 5 5 0 0110 0z" clipRule="evenodd" />
