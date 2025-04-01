@@ -62,70 +62,75 @@ const Header = () => {
       
       <nav className="container mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
-          <Link href="/">
-            <a className="flex items-center">
-              <div className="text-3xl font-heading text-[#0C6E4E]">
-                <span className="font-arabic">جامع مسجد نبوی</span>
-                <span className="text-sm block text-[#8D3333]">Jamia Masjid Nabvi Qureshi Hashmi</span>
-              </div>
-            </a>
-          </Link>
+          <div className="flex items-center cursor-pointer" onClick={() => window.location.href = "/"}>
+            <div className="text-3xl font-heading text-[#0C6E4E]">
+              <span className="font-arabic">جامع مسجد نبوی</span>
+              <span className="text-sm block text-[#8D3333]">Jamia Masjid Nabvi Qureshi Hashmi</span>
+            </div>
+          </div>
           
           {/* Desktop Menu */}
           <div className="hidden md:flex space-x-6 items-center">
-            <Link href="/">
-              <a className={cn(
-                "text-[#0C6E4E] hover:text-[#D4AF37] transition-colors", 
+            <div 
+              className={cn(
+                "text-[#0C6E4E] hover:text-[#D4AF37] transition-colors cursor-pointer", 
                 location === "/" && "font-medium"
-              )}>
-                Home
-              </a>
-            </Link>
-            <Link href="/history">
-              <a className={cn(
-                "text-[#0C6E4E] hover:text-[#D4AF37] transition-colors", 
+              )}
+              onClick={() => window.location.href = "/"}
+            >
+              Home
+            </div>
+            <div 
+              className={cn(
+                "text-[#0C6E4E] hover:text-[#D4AF37] transition-colors cursor-pointer", 
                 location === "/history" && "font-medium"
-              )}>
-                History
-              </a>
-            </Link>
-            <Link href="/services">
-              <a className={cn(
-                "text-[#0C6E4E] hover:text-[#D4AF37] transition-colors", 
+              )}
+              onClick={() => window.location.href = "/history"}
+            >
+              History
+            </div>
+            <div 
+              className={cn(
+                "text-[#0C6E4E] hover:text-[#D4AF37] transition-colors cursor-pointer", 
                 location === "/services" && "font-medium"
-              )}>
-                Services
-              </a>
-            </Link>
-            <Link href="/madrasa">
-              <a className={cn(
-                "text-[#0C6E4E] hover:text-[#D4AF37] transition-colors", 
+              )}
+              onClick={() => window.location.href = "/services"}
+            >
+              Services
+            </div>
+            <div 
+              className={cn(
+                "text-[#0C6E4E] hover:text-[#D4AF37] transition-colors cursor-pointer", 
                 location === "/madrasa" && "font-medium"
-              )}>
-                Madrasa
-              </a>
-            </Link>
-            <Link href="/community">
-              <a className={cn(
-                "text-[#0C6E4E] hover:text-[#D4AF37] transition-colors", 
+              )}
+              onClick={() => window.location.href = "/madrasa"}
+            >
+              Madrasa
+            </div>
+            <div 
+              className={cn(
+                "text-[#0C6E4E] hover:text-[#D4AF37] transition-colors cursor-pointer", 
                 location === "/community" && "font-medium"
-              )}>
-                Community
-              </a>
-            </Link>
-            <Link href="/contact">
-              <a className={cn(
-                "text-[#0C6E4E] hover:text-[#D4AF37] transition-colors", 
+              )}
+              onClick={() => window.location.href = "/community"}
+            >
+              Community
+            </div>
+            <div 
+              className={cn(
+                "text-[#0C6E4E] hover:text-[#D4AF37] transition-colors cursor-pointer", 
                 location === "/contact" && "font-medium"
-              )}>
-                Contact
-              </a>
-            </Link>
-            <Link href="/donate">
-              <a className="bg-[#D4AF37] hover:bg-opacity-90 text-white px-4 py-2 rounded-md transition-colors">
-                Donate
-              </a>
-            </Link>
+              )}
+              onClick={() => window.location.href = "/contact"}
+            >
+              Contact
+            </div>
+            <div 
+              className="bg-[#D4AF37] hover:bg-opacity-90 text-white px-4 py-2 rounded-md transition-colors cursor-pointer"
+              onClick={() => window.location.href = "/donate"}
+            >
+              Donate
+            </div>
           </div>
           
           {/* Mobile Menu Button */}
@@ -173,62 +178,69 @@ const Header = () => {
           )}
         >
           <div className="flex flex-col py-2">
-            <Link href="/">
-              <a 
-                className="px-4 py-2 hover:bg-[#F7F3E9] transition-colors"
-                onClick={closeMenu}
-              >
-                Home
-              </a>
-            </Link>
-            <Link href="/history">
-              <a 
-                className="px-4 py-2 hover:bg-[#F7F3E9] transition-colors"
-                onClick={closeMenu}
-              >
-                History
-              </a>
-            </Link>
-            <Link href="/services">
-              <a 
-                className="px-4 py-2 hover:bg-[#F7F3E9] transition-colors"
-                onClick={closeMenu}
-              >
-                Services
-              </a>
-            </Link>
-            <Link href="/madrasa">
-              <a 
-                className="px-4 py-2 hover:bg-[#F7F3E9] transition-colors"
-                onClick={closeMenu}
-              >
-                Madrasa
-              </a>
-            </Link>
-            <Link href="/community">
-              <a 
-                className="px-4 py-2 hover:bg-[#F7F3E9] transition-colors"
-                onClick={closeMenu}
-              >
-                Community
-              </a>
-            </Link>
-            <Link href="/contact">
-              <a 
-                className="px-4 py-2 hover:bg-[#F7F3E9] transition-colors"
-                onClick={closeMenu}
-              >
-                Contact
-              </a>
-            </Link>
-            <Link href="/donate">
-              <a 
-                className="bg-[#D4AF37] mx-4 my-2 text-center text-white px-4 py-2 rounded-md"
-                onClick={closeMenu}
-              >
-                Donate
-              </a>
-            </Link>
+            <div 
+              className="px-4 py-2 hover:bg-[#F7F3E9] transition-colors cursor-pointer"
+              onClick={() => {
+                closeMenu();
+                window.location.href = "/";
+              }}
+            >
+              Home
+            </div>
+            <div 
+              className="px-4 py-2 hover:bg-[#F7F3E9] transition-colors cursor-pointer"
+              onClick={() => {
+                closeMenu();
+                window.location.href = "/history";
+              }}
+            >
+              History
+            </div>
+            <div 
+              className="px-4 py-2 hover:bg-[#F7F3E9] transition-colors cursor-pointer"
+              onClick={() => {
+                closeMenu();
+                window.location.href = "/services";
+              }}
+            >
+              Services
+            </div>
+            <div 
+              className="px-4 py-2 hover:bg-[#F7F3E9] transition-colors cursor-pointer"
+              onClick={() => {
+                closeMenu();
+                window.location.href = "/madrasa";
+              }}
+            >
+              Madrasa
+            </div>
+            <div 
+              className="px-4 py-2 hover:bg-[#F7F3E9] transition-colors cursor-pointer"
+              onClick={() => {
+                closeMenu();
+                window.location.href = "/community";
+              }}
+            >
+              Community
+            </div>
+            <div 
+              className="px-4 py-2 hover:bg-[#F7F3E9] transition-colors cursor-pointer"
+              onClick={() => {
+                closeMenu();
+                window.location.href = "/contact";
+              }}
+            >
+              Contact
+            </div>
+            <div 
+              className="bg-[#D4AF37] mx-4 my-2 text-center text-white px-4 py-2 rounded-md cursor-pointer"
+              onClick={() => {
+                closeMenu();
+                window.location.href = "/donate";
+              }}
+            >
+              Donate
+            </div>
           </div>
         </div>
       </nav>

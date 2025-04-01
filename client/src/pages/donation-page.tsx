@@ -135,8 +135,8 @@ const DonationPage = () => {
                         ></div>
                       </div>
                       <div className="flex justify-between text-sm">
-                        <span>${Number(campaign.raised).toLocaleString()} raised</span>
-                        <span>Goal: ${Number(campaign.goal).toLocaleString()}</span>
+                        <span>PKR {Number(campaign.raised).toLocaleString()} raised</span>
+                        <span>Goal: PKR {Number(campaign.goal).toLocaleString()}</span>
                       </div>
                     </div>
                   ))}
@@ -176,7 +176,7 @@ const DonationPage = () => {
                         className={`py-2 border ${selectedAmount === amount ? 'bg-[#0C6E4E] text-white' : 'border-[#0C6E4E] text-[#0C6E4E] hover:bg-[#0C6E4E] hover:text-white'} rounded-md transition-colors`}
                         onClick={() => handleAmountClick(amount)}
                       >
-                        ${amount}
+                        PKR {amount}
                       </button>
                     ))}
                     <button 
@@ -276,28 +276,23 @@ const DonationPage = () => {
                 </div>
                 
                 <div className="mb-6">
-                  <label className="block text-sm font-medium mb-2">Payment Method</label>
+                  <label className="block text-sm font-medium mb-2">Available Payment Methods</label>
+                  <p className="text-sm text-gray-500 mb-3">
+                    Select a payment option for further instructions on the next page.
+                  </p>
                   <div className="grid grid-cols-2 gap-4">
-                    <button 
-                      type="button" 
-                      className="py-3 border border-[#0C6E4E] text-[#0C6E4E] hover:bg-[#0C6E4E] hover:text-white rounded-md transition-colors flex items-center justify-center"
-                    >
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z" />
-                        <path fillRule="evenodd" d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z" clipRule="evenodd" />
-                      </svg>
-                      Credit Card
-                    </button>
-                    <button 
-                      type="button" 
-                      className="py-3 border border-[#0C6E4E] text-[#0C6E4E] hover:bg-[#0C6E4E] hover:text-white rounded-md transition-colors flex items-center justify-center"
-                    >
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                        <path d="M13 7H7v6h6V7z" />
-                        <path fillRule="evenodd" d="M7 2a1 1 0 012 0v1h2V2a1 1 0 112 0v1h2a2 2 0 012 2v2h1a1 1 0 110 2h-1v2h1a1 1 0 110 2h-1v2a2 2 0 01-2 2h-2v1a1 1 0 11-2 0v-1H9v1a1 1 0 11-2 0v-1H5a2 2 0 01-2-2v-2H2a1 1 0 110-2h1V9H2a1 1 0 010-2h1V5a2 2 0 012-2h2V2zM5 5h10v10H5V5z" clipRule="evenodd" />
-                      </svg>
-                      PayPal
-                    </button>
+                    <div className="p-3 border border-[#0C6E4E] text-[#0C6E4E] rounded-md flex items-center">
+                      <span className="font-medium">Bank Transfer</span>
+                    </div>
+                    <div className="p-3 border border-[#0C6E4E] text-[#0C6E4E] rounded-md flex items-center">
+                      <span className="font-medium">EasyPaisa</span>
+                    </div>
+                    <div className="p-3 border border-[#0C6E4E] text-[#0C6E4E] rounded-md flex items-center">
+                      <span className="font-medium">JazzCash</span>
+                    </div>
+                    <div className="p-3 border border-[#0C6E4E] text-[#0C6E4E] rounded-md flex items-center">
+                      <span className="font-medium">NayaPay</span>
+                    </div>
                   </div>
                 </div>
                 

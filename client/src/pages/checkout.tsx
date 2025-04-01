@@ -1,238 +1,386 @@
-import { useStripe, Elements, PaymentElement, useElements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
-import { useEffect, useState } from 'react';
-import { apiRequest } from "@/lib/queryClient";
-import { useToast } from "@/hooks/use-toast";
+import { useState, useEffect } from 'react';
 import { useLocation } from 'wouter';
+import { useToast } from '@/hooks/use-toast';
+import { Button } from '@/components/ui/button';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { apiRequest } from '@/lib/queryClient';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 
-// Make sure to call `loadStripe` outside of a component's render to avoid
-// recreating the `Stripe` object on every render.
-if (!import.meta.env.VITE_STRIPE_PUBLIC_KEY) {
-  console.warn('Missing Stripe public key. Payments will not be processed correctly.');
-}
+// MCB Islamic Bank Logo
+const McbIslamicLogo = () => (
+  <div className="bg-white p-2 rounded-md inline-flex items-center justify-center">
+    <span className="text-2xl font-bold">
+      <span className="text-blue-800">M</span>
+      <span className="text-red-600">I</span>
+      <span className="text-blue-800">B</span>
+    </span>
+  </div>
+);
 
-const stripePromise = import.meta.env.VITE_STRIPE_PUBLIC_KEY 
-  ? loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY)
-  : null;
+// EasyPaisa Logo
+const EasyPaisaLogo = () => (
+  <div className="bg-green-50 p-2 rounded-md inline-flex items-center justify-center">
+    <span className="text-green-600 font-bold">EasyPaisa</span>
+  </div>
+);
 
-const CheckoutForm = ({ donationData }: { donationData: any }) => {
-  const stripe = useStripe();
-  const elements = useElements();
+// JazzCash Logo
+const JazzCashLogo = () => (
+  <div className="bg-red-50 p-2 rounded-md inline-flex items-center justify-center">
+    <span className="text-red-600 font-bold">JazzCash</span>
+  </div>
+);
+
+// NayaPay Logo
+const NayaPayLogo = () => (
+  <div className="bg-orange-50 p-2 rounded-md inline-flex items-center justify-center">
+    <span className="text-orange-600 font-bold">NayaPay</span>
+  </div>
+);
+
+export default function Checkout() {
+  const [donationData, setDonationData] = useState({
+    amount: 0,
+    campaign: 'general',
+    type: 'one-time',
+    firstName: '',
+    lastName: '',
+    email: '',
+    message: '',
+    anonymous: false
+  });
+  
+  const [paymentMethod, setPaymentMethod] = useState<string>('bank');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [, navigate] = useLocation();
   const { toast } = useToast();
-  const [, setLocation] = useLocation();
-  const [isProcessing, setIsProcessing] = useState(false);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!stripe || !elements) {
-      toast({
-        title: "Payment Service Unavailable",
-        description: "Payment processing is currently unavailable. Please try again later.",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    setIsProcessing(true);
-
+  
+  // Parse URL query params
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    
+    setDonationData({
+      amount: parseFloat(params.get('amount') || '0'),
+      campaign: params.get('campaign') || 'general',
+      type: params.get('type') || 'one-time',
+      firstName: params.get('firstName') || '',
+      lastName: params.get('lastName') || '',
+      email: params.get('email') || '',
+      message: params.get('message') || '',
+      anonymous: params.get('anonymous') === 'true'
+    });
+  }, []);
+  
+  const handleCompletePayment = async () => {
+    setIsSubmitting(true);
+    
     try {
-      const { error, paymentIntent } = await stripe.confirmPayment({
-        elements,
-        confirmParams: {
-          // Make sure to change this to your payment completion page
-          return_url: window.location.origin + "/donate/success",
-        },
-        redirect: 'if_required'
+      // Save donation to database
+      await apiRequest('POST', '/api/donations', {
+        ...donationData,
+        paymentMethod
       });
-
-      if (error) {
-        toast({
-          title: "Payment Failed",
-          description: error.message || "An error occurred while processing your payment.",
-          variant: "destructive",
-        });
-      } else if (paymentIntent && paymentIntent.status === 'succeeded') {
-        // Handle successful payment
-        await apiRequest('POST', '/api/donations', donationData);
-
-        toast({
-          title: "Payment Successful",
-          description: "Thank you for your generous donation!",
-        });
-
-        // Redirect to success page
-        setLocation('/donate/success');
-      } else {
-        // Handle other potential payment intent statuses
-        toast({
-          title: "Payment Processing",
-          description: "Your payment is being processed. We'll update you once it's complete.",
-        });
-      }
-    } catch (err: any) {
+      
       toast({
-        title: "Payment Error",
-        description: err.message || "An unexpected error occurred. Please try again.",
+        title: "Donation Recorded",
+        description: "Your donation has been recorded. Thank you for your contribution!",
+      });
+      
+      // Redirect to success page
+      navigate('/donate/success');
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "There was an error processing your donation. Please try again.",
         variant: "destructive",
       });
     } finally {
-      setIsProcessing(false);
+      setIsSubmitting(false);
     }
   };
-
-  return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="bg-[#F7F3E9] p-4 rounded-md mb-6">
-        <h3 className="text-lg font-medium mb-2">Donation Summary</h3>
-        <div className="grid grid-cols-2 gap-2 text-sm">
-          <span className="text-gray-600">Amount:</span>
-          <span className="font-medium">${donationData?.amount?.toFixed(2) || '0.00'}</span>
-          
-          <span className="text-gray-600">Campaign:</span>
-          <span className="font-medium">{donationData?.campaign || 'General Fund'}</span>
-          
-          <span className="text-gray-600">Type:</span>
-          <span className="font-medium capitalize">{donationData?.donationType || 'One-time'}</span>
-        </div>
-      </div>
-
-      <PaymentElement />
-
-      <button
-        type="submit"
-        disabled={!stripe || isProcessing}
-        className="w-full bg-[#D4AF37] hover:bg-opacity-90 text-white py-3 rounded-md transition-colors font-medium disabled:opacity-50"
-      >
-        {isProcessing ? (
-          <div className="flex items-center justify-center">
-            <div className="animate-spin w-5 h-5 border-2 border-white border-t-transparent rounded-full mr-2"></div>
-            Processing...
-          </div>
-        ) : (
-          'Complete Donation'
-        )}
-      </button>
-
-      <div className="mt-6 text-center text-sm text-gray-500">
-        <p>Your payment is secure and encrypted. By donating, you agree to our terms and conditions.</p>
-      </div>
-    </form>
-  );
-};
-
-export default function Checkout() {
-  const [clientSecret, setClientSecret] = useState("");
-  const [donationData, setDonationData] = useState<any>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const { toast } = useToast();
-  const [, setLocation] = useLocation();
-
-  useEffect(() => {
-    // Parse the donation data from URL
-    const searchParams = new URLSearchParams(window.location.search);
-    const amount = parseFloat(searchParams.get('amount') || '0');
-    const campaign = searchParams.get('campaign') || 'general';
-    const donationType = searchParams.get('type') || 'one-time';
-    const firstName = searchParams.get('firstName') || '';
-    const lastName = searchParams.get('lastName') || '';
-    const email = searchParams.get('email') || '';
-    const message = searchParams.get('message') || '';
-    const anonymous = searchParams.get('anonymous') === 'true';
-
-    if (!amount || amount <= 0) {
-      toast({
-        title: "Invalid Donation",
-        description: "Please specify a valid donation amount.",
-        variant: "destructive",
-      });
-      setLocation('/donate');
-      return;
-    }
-
-    const data = {
-      amount,
-      campaign,
-      donationType,
-      firstName,
-      lastName,
-      email,
-      message,
-      anonymous
-    };
-
-    setDonationData(data);
-
-    // Create PaymentIntent
-    apiRequest("POST", "/api/create-payment-intent", { amount, campaign })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.clientSecret) {
-          setClientSecret(data.clientSecret);
-        } else {
-          throw new Error(data.message || "Failed to initialize payment");
-        }
-      })
-      .catch(error => {
-        toast({
-          title: "Payment Initialization Failed",
-          description: error.message || "There was an error setting up your payment. Please try again.",
-          variant: "destructive",
-        });
-        setLocation('/donate');
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }, [toast, setLocation]);
-
-  if (isLoading) {
+  
+  if (donationData.amount <= 0) {
     return (
-      <div className="py-16 bg-[#F7F3E9] min-h-screen">
-        <div className="container mx-auto px-4">
-          <div className="max-w-lg mx-auto bg-white rounded-lg shadow-lg p-8">
-            <div className="flex flex-col items-center justify-center py-12">
-              <div className="animate-spin w-12 h-12 border-4 border-[#0C6E4E] border-t-transparent rounded-full mb-4"></div>
-              <p className="text-lg">Initializing payment...</p>
-            </div>
-          </div>
-        </div>
+      <div className="py-16 container mx-auto px-4 text-center">
+        <h1 className="text-3xl font-heading text-[#0C6E4E] mb-4">Invalid Donation Amount</h1>
+        <p className="mb-6">The donation amount appears to be invalid. Please go back and try again.</p>
+        <Button 
+          onClick={() => navigate('/donate')}
+          variant="default"
+          className="bg-[#0C6E4E] hover:bg-[#0A5C41]"
+        >
+          Return to Donation Page
+        </Button>
       </div>
     );
   }
-
-  if (!clientSecret || !stripePromise) {
-    return (
-      <div className="py-16 bg-[#F7F3E9] min-h-screen">
-        <div className="container mx-auto px-4">
-          <div className="max-w-lg mx-auto bg-white rounded-lg shadow-lg p-8">
-            <div className="text-center py-8">
-              <h2 className="text-2xl font-medium text-red-600 mb-4">Payment Setup Error</h2>
-              <p className="mb-6">There was an error setting up the payment system. This could be due to missing configuration or a temporary service disruption.</p>
-              <button
-                onClick={() => setLocation('/donate')}
-                className="px-6 py-2 bg-[#0C6E4E] text-white rounded-md hover:bg-opacity-90"
-              >
-                Return to Donation Page
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
+  
   return (
-    <div className="py-16 bg-[#F7F3E9] min-h-screen">
+    <div className="py-16 bg-[#F7F3E9]">
       <div className="container mx-auto px-4">
-        <div className="max-w-lg mx-auto">
-          <h1 className="text-3xl md:text-4xl font-heading text-[#0C6E4E] text-center mb-6">Complete Your Donation</h1>
-          <p className="text-center mb-8">Please review and complete your payment information below</p>
+        <h1 className="text-4xl md:text-5xl font-heading text-[#0C6E4E] text-center mb-4">Complete Your Donation</h1>
+        <p className="text-xl text-center max-w-3xl mx-auto mb-16">
+          Thank you for your generosity. Please select your preferred payment method to complete your donation.
+        </p>
+        
+        <div className="max-w-3xl mx-auto">
+          <div className="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <h2 className="text-2xl font-heading text-[#0C6E4E] mb-6">Donation Summary</h2>
+            <div className="grid grid-cols-2 gap-4 mb-6">
+              <div>
+                <p className="text-gray-600">Amount:</p>
+                <p className="text-2xl font-bold text-[#0C6E4E]">PKR {donationData.amount.toLocaleString()}</p>
+              </div>
+              <div>
+                <p className="text-gray-600">Donation Type:</p>
+                <p className="font-medium">
+                  {donationData.type === 'one-time' ? 'One-time Donation' : 
+                   donationData.type === 'monthly' ? 'Monthly Donation' : 
+                   donationData.type === 'zakat' ? 'Zakat' : 'Sadaqah'}
+                </p>
+              </div>
+              <div>
+                <p className="text-gray-600">Campaign:</p>
+                <p className="font-medium">{donationData.campaign}</p>
+              </div>
+              <div>
+                <p className="text-gray-600">Donation By:</p>
+                <p className="font-medium">
+                  {donationData.anonymous ? 'Anonymous' : 
+                   `${donationData.firstName} ${donationData.lastName}`.trim() || 'Anonymous'}
+                </p>
+              </div>
+            </div>
+            {donationData.message && (
+              <div className="mb-6">
+                <p className="text-gray-600">Message:</p>
+                <p className="italic">{donationData.message}</p>
+              </div>
+            )}
+          </div>
           
           <div className="bg-white rounded-lg shadow-lg p-8">
-            <Elements stripe={stripePromise} options={{ clientSecret }}>
-              <CheckoutForm donationData={donationData} />
-            </Elements>
+            <h2 className="text-2xl font-heading text-[#0C6E4E] mb-6">Select Payment Method</h2>
+            
+            <Tabs defaultValue="bank" onValueChange={setPaymentMethod} className="w-full">
+              <TabsList className="grid grid-cols-4 mb-8">
+                <TabsTrigger value="bank">Bank Transfer</TabsTrigger>
+                <TabsTrigger value="easypaisa">EasyPaisa</TabsTrigger>
+                <TabsTrigger value="jazzcash">JazzCash</TabsTrigger>
+                <TabsTrigger value="nayapay">NayaPay</TabsTrigger>
+              </TabsList>
+              
+              <TabsContent value="bank">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center">
+                      <McbIslamicLogo />
+                      <span className="ml-2">MCB Islamic Bank Transfer</span>
+                    </CardTitle>
+                    <CardDescription>Transfer from your bank account directly</CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <div className="space-y-4">
+                        <div className="grid gap-2">
+                          <div className="font-medium">Bank Name</div>
+                          <div className="p-2 border rounded bg-gray-50">MCB Islamic</div>
+                        </div>
+                        <div className="grid gap-2">
+                          <div className="font-medium">Account Number</div>
+                          <div className="p-2 border rounded bg-gray-50">0541003765900001</div>
+                        </div>
+                        <div className="grid gap-2">
+                          <div className="font-medium">IBAN</div>
+                          <div className="p-2 border rounded bg-gray-50">PK53MCIB0541003765900001</div>
+                        </div>
+                        <div className="grid gap-2">
+                          <div className="font-medium">Account Title</div>
+                          <div className="p-2 border rounded bg-gray-50">Jamia Masjid Nabvi Qureshi Hashmi</div>
+                        </div>
+                      </div>
+                      <div className="flex items-center justify-center">
+                        <div className="bg-blue-800 p-4 rounded-lg max-w-full">
+                          <div className="text-center text-white text-2xl font-bold mb-2">
+                            FOR ONLINE TRANSFER
+                          </div>
+                          <div className="space-y-1 text-white">
+                            <div><span className="font-medium">Bank:</span> MCB Islamic</div>
+                            <div><span className="font-medium">A/c No:</span> 0541003765900001</div>
+                            <div><span className="font-medium">IBAN:</span> PK53MCIB0541003765900001</div>
+                            <div className="flex items-center">
+                              <div className="bg-orange-500 text-white rounded-full p-1 mr-1">NP</div>
+                              <span className="text-orange-500 font-medium">NAYAPAY:</span> 03468053268
+                            </div>
+                            <div className="flex items-center">
+                              <div className="bg-green-500 text-white rounded-full p-1 mr-1">EP</div>
+                              <span className="text-green-500 font-medium">EASYPAISA:</span> 03468053268
+                            </div>
+                            <div className="mt-2">
+                              <span className="bg-green-500 text-white rounded-full px-2 py-1 mr-1 text-xs">W</span>
+                              <span className="text-green-500">WHATSAPP:</span> +92 3339214600
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                  <CardFooter>
+                    <p className="text-sm text-gray-500">
+                      After making the transfer, click "Complete Donation" below to register your contribution.
+                    </p>
+                  </CardFooter>
+                </Card>
+              </TabsContent>
+              
+              <TabsContent value="easypaisa">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center">
+                      <EasyPaisaLogo />
+                      <span className="ml-2">EasyPaisa</span>
+                    </CardTitle>
+                    <CardDescription>Send money using EasyPaisa mobile wallet or USSD</CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="grid gap-2">
+                      <div className="font-medium">EasyPaisa Account Number</div>
+                      <div className="p-2 border rounded bg-gray-50">03468053268</div>
+                    </div>
+                    <div className="grid gap-2">
+                      <div className="font-medium">Account Title</div>
+                      <div className="p-2 border rounded bg-gray-50">Jamia Masjid Nabvi Qureshi Hashmi</div>
+                    </div>
+                    <div className="mt-4">
+                      <h3 className="font-medium mb-2">How to donate via EasyPaisa:</h3>
+                      <ol className="list-decimal list-inside space-y-1 text-sm">
+                        <li>Open your EasyPaisa app or dial *786#</li>
+                        <li>Select "Send Money" option</li>
+                        <li>Enter the number: 03468053268</li>
+                        <li>Enter amount: {donationData.amount}</li>
+                        <li>Confirm the transaction</li>
+                      </ol>
+                    </div>
+                  </CardContent>
+                  <CardFooter>
+                    <p className="text-sm text-gray-500">
+                      After completing the payment, click "Complete Donation" below to register your contribution.
+                    </p>
+                  </CardFooter>
+                </Card>
+              </TabsContent>
+              
+              <TabsContent value="jazzcash">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center">
+                      <JazzCashLogo />
+                      <span className="ml-2">JazzCash</span>
+                    </CardTitle>
+                    <CardDescription>Send money using JazzCash mobile wallet or USSD</CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="grid gap-2">
+                      <div className="font-medium">JazzCash Account Number</div>
+                      <div className="p-2 border rounded bg-gray-50">03468053268</div>
+                    </div>
+                    <div className="grid gap-2">
+                      <div className="font-medium">Account Title</div>
+                      <div className="p-2 border rounded bg-gray-50">Jamia Masjid Nabvi Qureshi Hashmi</div>
+                    </div>
+                    <div className="mt-4">
+                      <h3 className="font-medium mb-2">How to donate via JazzCash:</h3>
+                      <ol className="list-decimal list-inside space-y-1 text-sm">
+                        <li>Open your JazzCash app or dial *786#</li>
+                        <li>Select "Send Money" option</li>
+                        <li>Enter the number: 03468053268</li>
+                        <li>Enter amount: {donationData.amount}</li>
+                        <li>Confirm the transaction</li>
+                      </ol>
+                    </div>
+                  </CardContent>
+                  <CardFooter>
+                    <p className="text-sm text-gray-500">
+                      After completing the payment, click "Complete Donation" below to register your contribution.
+                    </p>
+                  </CardFooter>
+                </Card>
+              </TabsContent>
+              
+              <TabsContent value="nayapay">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center">
+                      <NayaPayLogo />
+                      <span className="ml-2">NayaPay</span>
+                    </CardTitle>
+                    <CardDescription>Send money using NayaPay mobile wallet</CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="grid gap-2">
+                      <div className="font-medium">NayaPay Account Number</div>
+                      <div className="p-2 border rounded bg-gray-50">03468053268</div>
+                    </div>
+                    <div className="grid gap-2">
+                      <div className="font-medium">Account Title</div>
+                      <div className="p-2 border rounded bg-gray-50">Jamia Masjid Nabvi Qureshi Hashmi</div>
+                    </div>
+                    <div className="mt-4">
+                      <h3 className="font-medium mb-2">How to donate via NayaPay:</h3>
+                      <ol className="list-decimal list-inside space-y-1 text-sm">
+                        <li>Open your NayaPay app</li>
+                        <li>Select "Send Money" option</li>
+                        <li>Enter the number: 03468053268</li>
+                        <li>Enter amount: {donationData.amount}</li>
+                        <li>Confirm the transaction</li>
+                      </ol>
+                    </div>
+                  </CardContent>
+                  <CardFooter>
+                    <p className="text-sm text-gray-500">
+                      After completing the payment, click "Complete Donation" below to register your contribution.
+                    </p>
+                  </CardFooter>
+                </Card>
+              </TabsContent>
+            </Tabs>
+            
+            <div className="mt-8 flex justify-between items-center">
+              <Button 
+                variant="outline" 
+                onClick={() => navigate('/donate')}
+              >
+                Back to Donation Form
+              </Button>
+              
+              <Button 
+                onClick={handleCompletePayment}
+                disabled={isSubmitting}
+                className="bg-[#D4AF37] hover:bg-opacity-90 text-white"
+              >
+                {isSubmitting ? (
+                  <div className="flex items-center">
+                    <div className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full mr-2"></div>
+                    Processing...
+                  </div>
+                ) : (
+                  'Complete Donation'
+                )}
+              </Button>
+            </div>
+            
+            <div className="mt-6 p-4 bg-yellow-50 rounded-md border border-yellow-200">
+              <h3 className="font-medium text-yellow-800 mb-2 flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                </svg>
+                Important Note
+              </h3>
+              <p className="text-sm text-yellow-700">
+                After making the payment through your chosen method, please click the "Complete Donation" button to register your contribution. 
+                For assistance, contact us at <span className="whitespace-nowrap">+92 339214600</span> via WhatsApp.
+              </p>
+            </div>
           </div>
         </div>
       </div>
