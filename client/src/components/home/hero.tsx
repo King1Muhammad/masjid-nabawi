@@ -4,12 +4,19 @@ import masjidAdminImage from "@assets/masjidnabviadministration.jpg";
 import masjidEntryImage from "@assets/IMG_20230318_150311_747.jpg";
 import masjidAreaImage from "@assets/IMG_20230318_151124_594.jpg";
 import masjidGroundImage from "@assets/IMG_20230318_151137_544.jpg";
+import masjidNewImage from "@assets/WhatsApp Image 2024-06-29 at 19.33.33_a41e9b66.jpg";
+import masjidInteriorImage from "@assets/IMG_20230318_150704_129.jpg";
+import masjidOutsideImage from "@assets/IMG_20230318_150712_252.jpg";
+import masjidExteriorImage from "@assets/IMG_20230318_151014_122.jpg";
 
 const Hero = () => {
   return (
     <section id="home" className="relative">
-      <div className="h-[70vh] bg-cover bg-center relative" style={{backgroundImage: "linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('/attached_assets/Bank.png')"}}>
-        <div className="absolute inset-0 bg-[#333333] bg-opacity-60"></div>
+      <div className="h-[70vh] bg-cover bg-center relative" style={{backgroundImage: "linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8))", backgroundColor: "#000000"}}>
+        <div className="absolute inset-0 flex justify-center items-center">
+          <img src={masjidNewImage} alt="Masjid Nabvi Qureshi Hashmi" className="max-h-full max-w-full object-contain opacity-80" />
+        </div>
+        <div className="absolute inset-0 bg-[#000000] bg-opacity-30"></div>
         <div className="container mx-auto px-4 h-full flex items-center relative z-10">
           <div className="max-w-3xl text-white">
             <h1 className="text-4xl md:text-6xl font-heading font-bold mb-4">
@@ -95,36 +102,73 @@ const Hero = () => {
           <div className="grid md:grid-cols-3 gap-6">
             <div className="bg-white rounded-xl overflow-hidden shadow-lg transform transition-transform hover:scale-105">
               <div className="h-64 overflow-hidden">
-                <img src={masjidEntryImage} alt="Masjid Interior" className="w-full h-full object-cover" />
+                <img src={masjidInteriorImage} alt="Masjid Interior" className="w-full h-full object-cover" />
               </div>
               <div className="p-5">
-                <h3 className="text-xl font-semibold text-[#0C6E4E] mb-2">Prayer Hall</h3>
-                <p className="text-gray-600">Our spacious prayer hall accommodates the community for daily prayers, Jumu'ah, and special events.</p>
+                <h3 className="text-xl font-semibold text-[#0C6E4E] mb-2">Prayer Hall Interior</h3>
+                <p className="text-gray-600">Our spacious prayer hall accommodates the community for daily prayers and special events.</p>
               </div>
             </div>
             
             <div className="bg-white rounded-xl overflow-hidden shadow-lg transform transition-transform hover:scale-105">
               <div className="h-64 overflow-hidden">
-                <img src={masjidAreaImage} alt="Masjid Surroundings" className="w-full h-full object-cover" />
+                <img src={masjidExteriorImage} alt="Masjid Exterior" className="w-full h-full object-cover" />
+              </div>
+              <div className="p-5">
+                <h3 className="text-xl font-semibold text-[#0C6E4E] mb-2">Masjid Exterior</h3>
+                <p className="text-gray-600">Our masjid features beautiful architecture and design reflecting Islamic traditions.</p>
+              </div>
+            </div>
+            
+            <div className="bg-white rounded-xl overflow-hidden shadow-lg transform transition-transform hover:scale-105">
+              <div className="h-64 overflow-hidden">
+                <img src={masjidOutsideImage} alt="Masjid Building" className="w-full h-full object-cover" />
+              </div>
+              <div className="p-5">
+                <h3 className="text-xl font-semibold text-[#0C6E4E] mb-2">Masjid Building</h3>
+                <p className="text-gray-600">Our new masjid building is designed to accommodate the growing Muslim community in Islamabad.</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6 mt-6">
+            <div className="bg-white rounded-xl overflow-hidden shadow-lg transform transition-transform hover:scale-105">
+              <div className="h-64 overflow-hidden">
+                <img src={masjidEntryImage} alt="Masjid Entry" className="w-full h-full object-cover" />
+              </div>
+              <div className="p-5">
+                <h3 className="text-xl font-semibold text-[#0C6E4E] mb-2">Masjid Entrance</h3>
+                <p className="text-gray-600">The welcoming entrance to our masjid invites worshippers to enter and find peace.</p>
+              </div>
+            </div>
+            
+            <div className="bg-white rounded-xl overflow-hidden shadow-lg transform transition-transform hover:scale-105">
+              <div className="h-64 overflow-hidden">
+                <img src={masjidAreaImage} alt="Masjid Area" className="w-full h-full object-cover" />
               </div>
               <div className="p-5">
                 <h3 className="text-xl font-semibold text-[#0C6E4E] mb-2">Masjid Surroundings</h3>
-                <p className="text-gray-600">Our masjid is surrounded by green spaces providing a peaceful environment for worship and reflection.</p>
+                <p className="text-gray-600">Our masjid is surrounded by green spaces providing a peaceful environment for worship.</p>
               </div>
             </div>
             
             <div className="bg-white rounded-xl overflow-hidden shadow-lg transform transition-transform hover:scale-105">
               <div className="h-64 overflow-hidden">
-                <img src={masjidGroundImage} alt="Masjid View" className="w-full h-full object-cover" />
+                <img src={masjidGroundImage} alt="Construction Site" className="w-full h-full object-cover" />
               </div>
               <div className="p-5">
-                <h3 className="text-xl font-semibold text-[#0C6E4E] mb-2">Community View</h3>
-                <p className="text-gray-600">The masjid is situated in a prime location of G11/4, Islamabad, serving as a central hub for the community.</p>
+                <h3 className="text-xl font-semibold text-[#0C6E4E] mb-2">Construction Progress</h3>
+                <p className="text-gray-600">Witness the ongoing construction of our masjid as we build for future generations.</p>
               </div>
             </div>
           </div>
           
           <div className="mt-12 text-center">
+            <Link href="/donation-page">
+              <div className="inline-block bg-[#D4AF37] hover:bg-opacity-90 text-white px-6 py-3 rounded-md transition-colors font-medium mr-4 cursor-pointer">
+                Support Construction
+              </div>
+            </Link>
             <Link href="/contact-page">
               <div className="inline-block bg-[#0C6E4E] hover:bg-opacity-90 text-white px-6 py-3 rounded-md transition-colors font-medium cursor-pointer">
                 Visit Our Masjid

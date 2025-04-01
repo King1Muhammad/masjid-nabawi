@@ -70,14 +70,14 @@ export const TIMELINE_ITEMS = [
     title: 'Prophet Muhammad ﷺ',
     description: 'The life and teachings of Prophet Muhammad ﷺ brought monotheism, justice, education, and moral values to humanity, shifting society from tribalism to unity.',
     content: 'With the arrival of Islam and the message brought by Prophet Muhammad ﷺ, a transformation occurred. Muslims embraced monotheism (belief in one God), adopted a code of ethics, and gained a sense of unity as a community (Ummah). Islam emphasized equality, justice, improved the status of women, and promoted education and knowledge.',
-    image: '/attached_assets/IMG_20230318_150704_129.jpg'
+    image: '/attached_assets/IMG_20230318_151134_689.jpg'
   },
   {
     id: 3,
     title: 'Masjid-e-Nabawi',
     description: 'Prophet Muhammad\'s migration to Madina in 622 CE led to the establishment of Masjid e Nabawi, which became more than just a place of worship - it was the center of a new nation.',
     content: 'Prophet Muhammad designated Masjid e Nabawi as the spiritual and administrative heart of the nascent Islamic state. It served as more than just a place of worship; it became a hub for decision-making, discussions, and community gatherings. The Constitution of Madina established a framework for a pluralistic society, where diverse communities coexisted harmoniously under Islamic governance.',
-    image: '/attached_assets/IMG_20230318_150712_252.jpg'
+    image: '/attached_assets/WhatsApp Image 2024-06-29 at 19.33.33_a41e9b66.jpg'
   },
   {
     id: 4,
