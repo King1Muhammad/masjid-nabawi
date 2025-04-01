@@ -1,6 +1,12 @@
 import { useEffect } from 'react';
 import { Link } from 'wouter';
 
+// Import custom images
+import preIslamicImage from '../assets/IMG_20220826_175300_109.jpg';
+import islamicCivilizationImage from '../assets/IMG_20220826_183107_305.jpg';
+import masjidConstructionImage from '../assets/IMG_20230124_151302_955.jpg';
+import chairmanImage from '../assets/haji ghulam yasin chairman and cofounder masjid nabvi qureshi hashmi.png';
+
 const VisionPage = () => {
   // Scroll to top on component mount
   useEffect(() => {
@@ -85,9 +91,9 @@ const VisionPage = () => {
             </div>
             <div className="order-1 md:order-2">
               <img 
-                src="https://images.unsplash.com/photo-1535568824253-d7db5fe54af2?q=80&w=1300" 
-                alt="Before Islam" 
-                className="w-full h-80 object-cover rounded-xl shadow-lg"
+                src={preIslamicImage} 
+                alt="Before Islam - Plan of the Building" 
+                className="w-full h-auto object-cover rounded-xl shadow-lg"
               />
             </div>
           </div>
@@ -95,9 +101,9 @@ const VisionPage = () => {
           <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
             <div>
               <img 
-                src="https://images.unsplash.com/photo-1590439471071-9a89cc8ae1a1?q=80&w=1300" 
-                alt="After Islam" 
-                className="w-full h-80 object-cover rounded-xl shadow-lg"
+                src={islamicCivilizationImage} 
+                alt="After Islam - Islamic Architecture Blueprint" 
+                className="w-full h-auto object-cover rounded-xl shadow-lg"
               />
             </div>
             <div>
@@ -313,6 +319,30 @@ const VisionPage = () => {
             Our Vision & Mission – Reviving the Masjid-e-Nabawi Model
           </h2>
           
+          <div className="mb-16">
+            <div className="bg-white p-8 rounded-lg shadow-lg overflow-hidden">
+              <div className="grid md:grid-cols-2 gap-8 items-center">
+                <div>
+                  <img 
+                    src={masjidConstructionImage}
+                    alt="Masjid Construction Site"
+                    className="w-full h-auto rounded-lg shadow-md"
+                  />
+                </div>
+                <div>
+                  <h3 className="text-2xl font-heading text-[#D4AF37] mb-4">Our Masjid Construction</h3>
+                  <p className="mb-4">We are currently constructing our masjid in Islamabad, which will serve as the center for our ambitious mission. The construction is progressing well with your generous support.</p>
+                  <p className="mb-4">Our masjid is being built according to approved plans that incorporate elements inspired by Masjid-e-Nabawi's functionality while maintaining modern requirements.</p>
+                  <Link href="/donate">
+                    <div className="inline-block bg-[#0C6E4E] hover:bg-opacity-90 text-white px-6 py-3 rounded-md transition-colors cursor-pointer">
+                      Support Our Construction
+                    </div>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+          
           <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
             <div>
               <h3 className="text-2xl font-heading text-[#D4AF37] mb-6">About Jamia Masjid Nabvi Qureshi Hashmi</h3>
@@ -329,8 +359,8 @@ const VisionPage = () => {
             </div>
             <div>
               <img 
-                src="https://images.unsplash.com/photo-1564694401219-b6c6abc4a80d?q=80&w=1000" 
-                alt="Our Masjid" 
+                src={chairmanImage} 
+                alt="Haji Ghulam Yasin, Chairman and Cofounder of Masjid Nabvi Qureshi Hashmi" 
                 className="w-full h-auto rounded-xl shadow-xl"
               />
             </div>
