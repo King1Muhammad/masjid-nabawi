@@ -8,6 +8,11 @@ import masjidConstructionImage from '@assets/IMG_20230124_151302_955.jpg';
 import chairmanImage from '@assets/haji ghulam yasin chairman and cofounder masjid nabvi qureshi hashmi.png';
 import masjidBlueprint from '@assets/masjid_blueprint.jpg';
 import constructionSiteImage from '@assets/construction_site.jpg';
+import masjidHeroImage from '@assets/IMG_20230318_151014_122.jpg';
+import masjidTeamImage from '@assets/IMG_20230318_150704_129.jpg';
+import phase1Image from '@assets/IMG_20230318_150712_252.jpg';
+import phase2Image from '@assets/IMG_20230318_151124_594.jpg';
+import phase3Image from '@assets/IMG_20230318_151134_689.jpg';
 
 const VisionPage = () => {
   // Scroll to top on component mount
@@ -21,7 +26,7 @@ const VisionPage = () => {
       <section className="relative min-h-[90vh] flex items-center bg-black">
         <div className="absolute inset-0 z-0">
           <img 
-            src="https://images.unsplash.com/photo-1519817650390-64a93db51149?q=80&w=1300" 
+            src={masjidHeroImage} 
             alt="Masjid-e-Nabawi Model" 
             className="w-full h-full object-cover opacity-40"
           />
@@ -354,7 +359,7 @@ const VisionPage = () => {
               <p className="mb-4">Founded by Molana Abdul Ghaffar Qureshi & Haji Ghulam Yasin, our mission continues under the leadership of Muhammad Qureshi, Ahmed Qureshi & Hamid Qureshi.</p>
               <p className="mb-6">We are not just building a physical structure, but a complete system to transform our community and ultimately, the world.</p>
               <div className="flex items-center space-x-4">
-                <img src="https://images.unsplash.com/photo-1563292769-4e05b714fe5e?q=80&w=1387&auto=format&fit=crop" alt="Team" className="w-16 h-16 rounded-full object-cover" />
+                <img src={masjidTeamImage} alt="Team" className="w-16 h-16 rounded-full object-cover" />
                 <div>
                   <h4 className="font-semibold">Our Team</h4>
                   <p className="text-sm text-gray-600">A dedicated group of volunteers working for the revival</p>
@@ -476,7 +481,7 @@ const VisionPage = () => {
             </div>
             <div>
               <img 
-                src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1526&auto=format&fit=crop" 
+                src={islamicCivilizationImage} 
                 alt="AI Platform" 
                 className="w-full h-auto rounded-xl shadow-xl"
               />
@@ -565,7 +570,7 @@ const VisionPage = () => {
                 </div>
                 <div className="md:pl-12">
                   <img 
-                    src="https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?q=80&w=1470&auto=format&fit=crop" 
+                    src={phase1Image} 
                     alt="Phase 1" 
                     className="rounded-xl shadow-lg"
                   />
@@ -590,7 +595,7 @@ const VisionPage = () => {
                 </div>
                 <div className="md:order-1 md:pr-12">
                   <img 
-                    src="https://images.unsplash.com/photo-1480694313141-fce5e697ee25?q=80&w=1470&auto=format&fit=crop" 
+                    src={phase2Image} 
                     alt="Phase 2" 
                     className="rounded-xl shadow-lg"
                   />
@@ -615,7 +620,7 @@ const VisionPage = () => {
                 </div>
                 <div className="md:pl-12">
                   <img 
-                    src="https://images.unsplash.com/photo-1623771758970-5e7c7822da1f?q=80&w=1470&auto=format&fit=crop" 
+                    src={phase3Image} 
                     alt="Phase 3" 
                     className="rounded-xl shadow-lg"
                   />

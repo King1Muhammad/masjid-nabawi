@@ -8,6 +8,9 @@ import { apiRequest } from '@/lib/queryClient';
 import { useToast } from '@/hooks/use-toast';
 import { useLocation } from 'wouter';
 
+// Import madrasa image
+import masjidMadrasaImg from '@assets/IMG_20230318_150311_747.jpg';
+
 const ProgramIcon = ({ name }: { name: string }) => {
   switch (name) {
     case 'book':
@@ -166,7 +169,7 @@ const MadrasaPage = () => {
         
         <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
           <div>
-            <img src="https://images.unsplash.com/photo-1625629107885-9a1016d5ed12?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1000&q=80" alt="Students learning Quran" className="rounded-lg shadow-lg w-full h-auto" />
+            <img src={masjidMadrasaImg} alt="Students learning Quran" className="rounded-lg shadow-lg w-full h-auto" />
           </div>
           
           <div>
