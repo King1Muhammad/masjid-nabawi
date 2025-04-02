@@ -106,11 +106,11 @@ const Footer = () => {
             <h4 className="text-lg font-heading mb-4">Quick Links</h4>
             <ul className="space-y-2">
               <li><Link href="/"><div className="text-gray-400 hover:text-[#D4AF37] transition-colors cursor-pointer">Home</div></Link></li>
-              <li><Link href="/history-page"><div className="text-gray-400 hover:text-[#D4AF37] transition-colors cursor-pointer">History</div></Link></li>
-              <li><Link href="/services-page"><div className="text-gray-400 hover:text-[#D4AF37] transition-colors cursor-pointer">Services</div></Link></li>
-              <li><Link href="/madrasa-page"><div className="text-gray-400 hover:text-[#D4AF37] transition-colors cursor-pointer">Madrasa</div></Link></li>
-              <li><Link href="/community-page"><div className="text-gray-400 hover:text-[#D4AF37] transition-colors cursor-pointer">Community</div></Link></li>
-              <li><Link href="/contact-page"><div className="text-gray-400 hover:text-[#D4AF37] transition-colors cursor-pointer">Contact</div></Link></li>
+              <li><Link href="/history"><div className="text-gray-400 hover:text-[#D4AF37] transition-colors cursor-pointer">History</div></Link></li>
+              <li><Link href="/services"><div className="text-gray-400 hover:text-[#D4AF37] transition-colors cursor-pointer">Services</div></Link></li>
+              <li><Link href="/madrasa"><div className="text-gray-400 hover:text-[#D4AF37] transition-colors cursor-pointer">Madrasa</div></Link></li>
+              <li><Link href="/community"><div className="text-gray-400 hover:text-[#D4AF37] transition-colors cursor-pointer">Community</div></Link></li>
+              <li><Link href="/contact"><div className="text-gray-400 hover:text-[#D4AF37] transition-colors cursor-pointer">Contact</div></Link></li>
             </ul>
           </div>
           

@@ -41,12 +41,12 @@ const Hero = () => {
               <p className="text-xl mb-6 font-bold text-black">مسجد نبوی كے طرز پر سارے اعمال كا آغاز مسجد ھٰذا سے</p>
               <p className="text-xl mb-8 text-[#0C6E4E] font-semibold">Based on Masjid-E-Nabawi's Model</p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center mt-6">
-                <Link href="/donation-page">
+                <Link href="/donate">
                   <div className="bg-[#D4AF37] hover:bg-opacity-90 text-white text-center px-8 py-4 rounded-md transition-colors font-medium cursor-pointer text-lg shadow-xl border border-[#D4AF37]">
                     Support Our Masjid
                   </div>
                 </Link>
-                <Link href="/services-page">
+                <Link href="/services">
                   <div className="bg-[#0C6E4E] hover:bg-opacity-90 text-white text-center px-8 py-4 rounded-md transition-colors font-medium cursor-pointer text-lg shadow-xl border border-[#0C6E4E]">
                     Our Services
                   </div>
@@ -215,7 +215,7 @@ const Hero = () => {
             </div>
             
             <div className="mt-8 text-center">
-              <Link href="/donation-page">
+              <Link href="/donate">
                 <div className="inline-block bg-[#D4AF37] hover:bg-opacity-90 text-white px-8 py-4 rounded-md transition-colors font-bold text-lg shadow-xl">
                   Donate for Construction
                 </div>
@@ -262,12 +262,12 @@ const Hero = () => {
           </div>
           
           <div className="mt-12 text-center">
-            <Link href="/donation-page">
+            <Link href="/donate">
               <div className="inline-block bg-[#D4AF37] hover:bg-opacity-90 text-white px-8 py-4 rounded-md transition-colors font-medium mr-6 cursor-pointer text-lg shadow-xl">
                 Support Construction
               </div>
             </Link>
-            <Link href="/contact-page">
+            <Link href="/contact">
               <div className="inline-block bg-[#0C6E4E] hover:bg-opacity-90 text-white px-8 py-4 rounded-md transition-colors font-medium cursor-pointer text-lg shadow-xl">
                 Visit Our Masjid
               </div>
