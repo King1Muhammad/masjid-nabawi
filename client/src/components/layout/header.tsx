@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'wouter';
 import PrayerTimesTicker from '@/components/prayer-times-ticker';
+import IslamicDate from '@/components/islamic-date';
 import { cn } from '@/lib/utils';
 
 const Header = () => {
@@ -59,6 +60,11 @@ const Header = () => {
       scrolled ? "shadow-lg" : "shadow-md"
     )}>
       <PrayerTimesTicker />
+      
+      {/* Islamic Date Bar */}
+      <div className="bg-[#0C6E4E] text-white text-center py-1">
+        <p className="text-sm font-medium">Islamic Date: <IslamicDate /></p>
+      </div>
       
       <nav className="container mx-auto px-4 py-4">
         <div className="flex justify-between items-center">

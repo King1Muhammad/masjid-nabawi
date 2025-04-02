@@ -5,7 +5,7 @@ import { Link } from 'wouter';
 import preIslamicImage from '@assets/IMG_20220826_175300_109.jpg';
 import islamicCivilizationImage from '@assets/IMG_20220826_183107_305.jpg';
 import masjidConstructionImage from '@assets/IMG_20230124_151302_955.jpg';
-import chairmanImage from '@assets/haji ghulam yasin chairman and cofounder masjid nabvi qureshi hashmi.png';
+import chairmanImage from '@assets/haji ghulam yasin chairman and cofounder masjid nabvi qureshi hashmi cp.png';
 import masjidBlueprint from '@assets/masjid_blueprint.jpg';
 import constructionSiteImage from '@assets/construction_site.jpg';
 import masjidHeroImage from '@assets/IMG_20230318_151014_122.jpg';
@@ -13,6 +13,10 @@ import masjidTeamImage from '@assets/IMG_20230318_150704_129.jpg';
 import phase1Image from '@assets/IMG_20230318_150712_252.jpg';
 import phase2Image from '@assets/IMG_20230318_151124_594.jpg';
 import phase3Image from '@assets/IMG_20230318_151134_689.jpg';
+import constructionApprovalImage from '@assets/construction_approval.jpg';
+import masjidAdministrationImage from '@assets/masjidnabviadministration.jpg';
+import masjidPhilosophyImage from '@assets/masjidphilosophy.jpg';
+import bankAccountImage from '@assets/bank_account.jpg';
 
 const VisionPage = () => {
   // Scroll to top on component mount
@@ -95,12 +99,20 @@ const VisionPage = () => {
                   </div>
                   <p>No organized educational system existed, with knowledge limited to tribal poetry and oral traditions</p>
                 </li>
+                <li className="flex items-start">
+                  <div className="mt-1 mr-3 flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-full bg-[#D4AF37] text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <p>Corrupt governance systems driven by wealth and power ensured the oppression of the poor and weak</p>
+                </li>
               </ul>
             </div>
             <div className="order-1 md:order-2">
               <img 
-                src={constructionSiteImage} 
-                alt="Before Islam - The chaotic state of pre-Islamic society" 
+                src={preIslamicImage} 
+                alt="Before Islam - The state of pre-Islamic society" 
                 className="w-full h-auto object-cover rounded-xl shadow-lg"
               />
             </div>
@@ -109,8 +121,8 @@ const VisionPage = () => {
           <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
             <div>
               <img 
-                src={masjidBlueprint} 
-                alt="After Islam - Masjid-e-Nabawi Blueprint" 
+                src={masjidPhilosophyImage} 
+                alt="After Islam - Masjid-e-Nabawi Philosophy" 
                 className="w-full h-auto object-cover rounded-xl shadow-lg"
               />
             </div>
@@ -141,6 +153,14 @@ const VisionPage = () => {
                     </svg>
                   </div>
                   <p>The Islamic Golden Age introduced groundbreaking advances in science, medicine, mathematics, astronomy, and architecture</p>
+                </li>
+                <li className="flex items-start">
+                  <div className="mt-1 mr-3 flex-shrink-0 flex items-center justify-center w-6 h-6 rounded-full bg-[#0C6E4E] text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <p>All aspects of life were integrated into a cohesive system, with masajids serving as the center of community development</p>
                 </li>
               </ul>
             </div>
@@ -333,15 +353,28 @@ const VisionPage = () => {
               <div className="grid md:grid-cols-2 gap-8 items-center">
                 <div>
                   <img 
-                    src={masjidConstructionImage}
-                    alt="Masjid Construction Site"
+                    src={constructionApprovalImage}
+                    alt="Masjid Construction Approval"
                     className="w-full h-auto rounded-lg shadow-md"
                   />
+                  <div className="mt-4 grid grid-cols-2 gap-2">
+                    <img 
+                      src={masjidBlueprint}
+                      alt="Masjid Blueprint"
+                      className="w-full h-auto rounded-lg shadow-md"
+                    />
+                    <img 
+                      src={masjidConstructionImage}
+                      alt="Masjid Construction Site"
+                      className="w-full h-auto rounded-lg shadow-md"
+                    />
+                  </div>
                 </div>
                 <div>
                   <h3 className="text-2xl font-heading text-[#D4AF37] mb-4">Our Masjid Construction</h3>
-                  <p className="mb-4">We are currently constructing our masjid in Islamabad, which will serve as the center for our ambitious mission. The construction is progressing well with your generous support.</p>
-                  <p className="mb-4">Our masjid is being built according to approved plans that incorporate elements inspired by Masjid-e-Nabawi's functionality while maintaining modern requirements.</p>
+                  <p className="mb-4">We are currently constructing our masjid in Islamabad, opposite D-13 Block FGEHF G-11/4, which will serve as the center for our ambitious mission to revive the true model of Masjid-e-Nabawi. Construction is progressing with all official approvals in place.</p>
+                  <p className="mb-4">Our masjid's design is inspired by the multifunctional role of Masjid-e-Nabawi, incorporating spaces for prayer, education, community services, and governance. The project has been approved by all relevant authorities.</p>
+                  <p className="mb-4">With your support, we will complete this vital project that will serve as a model for future masajids worldwide.</p>
                   <Link href="/donate">
                     <div className="inline-block bg-[#0C6E4E] hover:bg-opacity-90 text-white px-6 py-3 rounded-md transition-colors cursor-pointer">
                       Support Our Construction
@@ -355,14 +388,15 @@ const VisionPage = () => {
           <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
             <div>
               <h3 className="text-2xl font-heading text-[#D4AF37] mb-6">About Jamia Masjid Nabvi Qureshi Hashmi</h3>
-              <p className="mb-4">Located in G-11/4 Islamabad, Pakistan, our masjid is built fully on volunteerism and dedicated to reviving the true model of Islamic governance and society.</p>
-              <p className="mb-4">Founded by Molana Abdul Ghaffar Qureshi & Haji Ghulam Yasin, our mission continues under the leadership of Muhammad Qureshi, Ahmed Qureshi & Hamid Qureshi.</p>
-              <p className="mb-6">We are not just building a physical structure, but a complete system to transform our community and ultimately, the world.</p>
+              <p className="mb-4">Located opposite D-13 Block FGEHF G-11/4 Islamabad, Pakistan, our masjid is built fully on volunteerism and dedicated to reviving the true model of Islamic governance and society as exemplified by Masjid-e-Nabawi.</p>
+              <p className="mb-4">Founded by Molana Abdul Ghaffar Qureshi & Haji Ghulam Yasin, our mission continues under the leadership of Muhammad Qureshi, Ahmed Qureshi & Hamid Qureshi with support from a dedicated community.</p>
+              <p className="mb-4">Our vision is to implement the statement: <strong>"مسجد نبوی كے طرز پر سارے اعمال كا آغاز مسجد ھٰذا سے"</strong> (Starting all actions based on Masjid-e-Nabawi's model from this masjid).</p>
+              <p className="mb-6">We are building not just a physical structure, but a complete system to transform our community and ultimately, contribute to global revival.</p>
               <div className="flex items-center space-x-4">
-                <img src={masjidTeamImage} alt="Team" className="w-16 h-16 rounded-full object-cover" />
+                <img src={masjidAdministrationImage} alt="Masjid Administration" className="w-16 h-16 rounded-full object-cover" />
                 <div>
-                  <h4 className="font-semibold">Our Team</h4>
-                  <p className="text-sm text-gray-600">A dedicated group of volunteers working for the revival</p>
+                  <h4 className="font-semibold">Our Administration</h4>
+                  <p className="text-sm text-gray-600">A transparent and accountable leadership structure</p>
                 </div>
               </div>
             </div>
@@ -370,8 +404,12 @@ const VisionPage = () => {
               <img 
                 src={chairmanImage} 
                 alt="Haji Ghulam Yasin, Chairman and Cofounder of Masjid Nabvi Qureshi Hashmi" 
-                className="w-full h-auto rounded-xl shadow-xl"
+                className="w-full h-auto rounded-xl shadow-xl mb-4"
               />
+              <div className="bg-white p-4 rounded-lg shadow-md">
+                <h4 className="font-semibold text-center text-[#0C6E4E]">Haji Ghulam Yasin</h4>
+                <p className="text-center text-sm text-gray-600">Chairman and Co-founder of Masjid Nabvi Qureshi Hashmi</p>
+              </div>
             </div>
           </div>
           
