@@ -26,15 +26,15 @@ function Router() {
       <main>
         <Switch>
           <Route path="/" component={Home} />
-          <Route path="/history" component={HistoryPage} />
-          <Route path="/services" component={ServicesPage} />
-          <Route path="/madrasa" component={MadrasaPage} />
-          <Route path="/donate" component={DonationPage} />
-          <Route path="/donate/checkout" component={Checkout} />
-          <Route path="/donate/success" component={DonationSuccess} />
-          <Route path="/community" component={CommunityPage} />
-          <Route path="/contact" component={ContactPage} />
-          <Route path="/vision" component={VisionPage} />
+          <Route path="/history-page" component={HistoryPage} />
+          <Route path="/services-page" component={ServicesPage} />
+          <Route path="/madrasa-page" component={MadrasaPage} />
+          <Route path="/donation-page" component={DonationPage} />
+          <Route path="/donation-page/checkout" component={Checkout} />
+          <Route path="/donation-page/success" component={DonationSuccess} />
+          <Route path="/community-page" component={CommunityPage} />
+          <Route path="/contact-page" component={ContactPage} />
+          <Route path="/vision-page" component={VisionPage} />
           <Route component={NotFound} />
         </Switch>
       </main>

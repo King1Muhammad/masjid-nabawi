@@ -35,17 +35,17 @@ const VisionPage = () => {
             Join us in rebuilding the true purpose of masajids and creating an AI-driven, transparent system for a just and empowered world.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/donate">
+            <Link href="/donation-page">
               <div className="bg-[#D4AF37] hover:bg-opacity-90 text-white text-center px-8 py-4 rounded-md transition-colors font-bold text-lg shadow-xl cursor-pointer">
                 Donate Now
               </div>
             </Link>
-            <Link href="/community">
+            <Link href="/community-page">
               <div className="bg-[#0C6E4E] hover:bg-opacity-90 text-white text-center px-8 py-4 rounded-md transition-colors font-bold text-lg shadow-xl cursor-pointer">
                 Join the Revolution
               </div>
             </Link>
-            <Link href="/history">
+            <Link href="/history-page">
               <div className="bg-white text-[#0C6E4E] hover:bg-opacity-90 text-center px-8 py-4 rounded-md transition-colors font-bold text-lg shadow-xl border border-[#0C6E4E] cursor-pointer">
                 Learn More
               </div>
