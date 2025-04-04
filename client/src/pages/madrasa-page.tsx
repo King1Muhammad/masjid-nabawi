@@ -9,8 +9,8 @@ import { useToast } from '@/hooks/use-toast';
 import { useLocation } from 'wouter';
 
 // Import madrasa images
-import masjidMadrasaImg from '@assets/madersa students.webp';
-import madrasaModernImg from '@assets/madersa.webp';
+import masjidMadrasaImg from '@assets/madersa-students.webp';
+import madrasaModernImg from '@assets/madersa-modern.webp';
 
 const ProgramIcon = ({ name }: { name: string }) => {
   switch (name) {

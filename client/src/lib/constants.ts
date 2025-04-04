@@ -91,7 +91,7 @@ export const TIMELINE_ITEMS = [
     title: 'Masjid-e-Nabawi',
     description: 'Prophet Muhammad\'s migration to Madina in 622 CE led to the establishment of Masjid e Nabawi, which became more than just a place of worship - it was the center of a new nation.',
     content: 'Prophet Muhammad designated Masjid e Nabawi as the spiritual and administrative heart of the nascent Islamic state. It served as more than just a place of worship; it became a hub for decision-making, discussions, and community gatherings. The Constitution of Madina established a framework for a pluralistic society, where diverse communities coexisted harmoniously under Islamic governance.',
-    image: '@assets/our masjid project.webp'
+    image: '@assets/masjidnabviadministration.jpg'
   },
   {
     id: 4,

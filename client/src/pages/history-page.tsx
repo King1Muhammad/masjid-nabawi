@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 import islamicContributionsImage from '@assets/islamic-civilization.webp';
 import preIslamicImage from '@assets/pre-islamic-arabia.webp';
 import islamicPrinciplesImage from '@assets/islamic-principles.webp';
-import masjidImage from '@assets/our masjid project.webp';
+import masjidImage from '@assets/masjidnabviadministration.jpg';
 
 interface TimelineItemProps {
   title: string;
