@@ -1,7 +1,21 @@
 import type { Express, Request, Response } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertDonationSchema, insertEnrollmentSchema, insertMessageSchema, insertSubscriberSchema } from "@shared/schema";
+import { 
+  insertDonationSchema, 
+  insertEnrollmentSchema, 
+  insertMessageSchema, 
+  insertSubscriberSchema,
+  insertSocietySchema,
+  insertSocietyBlockSchema,
+  insertSocietyMemberSchema,
+  insertSocietyContributionSchema,
+  insertSocietyExpenseSchema,
+  insertDiscussionSchema,
+  insertDiscussionCommentSchema,
+  insertProposalSchema,
+  insertVoteSchema
+} from "@shared/schema";
 import axios from "axios";
 import Stripe from "stripe";
 import { generateImage, generateMultipleImages } from "./image-generation";
@@ -356,6 +370,702 @@ export async function registerRoutes(app: Express): Promise<Server> {
         message: "Error generating historical images", 
         error: error.message 
       });
+    }
+  });
+
+  // ============== SOCIETY API ROUTES ==============
+  
+  // Create or initialize society
+  app.post("/api/society", async (req, res) => {
+    try {
+      const validationResult = insertSocietySchema.safeParse(req.body);
+      
+      if (!validationResult.success) {
+        return res.status(400).json({ 
+          message: "Invalid society data", 
+          errors: validationResult.error.format() 
+        });
+      }
+      
+      const society = await storage.createSociety(validationResult.data);
+      res.status(201).json(society);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to create society" });
+    }
+  });
+  
+  // Get society by ID
+  app.get("/api/society/:id", async (req, res) => {
+    try {
+      const societyId = parseInt(req.params.id);
+      const society = await storage.getSocietyById(societyId);
+      
+      if (!society) {
+        return res.status(404).json({ message: "Society not found" });
+      }
+      
+      res.json(society);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch society" });
+    }
+  });
+  
+  // Update society
+  app.patch("/api/society/:id", async (req, res) => {
+    try {
+      const societyId = parseInt(req.params.id);
+      const society = await storage.getSocietyById(societyId);
+      
+      if (!society) {
+        return res.status(404).json({ message: "Society not found" });
+      }
+      
+      const updatedSociety = await storage.updateSociety(societyId, req.body);
+      res.json(updatedSociety);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to update society" });
+    }
+  });
+  
+  // Create society block
+  app.post("/api/society-blocks", async (req, res) => {
+    try {
+      const validationResult = insertSocietyBlockSchema.safeParse(req.body);
+      
+      if (!validationResult.success) {
+        return res.status(400).json({ 
+          message: "Invalid society block data", 
+          errors: validationResult.error.format() 
+        });
+      }
+      
+      const block = await storage.createSocietyBlock(validationResult.data);
+      res.status(201).json(block);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to create society block" });
+    }
+  });
+  
+  // Get society blocks by society ID
+  app.get("/api/society/:societyId/blocks", async (req, res) => {
+    try {
+      const societyId = parseInt(req.params.societyId);
+      const blocks = await storage.getSocietyBlocks(societyId);
+      res.json(blocks);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch society blocks" });
+    }
+  });
+  
+  // Get society block by ID
+  app.get("/api/society-blocks/:id", async (req, res) => {
+    try {
+      const blockId = parseInt(req.params.id);
+      const block = await storage.getSocietyBlockById(blockId);
+      
+      if (!block) {
+        return res.status(404).json({ message: "Society block not found" });
+      }
+      
+      res.json(block);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch society block" });
+    }
+  });
+  
+  // Create society member
+  app.post("/api/society-members", async (req, res) => {
+    try {
+      const validationResult = insertSocietyMemberSchema.safeParse(req.body);
+      
+      if (!validationResult.success) {
+        return res.status(400).json({ 
+          message: "Invalid society member data", 
+          errors: validationResult.error.format() 
+        });
+      }
+      
+      const member = await storage.createSocietyMember(validationResult.data);
+      res.status(201).json(member);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to create society member" });
+    }
+  });
+  
+  // Get society members by society ID
+  app.get("/api/society/:societyId/members", async (req, res) => {
+    try {
+      const societyId = parseInt(req.params.societyId);
+      const members = await storage.getSocietyMembers(societyId);
+      res.json(members);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch society members" });
+    }
+  });
+  
+  // Get society member by ID
+  app.get("/api/society-members/:id", async (req, res) => {
+    try {
+      const memberId = parseInt(req.params.id);
+      const member = await storage.getSocietyMemberById(memberId);
+      
+      if (!member) {
+        return res.status(404).json({ message: "Society member not found" });
+      }
+      
+      res.json(member);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch society member" });
+    }
+  });
+  
+  // Get society member by user ID
+  app.get("/api/society-members/user/:userId", async (req, res) => {
+    try {
+      const userId = parseInt(req.params.userId);
+      const member = await storage.getSocietyMemberByUserId(userId);
+      
+      if (!member) {
+        return res.status(404).json({ message: "Society member not found" });
+      }
+      
+      res.json(member);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch society member" });
+    }
+  });
+  
+  // Update society member
+  app.patch("/api/society-members/:id", async (req, res) => {
+    try {
+      const memberId = parseInt(req.params.id);
+      const member = await storage.getSocietyMemberById(memberId);
+      
+      if (!member) {
+        return res.status(404).json({ message: "Society member not found" });
+      }
+      
+      const updatedMember = await storage.updateSocietyMember(memberId, req.body);
+      res.json(updatedMember);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to update society member" });
+    }
+  });
+  
+  // Create society contribution/payment
+  app.post("/api/society-contributions", async (req, res) => {
+    try {
+      const validationResult = insertSocietyContributionSchema.safeParse(req.body);
+      
+      if (!validationResult.success) {
+        return res.status(400).json({ 
+          message: "Invalid society contribution data", 
+          errors: validationResult.error.format() 
+        });
+      }
+      
+      const contribution = await storage.createSocietyContribution(validationResult.data);
+      res.status(201).json(contribution);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to create society contribution" });
+    }
+  });
+  
+  // Get society contributions by society ID
+  app.get("/api/society/:societyId/contributions", async (req, res) => {
+    try {
+      const societyId = parseInt(req.params.societyId);
+      const contributions = await storage.getSocietyContributions(societyId);
+      res.json(contributions);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch society contributions" });
+    }
+  });
+  
+  // Get society contributions by member ID
+  app.get("/api/society-members/:memberId/contributions", async (req, res) => {
+    try {
+      const memberId = parseInt(req.params.memberId);
+      const contributions = await storage.getSocietyContributionsByMember(memberId);
+      res.json(contributions);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch member contributions" });
+    }
+  });
+  
+  // Get society contribution by ID
+  app.get("/api/society-contributions/:id", async (req, res) => {
+    try {
+      const contributionId = parseInt(req.params.id);
+      const contribution = await storage.getSocietyContributionById(contributionId);
+      
+      if (!contribution) {
+        return res.status(404).json({ message: "Society contribution not found" });
+      }
+      
+      res.json(contribution);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch society contribution" });
+    }
+  });
+  
+  // Create society expense
+  app.post("/api/society-expenses", async (req, res) => {
+    try {
+      const validationResult = insertSocietyExpenseSchema.safeParse(req.body);
+      
+      if (!validationResult.success) {
+        return res.status(400).json({ 
+          message: "Invalid society expense data", 
+          errors: validationResult.error.format() 
+        });
+      }
+      
+      const expense = await storage.createSocietyExpense(validationResult.data);
+      res.status(201).json(expense);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to create society expense" });
+    }
+  });
+  
+  // Get society expenses by society ID
+  app.get("/api/society/:societyId/expenses", async (req, res) => {
+    try {
+      const societyId = parseInt(req.params.societyId);
+      const expenses = await storage.getSocietyExpenses(societyId);
+      res.json(expenses);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch society expenses" });
+    }
+  });
+  
+  // Get society expense by ID
+  app.get("/api/society-expenses/:id", async (req, res) => {
+    try {
+      const expenseId = parseInt(req.params.id);
+      const expense = await storage.getSocietyExpenseById(expenseId);
+      
+      if (!expense) {
+        return res.status(404).json({ message: "Society expense not found" });
+      }
+      
+      res.json(expense);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch society expense" });
+    }
+  });
+  
+  // Create discussion
+  app.post("/api/discussions", async (req, res) => {
+    try {
+      const validationResult = insertDiscussionSchema.safeParse(req.body);
+      
+      if (!validationResult.success) {
+        return res.status(400).json({ 
+          message: "Invalid discussion data", 
+          errors: validationResult.error.format() 
+        });
+      }
+      
+      const discussion = await storage.createDiscussion(validationResult.data);
+      res.status(201).json(discussion);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to create discussion" });
+    }
+  });
+  
+  // Get discussions by society ID
+  app.get("/api/society/:societyId/discussions", async (req, res) => {
+    try {
+      const societyId = parseInt(req.params.societyId);
+      const discussions = await storage.getDiscussions(societyId);
+      res.json(discussions);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch discussions" });
+    }
+  });
+  
+  // Get discussion by ID
+  app.get("/api/discussions/:id", async (req, res) => {
+    try {
+      const discussionId = parseInt(req.params.id);
+      const discussion = await storage.getDiscussionById(discussionId);
+      
+      if (!discussion) {
+        return res.status(404).json({ message: "Discussion not found" });
+      }
+      
+      res.json(discussion);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch discussion" });
+    }
+  });
+  
+  // Update discussion status
+  app.patch("/api/discussions/:id/status", async (req, res) => {
+    try {
+      const discussionId = parseInt(req.params.id);
+      const { status } = req.body;
+      
+      if (!status || !['open', 'closed', 'resolved'].includes(status)) {
+        return res.status(400).json({ message: "Invalid status value" });
+      }
+      
+      const discussion = await storage.updateDiscussionStatus(discussionId, status);
+      
+      if (!discussion) {
+        return res.status(404).json({ message: "Discussion not found" });
+      }
+      
+      res.json(discussion);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to update discussion status" });
+    }
+  });
+  
+  // Create discussion comment
+  app.post("/api/discussion-comments", async (req, res) => {
+    try {
+      const validationResult = insertDiscussionCommentSchema.safeParse(req.body);
+      
+      if (!validationResult.success) {
+        return res.status(400).json({ 
+          message: "Invalid discussion comment data", 
+          errors: validationResult.error.format() 
+        });
+      }
+      
+      const comment = await storage.createDiscussionComment(validationResult.data);
+      res.status(201).json(comment);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to create discussion comment" });
+    }
+  });
+  
+  // Get discussion comments by discussion ID
+  app.get("/api/discussions/:discussionId/comments", async (req, res) => {
+    try {
+      const discussionId = parseInt(req.params.discussionId);
+      const comments = await storage.getDiscussionComments(discussionId);
+      res.json(comments);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch discussion comments" });
+    }
+  });
+  
+  // Create proposal
+  app.post("/api/proposals", async (req, res) => {
+    try {
+      const validationResult = insertProposalSchema.safeParse(req.body);
+      
+      if (!validationResult.success) {
+        return res.status(400).json({ 
+          message: "Invalid proposal data", 
+          errors: validationResult.error.format() 
+        });
+      }
+      
+      const proposal = await storage.createProposal(validationResult.data);
+      res.status(201).json(proposal);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to create proposal" });
+    }
+  });
+  
+  // Get proposals by society ID
+  app.get("/api/society/:societyId/proposals", async (req, res) => {
+    try {
+      const societyId = parseInt(req.params.societyId);
+      const proposals = await storage.getProposals(societyId);
+      res.json(proposals);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch proposals" });
+    }
+  });
+  
+  // Get proposal by ID
+  app.get("/api/proposals/:id", async (req, res) => {
+    try {
+      const proposalId = parseInt(req.params.id);
+      const proposal = await storage.getProposalById(proposalId);
+      
+      if (!proposal) {
+        return res.status(404).json({ message: "Proposal not found" });
+      }
+      
+      res.json(proposal);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch proposal" });
+    }
+  });
+  
+  // Update proposal status
+  app.patch("/api/proposals/:id/status", async (req, res) => {
+    try {
+      const proposalId = parseInt(req.params.id);
+      const { status } = req.body;
+      
+      if (!status || !['draft', 'voting', 'approved', 'rejected', 'implemented'].includes(status)) {
+        return res.status(400).json({ message: "Invalid status value" });
+      }
+      
+      const proposal = await storage.updateProposalStatus(proposalId, status);
+      
+      if (!proposal) {
+        return res.status(404).json({ message: "Proposal not found" });
+      }
+      
+      res.json(proposal);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to update proposal status" });
+    }
+  });
+  
+  // Create vote
+  app.post("/api/votes", async (req, res) => {
+    try {
+      const validationResult = insertVoteSchema.safeParse(req.body);
+      
+      if (!validationResult.success) {
+        return res.status(400).json({ 
+          message: "Invalid vote data", 
+          errors: validationResult.error.format() 
+        });
+      }
+      
+      // Check if user has already voted on this proposal
+      const existingVote = await storage.getUserVoteOnProposal(
+        validationResult.data.userId,
+        validationResult.data.proposalId
+      );
+      
+      if (existingVote) {
+        return res.status(400).json({ message: "User has already voted on this proposal" });
+      }
+      
+      const vote = await storage.createVote(validationResult.data);
+      res.status(201).json(vote);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to create vote" });
+    }
+  });
+  
+  // Get votes by proposal ID
+  app.get("/api/proposals/:proposalId/votes", async (req, res) => {
+    try {
+      const proposalId = parseInt(req.params.proposalId);
+      const votes = await storage.getVotesByProposal(proposalId);
+      res.json(votes);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch proposal votes" });
+    }
+  });
+  
+  // Get user vote on specific proposal
+  app.get("/api/proposals/:proposalId/votes/:userId", async (req, res) => {
+    try {
+      const proposalId = parseInt(req.params.proposalId);
+      const userId = parseInt(req.params.userId);
+      
+      const vote = await storage.getUserVoteOnProposal(userId, proposalId);
+      
+      if (!vote) {
+        return res.status(404).json({ message: "Vote not found" });
+      }
+      
+      res.json(vote);
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch user vote" });
+    }
+  });
+  
+  // API to summarize monthly contributions and expenses for a society
+  app.get("/api/society/:societyId/financial-summary", async (req, res) => {
+    try {
+      const societyId = parseInt(req.params.societyId);
+      
+      // Get all contributions for this society
+      const contributions = await storage.getSocietyContributions(societyId);
+      
+      // Get all expenses for this society
+      const expenses = await storage.getSocietyExpenses(societyId);
+      
+      // Calculate total contributions amount
+      const totalContributions = contributions.reduce((sum, contribution) => {
+        return sum + Number(contribution.amount);
+      }, 0);
+      
+      // Calculate total expenses amount
+      const totalExpenses = expenses.reduce((sum, expense) => {
+        return sum + Number(expense.amount);
+      }, 0);
+      
+      // Calculate current balance
+      const currentBalance = totalContributions - totalExpenses;
+      
+      // Group contributions by month
+      const contributionsByMonth: Record<string, number> = {};
+      contributions.forEach(contribution => {
+        if (contribution.monthYear) {
+          contributionsByMonth[contribution.monthYear] = 
+            (contributionsByMonth[contribution.monthYear] || 0) + Number(contribution.amount);
+        }
+      });
+      
+      // Group expenses by category
+      const expensesByCategory: Record<string, number> = {};
+      expenses.forEach(expense => {
+        expensesByCategory[expense.category] = 
+          (expensesByCategory[expense.category] || 0) + Number(expense.amount);
+      });
+      
+      // Get collection status for current month
+      const currentDate = new Date();
+      const currentMonthYear = `${String(currentDate.getMonth() + 1).padStart(2, '0')}-${currentDate.getFullYear()}`;
+      
+      // Get society to determine expected monthly total
+      const society = await storage.getSocietyById(societyId);
+      
+      if (!society) {
+        return res.status(404).json({ message: "Society not found" });
+      }
+      
+      const expectedMonthlyTotal = Number(society.monthlyContribution) * society.totalFlats;
+      const actualMonthlyCollection = contributionsByMonth[currentMonthYear] || 0;
+      const collectionRate = expectedMonthlyTotal > 0 
+        ? (actualMonthlyCollection / expectedMonthlyTotal) * 100 
+        : 0;
+      
+      // Return the summary
+      res.json({
+        societyId,
+        totalContributions,
+        totalExpenses,
+        currentBalance,
+        contributionsByMonth,
+        expensesByCategory,
+        currentMonth: {
+          monthYear: currentMonthYear,
+          expectedTotal: expectedMonthlyTotal,
+          actualCollection: actualMonthlyCollection,
+          collectionRate: Math.round(collectionRate),
+          pendingAmount: expectedMonthlyTotal - actualMonthlyCollection
+        }
+      });
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch financial summary" });
+    }
+  });
+  
+  // API to get pending contributions for each flat in the current month
+  app.get("/api/society/:societyId/pending-contributions", async (req, res) => {
+    try {
+      const societyId = parseInt(req.params.societyId);
+      
+      // Get society to determine expected monthly contribution
+      const society = await storage.getSocietyById(societyId);
+      
+      if (!society) {
+        return res.status(404).json({ message: "Society not found" });
+      }
+      
+      // Get all blocks in this society
+      const blocks = await storage.getSocietyBlocks(societyId);
+      
+      // Get all members in this society
+      const members = await storage.getSocietyMembers(societyId);
+      
+      // Get all contributions for this society
+      const contributions = await storage.getSocietyContributions(societyId);
+      
+      // Current month and year
+      const currentDate = new Date();
+      const currentMonthYear = `${String(currentDate.getMonth() + 1).padStart(2, '0')}-${currentDate.getFullYear()}`;
+      
+      // Filter contributions for the current month
+      const currentMonthContributions = contributions.filter(
+        contribution => contribution.monthYear === currentMonthYear
+      );
+      
+      // Create a map of block ID to block name
+      const blockMap: Record<number, string> = {};
+      blocks.forEach(block => {
+        blockMap[block.id] = block.blockName;
+      });
+      
+      // Prepare the list of all flats and their payment status
+      const flatStatuses = members.map(member => {
+        // Find contribution for this member in the current month
+        const memberContribution = currentMonthContributions.find(
+          contribution => contribution.memberId === member.id
+        );
+        
+        const blockName = blockMap[member.blockId] || 'Unknown';
+        
+        return {
+          memberId: member.id,
+          userId: member.userId,
+          blockName,
+          flatNumber: member.flatNumber,
+          fullAddress: `${blockName}-${member.flatNumber}`,
+          expectedAmount: Number(society.monthlyContribution),
+          paidAmount: memberContribution ? Number(memberContribution.amount) : 0,
+          status: memberContribution ? 'paid' : 'pending',
+          pendingAmount: memberContribution 
+            ? 0 
+            : Number(society.monthlyContribution),
+          phoneNumber: member.phoneNumber || 'Not provided'
+        };
+      });
+      
+      // Return the pending contributions data
+      res.json({
+        societyId,
+        societyName: society.name,
+        monthYear: currentMonthYear,
+        monthlyContribution: Number(society.monthlyContribution),
+        flats: flatStatuses
+      });
+    } catch (error) {
+      res.status(500).json({ message: "Failed to fetch pending contributions" });
+    }
+  });
+
+  // Initialize Society with Blocks API for Masjid Society
+  app.post("/api/initialize-masjid-society", async (req, res) => {
+    try {
+      // 1. Create the society
+      const societyData = {
+        name: "FGEHF D Blocks",
+        description: "Housing society for Jamia Masjid Nabvi Qureshi Hashmi",
+        monthlyContribution: 1500,
+        totalBlocks: 22,
+        totalFlats: 176,
+      };
+      
+      const society = await storage.createSociety(societyData);
+      
+      // 2. Create all 22 blocks (D-1 to D-22)
+      const blocks = [];
+      for (let i = 1; i <= 22; i++) {
+        const blockData = {
+          societyId: society.id,
+          blockName: `D-${i}`,
+          flatsCount: 8, // 8 flats per block
+        };
+        
+        const block = await storage.createSocietyBlock(blockData);
+        blocks.push(block);
+      }
+      
+      res.status(201).json({
+        message: "Masjid society initialized successfully",
+        society,
+        blocks
+      });
+    } catch (error) {
+      console.error("Error initializing masjid society:", error);
+      res.status(500).json({ message: "Failed to initialize masjid society" });
     }
   });
 
