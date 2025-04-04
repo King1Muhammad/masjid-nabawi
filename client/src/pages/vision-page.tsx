@@ -660,7 +660,7 @@ const VisionPage = () => {
                 <div className="md:pl-12">
                   <div className="bg-white p-2 rounded-xl shadow-lg">
                     <img 
-                      src="https://img.freepik.com/free-photo/mosque-construction-site-with-workers-building-minarets-domes-traditional-islamic-architecture_741910-5838.jpg" 
+                      src={constructionSiteImage} 
                       alt="Phase 1: Masjid Construction" 
                       className="rounded-lg w-full h-auto object-cover"
                     />
@@ -755,8 +755,8 @@ const VisionPage = () => {
                 <div className="md:order-1 md:pr-12">
                   <div className="bg-white p-2 rounded-xl shadow-lg">
                     <img 
-                      src="https://img.freepik.com/free-photo/man-using-digital-tablet-mosque-interface_53876-97863.jpg" 
-                      alt="Phase 2: Digital Platform" 
+                      src={masjidAdministrationImage} 
+                      alt="Phase 2: Masjid Administration" 
                       className="rounded-lg w-full h-auto object-cover"
                     />
                     <div className="mt-4 bg-[#F7F3E9] p-4 rounded-lg">
@@ -846,7 +846,7 @@ const VisionPage = () => {
                 <div className="md:pl-12">
                   <div className="bg-white p-2 rounded-xl shadow-lg">
                     <img 
-                      src="https://img.freepik.com/free-photo/global-business-network-connection-iot-internet-things-business-intelligence-concept_53876-124649.jpg" 
+                      src={masjidPhilosophyImage} 
                       alt="Phase 3: Global Network" 
                       className="rounded-lg w-full h-auto object-cover"
                     />
