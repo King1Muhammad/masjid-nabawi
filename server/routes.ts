@@ -834,10 +834,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       // Check if user has already voted on this proposal
-      const existingVote = await storage.getUserVoteOnProposal(
-        validationResult.data.userId,
-        validationResult.data.proposalId
-      );
+      const userId = validationResult.data.userId;
+      const proposalId = validationResult.data.proposalId;
+      
+      if (typeof userId !== 'number' || typeof proposalId !== 'number') {
+        return res.status(400).json({ message: "Invalid userId or proposalId" });
+      }
+      
+      const existingVote = await storage.getUserVoteOnProposal(userId, proposalId);
       
       if (existingVote) {
         return res.status(400).json({ message: "User has already voted on this proposal" });
@@ -1000,7 +1004,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           contribution => contribution.memberId === member.id
         );
         
-        const blockName = blockMap[member.blockId] || 'Unknown';
+        const blockName = member.blockId && blockMap[member.blockId] ? blockMap[member.blockId] : 'Unknown';
         
         return {
           memberId: member.id,
@@ -1038,7 +1042,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const societyData = {
         name: "FGEHF D Blocks",
         description: "Housing society for Jamia Masjid Nabvi Qureshi Hashmi",
-        monthlyContribution: 1500,
+        monthlyContribution: "1500",
         totalBlocks: 22,
         totalFlats: 176,
       };

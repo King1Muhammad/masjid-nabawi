@@ -388,7 +388,104 @@ const CommunityPage = () => {
           <TabsContent value="society" className="mt-6">
             <div className="grid md:grid-cols-12 gap-8">
               <div className="md:col-span-8">
-                <div className="bg-white rounded-lg shadow-lg overflow-hidden h-full">
+                <div className="bg-white rounded-lg shadow-lg overflow-hidden mb-6">
+                  <div className="bg-[#0C6E4E] text-white p-4">
+                    <h2 className="text-2xl font-heading">Society Overview</h2>
+                  </div>
+                  <div className="p-6">
+                    <div className="prose max-w-none mb-6">
+                      <p>ہمارا فیڈرل گورنمنٹ ایمپلائیز ہاؤسنگ فاؤنڈیشن D بلاکس جی-11/4 اسلام آباد میں مکمل 22 بلاکس اور 176 فلیٹس ہیں۔ ہر مہینے فی فلیٹ 1500 روپے جمع کیے جاتے ہیں جو بجلی، پانی، وسٹ مینجمنٹ، صفائی، اور سیکیورٹی کے اخراجات کے لیے استعمال ہوتے ہیں۔</p>
+                    </div>
+                    
+                    <div className="mb-8">
+                      <h3 className="text-xl font-medium text-[#0C6E4E] mb-4">Society Structure</h3>
+                      
+                      {societyLoading || blocksLoading ? (
+                        <div className="flex justify-center items-center h-64 bg-gray-100 rounded">
+                          <div className="animate-spin w-10 h-10 border-4 border-[#0C6E4E] border-t-transparent rounded-full"></div>
+                        </div>
+                      ) : society && blocks ? (
+                        <div className="bg-gray-100 rounded p-6">
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div>
+                              <h4 className="font-medium mb-3">Society Information</h4>
+                              <div className="space-y-2">
+                                <div className="flex justify-between">
+                                  <span>Name:</span>
+                                  <span>{society.name}</span>
+                                </div>
+                                <div className="flex justify-between">
+                                  <span>Total Blocks:</span>
+                                  <span>{society.totalBlocks}</span>
+                                </div>
+                                <div className="flex justify-between">
+                                  <span>Total Flats:</span>
+                                  <span>{society.totalFlats}</span>
+                                </div>
+                                <div className="flex justify-between">
+                                  <span>Monthly Contribution:</span>
+                                  <span>PKR {society.monthlyContribution}</span>
+                                </div>
+                              </div>
+                            </div>
+                            
+                            <div>
+                              <h4 className="font-medium mb-3">Monthly Collection</h4>
+                              <div className="space-y-2">
+                                <div className="flex justify-between">
+                                  <span>Expected Total:</span>
+                                  <span>PKR {Number(society.monthlyContribution) * society.totalFlats}</span>
+                                </div>
+                                {financialSummary && (
+                                  <>
+                                    <div className="flex justify-between">
+                                      <span>Current Collection:</span>
+                                      <span>PKR {financialSummary.currentMonth.actualCollection}</span>
+                                    </div>
+                                    <div className="flex justify-between">
+                                      <span>Collection Rate:</span>
+                                      <span>{financialSummary.currentMonth.collectionRate}%</span>
+                                    </div>
+                                    <div className="flex justify-between font-medium">
+                                      <span>Pending Amount:</span>
+                                      <span>PKR {financialSummary.currentMonth.pendingAmount}</span>
+                                    </div>
+                                  </>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="bg-gray-100 rounded p-6 text-center">
+                          No society data available
+                        </div>
+                      )}
+                    </div>
+                    
+                    <div>
+                      <h3 className="text-xl font-medium text-[#0C6E4E] mb-4">All Blocks</h3>
+                      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                        {blocks && blocks.map(block => (
+                          <div key={block.id} className="bg-gray-100 p-4 rounded">
+                            <h4 className="font-medium text-center mb-2">{block.blockName}</h4>
+                            <div className="flex justify-between text-sm">
+                              <span>Flats:</span>
+                              <span>{block.flatsCount}</span>
+                            </div>
+                            <div className="mt-3 text-center">
+                              <Button variant="outline" size="sm" onClick={() => setSelectedBlock(block.blockName)}>
+                                View Details
+                              </Button>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="bg-white rounded-lg shadow-lg overflow-hidden">
                   <div className="bg-[#0C6E4E] text-white p-4">
                     <h2 className="text-2xl font-heading">Financial Transparency</h2>
                   </div>
@@ -695,27 +792,43 @@ const CommunityPage = () => {
               <CardHeader>
                 <CardTitle>Society Residents</CardTitle>
                 <CardDescription>
-                  FGEHF D Blocks society consists of 22 blocks (D-1 to D-22) with 8 flats in each block. Total 176 flats/families.
+                  ہمارے فیڈرل گورنمنٹ ایمپلائیز ہاؤسنگ فاؤنڈیشن D بلاکس جی-11/4 اسلام آباد میں 22 بلاکس (D-1 سے D-22) ہیں اور ہر بلاک میں 8 فلیٹس ہیں۔ کل 176 فلیٹس/فیملیز۔
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="mb-4">
-                  <Select value={selectedBlock} onValueChange={setSelectedBlock}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select a block" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {society ? (
-                        Array.from({ length: society.totalBlocks }, (_, i) => (
-                          <SelectItem key={i} value={`D-${i+1}`}>
-                            Block D-{i+1}
-                          </SelectItem>
-                        ))
-                      ) : (
-                        <SelectItem value="loading" disabled>Loading blocks...</SelectItem>
-                      )}
-                    </SelectContent>
-                  </Select>
+                <div className="mb-8">
+                  <h3 className="text-xl font-medium text-[#0C6E4E] mb-4">Society Blocks Overview</h3>
+                  <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3 mb-6">
+                    {blocks && blocks.map(block => (
+                      <Button 
+                        key={block.id} 
+                        variant={selectedBlock === block.blockName ? "default" : "outline"}
+                        className={`h-14 ${selectedBlock === block.blockName ? 'bg-[#0C6E4E]' : ''}`}
+                        onClick={() => setSelectedBlock(block.blockName)}
+                      >
+                        {block.blockName}
+                      </Button>
+                    ))}
+                  </div>
+                  
+                  <div className="mb-4">
+                    <Select value={selectedBlock} onValueChange={setSelectedBlock}>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a block" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {blocks ? (
+                          blocks.map(block => (
+                            <SelectItem key={block.id} value={block.blockName}>
+                              Block {block.blockName}
+                            </SelectItem>
+                          ))
+                        ) : (
+                          <SelectItem value="loading" disabled>Loading blocks...</SelectItem>
+                        )}
+                      </SelectContent>
+                    </Select>
+                  </div>
                 </div>
                 
                 {membersLoading ? (
@@ -734,16 +847,21 @@ const CommunityPage = () => {
                       </TableRow>
                     </TableHeader>
                     <TableBody>
-                      {members && members
-                        .filter(member => !selectedBlock || `D-${blocks?.find(b => b.id === member.blockId)?.blockName}` === selectedBlock)
-                        .map(member => (
-                          <TableRow key={member.id}>
-                            <TableCell>Block D-{blocks?.find(b => b.id === member.blockId)?.blockName}</TableCell>
-                            <TableCell>{member.flatNumber}</TableCell>
-                            <TableCell>{member.isOwner ? 'Owner' : 'Tenant'}</TableCell>
-                            <TableCell>{member.phoneNumber}</TableCell>
-                          </TableRow>
-                        ))}
+                      {members && blocks && members
+                        .filter(member => !selectedBlock || (
+                          blocks.find(b => b.id === member.blockId)?.blockName === selectedBlock
+                        ))
+                        .map(member => {
+                          const block = blocks.find(b => b.id === member.blockId);
+                          return (
+                            <TableRow key={member.id}>
+                              <TableCell>Block {block?.blockName}</TableCell>
+                              <TableCell>{member.flatNumber}</TableCell>
+                              <TableCell>{member.isOwner ? 'Owner' : 'Tenant'}</TableCell>
+                              <TableCell>{member.phoneNumber}</TableCell>
+                            </TableRow>
+                          );
+                        })}
                     </TableBody>
                   </Table>
                 )}
