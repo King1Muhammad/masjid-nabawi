@@ -1,7 +1,7 @@
 
 import React from 'react';
-import preIslamicImage from '@assets/DALL·E 2025-04-05 00.40.38 - A realistic and historical depiction of Pre-Islamic Arabian society, featuring tribal tents, camels, and a bustling marketplace in the desert. In the .webp';
-import islamicImage from '@assets/DALL·E 2025-04-05 00.40.25 - A symbolic image representing the themes of monotheism, justice, education, and unity. The scene features an open Quran at the center, surrounded by r.webp';
+import preIslamicImage from '@assets/pre-islamic-arabia.webp';
+import islamicImage from '@assets/islamic-principles.webp';
 
 export const PreIslamicBackground = () => (
   <div className="relative w-full h-48 overflow-hidden rounded-lg shadow-md">
