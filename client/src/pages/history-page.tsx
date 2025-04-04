@@ -3,8 +3,11 @@ import { useEffect, useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest } from '@/lib/queryClient';
 
-// Import custom image
+// Import custom images
 import islamicContributionsImage from '@assets/IMG_20230318_151137_544.jpg';
+import preIslamicImage from '@assets/pre-islamic-arabia.webp';
+import islamicPrinciplesImage from '@assets/islamic-principles.webp';
+import masjidImage from '@assets/masjidphilosophy.jpg';
 
 interface TimelineItemProps {
   title: string;
