@@ -22,7 +22,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       // Using Hanafi method (1 = Karachi method or University of Islamic Sciences, Karachi)
       // This is more appropriate for Pakistan than ISNA method
-      const response = await axios.get(`http://api.aladhan.com/v1/timingsByCity`, {
+      const response = await axios.get(`https://api.aladhan.com/v1/timingsByCity`, {
         params: {
           city,
           country, 

@@ -77,14 +77,14 @@ export const TIMELINE_ITEMS = [
     title: 'Pre-Islamic Arabia',
     description: 'Before Islam, Arabian society was marked by tribalism, warfare, idol worship, and injustice. The Kaaba in Mecca, originally built for monotheistic worship, had become a center for idolatry.',
     content: 'Pre-Islamic Arabian society was deeply divided along tribal lines, leading to frequent conflicts and warfare. Idol worship was prevalent, hindering spiritual development. Injustice and inequality were widespread, with the rights of common people, especially slaves, virtually non-existent.',
-    image: '@assets/IMG_20220826_175300_109.jpg'
+    image: '@assets/pre-islamic-arabia.webp'
   },
   {
     id: 2,
     title: 'Prophet Muhammad ﷺ',
     description: 'The life and teachings of Prophet Muhammad ﷺ brought monotheism, justice, education, and moral values to humanity, shifting society from tribalism to unity.',
     content: 'With the arrival of Islam and the message brought by Prophet Muhammad ﷺ, a transformation occurred. Muslims embraced monotheism (belief in one God), adopted a code of ethics, and gained a sense of unity as a community (Ummah). Islam emphasized equality, justice, improved the status of women, and promoted education and knowledge.',
-    image: '@assets/IMG_20220826_183107_305.jpg'
+    image: '@assets/islamic-principles.webp'
   },
   {
     id: 3,

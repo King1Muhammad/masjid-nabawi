@@ -8,8 +8,9 @@ import { apiRequest } from '@/lib/queryClient';
 import { useToast } from '@/hooks/use-toast';
 import { useLocation } from 'wouter';
 
-// Import madrasa image
-import masjidMadrasaImg from '@assets/IMG_20230318_150311_747.jpg';
+// Import madrasa images
+import masjidMadrasaImg from '@assets/madersa-students.webp';
+import madrasaModernImg from '@assets/madersa-modern.webp';
 
 const ProgramIcon = ({ name }: { name: string }) => {
   switch (name) {
@@ -220,6 +221,11 @@ const MadrasaPage = () => {
         
         <div className="mb-16">
           <h2 className="text-3xl font-heading text-[#0C6E4E] text-center mb-8">Educational Programs</h2>
+
+          <div className="mb-8 flex flex-col items-center">
+            <img src={madrasaModernImg} alt="Modern Islamic Education" className="rounded-lg shadow-lg max-w-3xl w-full h-auto mb-6" />
+            <p className="text-lg text-center max-w-3xl mx-auto">Blending tradition with modern teaching methods to provide a comprehensive Islamic education for all age groups.</p>
+          </div>
           
           <div className="grid md:grid-cols-2 gap-8">
             {programDetails.map((program, index) => (

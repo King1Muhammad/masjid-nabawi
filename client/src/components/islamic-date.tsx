@@ -14,7 +14,7 @@ const IslamicDate = () => {
         const year = today.getFullYear();
 
         // Use Aladhan API to get current Hijri date
-        const response = await axios.get(`http://api.aladhan.com/v1/gToH/${day}-${month}-${year}`);
+        const response = await axios.get(`https://api.aladhan.com/v1/gToH/${day}-${month}-${year}`);
         
         if (response.data.code === 200) {
           const hijri = response.data.data.hijri;

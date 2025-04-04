@@ -2,10 +2,10 @@ import { useEffect } from 'react';
 import { Link } from 'wouter';
 
 // Import custom images
-import preIslamicImage from '@assets/IMG_20220826_175300_109.jpg';
-import islamicCivilizationImage from '@assets/IMG_20220826_183107_305.jpg';
+import preIslamicImage from '@assets/pre-islamic-arabia.webp';
+import islamicCivilizationImage from '@assets/islamic-principles.webp';
 import masjidConstructionImage from '@assets/IMG_20230124_151302_955.jpg';
-import chairmanImage from '@assets/haji ghulam yasin chairman and cofounder masjid nabvi qureshi hashmi cp.png';
+import chairmanImage from '@assets/chairman.png';
 import masjidBlueprint from '@assets/masjid_blueprint.jpg';
 import constructionSiteImage from '@assets/construction_site.jpg';
 import masjidHeroImage from '@assets/IMG_20230318_151014_122.jpg';
