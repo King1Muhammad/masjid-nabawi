@@ -57,9 +57,9 @@ const PrayerTimesTicker = () => {
   }, []);
   
   useEffect(() => {
-    // Set the exact Islamic date as requested
+    // Set the exact Islamic date as requested by user
     const islamicYear = 1445;
-    setIslamicDate(`2 Shawwal, ${islamicYear}`);
+    setIslamicDate(`5 Shawwal, ${islamicYear}`);
   }, []);
 
   // Determine next prayer time
@@ -119,30 +119,37 @@ const PrayerTimesTicker = () => {
       };
 
   return (
-    <div className="bg-[#0C6E4E] text-white py-3 overflow-hidden">
+    <div className="bg-[#0C6E4E] text-white py-2 overflow-hidden">
       <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row justify-between items-center">
-          <div className="flex flex-row flex-wrap justify-center md:justify-start items-center gap-4 w-full md:w-auto">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1 text-[#D4AF37]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        {/* Top row with date and times */}
+        <div className="flex flex-wrap justify-between items-center mb-2">
+          {/* Gregorian date */}
+          <div className="flex items-center mr-3 my-1">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1 text-[#D4AF37] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
-            <span className="font-medium">{currentDate}</span>
+            <span className="font-medium text-xs sm:text-sm whitespace-nowrap">{currentDate}</span>
           </div>
-          <div className="flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1 text-[#D4AF37]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          
+          {/* Current time */}
+          <div className="flex items-center mx-3 my-1">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1 text-[#D4AF37] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            <span className="font-medium">{currentTime}</span>
+            <span className="font-medium text-xs sm:text-sm whitespace-nowrap">{currentTime}</span>
           </div>
-          <div className="flex items-center">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1 text-[#D4AF37]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          
+          {/* Islamic date */}
+          <div className="flex items-center ml-3 my-1">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1 text-[#D4AF37] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1z" />
             </svg>
-            <span className="font-medium">{islamicDate}</span>
+            <span className="font-medium text-xs sm:text-sm whitespace-nowrap">{islamicDate}</span>
           </div>
         </div>
         
-        <div className="flex flex-row flex-wrap items-center justify-center md:justify-end gap-x-3 gap-y-2 w-full md:w-auto mt-4 md:mt-0">
+        {/* Prayer times row */}
+        <div className="flex flex-wrap justify-center sm:justify-around gap-x-2 gap-y-1 w-full">
           {Object.entries(formattedTimes).map(([prayer, time]) => {
             // Skip sunrise for display, but keep it for next prayer calculation
             if (prayer === 'Sunrise') return null;
@@ -155,7 +162,7 @@ const PrayerTimesTicker = () => {
             return (
               <div 
                 key={prayer} 
-                className={`flex items-center px-3 py-1 rounded-full ${isNext ? 'bg-[#D4AF37] text-black font-bold' : ''}`}
+                className={`flex items-center px-2 py-1 rounded-full text-xs sm:text-sm ${isNext ? 'bg-[#D4AF37] text-black font-bold' : ''}`}
               >
                 <span>{prayerLabel}: {time}</span>
                 {isNext && (
