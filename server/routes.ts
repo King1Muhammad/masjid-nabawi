@@ -28,6 +28,29 @@ const stripe = process.env.STRIPE_SECRET_KEY
   ? new Stripe(process.env.STRIPE_SECRET_KEY)
   : null;
 
+import multer from "multer";
+import { v4 as uuidv4 } from "uuid";
+import path from "path";
+import fs from "fs";
+
+// Set up storage for payment receipts
+const uploadStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const dir = path.join(process.cwd(), "uploads");
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+    }
+    cb(null, dir);
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + "-" + uuidv4();
+    const ext = path.extname(file.originalname);
+    cb(null, file.fieldname + "-" + uniqueSuffix + ext);
+  },
+});
+
+const upload = multer({ storage: uploadStorage });
+
 export async function registerRoutes(app: Express): Promise<Server> {
   // API routes for prayer times - updated to use Hanafi method for Islamabad
   app.get("/api/prayer-times", async (req, res) => {
@@ -1070,6 +1093,52 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Error initializing masjid society:", error);
       res.status(500).json({ message: "Failed to initialize masjid society" });
+    }
+  });
+  
+  // Handle payment submissions for both community and madrasa fees
+  app.post("/api/payments/submit", upload.single("receipt"), async (req, res) => {
+    try {
+      // Extract data from request
+      const { reference, date, amount, type, notes } = req.body;
+      const receipt = req.file;
+      
+      if (!receipt) {
+        return res.status(400).json({ message: "Receipt file is required" });
+      }
+      
+      if (!reference || !date || !amount) {
+        return res.status(400).json({ message: "Reference, date, and amount are required fields" });
+      }
+      
+      // Create a record for the payment
+      const paymentData = {
+        reference,
+        date: new Date(date),
+        amount: parseFloat(amount),
+        paymentType: type,
+        receiptPath: receipt.path,
+        notes: notes || "",
+        status: "pending", // Starts as pending until admin verification
+        createdAt: new Date()
+      };
+      
+      // For demo/prototype, we'll log the payment data
+      console.log("Payment submitted:", paymentData);
+      
+      // In a real implementation, you would save this to the database
+      // For example:
+      // const payment = await storage.createPayment(paymentData);
+      
+      // Return success response
+      res.status(201).json({ 
+        message: "Payment submitted successfully", 
+        receiptFilename: receipt.filename 
+      });
+      
+    } catch (error) {
+      console.error("Error processing payment:", error);
+      res.status(500).json({ message: "Failed to process payment submission" });
     }
   });
 
