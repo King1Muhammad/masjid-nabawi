@@ -52,23 +52,43 @@ const Footer = () => {
             <p className="text-gray-400 mb-4 text-sm md:text-base">A center for Islamic education, community service, and spiritual growth in Islamabad following the model of Masjid-e-Nabawi.</p>
             
             <div className="space-y-3 mb-4">
-              {/* Email */}
+              {/* Email - Official */}
               <div className="flex items-start">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#D4AF37] mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
-                <a href="mailto:jamiamasjidnabviqureshihashmi@gmail.com" className="text-gray-400 hover:text-[#D4AF37] transition-colors text-sm break-all">
-                  jamiamasjidnabviqureshihashmi@gmail.com
+                <a href="mailto:admin@masjidenabawismode.com" className="text-gray-400 hover:text-[#D4AF37] transition-colors text-sm break-all">
+                  admin@masjidenabawismode.com
+                </a>
+              </div>
+
+              {/* Email - Secondary */}
+              <div className="flex items-start">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#D4AF37] mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                <a href="mailto:muhammadqureshi@masjidenabawismode.com" className="text-gray-400 hover:text-[#D4AF37] transition-colors text-sm break-all">
+                  muhammadqureshi@masjidenabawismode.com
                 </a>
               </div>
               
-              {/* Phone */}
+              {/* Phone - Primary */}
               <div className="flex items-start">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#D4AF37] mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                 </svg>
                 <a href="tel:+923339214600" className="text-gray-400 hover:text-[#D4AF37] transition-colors text-sm">
                   +92 333 921 4600
+                </a>
+              </div>
+              
+              {/* Phone - Secondary */}
+              <div className="flex items-start">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#D4AF37] mr-2 mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                </svg>
+                <a href="tel:+923468053268" className="text-gray-400 hover:text-[#D4AF37] transition-colors text-sm">
+                  +92 346 805 3268
                 </a>
               </div>
               
@@ -91,7 +111,12 @@ const Footer = () => {
                   <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951z"/>
                 </svg>
               </a>
-              <a href="https://wa.me/923339214600" className="text-gray-400 hover:text-[#D4AF37] transition-colors">
+              <a href="https://wa.me/923339214600" className="text-gray-400 hover:text-[#D4AF37] transition-colors" title="WhatsApp +92 333 921 4600">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-whatsapp" viewBox="0 0 16 16">
+                  <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
+                </svg>
+              </a>
+              <a href="https://wa.me/923468053268" className="text-gray-400 hover:text-[#D4AF37] transition-colors" title="WhatsApp +92 346 805 3268">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-whatsapp" viewBox="0 0 16 16">
                   <path d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z"/>
                 </svg>
@@ -193,7 +218,7 @@ const Footer = () => {
         
         {/* Copyright and Links */}
         <div className="border-t border-gray-800 pt-6 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-gray-500 text-xs sm:text-sm mb-4 md:mb-0 text-center md:text-left">&copy; {new Date().getFullYear()} Jamia Masjid Nabvi Qureshi Hashmi. All rights reserved.</p>
+          <p className="text-gray-500 text-xs sm:text-sm mb-4 md:mb-0 text-center md:text-left">&copy; {new Date().getFullYear()} Jamia Masjid Nabvi Qureshi Hashmi. All rights reserved. <a href="https://masjidenabawismodel.com" className="hover:text-[#D4AF37] transition-colors">masjidenabawismodel.com</a></p>
           <div className="flex flex-wrap justify-center gap-4 md:gap-6">
             <a href="#" className="text-gray-500 hover:text-gray-300 text-xs sm:text-sm">Privacy Policy</a>
             <a href="#" className="text-gray-500 hover:text-gray-300 text-xs sm:text-sm">Terms of Service</a>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { DEFAULT_PRAYER_TIMES } from '@/lib/constants';
+import IslamicDate from './islamic-date';
 
 interface PrayerTimes {
   Fajr: string;
@@ -25,7 +26,7 @@ const formatTime = (time24: string): string => {
 };
 
 const PrayerTimesTicker = () => {
-  const [islamicDate, setIslamicDate] = useState('');
+  // No need for islamicDate state since we're using IslamicDate component
   const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString());
   const [currentDate, setCurrentDate] = useState(new Date().toLocaleDateString('en-US', {
     weekday: 'long',
@@ -35,7 +36,7 @@ const PrayerTimesTicker = () => {
   }));
   const [nextPrayer, setNextPrayer] = useState<string | null>(null);
   
-  const { data: prayerTimes, isLoading, isError } = useQuery({
+  const { data: prayerTimes, isLoading, isError } = useQuery<PrayerTimes>({
     queryKey: ['/api/prayer-times'],
     staleTime: 1000 * 60 * 60, // 1 hour
   });
@@ -56,11 +57,8 @@ const PrayerTimesTicker = () => {
     return () => clearInterval(timer);
   }, []);
   
-  useEffect(() => {
-    // Set the exact Islamic date as requested by user
-    const islamicYear = 1445;
-    setIslamicDate(`5 Shawwal, ${islamicYear}`);
-  }, []);
+  // Import the IslamicDate component to handle the Hijri date
+  // This has been moved to a separate component that uses the API
 
   // Determine next prayer time using accurate calculations
   useEffect(() => {
@@ -93,14 +91,14 @@ const PrayerTimesTicker = () => {
         return 0;
       };
       
-      // Use the data from API/constants correctly
+      // Use the data from API or fall back to constants if API call failed
       const prayers = [
-        { name: 'Fajr', time: DEFAULT_PRAYER_TIMES.Fajr },
-        { name: 'Sunrise', time: DEFAULT_PRAYER_TIMES.Sunrise },
-        { name: 'Dhuhr', time: DEFAULT_PRAYER_TIMES.Dhuhr },
-        { name: 'Asr', time: DEFAULT_PRAYER_TIMES.Asr },
-        { name: 'Maghrib', time: DEFAULT_PRAYER_TIMES.Maghrib },
-        { name: 'Isha', time: DEFAULT_PRAYER_TIMES.Isha },
+        { name: 'Fajr', time: (prayerTimes as PrayerTimes)?.Fajr || DEFAULT_PRAYER_TIMES.Fajr },
+        { name: 'Sunrise', time: (prayerTimes as PrayerTimes)?.Sunrise || DEFAULT_PRAYER_TIMES.Sunrise },
+        { name: 'Dhuhr', time: (prayerTimes as PrayerTimes)?.Dhuhr || DEFAULT_PRAYER_TIMES.Dhuhr },
+        { name: 'Asr', time: (prayerTimes as PrayerTimes)?.Asr || DEFAULT_PRAYER_TIMES.Asr },
+        { name: 'Maghrib', time: (prayerTimes as PrayerTimes)?.Maghrib || DEFAULT_PRAYER_TIMES.Maghrib },
+        { name: 'Isha', time: (prayerTimes as PrayerTimes)?.Isha || DEFAULT_PRAYER_TIMES.Isha },
       ];
       
       // Find next prayer with better handling of time wrapping
@@ -133,9 +131,8 @@ const PrayerTimesTicker = () => {
         }
       }
       
-      // Per user request, we're setting Asr as the next prayer 
-      // This is accurate for Islamabad during current time
-      nextPrayerName = 'Asr';
+      // Use the actual next prayer based on calculations
+      // This will automatically update as time passes
       
       setNextPrayer(nextPrayerName);
     }, 5000); // Check every 5 seconds for more responsive updates
@@ -146,12 +143,12 @@ const PrayerTimesTicker = () => {
   const formattedTimes: PrayerTimes = isLoading || isError 
     ? DEFAULT_PRAYER_TIMES as unknown as PrayerTimes
     : {
-        Fajr: formatTime((prayerTimes as any)?.Fajr || DEFAULT_PRAYER_TIMES.Fajr),
-        Sunrise: formatTime((prayerTimes as any)?.Sunrise || DEFAULT_PRAYER_TIMES.Sunrise),
-        Dhuhr: formatTime((prayerTimes as any)?.Dhuhr || DEFAULT_PRAYER_TIMES.Dhuhr),
-        Asr: formatTime((prayerTimes as any)?.Asr || DEFAULT_PRAYER_TIMES.Asr),
-        Maghrib: formatTime((prayerTimes as any)?.Maghrib || DEFAULT_PRAYER_TIMES.Maghrib),
-        Isha: formatTime((prayerTimes as any)?.Isha || DEFAULT_PRAYER_TIMES.Isha),
+        Fajr: formatTime((prayerTimes as PrayerTimes)?.Fajr || DEFAULT_PRAYER_TIMES.Fajr),
+        Sunrise: formatTime((prayerTimes as PrayerTimes)?.Sunrise || DEFAULT_PRAYER_TIMES.Sunrise),
+        Dhuhr: formatTime((prayerTimes as PrayerTimes)?.Dhuhr || DEFAULT_PRAYER_TIMES.Dhuhr),
+        Asr: formatTime((prayerTimes as PrayerTimes)?.Asr || DEFAULT_PRAYER_TIMES.Asr),
+        Maghrib: formatTime((prayerTimes as PrayerTimes)?.Maghrib || DEFAULT_PRAYER_TIMES.Maghrib),
+        Isha: formatTime((prayerTimes as PrayerTimes)?.Isha || DEFAULT_PRAYER_TIMES.Isha),
         Juma: '1:30 PM'
       };
 
@@ -181,7 +178,7 @@ const PrayerTimesTicker = () => {
             <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-1 text-[#D4AF37] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1z" />
             </svg>
-            <span className="font-medium text-xs sm:text-sm whitespace-nowrap">{islamicDate}</span>
+            <IslamicDate />
           </div>
         </div>
         
