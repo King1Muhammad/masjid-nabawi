@@ -16,6 +16,7 @@ import ContactPage from "@/pages/contact-page";
 import VisionPage from "@/pages/vision-page";
 import Checkout from "@/pages/checkout";
 import DonationSuccess from "@/pages/donation-success";
+import AdminPanel from "@/pages/admin-panel";
 
 function Router() {
   const [location] = useLocation();
@@ -35,6 +36,7 @@ function Router() {
           <Route path="/community" component={CommunityPage} />
           <Route path="/contact" component={ContactPage} />
           <Route path="/vision" component={VisionPage} />
+          <Route path="/admin" component={AdminPanel} />
           <Route component={NotFound} />
         </Switch>
       </main>
