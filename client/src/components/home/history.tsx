@@ -18,6 +18,11 @@ const History = () => {
             
             <div className="grid md:grid-cols-2 gap-8">
               <div>
+                <img 
+                  src="/src/assets/IMG_20220826_175300_109.jpg"
+                  alt="Pre-Islamic Arabia"
+                  className="w-full h-48 object-cover rounded-lg shadow-md mb-4"
+                />
                 <h4 className="text-xl font-semibold text-[#D4AF37] mb-3">Before Islam</h4>
                 <ul className="space-y-3">
                   <li className="flex items-start">
@@ -48,6 +53,11 @@ const History = () => {
               </div>
               
               <div>
+                <img 
+                  src="/src/assets/IMG_20220826_183107_305.jpg"
+                  alt="Islamic Civilization"
+                  className="w-full h-48 object-cover rounded-lg shadow-md mb-4"
+                />
                 <h4 className="text-xl font-semibold text-[#0C6E4E] mb-3">After Islam</h4>
                 <ul className="space-y-3">
                   <li className="flex items-start">
