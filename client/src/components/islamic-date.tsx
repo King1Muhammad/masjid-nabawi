@@ -40,7 +40,7 @@ const IslamicDate = () => {
   }, []);
 
   return (
-    <span className="text-[#D4AF37] font-medium text-xs sm:text-sm">{hijriDate}</span>
+    <span className="text-[#D4AF37] font-medium text-[10px] xs:text-xs sm:text-sm">{hijriDate}</span>
   );
 };
 

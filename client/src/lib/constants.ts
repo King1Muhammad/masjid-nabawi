@@ -232,6 +232,30 @@ export const EDUCATIONAL_PROGRAMS = [
 ];
 
 // Contact information
+// Social media links
+export const SOCIAL_LINKS = {
+  facebook: 'https://web.facebook.com/profile.php?id=61574983740248',
+  youtube: 'https://youtube.com/shorts/5neIWBULmWg?si=PmXoQmGGhG3Z3Gwu',
+  whatsapp: 'https://wa.me/923339214600',
+};
+
+// Payment information
+export const PAYMENT_INFO = {
+  accountNumber: '0541003765900001',
+  accountTitle: 'Jamia Masjid Nabvi Qureshi Hashmi',
+  bank: 'Askari Bank',
+  branch: 'G-11 Branch, Islamabad',
+};
+
+// Society details
+export const SOCIETY_DETAILS = {
+  name: 'FGEHF D Blocks',
+  totalBlocks: 22,
+  flatsPerBlock: 8,
+  totalFlats: 176,
+  monthlyContribution: 1500, // PKR
+};
+
 export const CONTACT_INFO = {
   address: 'Jamia Masjid Nabvi Qureshi Hashmi, opposite D-13 Block FGEHF G-11/4 Islamabad, Pakistan',
   mapLink: 'https://maps.app.goo.gl/fS9FmcFzGBrCbveh7',

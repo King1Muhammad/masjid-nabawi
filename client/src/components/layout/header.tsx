@@ -61,16 +61,6 @@ const Header = () => {
     )}>
       <PrayerTimesTicker />
       
-      {/* Islamic Date Bar - More responsive design */}
-      <div className="bg-[#0C6E4E] text-white py-1">
-        <div className="container mx-auto px-4">
-          <div className="flex justify-center items-center">
-            <span className="text-xs sm:text-sm font-medium whitespace-nowrap">Islamic Date:&nbsp;</span>
-            <IslamicDate />
-          </div>
-        </div>
-      </div>
-      
       <nav className="container mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
           <Link href="/">
