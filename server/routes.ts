@@ -310,6 +310,54 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
     }
   });
+  
+  // API route to generate historical Islamic images
+  app.post("/api/generate-history-images", async (req: Request, res: Response) => {
+    try {
+      if (!process.env.OPENAI_API_KEY) {
+        return res.status(503).json({ 
+          message: "Image generation service unavailable. Please try again later or contact the administrator." 
+        });
+      }
+
+      // Predefined set of historical Islamic images
+      const historicalPrompts = [
+        {
+          prompt: "A detailed illustration of pre-Islamic Arabia showing a desert landscape with tents, camel caravans, trading posts, and the Kaaba in Mecca with idols. Warm colors, realistic artistic style with historical accuracy.",
+          filename: "pre-islamic-arabia.jpg"
+        },
+        {
+          prompt: "A respectful and dignified illustration representing the era of Prophet Muhammad (peace be upon him) showing Madinah's landscape with date palms, early Muslims engaged in daily activities, and the first simple mosque structure. No depiction of holy figures, focus on the environment and architecture. Historical accuracy, detailed artistic style.",
+          filename: "early-madinah.jpg"
+        },
+        {
+          prompt: "The original Masjid-e-Nabawi (Prophet's Mosque) in Madinah as it would have appeared in 622 CE - a simple structure with date palm trunks as pillars, a roof of palm leaves, and an open courtyard. Include historically accurate details of the surrounding environment. No depiction of holy figures, only architecture and landscape.",
+          filename: "original-masjid-nabawi.jpg"
+        },
+        {
+          prompt: "A panoramic view of Baghdad during the Islamic Golden Age (9th century) showing the House of Wisdom, scholars exchanging knowledge, astronomical observatories, libraries, and architectural marvels. Include various people from different backgrounds representing the cosmopolitan nature of Islamic civilization. Detailed, historically accurate illustration.",
+          filename: "islamic-golden-age.jpg"
+        },
+        {
+          prompt: "An illustration showing the scientific contributions of Islamic civilization - astronomers with astrolabes, physicians with medical instruments, mathematicians with geometric designs, chemists with laboratory equipment, and architects with building plans. Historical accuracy in clothing and tools, detailed artistic style.",
+          filename: "islamic-scientific-contributions.jpg"
+        },
+        {
+          prompt: "An intricate illustration showcasing Islamic art and architecture through the ages - featuring geometric patterns, arabesque designs, calligraphy, miniature paintings, and architectural elements like arches, domes, and minarets from different Islamic periods and regions. Rich in detail and color.",
+          filename: "islamic-art-architecture.jpg"
+        }
+      ];
+
+      const imagePaths = await generateMultipleImages(historicalPrompts);
+      res.json({ paths: imagePaths });
+    } catch (error: any) {
+      console.error("Error generating historical images:", error);
+      res.status(500).json({ 
+        message: "Error generating historical images", 
+        error: error.message 
+      });
+    }
+  });
 
   const httpServer = createServer(app);
   return httpServer;

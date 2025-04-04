@@ -1,5 +1,7 @@
 import { TIMELINE_ITEMS } from '@/lib/constants';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { useToast } from '@/hooks/use-toast';
+import { apiRequest } from '@/lib/queryClient';
 
 // Import custom image
 import islamicContributionsImage from '@assets/IMG_20230318_151137_544.jpg';
@@ -10,6 +12,10 @@ interface TimelineItemProps {
   image: string;
   isReversed?: boolean;
   content: string;
+}
+
+interface HistoricalImagesProps {
+  onImagesGenerated?: (paths: string[]) => void;
 }
 
 const TimelineItem = ({ title, description, image, isReversed = false, content }: TimelineItemProps) => {
@@ -31,28 +37,119 @@ const TimelineItem = ({ title, description, image, isReversed = false, content }
   );
 };
 
+const HistoricalImagesGenerator = ({ onImagesGenerated }: HistoricalImagesProps) => {
+  const [isGenerating, setIsGenerating] = useState(false);
+  const { toast } = useToast();
+
+  const generateHistoricalImages = async () => {
+    try {
+      setIsGenerating(true);
+      toast({ title: "Generating images", description: "Please wait while we generate historical images..." });
+      
+      const response = await apiRequest('POST', '/api/generate-history-images');
+      const data = await response.json();
+      
+      if (data.paths && data.paths.length > 0) {
+        toast({ 
+          title: "Images Generated", 
+          description: `Successfully generated ${data.paths.length} historical images.`
+        });
+        
+        if (onImagesGenerated) {
+          onImagesGenerated(data.paths);
+        }
+      }
+    } catch (error) {
+      console.error("Failed to generate historical images:", error);
+      toast({ 
+        title: "Error", 
+        description: "Failed to generate historical images. Please try again later.", 
+        variant: "destructive" 
+      });
+    } finally {
+      setIsGenerating(false);
+    }
+  };
+
+  return (
+    <div className="text-center my-8">
+      <button 
+        onClick={generateHistoricalImages}
+        disabled={isGenerating}
+        className="bg-[#0C6E4E] hover:bg-opacity-90 text-white px-6 py-3 rounded-md shadow-md transition-colors disabled:opacity-50 flex mx-auto items-center"
+      >
+        {isGenerating ? (
+          <>
+            <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            Generating Images...
+          </>
+        ) : (
+          <>
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            Generate Historical Images
+          </>
+        )}
+      </button>
+      <p className="text-sm text-gray-600 mt-2">
+        Generate high-quality images for each historical period using AI
+      </p>
+    </div>
+  );
+};
+
 const HistoryPage = () => {
   // Scroll to top on component mount
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
   
-  // Extended content for each timeline item
+  const [generatedImages, setGeneratedImages] = useState<string[]>([]);
+  
+  // Extended content for each timeline item with more details
   const extendedContent = [
-    "The Arabian Peninsula before Islam was primarily a tribal society with a rich oral tradition. The majority of Arabs were polytheists, worshipping numerous deities through idols. The Kaaba in Makkah housed 360 idols and was a major pilgrimage site. Trade was the economic backbone, with Makkah serving as a commercial hub due to its location on trade routes. The social structure was tribal, and warfare between tribes was common. Women had few rights, and female infanticide was practiced. This period, known as 'Jahiliyyah' (age of ignorance), was characterized by tribal loyalty above all else and limited central authority.",
+    "The Arabian Peninsula before Islam was primarily a tribal society with a rich oral tradition. The majority of Arabs were polytheists, worshipping numerous deities through idols. The Kaaba in Makkah housed 360 idols and was a major pilgrimage site. Trade was the economic backbone, with Makkah serving as a commercial hub due to its location on trade routes connecting Yemen to Syria and beyond. Social justice was largely absent, with the strong oppressing the weak. The social structure was tribal, with loyalty to one's tribe considered the highest virtue, and warfare between tribes was common and often lasted for generations. Women had few rights, and female infanticide was practiced out of fear of poverty or dishonor. This period, known as 'Jahiliyyah' (age of ignorance), was characterized by tribal loyalty above all else and limited central authority.",
     
-    "Prophet Muhammad ﷺ was born in Makkah around 570 CE to Abdullah and Amina. Orphaned at a young age, he was raised by his grandfather and then his uncle Abu Talib. Known for his honesty and trustworthiness, he received his first revelation at age 40 in the Cave of Hira from Angel Jibril (Gabriel). For 13 years in Makkah, he invited people to Islam despite severe opposition from the Quraysh tribe. In 622 CE, he migrated to Madinah (the Hijra), marking the beginning of the Islamic calendar. In Madinah, he established the first Islamic state, united the warring tribes, and established the Constitution of Madinah. Over time, Islam spread throughout Arabia, and before his death in 632 CE, most of the Arabian Peninsula had embraced Islam.",
+    "Prophet Muhammad ﷺ was born in Makkah around 570 CE to Abdullah and Amina of the respected Quraysh tribe. Orphaned at a young age, he was raised by his grandfather Abdul Muttalib and then his uncle Abu Talib. Even before prophethood, he was known for his exceptional character, earning the title 'Al-Amin' (the trustworthy). At age 40, while meditating in the Cave of Hira, he received his first revelation from Angel Jibril (Gabriel), marking the beginning of his prophetic mission. For 13 years in Makkah, he invited people to Islam, emphasizing monotheism and moral reform, despite severe opposition and persecution from the Quraysh tribe whose economic interests were tied to idol worship. In 622 CE, he migrated to Madinah (the Hijra), a journey that marks the beginning of the Islamic calendar. In Madinah, he established the first Islamic state based on brotherhood, justice, and equality, united the warring tribes, and established the Constitution of Madinah - the first written constitution in history that guaranteed rights for all citizens regardless of faith. He led by example, living simply despite his position of authority. Over time, Islam spread throughout Arabia through peaceful means and strategic alliances. Before his death in 632 CE, most of the Arabian Peninsula had embraced Islam, transforming from a divided, tribal society to a unified community guided by divine revelation.",
     
-    "Masjid-e-Nabawi (the Prophet's Mosque) was built in Madinah shortly after the Prophet Muhammad's ﷺ migration from Makkah in 622 CE. Initially a simple structure with palm trunks as pillars and a roof of palm leaves, it served not only as a place of worship but also as a community center, educational institution, and the seat of the Prophet's government. The original mosque was approximately 35 x 30 meters, with the eastern side containing apartments for the Prophet's family. After the Prophet's death, he was buried in his wife Aisha's room, which later became part of the mosque. Over centuries, various Islamic rulers expanded and beautified the mosque. Today, it's one of Islam's most sacred sites, characterized by its green dome above the Prophet's tomb, and can accommodate over a million worshippers.",
+    "Masjid-e-Nabawi (the Prophet's Mosque) was built in Madinah shortly after the Prophet Muhammad's ﷺ migration from Makkah in 622 CE. The land where the mosque was built belonged to two orphans, and the Prophet ﷺ purchased it fairly rather than simply claiming it. Initially a simple structure measuring approximately 35 x 30 meters, it featured walls made of mud bricks, palm trunks as pillars, and a roof of palm leaves and mud. The mosque had three doors and an open courtyard with a shaded area (suffah) where poor Muslims and those dedicated to learning would reside. The eastern side contained apartments for the Prophet's family, built from the same humble materials. The Prophet ﷺ himself participated in its construction, carrying bricks and stones alongside his companions. Beyond a place of worship, it served as a community center where people gathered, a court where disputes were resolved, an educational institution where the Quran was taught, and the seat of the Prophet's government. After the Prophet's death in 632 CE, he was buried in his wife Aisha's room, which later became part of the mosque. Over centuries, various Islamic rulers expanded and beautified the mosque, with major renovations during the reigns of Caliph Umar, Caliph Uthman, the Umayyads, the Abbasids, and the Ottomans. The most distinctive modern feature, the green dome (Qubat al-Khadra), was added in 1818 CE. Today, it's one of Islam's most sacred sites, second only to the Kaaba, and can accommodate over a million worshippers during Hajj and Ramadan. The design and function of Masjid-e-Nabawi continues to inspire mosques worldwide and serves as a model for our own Jamia Masjid Nabvi Qureshi Hashmi.",
     
-    "Islamic civilization experienced a golden age between the 8th and 14th centuries CE. Muslims made significant contributions to science, mathematics, medicine, astronomy, geography, architecture, art, literature, and philosophy. Baghdad and Córdoba became world centers of knowledge and culture. Institutions like libraries, hospitals, and universities flourished. Scholars translated and preserved Greek, Roman, and Persian works, adding their own discoveries and innovations. Muslim scientists like Ibn al-Haytham, al-Khwarizmi, and Ibn Sina (Avicenna) made groundbreaking contributions. The period saw advancements in irrigation techniques, astronomical instruments, surgical procedures, and architectural innovations such as the pointed arch. Islamic art developed distinctive styles in calligraphy, arabesque, geometric patterns, and miniature painting. This rich cultural and intellectual heritage profoundly influenced the European Renaissance."
+    "Islamic civilization experienced a golden age between the 8th and 14th centuries CE, a period characterized by remarkable scientific, cultural, and intellectual achievements. While Europe was in its Dark Ages, the Islamic world was a beacon of knowledge and innovation. Major centers like Baghdad, Córdoba, Cairo, and Damascus became global hubs of learning. The House of Wisdom (Bayt al-Hikmah) in Baghdad, established by Caliph Al-Ma'mun, was perhaps the greatest intellectual center of its time, attracting scholars from diverse backgrounds and faiths. Muslims made groundbreaking contributions across numerous fields: Ibn al-Haytham revolutionized optics, Al-Khwarizmi established algebra as a mathematical discipline, Ibn Sina's Canon of Medicine remained a standard medical text in Europe for centuries, Al-Zahrawi pioneered surgical instruments still used today, Al-Biruni accurately calculated Earth's circumference, and Ibn Khaldun developed early theories of sociology and economics. The period saw the establishment of the world's first degree-granting universities like Al-Qarawiyyin in Morocco (founded by a Muslim woman, Fatima al-Fihri) and libraries containing hundreds of thousands of volumes. Technological innovations included water-raising machines, astronomical instruments, and mechanical clocks. Islamic art flourished with distinctive styles in calligraphy, arabesque, geometric patterns, and architecture, while literature explored new genres and themes. This golden age was made possible by a culture that valued knowledge as a religious duty, practiced intellectual openness, provided institutional support for research, and embraced scholars regardless of faith or ethnicity. The contributions of this era not only enriched Islamic civilization but also laid much of the groundwork for the later European Renaissance."
   ];
 
   return (
     <div className="py-16 bg-[#F7F3E9]">
       <div className="container mx-auto px-4">
         <h1 className="text-4xl md:text-5xl font-heading text-[#0C6E4E] text-center mb-4">Islamic History & Heritage</h1>
-        <p className="text-xl text-center max-w-3xl mx-auto mb-16">Exploring the rich tapestry of Islamic civilization from pre-Islamic Arabia through the Prophet Muhammad's ﷺ life and the development of Islamic societies.</p>
+        <p className="text-xl text-center max-w-3xl mx-auto mb-8">Exploring the rich tapestry of Islamic civilization from pre-Islamic Arabia through the Prophet Muhammad's ﷺ life and the development of Islamic societies.</p>
+        
+        {/* Image Generator Button for Admin */}
+        <HistoricalImagesGenerator onImagesGenerated={setGeneratedImages} />
+        
+        {/* Display generated images in a gallery if available */}
+        {generatedImages.length > 0 && (
+          <div className="mb-16">
+            <h3 className="text-2xl font-heading text-[#0C6E4E] text-center mb-6">Generated Historical Images</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {generatedImages.map((path, index) => (
+                <div key={index} className="bg-white p-4 rounded-lg shadow-md">
+                  <img 
+                    src={path} 
+                    alt={`Generated Historical Image ${index + 1}`} 
+                    className="w-full h-64 object-cover rounded-lg mb-3"
+                  />
+                  <p className="text-center text-sm text-gray-600">
+                    {path.split('/').pop()?.replace('.jpg', '').split('-').join(' ')}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
         
         <div className="mb-16 bg-white rounded-lg shadow-lg p-8">
           <h2 className="text-3xl font-heading text-[#0C6E4E] mb-6">The Importance of Islamic History</h2>
@@ -63,7 +160,7 @@ const HistoryPage = () => {
           </div>
         </div>
         
-        <div className="space-y-8">
+        <div className="space-y-12">
           {TIMELINE_ITEMS.map((item, index) => (
             <TimelineItem 
               key={item.id}
@@ -161,6 +258,86 @@ const HistoryPage = () => {
                 <li>Charitable endowments (waqf) for public services</li>
                 <li>Early concepts of international law and diplomatic relations</li>
               </ul>
+            </div>
+          </div>
+        </div>
+        
+        {/* Additional section about Masjid Nabvi as a model */}
+        <div className="mt-16 bg-white rounded-lg shadow-lg p-8">
+          <h2 className="text-3xl font-heading text-[#0C6E4E] mb-6">Masjid-e-Nabawi as Our Model</h2>
+          
+          <div className="grid md:grid-cols-2 gap-8 items-center mb-8">
+            <div>
+              <p className="mb-4">As Jamia Masjid Nabvi Qureshi Hashmi Islamabad, we draw our inspiration directly from the original Masjid-e-Nabawi established by Prophet Muhammad ﷺ. Our mission statement reflects this commitment: <span className="font-semibold text-[#D4AF37]">مسجد نبوی كے طرز پر سارے اعمال كا آغاز مسجد ھٰذا سے</span> (Beginning all actions according to the model of Masjid-e-Nabawi from this mosque).</p>
+              
+              <p className="mb-4">We strive to embody the multifunctional role that the Prophet's mosque served in early Islamic society:</p>
+              
+              <ul className="list-disc pl-5 space-y-2 mb-4">
+                <li>A place of worship that welcomes all Muslims for prayer and spiritual growth</li>
+                <li>A center for Islamic education through our madrasa programs</li>
+                <li>A community hub where people can gather, connect, and support one another</li>
+                <li>A beacon of ethical values, promoting justice, transparency, and compassion</li>
+                <li>A source of assistance for those in need within our community</li>
+              </ul>
+              
+              <p>By following this comprehensive model, we aim to revive the true spirit and function of mosques as envisioned by the Prophet Muhammad ﷺ, serving not only as places of prayer but as centers of positive transformation for the entire community.</p>
+            </div>
+            
+            <div className="flex justify-center">
+              <div className="rounded-lg overflow-hidden shadow-lg max-w-md">
+                <img 
+                  src="/generated-images/original-masjid-nabawi.jpg" 
+                  alt="Original Masjid-e-Nabawi" 
+                  className="w-full h-auto"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.src = "@assets/IMG_20220826_183107_305.jpg";
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+          
+          <div className="p-6 bg-[#F7F3E9] rounded-lg">
+            <h3 className="text-xl font-medium text-[#0C6E4E] mb-3">Our Guiding Principles</h3>
+            <p className="mb-4">In following the model of Masjid-e-Nabawi, we adhere to these key principles:</p>
+            
+            <div className="grid md:grid-cols-3 gap-4">
+              <div className="bg-white p-4 rounded shadow-sm">
+                <div className="w-10 h-10 rounded-full bg-[#D4AF37] flex items-center justify-center mb-3 text-white">1</div>
+                <h4 className="font-medium mb-2">Inclusivity</h4>
+                <p className="text-sm">Welcoming all Muslims regardless of background, ethnicity, or social status</p>
+              </div>
+              
+              <div className="bg-white p-4 rounded shadow-sm">
+                <div className="w-10 h-10 rounded-full bg-[#D4AF37] flex items-center justify-center mb-3 text-white">2</div>
+                <h4 className="font-medium mb-2">Education</h4>
+                <p className="text-sm">Prioritizing Quranic and Islamic knowledge for all age groups</p>
+              </div>
+              
+              <div className="bg-white p-4 rounded shadow-sm">
+                <div className="w-10 h-10 rounded-full bg-[#D4AF37] flex items-center justify-center mb-3 text-white">3</div>
+                <h4 className="font-medium mb-2">Simplicity</h4>
+                <p className="text-sm">Focusing on substance and function rather than excessive ornamentation</p>
+              </div>
+              
+              <div className="bg-white p-4 rounded shadow-sm">
+                <div className="w-10 h-10 rounded-full bg-[#D4AF37] flex items-center justify-center mb-3 text-white">4</div>
+                <h4 className="font-medium mb-2">Community Service</h4>
+                <p className="text-sm">Actively addressing the needs of the community we serve</p>
+              </div>
+              
+              <div className="bg-white p-4 rounded shadow-sm">
+                <div className="w-10 h-10 rounded-full bg-[#D4AF37] flex items-center justify-center mb-3 text-white">5</div>
+                <h4 className="font-medium mb-2">Transparency</h4>
+                <p className="text-sm">Maintaining open financial records and decision-making processes</p>
+              </div>
+              
+              <div className="bg-white p-4 rounded shadow-sm">
+                <div className="w-10 h-10 rounded-full bg-[#D4AF37] flex items-center justify-center mb-3 text-white">6</div>
+                <h4 className="font-medium mb-2">Innovation</h4>
+                <p className="text-sm">Embracing beneficial technologies while preserving Islamic values</p>
+              </div>
             </div>
           </div>
         </div>
