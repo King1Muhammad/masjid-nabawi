@@ -243,13 +243,13 @@ export const CONTACT_INFO = {
   bankAccount: 'Contact masjid administration for bank account details'
 };
 
-// Default prayer times (will be updated with API data)
+// Default prayer times for Islamabad Hanafi timings (will be updated with API data)
 export const DEFAULT_PRAYER_TIMES = {
-  Fajr: '5:30 AM',
-  Sunrise: '6:45 AM',
-  Dhuhr: '1:15 PM',
-  Asr: '4:45 PM',
-  Maghrib: '6:30 PM',
-  Isha: '8:00 PM',
-  Juma: '1:30 PM'
+  Fajr: '04:15',
+  Sunrise: '05:41',
+  Dhuhr: '12:00',
+  Asr: '15:30',
+  Maghrib: '18:20',
+  Isha: '19:50',
+  Juma: '13:30'
 };
