@@ -98,7 +98,7 @@ export const TIMELINE_ITEMS = [
     title: 'Islamic Civilization',
     description: 'Islam encouraged education and knowledge, leading to the Islamic Golden Age with remarkable advancements in science, mathematics, medicine, and philosophy.',
     content: 'The message of Islam continues to inspire individuals to strive for a better world and a more just and inclusive society. Islamic scholars made significant contributions to various fields, including science, mathematics, medicine, and philosophy. The Islamic Golden Age witnessed remarkable advancements in these areas, shaping the world as we know it today.',
-    image: '@assets/madersa students.webp'
+    image: '@assets/islamic-civilization.webp'
   },
   {
     id: 5,

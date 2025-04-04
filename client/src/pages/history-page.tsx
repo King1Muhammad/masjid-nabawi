@@ -2,7 +2,7 @@ import { TIMELINE_ITEMS } from '@/lib/constants';
 import { useEffect } from 'react';
 
 // Import custom images
-import islamicContributionsImage from '@assets/madersa-students.webp';
+import islamicContributionsImage from '@assets/islamic-civilization.webp';
 import preIslamicImage from '@assets/pre-islamic-arabia.webp';
 import islamicPrinciplesImage from '@assets/islamic-principles.webp';
 import masjidImage from '@assets/our masjid project.webp';
