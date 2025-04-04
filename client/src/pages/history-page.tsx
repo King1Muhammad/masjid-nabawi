@@ -1,7 +1,5 @@
 import { TIMELINE_ITEMS } from '@/lib/constants';
-import { useEffect, useState } from 'react';
-import { useToast } from '@/hooks/use-toast';
-import { apiRequest } from '@/lib/queryClient';
+import { useEffect } from 'react';
 
 // Import custom images
 import islamicContributionsImage from '@assets/IMG_20230318_151137_544.jpg';
@@ -15,10 +13,6 @@ interface TimelineItemProps {
   image: string;
   isReversed?: boolean;
   content: string;
-}
-
-interface HistoricalImagesProps {
-  onImagesGenerated?: (paths: string[]) => void;
 }
 
 const TimelineItem = ({ title, description, image, isReversed = false, content }: TimelineItemProps) => {
@@ -40,79 +34,13 @@ const TimelineItem = ({ title, description, image, isReversed = false, content }
   );
 };
 
-const HistoricalImagesGenerator = ({ onImagesGenerated }: HistoricalImagesProps) => {
-  const [isGenerating, setIsGenerating] = useState(false);
-  const { toast } = useToast();
 
-  const generateHistoricalImages = async () => {
-    try {
-      setIsGenerating(true);
-      toast({ title: "Generating images", description: "Please wait while we generate historical images..." });
-      
-      const response = await apiRequest('POST', '/api/generate-history-images');
-      const data = await response.json();
-      
-      if (data.paths && data.paths.length > 0) {
-        toast({ 
-          title: "Images Generated", 
-          description: `Successfully generated ${data.paths.length} historical images.`
-        });
-        
-        if (onImagesGenerated) {
-          onImagesGenerated(data.paths);
-        }
-      }
-    } catch (error) {
-      console.error("Failed to generate historical images:", error);
-      toast({ 
-        title: "Error", 
-        description: "Failed to generate historical images. Please try again later.", 
-        variant: "destructive" 
-      });
-    } finally {
-      setIsGenerating(false);
-    }
-  };
-
-  return (
-    <div className="text-center my-8">
-      <button 
-        onClick={generateHistoricalImages}
-        disabled={isGenerating}
-        className="bg-[#0C6E4E] hover:bg-opacity-90 text-white px-6 py-3 rounded-md shadow-md transition-colors disabled:opacity-50 flex mx-auto items-center"
-      >
-        {isGenerating ? (
-          <>
-            <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-            </svg>
-            Generating Images...
-          </>
-        ) : (
-          <>
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-            Generate Historical Images
-          </>
-        )}
-      </button>
-      <p className="text-sm text-gray-600 mt-2">
-        Generate high-quality images for each historical period using AI
-      </p>
-    </div>
-  );
-};
 
 const HistoryPage = () => {
   // Scroll to top on component mount
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-  
-  const [generatedImages, setGeneratedImages] = useState<string[]>([]);
-  
   // Extended content for each timeline item with more details
   const extendedContent = [
     "The Arabian Peninsula before Islam was primarily a tribal society with a rich oral tradition. The majority of Arabs were polytheists, worshipping numerous deities through idols. The Kaaba in Makkah housed 360 idols and was a major pilgrimage site. Trade was the economic backbone, with Makkah serving as a commercial hub due to its location on trade routes connecting Yemen to Syria and beyond. Social justice was largely absent, with the strong oppressing the weak. The social structure was tribal, with loyalty to one's tribe considered the highest virtue, and warfare between tribes was common and often lasted for generations. Women had few rights, and female infanticide was practiced out of fear of poverty or dishonor. This period, known as 'Jahiliyyah' (age of ignorance), was characterized by tribal loyalty above all else and limited central authority.",
@@ -129,30 +57,6 @@ const HistoryPage = () => {
       <div className="container mx-auto px-4">
         <h1 className="text-4xl md:text-5xl font-heading text-[#0C6E4E] text-center mb-4">Islamic History & Heritage</h1>
         <p className="text-xl text-center max-w-3xl mx-auto mb-8">Exploring the rich tapestry of Islamic civilization from pre-Islamic Arabia through the Prophet Muhammad's ﷺ life and the development of Islamic societies.</p>
-        
-        {/* Image Generator Button for Admin */}
-        <HistoricalImagesGenerator onImagesGenerated={setGeneratedImages} />
-        
-        {/* Display generated images in a gallery if available */}
-        {generatedImages.length > 0 && (
-          <div className="mb-16">
-            <h3 className="text-2xl font-heading text-[#0C6E4E] text-center mb-6">Generated Historical Images</h3>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {generatedImages.map((path, index) => (
-                <div key={index} className="bg-white p-4 rounded-lg shadow-md">
-                  <img 
-                    src={path} 
-                    alt={`Generated Historical Image ${index + 1}`} 
-                    className="w-full h-64 object-cover rounded-lg mb-3"
-                  />
-                  <p className="text-center text-sm text-gray-600">
-                    {path.split('/').pop()?.replace('.jpg', '').split('-').join(' ')}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
         
         <div className="mb-16 bg-white rounded-lg shadow-lg p-8">
           <h2 className="text-3xl font-heading text-[#0C6E4E] mb-6">The Importance of Islamic History</h2>
@@ -289,13 +193,9 @@ const HistoryPage = () => {
             <div className="flex justify-center">
               <div className="rounded-lg overflow-hidden shadow-lg max-w-md">
                 <img 
-                  src="/generated-images/original-masjid-nabawi.jpg" 
+                  src={masjidImage} 
                   alt="Original Masjid-e-Nabawi" 
                   className="w-full h-auto"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.src = "@assets/IMG_20220826_183107_305.jpg";
-                  }}
                 />
               </div>
             </div>
