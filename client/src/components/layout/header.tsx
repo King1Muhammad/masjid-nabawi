@@ -182,7 +182,7 @@ const Header = () => {
         <div 
           id="mobile-menu" 
           className={cn(
-            "md:hidden mt-4 bg-white rounded-lg shadow-lg absolute left-0 right-0 mx-4 z-50 transition-all duration-300 ease-in-out",
+            "md:hidden mt-2 bg-white rounded-lg shadow-lg fixed left-0 right-0 mx-2 z-50 transition-all duration-300 ease-in-out max-h-[calc(100vh-180px)] overflow-y-auto",
             isMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4 pointer-events-none"
           )}
         >

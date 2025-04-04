@@ -120,9 +120,9 @@ const PrayerTimesTicker = () => {
 
   return (
     <div className="bg-[#0C6E4E] text-white py-3 overflow-hidden">
-      <div className="container mx-auto px-4 flex flex-wrap justify-between items-center">
-        <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 mb-2 sm:mb-0">
-          <div className="flex items-center">
+      <div className="container mx-auto px-4">
+        <div className="flex flex-col md:flex-row justify-between items-center">
+          <div className="flex flex-row flex-wrap justify-center md:justify-start items-center gap-4 w-full md:w-auto">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-1 text-[#D4AF37]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
@@ -142,7 +142,7 @@ const PrayerTimesTicker = () => {
           </div>
         </div>
         
-        <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
+        <div className="flex flex-row flex-wrap items-center justify-center md:justify-end gap-x-3 gap-y-2 w-full md:w-auto mt-4 md:mt-0">
           {Object.entries(formattedTimes).map(([prayer, time]) => {
             // Skip sunrise for display, but keep it for next prayer calculation
             if (prayer === 'Sunrise') return null;
