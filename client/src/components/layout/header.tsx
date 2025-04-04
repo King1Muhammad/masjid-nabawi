@@ -61,9 +61,14 @@ const Header = () => {
     )}>
       <PrayerTimesTicker />
       
-      {/* Islamic Date Bar */}
-      <div className="bg-[#0C6E4E] text-white text-center py-1">
-        <p className="text-sm font-medium">Islamic Date: <IslamicDate /></p>
+      {/* Islamic Date Bar - More responsive design */}
+      <div className="bg-[#0C6E4E] text-white py-1">
+        <div className="container mx-auto px-4">
+          <div className="flex justify-center items-center">
+            <span className="text-xs sm:text-sm font-medium whitespace-nowrap">Islamic Date:&nbsp;</span>
+            <IslamicDate />
+          </div>
+        </div>
       </div>
       
       <nav className="container mx-auto px-4 py-4">
@@ -178,11 +183,11 @@ const Header = () => {
           </div>
         </div>
         
-        {/* Mobile Menu */}
+        {/* Mobile Menu - Improved positioning and styling */}
         <div 
           id="mobile-menu" 
           className={cn(
-            "md:hidden mt-2 bg-white rounded-lg shadow-lg fixed left-0 right-0 mx-2 z-50 transition-all duration-300 ease-in-out max-h-[calc(100vh-180px)] overflow-y-auto",
+            "md:hidden mt-2 bg-white rounded-lg shadow-lg fixed left-0 right-0 mx-2 z-50 transition-all duration-300 ease-in-out max-h-[calc(100vh-130px)] overflow-y-auto",
             isMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4 pointer-events-none"
           )}
         >
