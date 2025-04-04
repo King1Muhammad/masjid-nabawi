@@ -2,9 +2,9 @@ import { TIMELINE_ITEMS } from '@/lib/constants';
 import { useEffect } from 'react';
 
 // Import custom images
-import islamicContributionsImage from '@assets/madersa students.webp';
-import preIslamicImage from '@assets/DALL·E 2025-04-05 00.40.38 - A realistic and historical depiction of Pre-Islamic Arabian society, featuring tribal tents, camels, and a bustling marketplace in the desert. In the .webp';
-import islamicPrinciplesImage from '@assets/DALL·E 2025-04-05 00.40.25 - A symbolic image representing the themes of monotheism, justice, education, and unity. The scene features an open Quran at the center, surrounded by r.webp';
+import islamicContributionsImage from '@assets/madersa-students.webp';
+import preIslamicImage from '@assets/pre-islamic-arabia.webp';
+import islamicPrinciplesImage from '@assets/islamic-principles.webp';
 import masjidImage from '@assets/our masjid project.webp';
 
 interface TimelineItemProps {
