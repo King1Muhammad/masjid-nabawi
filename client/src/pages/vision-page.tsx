@@ -583,60 +583,200 @@ const VisionPage = () => {
       {/* Roadmap */}
       <section className="py-16 bg-white" id="roadmap">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-heading text-[#0C6E4E] text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-heading text-[#0C6E4E] text-center mb-8">
             Roadmap – How We Will Achieve This Revolution
           </h2>
           
-          <div className="relative max-w-4xl mx-auto">
+          <p className="text-center text-lg text-gray-700 max-w-4xl mx-auto mb-16">
+            Reviving the Masjid-e-Nabawi model is a revolutionary journey that requires strategic planning and phased implementation. Our roadmap outlines precisely how we will transform both physical infrastructure and digital systems to create a comprehensive ecosystem for community development.
+          </p>
+          
+          <div className="relative max-w-5xl mx-auto">
             {/* Center line */}
             <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-[#D4AF37]"></div>
             
             {/* Phase 1 */}
-            <div className="relative z-10 mb-16">
+            <div className="relative z-10 mb-20">
               <div className="absolute left-1/2 transform -translate-x-1/2 -mt-3">
-                <div className="w-16 h-16 bg-[#0C6E4E] rounded-full border-4 border-[#D4AF37] flex items-center justify-center text-white font-bold">
+                <div className="w-16 h-16 bg-[#0C6E4E] rounded-full border-4 border-[#D4AF37] flex items-center justify-center text-white font-bold text-xl">
                   1
                 </div>
               </div>
-              <div className="grid md:grid-cols-2 gap-8 items-center">
+              <div className="grid md:grid-cols-2 gap-10 items-center">
                 <div className="md:text-right md:pr-12">
-                  <h3 className="text-2xl font-heading text-[#D4AF37] mb-4">Phase 1: Masjid Construction & Awareness</h3>
-                  <p className="mb-2">• Complete the physical masjid construction</p>
-                  <p className="mb-2">• Educate the local community about Masjid-e-Nabawi's model</p>
-                  <p className="mb-2">• Build a core team of volunteers and supporters</p>
-                  <p>• Establish initial educational programs</p>
+                  <div className="bg-[#F7F3E9] p-6 rounded-xl shadow-lg">
+                    <h3 className="text-2xl font-heading text-[#D4AF37] mb-5">Phase 1: Foundation & Infrastructure Development</h3>
+                    <div className="space-y-4">
+                      <div className="flex items-start md:justify-end gap-3">
+                        <div className="bg-[#0C6E4E] text-white p-2 rounded-full flex-shrink-0 mt-1 md:order-2">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6z" />
+                          </svg>
+                        </div>
+                        <div className="text-left md:text-right md:order-1">
+                          <h4 className="font-semibold text-[#0C6E4E]">Masjid Construction</h4>
+                          <p className="text-gray-700">Complete main prayer hall with capacity for 500 worshippers, featuring sustainable design principles and energy efficiency. Estimated completion by December 2025.</p>
+                        </div>
+                      </div>
+                      
+                      <div className="flex items-start md:justify-end gap-3">
+                        <div className="bg-[#0C6E4E] text-white p-2 rounded-full flex-shrink-0 mt-1 md:order-2">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                          </svg>
+                        </div>
+                        <div className="text-left md:text-right md:order-1">
+                          <h4 className="font-semibold text-[#0C6E4E]">Educational Facilities</h4>
+                          <p className="text-gray-700">Build classrooms for Quranic studies, advanced Islamic sciences, and modern STEM education for children, youth, and adults of all backgrounds.</p>
+                        </div>
+                      </div>
+                      
+                      <div className="flex items-start md:justify-end gap-3">
+                        <div className="bg-[#0C6E4E] text-white p-2 rounded-full flex-shrink-0 mt-1 md:order-2">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                          </svg>
+                        </div>
+                        <div className="text-left md:text-right md:order-1">
+                          <h4 className="font-semibold text-[#0C6E4E]">Community Building</h4>
+                          <p className="text-gray-700">Establish core volunteer team of 50+ dedicated members, conduct weekly awareness programs about the revolutionary Masjid-e-Nabawi model and its applications today.</p>
+                        </div>
+                      </div>
+                      
+                      <div className="flex items-start md:justify-end gap-3">
+                        <div className="bg-[#0C6E4E] text-white p-2 rounded-full flex-shrink-0 mt-1 md:order-2">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                          </svg>
+                        </div>
+                        <div className="text-left md:text-right md:order-1">
+                          <h4 className="font-semibold text-[#0C6E4E]">Transparent Administration</h4>
+                          <p className="text-gray-700">Create open governance structure with detailed financial reporting, community input systems, and democratic decision-making processes for masjid operations.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <div className="md:pl-12">
-                  <img 
-                    src={phase1Image} 
-                    alt="Phase 1" 
-                    className="rounded-xl shadow-lg"
-                  />
+                  <div className="bg-white p-2 rounded-xl shadow-lg">
+                    <img 
+                      src="https://img.freepik.com/free-photo/mosque-construction-site-with-workers-building-minarets-domes-traditional-islamic-architecture_741910-5838.jpg" 
+                      alt="Phase 1: Masjid Construction" 
+                      className="rounded-lg w-full h-auto object-cover"
+                    />
+                    <div className="mt-4 bg-[#F7F3E9] p-4 rounded-lg">
+                      <h4 className="font-semibold text-[#0C6E4E] mb-2">Key Milestones:</h4>
+                      <ul className="space-y-2 text-gray-700">
+                        <li className="flex items-start gap-2">
+                          <span className="text-[#D4AF37] font-bold">✓</span>
+                          <span>Land acquisition and construction permits secured</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-[#D4AF37] font-bold">✓</span>
+                          <span>Foundation work completed</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-[#D4AF37] font-bold">→</span>
+                          <span>Main structure construction (60% complete)</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-[#D4AF37] font-bold">→</span>
+                          <span>Interior work and utilities installation</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
             
             {/* Phase 2 */}
-            <div className="relative z-10 mb-16">
+            <div className="relative z-10 mb-20">
               <div className="absolute left-1/2 transform -translate-x-1/2 -mt-3">
-                <div className="w-16 h-16 bg-[#0C6E4E] rounded-full border-4 border-[#D4AF37] flex items-center justify-center text-white font-bold">
+                <div className="w-16 h-16 bg-[#0C6E4E] rounded-full border-4 border-[#D4AF37] flex items-center justify-center text-white font-bold text-xl">
                   2
                 </div>
               </div>
-              <div className="grid md:grid-cols-2 gap-8 items-center">
+              <div className="grid md:grid-cols-2 gap-10 items-center">
                 <div className="md:order-2 md:text-left md:pl-12">
-                  <h3 className="text-2xl font-heading text-[#D4AF37] mb-4">Phase 2: Building the Digital Platform</h3>
-                  <p className="mb-2">• Develop AI governance & voting system</p>
-                  <p className="mb-2">• Launch education & business modules</p>
-                  <p className="mb-2">• Implement blockchain-based financial system</p>
-                  <p>• Local implementation in Pakistan</p>
+                  <div className="bg-[#F7F3E9] p-6 rounded-xl shadow-lg">
+                    <h3 className="text-2xl font-heading text-[#D4AF37] mb-5">Phase 2: Digital Transformation & Community Services</h3>
+                    <div className="space-y-4">
+                      <div className="flex items-start gap-3">
+                        <div className="bg-[#0C6E4E] text-white p-2 rounded-full flex-shrink-0 mt-1">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+                          </svg>
+                        </div>
+                        <div>
+                          <h4 className="font-semibold text-[#0C6E4E]">Integrated Digital Platform</h4>
+                          <p className="text-gray-700">Develop a comprehensive mobile app and web platform connecting all masjid services, allowing for transparent financial tracking, community voting on initiatives, and real-time engagement.</p>
+                        </div>
+                      </div>
+                      
+                      <div className="flex items-start gap-3">
+                        <div className="bg-[#0C6E4E] text-white p-2 rounded-full flex-shrink-0 mt-1">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
+                          </svg>
+                        </div>
+                        <div>
+                          <h4 className="font-semibold text-[#0C6E4E]">AI Governance System</h4>
+                          <p className="text-gray-700">Implement AI-powered decision support systems that analyze community needs, manage resources efficiently, and ensure fair distribution of services while maintaining accountability.</p>
+                        </div>
+                      </div>
+                      
+                      <div className="flex items-start gap-3">
+                        <div className="bg-[#0C6E4E] text-white p-2 rounded-full flex-shrink-0 mt-1">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                        </div>
+                        <div>
+                          <h4 className="font-semibold text-[#0C6E4E]">Economic Empowerment</h4>
+                          <p className="text-gray-700">Launch interest-free microfinance programs for community members, provide business incubation services, and establish a transparent digital Zakat and Sadaqah collection and distribution system.</p>
+                        </div>
+                      </div>
+                      
+                      <div className="flex items-start gap-3">
+                        <div className="bg-[#0C6E4E] text-white p-2 rounded-full flex-shrink-0 mt-1">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
+                          </svg>
+                        </div>
+                        <div>
+                          <h4 className="font-semibold text-[#0C6E4E]">Regional Implementation</h4>
+                          <p className="text-gray-700">Extend the model to at least 5 additional masajids in Pakistan, demonstrating the scalability and effectiveness of the system with proven results and data-driven outcomes.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <div className="md:order-1 md:pr-12">
-                  <img 
-                    src={phase2Image} 
-                    alt="Phase 2" 
-                    className="rounded-xl shadow-lg"
-                  />
+                  <div className="bg-white p-2 rounded-xl shadow-lg">
+                    <img 
+                      src="https://img.freepik.com/free-photo/man-using-digital-tablet-mosque-interface_53876-97863.jpg" 
+                      alt="Phase 2: Digital Platform" 
+                      className="rounded-lg w-full h-auto object-cover"
+                    />
+                    <div className="mt-4 bg-[#F7F3E9] p-4 rounded-lg">
+                      <h4 className="font-semibold text-[#0C6E4E] mb-2">Expected Timeline:</h4>
+                      <ul className="space-y-2 text-gray-700">
+                        <li className="flex items-start gap-2">
+                          <span className="text-[#D4AF37] font-bold">2026 Q1-Q2:</span>
+                          <span>Platform design and development</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-[#D4AF37] font-bold">2026 Q3-Q4:</span>
+                          <span>Beta testing and community feedback</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-[#D4AF37] font-bold">2027 Q1-Q2:</span>
+                          <span>Full implementation and expansion</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -644,25 +784,114 @@ const VisionPage = () => {
             {/* Phase 3 */}
             <div className="relative z-10">
               <div className="absolute left-1/2 transform -translate-x-1/2 -mt-3">
-                <div className="w-16 h-16 bg-[#0C6E4E] rounded-full border-4 border-[#D4AF37] flex items-center justify-center text-white font-bold">
+                <div className="w-16 h-16 bg-[#0C6E4E] rounded-full border-4 border-[#D4AF37] flex items-center justify-center text-white font-bold text-xl">
                   3
                 </div>
               </div>
-              <div className="grid md:grid-cols-2 gap-8 items-center">
+              <div className="grid md:grid-cols-2 gap-10 items-center">
                 <div className="md:text-right md:pr-12">
-                  <h3 className="text-2xl font-heading text-[#D4AF37] mb-4">Phase 3: Global Expansion</h3>
-                  <p className="mb-2">• Partner with Masajids worldwide to implement the system</p>
-                  <p className="mb-2">• Create an AI-powered global governance model</p>
-                  <p className="mb-2">• Establish a worldwide network of knowledge centers</p>
-                  <p>• Build a unified ethical economic system</p>
+                  <div className="bg-[#F7F3E9] p-6 rounded-xl shadow-lg">
+                    <h3 className="text-2xl font-heading text-[#D4AF37] mb-5">Phase 3: Global Network & Unified System</h3>
+                    <div className="space-y-4">
+                      <div className="flex items-start md:justify-end gap-3">
+                        <div className="bg-[#0C6E4E] text-white p-2 rounded-full flex-shrink-0 mt-1 md:order-2">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                          </svg>
+                        </div>
+                        <div className="text-left md:text-right md:order-1">
+                          <h4 className="font-semibold text-[#0C6E4E]">Global Partnerships</h4>
+                          <p className="text-gray-700">Establish strategic alliances with at least 100 masajids across 30+ countries, creating a unified network of institutions following the Masjid-e-Nabawi model with shared resources and knowledge.</p>
+                        </div>
+                      </div>
+                      
+                      <div className="flex items-start md:justify-end gap-3">
+                        <div className="bg-[#0C6E4E] text-white p-2 rounded-full flex-shrink-0 mt-1 md:order-2">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                          </svg>
+                        </div>
+                        <div className="text-left md:text-right md:order-1">
+                          <h4 className="font-semibold text-[#0C6E4E]">Decentralized Governance</h4>
+                          <p className="text-gray-700">Implement a global, AI-enhanced governance framework that allows communities worldwide to participate in decision-making while maintaining local autonomy and cultural sensitivity.</p>
+                        </div>
+                      </div>
+                      
+                      <div className="flex items-start md:justify-end gap-3">
+                        <div className="bg-[#0C6E4E] text-white p-2 rounded-full flex-shrink-0 mt-1 md:order-2">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                          </svg>
+                        </div>
+                        <div className="text-left md:text-right md:order-1">
+                          <h4 className="font-semibold text-[#0C6E4E]">Knowledge Integration</h4>
+                          <p className="text-gray-700">Create a unified knowledge repository combining Islamic sciences with modern fields, providing accessible education to communities worldwide through multilingual platforms.</p>
+                        </div>
+                      </div>
+                      
+                      <div className="flex items-start md:justify-end gap-3">
+                        <div className="bg-[#0C6E4E] text-white p-2 rounded-full flex-shrink-0 mt-1 md:order-2">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                          </svg>
+                        </div>
+                        <div className="text-left md:text-right md:order-1">
+                          <h4 className="font-semibold text-[#0C6E4E]">Economic Integration</h4>
+                          <p className="text-gray-700">Establish an ethical global economic system connecting Muslim communities worldwide, enabling interest-free financing, fair trade networks, and sustainable business practices.</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <div className="md:pl-12">
-                  <img 
-                    src={phase3Image} 
-                    alt="Phase 3" 
-                    className="rounded-xl shadow-lg"
-                  />
+                  <div className="bg-white p-2 rounded-xl shadow-lg">
+                    <img 
+                      src="https://img.freepik.com/free-photo/global-business-network-connection-iot-internet-things-business-intelligence-concept_53876-124649.jpg" 
+                      alt="Phase 3: Global Network" 
+                      className="rounded-lg w-full h-auto object-cover"
+                    />
+                    <div className="mt-4 bg-[#F7F3E9] p-4 rounded-lg">
+                      <h4 className="font-semibold text-[#0C6E4E] mb-2">Vision for 2030:</h4>
+                      <ul className="space-y-2 text-gray-700">
+                        <li className="flex items-start gap-2">
+                          <span className="text-[#D4AF37] font-bold">•</span>
+                          <span>100+ masajids operating on unified system</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-[#D4AF37] font-bold">•</span>
+                          <span>10+ million users engaged globally</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-[#D4AF37] font-bold">•</span>
+                          <span>Comprehensive ethical economic system</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-[#D4AF37] font-bold">•</span>
+                          <span>AI-driven governance model established</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
                 </div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="text-center mt-20 max-w-3xl mx-auto">
+            <div className="p-6 bg-[#0C6E4E] rounded-xl shadow-lg text-white">
+              <h3 className="text-2xl font-heading text-[#D4AF37] mb-4">Join Our Revolutionary Journey</h3>
+              <p className="mb-6">This roadmap outlines our step-by-step approach to reviving the comprehensive model of Masjid-e-Nabawi for the modern era. Each phase builds upon the previous one, creating a sustainable, scalable system that empowers communities worldwide.</p>
+              <div className="flex flex-wrap justify-center gap-4">
+                <Link href="/donate">
+                  <div className="bg-[#D4AF37] hover:bg-opacity-90 text-white px-6 py-3 rounded-lg transition-colors font-medium cursor-pointer">
+                    Support the Vision
+                  </div>
+                </Link>
+                <Link href="/contact">
+                  <div className="bg-white text-[#0C6E4E] hover:bg-opacity-90 px-6 py-3 rounded-lg transition-colors font-medium cursor-pointer">
+                    Get Involved
+                  </div>
+                </Link>
               </div>
             </div>
           </div>
