@@ -14,6 +14,7 @@ import DonationPage from "@/pages/donation-page";
 import CommunityPage from "@/pages/community-page";
 import ContactPage from "@/pages/contact-page";
 import VisionPage from "@/pages/vision-page";
+import PlatformPage from "@/pages/platform-page";
 import Checkout from "@/pages/checkout";
 import DonationSuccess from "@/pages/donation-success";
 import AdminPanel from "@/pages/admin-panel";
@@ -37,6 +38,7 @@ function Router() {
           <Route path="/community" component={CommunityPage} />
           <Route path="/contact" component={ContactPage} />
           <Route path="/vision" component={VisionPage} />
+          <Route path="/platform" component={PlatformPage} />
           <Route path="/admin" component={AdminPanel} />
           <Route path="/payment" component={PaymentPage} />
           <Route component={NotFound} />

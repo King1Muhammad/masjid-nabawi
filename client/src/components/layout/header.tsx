@@ -130,6 +130,14 @@ const Header = () => {
                 Vision
               </div>
             </Link>
+            <Link href="/platform">
+              <div className={cn(
+                "text-[#0C6E4E] hover:text-[#D4AF37] transition-colors cursor-pointer", 
+                location === "/platform" && "font-medium"
+              )}>
+                Platform
+              </div>
+            </Link>
             <Link href="/donate">
               <div className="bg-[#D4AF37] hover:bg-opacity-90 text-white px-4 py-2 rounded-md transition-colors cursor-pointer">
                 Donate
@@ -229,6 +237,11 @@ const Header = () => {
             <Link href="/vision" onClick={closeMenu}>
               <div className="px-4 py-2 hover:bg-[#F7F3E9] transition-colors cursor-pointer">
                 Vision & Mission
+              </div>
+            </Link>
+            <Link href="/platform" onClick={closeMenu}>
+              <div className="px-4 py-2 hover:bg-[#F7F3E9] transition-colors cursor-pointer">
+                Platform
               </div>
             </Link>
             <Link href="/donate" onClick={closeMenu}>
