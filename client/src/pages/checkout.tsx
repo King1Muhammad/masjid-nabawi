@@ -115,19 +115,94 @@ export default function Checkout() {
     });
   }, []);
   
+  // State for payment proof upload
+  const [paymentProof, setPaymentProof] = useState<File | null>(null);
+  const [uploadedProofUrl, setUploadedProofUrl] = useState<string>('');
+  const [isUploading, setIsUploading] = useState(false);
+  const [publicConsent, setPublicConsent] = useState(false);
+  const [transactionIdOrReference, setTransactionIdOrReference] = useState('');
+
+  // Handle file input change for payment proof
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setPaymentProof(e.target.files[0]);
+    }
+  };
+
+  // Handle payment proof upload
+  const handleProofUpload = async () => {
+    if (!paymentProof) return;
+    
+    setIsUploading(true);
+    
+    try {
+      // Create FormData object for file upload
+      const formData = new FormData();
+      formData.append('file', paymentProof);
+      formData.append('fileName', `payment_proof_${Date.now()}_${paymentProof.name}`);
+      
+      const response = await fetch('/api/upload-proof', {
+        method: 'POST',
+        body: formData,
+      });
+      
+      if (!response.ok) throw new Error('Failed to upload payment proof');
+      
+      const data = await response.json();
+      setUploadedProofUrl(data.url);
+      
+      toast({
+        title: "Upload Successful",
+        description: "Your payment proof has been uploaded successfully.",
+      });
+    } catch (error) {
+      toast({
+        title: "Upload Failed",
+        description: "Failed to upload payment proof. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsUploading(false);
+    }
+  };
+  
   const handleCompletePayment = async () => {
     setIsSubmitting(true);
     
     try {
-      // Save donation to database
-      await apiRequest('POST', '/api/donations', {
+      // Check if transaction ID is entered for certain payment methods
+      if (['bank', 'easypaisa', 'jazzcash', 'nayapay'].includes(paymentMethod) && !transactionIdOrReference) {
+        toast({
+          title: "Transaction ID Required",
+          description: "Please enter the transaction ID or reference number for your payment.",
+          variant: "destructive",
+        });
+        setIsSubmitting(false);
+        return;
+      }
+      
+      // Save donation to database with additional details
+      const donationResponse = await apiRequest('POST', '/api/donations', {
         ...donationData,
-        paymentMethod
+        donationType: donationData.type, // Ensure the donation type is passed correctly
+        paymentMethod,
+        transactionId: transactionIdOrReference,
+        paymentProofUrl: uploadedProofUrl,
+        publicDisplayConsent: publicConsent,
+        receiptDetails: {
+          donorName: `${donationData.firstName} ${donationData.lastName}`.trim(),
+          amount: donationData.amount,
+          campaign: donationData.campaign,
+          donationType: donationData.type,
+          date: new Date().toISOString(),
+          paymentMethod: paymentMethod,
+        }
       });
       
+      // Show success message
       toast({
-        title: "Donation Recorded",
-        description: "Your donation has been recorded. Thank you for your contribution!",
+        title: "JazakAllah Khair!",
+        description: "Your donation has been recorded. A receipt has been sent to your email. May Allah reward you abundantly!",
       });
       
       // Redirect to success page

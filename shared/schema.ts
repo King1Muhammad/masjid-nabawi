@@ -31,7 +31,13 @@ export const donations = pgTable("donations", {
   cryptoType: text("crypto_type"), // trc20, bnb 
   cryptoAddress: text("crypto_address"), // Wallet address used for payment
   paymentStatus: text("payment_status").default("pending"), // pending, completed, failed
+  receiptSent: boolean("receipt_sent").default(false), // Whether receipt has been sent via email
+  receiptDetails: jsonb("receipt_details"), // Detailed information for the receipt
+  donorThanked: boolean("donor_thanked").default(false), // Whether thank you notification was sent
+  publicDisplayConsent: boolean("public_display_consent").default(false), // Consent to display donation publicly
+  comments: text("comments"), // Admin comments or notes about the donation
   createdAt: timestamp("created_at").defaultNow(),
+  processedAt: timestamp("processed_at"), // When donation was processed/confirmed
 });
 
 // Madrasa enrollment schema

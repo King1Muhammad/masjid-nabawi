@@ -51,6 +51,192 @@ const uploadStorage = multer.diskStorage({
 
 const upload = multer({ storage: uploadStorage });
 
+import { eq } from "drizzle-orm";
+import { db } from "./db";
+import { donations, Donation } from "@shared/schema";
+
+// Nodemailer setup for sending emails
+import nodemailer from 'nodemailer';
+
+// Configure email transport
+const createTransporter = () => {
+  return nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.EMAIL_USER || 'admin@masjidenabawismodel.com',
+      pass: process.env.EMAIL_PASSWORD
+    }
+  });
+};
+
+// Function to send donation receipt email
+const sendDonationReceipt = async (donation: Donation) => {
+  try {
+    const transporter = createTransporter();
+    
+    // Format the donation amount
+    const formattedAmount = parseFloat(donation.amount.toString()).toLocaleString();
+    
+    // Get payment method display name
+    let paymentMethodDisplay = 'Bank Transfer';
+    if (donation.paymentMethod === 'easypaisa') paymentMethodDisplay = 'EasyPaisa';
+    if (donation.paymentMethod === 'jazzcash') paymentMethodDisplay = 'JazzCash';
+    if (donation.paymentMethod === 'nayapay') paymentMethodDisplay = 'NayaPay';
+    if (donation.paymentMethod === 'crypto_trc20') paymentMethodDisplay = 'TRC20 Crypto';
+    if (donation.paymentMethod === 'crypto_bnb') paymentMethodDisplay = 'BNB Crypto';
+    
+    // Format date
+    const donationDate = new Date(donation.createdAt || new Date()).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+    
+    // Email template
+    const htmlContent = `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #0C6E4E; border-radius: 8px; overflow: hidden;">
+        <div style="background-color: #0C6E4E; color: white; padding: 20px; text-align: center;">
+          <h1 style="margin: 0;">Donation Receipt</h1>
+          <h2 style="margin: 5px 0 0 0;">Jamia Masjid Nabvi Qureshi Hashmi</h2>
+        </div>
+        
+        <div style="padding: 20px;">
+          <p>Assalamu Alaikum ${donation.firstName} ${donation.lastName},</p>
+          
+          <p>JazakAllah Khair for your generous contribution. Your donation will help us build and maintain Masjid-e-Nabawi's model in Islamabad.</p>
+          
+          <div style="background-color: #f5f5f5; border-radius: 8px; padding: 15px; margin: 20px 0;">
+            <h3 style="color: #0C6E4E; margin-top: 0;">Donation Details:</h3>
+            <table style="width: 100%;">
+              <tr>
+                <td style="padding: 8px 0; font-weight: bold;">Receipt Number:</td>
+                <td>${donation.id}</td>
+              </tr>
+              <tr>
+                <td style="padding: 8px 0; font-weight: bold;">Amount:</td>
+                <td>PKR ${formattedAmount}</td>
+              </tr>
+              <tr>
+                <td style="padding: 8px 0; font-weight: bold;">Date:</td>
+                <td>${donationDate}</td>
+              </tr>
+              <tr>
+                <td style="padding: 8px 0; font-weight: bold;">Donation Type:</td>
+                <td>${donation.donationType}</td>
+              </tr>
+              <tr>
+                <td style="padding: 8px 0; font-weight: bold;">Campaign:</td>
+                <td>${donation.campaign}</td>
+              </tr>
+              <tr>
+                <td style="padding: 8px 0; font-weight: bold;">Payment Method:</td>
+                <td>${paymentMethodDisplay}</td>
+              </tr>
+              ${donation.transactionId ? `
+              <tr>
+                <td style="padding: 8px 0; font-weight: bold;">Transaction ID:</td>
+                <td>${donation.transactionId}</td>
+              </tr>
+              ` : ''}
+            </table>
+          </div>
+          
+          <p>This donation receipt is for your records. May Allah accept your contribution and reward you abundantly in this world and the hereafter.</p>
+          
+          <p style="margin-top: 30px;">Sincerely,<br>Administration<br>Jamia Masjid Nabvi Qureshi Hashmi<br>Islamabad, Pakistan</p>
+          
+          <div style="margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px; font-size: 12px; color: #666; text-align: center;">
+            <p>For any inquiries, please contact us at:<br>
+            Email: admin@masjidenabawismodel.com<br>
+            Phone: +92 3339214600</p>
+            
+            <p>Jamia Masjid Nabvi Qureshi Hashmi<br>
+            Opposite D-13 Block, FGEHF G-11/4, Islamabad, Pakistan</p>
+          </div>
+        </div>
+      </div>
+    `;
+    
+    // Send email
+    await transporter.sendMail({
+      from: '"Masjid-e-Nabawi Islamabad" <admin@masjidenabawismodel.com>',
+      to: donation.email,
+      subject: 'Thank You for Your Donation - Receipt',
+      html: htmlContent,
+    });
+    
+    // Update receipt sent status in database
+    await db.update(donations)
+      .set({ receiptSent: true })
+      .where(eq(donations.id, donation.id));
+      
+    console.log(`Donation receipt sent to ${donation.email}`);
+    return true;
+  } catch (error) {
+    console.error('Failed to send donation receipt:', error);
+    return false;
+  }
+};
+
+// Function to send thank you notification
+const sendThankYouNotification = async (donation: Donation) => {
+  try {
+    const transporter = createTransporter();
+    
+    // Email template for thank you message
+    const htmlContent = `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #0C6E4E; border-radius: 8px; overflow: hidden;">
+        <div style="background-color: #0C6E4E; color: white; padding: 20px; text-align: center;">
+          <h1 style="margin: 0;">JazakAllah Khair</h1>
+          <h2 style="margin: 5px 0 0 0;">Jamia Masjid Nabvi Qureshi Hashmi</h2>
+        </div>
+        
+        <div style="padding: 20px; text-align: center;">
+          <p style="font-size: 18px;">Assalamu Alaikum ${donation.firstName} ${donation.lastName},</p>
+          
+          <p style="font-size: 16px;">We are deeply grateful for your generous contribution of <strong>PKR ${parseFloat(donation.amount.toString()).toLocaleString()}</strong> to our ${donation.campaign} campaign.</p>
+          
+          <div style="margin: 30px 0;">
+            <p style="font-style: italic; font-size: 20px; color: #0C6E4E;">
+              "The likeness of those who spend their wealth in the way of Allah is as the likeness of a grain that sprouts seven spikes. In every spike there are 100 grains. And Allah multiplies for whom He wills."
+            </p>
+            <p style="text-align: right; margin-top: 10px;">— Surah Al-Baqarah 2:261</p>
+          </div>
+          
+          <p>Your contribution helps us continue our mission to establish a model of Masjid-e-Nabawi in Islamabad, providing a place of worship, education, and community support.</p>
+          
+          <p style="margin-top: 30px;">May Allah accept your donation and reward you with goodness in this world and the hereafter.</p>
+          
+          <div style="margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px; font-size: 12px; color: #666;">
+            <p>For any inquiries, please contact us at:<br>
+            Email: admin@masjidenabawismodel.com<br>
+            Phone: +92 3339214600</p>
+          </div>
+        </div>
+      </div>
+    `;
+    
+    // Send email
+    await transporter.sendMail({
+      from: '"Masjid-e-Nabawi Islamabad" <admin@masjidenabawismodel.com>',
+      to: donation.email,
+      subject: 'JazakAllah Khair for Your Donation',
+      html: htmlContent,
+    });
+    
+    // Update donor thanked status in database
+    await db.update(donations)
+      .set({ donorThanked: true })
+      .where(eq(donations.id, donation.id));
+      
+    console.log(`Thank you notification sent to ${donation.email}`);
+    return true;
+  } catch (error) {
+    console.error('Failed to send thank you notification:', error);
+    return false;
+  }
+};
+
 export async function registerRoutes(app: Express): Promise<Server> {
   // API routes for prayer times - updated to use Hanafi method for Islamabad
   app.get("/api/prayer-times", async (req, res) => {
@@ -140,6 +326,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
   
+  // Upload payment proof endpoint
+  app.post("/api/upload-proof", upload.single('file'), async (req, res) => {
+    try {
+      if (!req.file) {
+        return res.status(400).json({ message: "No file uploaded" });
+      }
+      
+      // Return the URL to the uploaded file
+      const fileUrl = `/uploads/${req.file.filename}`;
+      res.json({ url: fileUrl });
+    } catch (error) {
+      console.error("Upload error:", error);
+      res.status(500).json({ message: "Failed to upload file" });
+    }
+  });
+
   // API routes for donations
   app.post("/api/donations", async (req, res) => {
     try {
@@ -163,7 +365,45 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       }
       
+      // Create the donation record
       const donation = await storage.createDonation(donationData);
+      
+      // Send receipt email
+      if (donation.email) {
+        try {
+          await sendDonationReceipt(donation);
+        } catch (emailError) {
+          console.error("Failed to send receipt email:", emailError);
+        }
+        
+        // Send thank you email
+        try {
+          await sendThankYouNotification(donation);
+        } catch (thankYouError) {
+          console.error("Failed to send thank you notification:", thankYouError);
+        }
+      }
+      
+      // Update campaign raised amount if campaign is specified
+      if (donation.campaign && donation.campaign !== 'general') {
+        try {
+          const campaigns = await storage.getCampaigns();
+          const campaign = campaigns.find(c => c.name.toLowerCase() === donation.campaign.toLowerCase());
+          
+          if (campaign) {
+            const currentRaised = parseFloat(campaign.raised?.toString() || "0") || 0;
+            const donationAmount = parseFloat(donation.amount.toString()) || 0;
+            
+            await storage.updateCampaignRaised(
+              campaign.id, 
+              currentRaised + donationAmount
+            );
+          }
+        } catch (campaignError) {
+          console.error("Failed to update campaign:", campaignError);
+        }
+      }
+      
       res.status(201).json(donation);
     } catch (error) {
       console.error("Donation error:", error);
