@@ -98,9 +98,10 @@ const DonationPage = () => {
         <div className="relative rounded-2xl overflow-hidden mb-16">
           <div className="absolute inset-0 bg-gradient-to-r from-[#0C6E4E]/80 to-[#0C6E4E]/60 z-10"></div>
           <div className="relative z-20 py-20 px-6 text-center">
-            <h1 className="text-4xl md:text-5xl font-heading text-white mb-4">Build a Legacy of Endless Rewards</h1>
+            <h1 className="text-4xl md:text-5xl font-heading text-white mb-4">Your Contribution, Our Future</h1>
+            <h2 className="text-2xl md:text-3xl font-heading text-white/90 mb-4">Building a Path to a Stronger Community and a Better Tomorrow</h2>
             <p className="text-xl text-white/90 max-w-3xl mx-auto mb-8">
-              "Whoever builds a mosque for Allah, Allah will build for him a similar house in Paradise." (Sahih Bukhari)
+              Join us in creating a masjid that not only serves as a space for worship but also empowers communities through education, transparency, and technology. By donating, you're contributing to the construction of a masjid based on the noble model of Masjid e Nabawi, as well as a visionary global platform for decentralized governance and transparent democracy that connects societies worldwide.
             </p>
             <a 
               href="#donation-form" 
@@ -434,8 +435,8 @@ const DonationPage = () => {
                 </div>
                 
                 <div className="mb-6 p-4 bg-[#F7F3E9] rounded-md">
-                  <h3 className="font-medium mb-2">Confirmation</h3>
-                  <p className="text-sm">Upon successful donation, a receipt will be sent to your email address. JazakAllah Khair for your generosity!</p>
+                  <h3 className="font-medium mb-2">Thank You</h3>
+                  <p className="text-sm">Thank you for your generous contribution! A confirmation receipt will be sent to your email address. JazakAllah Khair for your generosity!</p>
                 </div>
                 
                 <button 
@@ -465,14 +466,17 @@ const DonationPage = () => {
           <div className="grid md:grid-cols-2 gap-8">
             <div>
               <h2 className="text-2xl font-heading mb-6">How Your Donations Help</h2>
+              <p className="mb-4 text-lg">Your donations are instrumental in helping us build more than just a masjid – they are creating a global platform that connects communities through transparent governance, education, and support for those in need.</p>
+              <p className="mb-6 text-lg">Every penny donated goes directly into the construction, education, charity, and innovative global platform designed to uplift societies worldwide.</p>
+              
               <ul className="space-y-4">
                 <li className="flex items-start">
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-[#D4AF37] mr-2 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                   </svg>
                   <div>
-                    <h3 className="font-medium">Maintain and improve masjid facilities</h3>
-                    <p className="text-sm opacity-80">Ensuring our prayer halls, ablution areas, and classrooms remain clean, comfortable and well-maintained</p>
+                    <h3 className="font-medium">Masjid Construction & Maintenance</h3>
+                    <p className="text-sm opacity-80">Completing our masjid construction and ensuring prayer halls, ablution areas, and classrooms remain well-maintained</p>
                   </div>
                 </li>
                 <li className="flex items-start">
@@ -480,8 +484,8 @@ const DonationPage = () => {
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                   </svg>
                   <div>
-                    <h3 className="font-medium">Support educational programs and scholarships</h3>
-                    <p className="text-sm opacity-80">Providing quality Islamic education to children and adults regardless of financial circumstances</p>
+                    <h3 className="font-medium">Global Platform Development</h3>
+                    <p className="text-sm opacity-80">Building an AI-powered decentralized governance platform that connects Muslims worldwide through transparent systems</p>
                   </div>
                 </li>
                 <li className="flex items-start">
@@ -489,8 +493,8 @@ const DonationPage = () => {
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                   </svg>
                   <div>
-                    <h3 className="font-medium">Fund community services and charity work</h3>
-                    <p className="text-sm opacity-80">Distributing food to the needy, supporting widows and orphans, and providing emergency assistance</p>
+                    <h3 className="font-medium">Islamic Education Programs</h3>
+                    <p className="text-sm opacity-80">Supporting our madrasa, Quran classes, and scholarship programs for local and international students</p>
                   </div>
                 </li>
                 <li className="flex items-start">
@@ -498,8 +502,8 @@ const DonationPage = () => {
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                   </svg>
                   <div>
-                    <h3 className="font-medium">Sponsor events and programs throughout the year</h3>
-                    <p className="text-sm opacity-80">Organizing Ramadan iftars, Eid celebrations, educational seminars, and youth activities</p>
+                    <h3 className="font-medium">Charity & Community Support</h3>
+                    <p className="text-sm opacity-80">Distributing aid to the needy, supporting widows and orphans, and providing emergency assistance to those in need</p>
                   </div>
                 </li>
               </ul>
@@ -542,11 +546,11 @@ const DonationPage = () => {
             
             <div className="grid md:grid-cols-2 gap-6 mb-8">
               <div className="bg-[#F7F3E9] p-6 rounded-lg">
-                <p className="italic mb-4">"I've been donating to Jamia Masjid Nabvi Qureshi Hashmi for the past 2 years. The transparency and the impact they create with every rupee is remarkable. It gives me peace knowing my sadaqah is being used for such noble purposes."</p>
+                <p className="italic mb-4">"Your support not only builds a masjid but strengthens the community for generations to come. Together, we create spaces of worship, education, and unity."</p>
                 <p className="font-medium">- Ahmed Khan, Regular Donor</p>
               </div>
               <div className="bg-[#F7F3E9] p-6 rounded-lg">
-                <p className="italic mb-4">"Contributing to the madrasa program has been a blessing for our family. Knowing that we're helping provide Islamic education to children who otherwise wouldn't have access fills our hearts with joy."</p>
+                <p className="italic mb-4">"Every donation is a stepping stone toward a more compassionate world, reflecting the teachings of the Prophet Muhammad ﷺ."</p>
                 <p className="font-medium">- Fatima Ahmed, Monthly Donor</p>
               </div>
             </div>
@@ -555,12 +559,12 @@ const DonationPage = () => {
               <h3 className="font-heading text-xl text-[#0C6E4E] mb-4 text-center">Words of Wisdom</h3>
               <div className="space-y-4">
                 <div className="bg-[#F7F3E9] p-4 rounded-lg">
-                  <p className="text-center italic">"The likeness of those who spend their wealth in the way of Allah is as the likeness of a grain that grows seven ears, in every ear a hundred grains. And Allah multiplies [His reward] for whom He wills."</p>
-                  <p className="text-center font-medium mt-2">- Quran 2:261</p>
+                  <p className="text-center italic">"Build a mosque for Allah, and Allah will build a house for you in Paradise."</p>
+                  <p className="text-center font-medium mt-2">- Sahih Bukhari</p>
                 </div>
                 <div className="bg-[#F7F3E9] p-4 rounded-lg">
-                  <p className="text-center italic">"Charity does not decrease wealth, no one forgives another except that Allah increases his honor, and no one humbles himself for the sake of Allah except that Allah raises his status."</p>
-                  <p className="text-center font-medium mt-2">- Prophet Muhammad ﷺ (Sahih Muslim)</p>
+                  <p className="text-center italic">"The best charity is that which is given while you are in need."</p>
+                  <p className="text-center font-medium mt-2">- Prophet Muhammad ﷺ</p>
                 </div>
               </div>
             </div>
@@ -570,7 +574,11 @@ const DonationPage = () => {
           <div className="bg-white rounded-lg shadow-lg p-8 mt-12">
             <h2 className="text-2xl font-heading text-[#0C6E4E] mb-6 text-center">Contact Us / Get Involved</h2>
             
-            <div className="grid md:grid-cols-3 gap-6">
+            <div className="mb-6 text-center">
+              <p className="text-lg mb-4">We are here to answer your questions and help you get involved. Reach out to us to learn how you can support the masjid, contribute to the platform, or simply learn more about our mission.</p>
+            </div>
+            
+            <div className="grid md:grid-cols-4 gap-6">
               <div className="text-center">
                 <div className="bg-[#0C6E4E] text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -603,6 +611,29 @@ const DonationPage = () => {
                 <p className="text-sm">Opposite D-13 Block FGEHF</p>
                 <p className="text-sm">G-11/4 Islamabad, Pakistan</p>
               </div>
+              <div className="text-center">
+                <div className="bg-[#0C6E4E] text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M3 18v-6a9 9 0 0 1 18 0v6"></path>
+                    <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path>
+                  </svg>
+                </div>
+                <h3 className="font-medium mb-2">WhatsApp</h3>
+                <a href="https://wa.me/923339214600" target="_blank" rel="noopener noreferrer" className="text-sm text-[#0C6E4E] hover:underline">+92 333-9214600</a>
+              </div>
+            </div>
+            
+            <div className="mt-8">
+              <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3319.3350328127934!2d73.03202027636844!3d33.69957933749264!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38dfbe5be3f46739%3A0xd7530c73e0295e1c!2sJamia%20Masjid%20Nabavi%20Qureshi%20Hashmi!5e0!3m2!1sen!2s!4v1617458769111!5m2!1sen!2s" 
+                width="100%" 
+                height="300" 
+                style={{ border: 0 }} 
+                allowFullScreen={true} 
+                loading="lazy"
+                className="rounded-lg"
+                title="Masjid Location"
+              ></iframe>
             </div>
           </div>
           
