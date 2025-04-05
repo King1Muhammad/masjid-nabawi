@@ -2,7 +2,8 @@ import { useEffect } from 'react';
 import { Link } from 'wouter';
 
 // Import custom images
-import preIslamicImage from '@assets/pre-islamic-arabia.webp';
+// Import images directly from public folder
+const preIslamicImage = '/images/pre-islamic-arabia.webp';
 import islamicCivilizationImage from '@assets/islamic-principles.webp';
 import masjidConstructionImage from '@assets/IMG_20230124_151302_955.jpg';
 import chairmanImage from '@assets/chairman.png';
@@ -11,7 +12,8 @@ import constructionSiteImage from '@assets/construction_site.jpg';
 import masjidHeroImage from '@assets/IMG_20230318_151014_122.jpg';
 import masjidTeamImage from '@assets/IMG_20230318_150704_129.jpg';
 import phase1Image from '@assets/IMG_20230318_150712_252.jpg';
-import phase2Image from '@assets/IMG_20230318_151124_594.jpg';
+// Import images directly from public folder
+const phase2Image = '/images/global_platform.jpg';
 import phase3Image from '@assets/IMG_20230318_151134_689.jpg';
 import constructionApprovalImage from '@assets/construction_approval.jpg';
 import masjidAdministrationImage from '@assets/masjidnabviadministration.jpg';
@@ -755,8 +757,8 @@ const VisionPage = () => {
                 <div className="md:order-1 md:pr-12">
                   <div className="bg-white p-2 rounded-xl shadow-lg">
                     <img 
-                      src={masjidAdministrationImage} 
-                      alt="Phase 2: Masjid Administration" 
+                      src={phase2Image} 
+                      alt="Phase 2: Global Platform" 
                       className="rounded-lg w-full h-auto object-cover"
                     />
                     <div className="mt-4 bg-[#F7F3E9] p-4 rounded-lg">
