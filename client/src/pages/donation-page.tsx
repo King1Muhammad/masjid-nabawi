@@ -304,13 +304,20 @@ const DonationPage = () => {
                     {...register('campaign')}
                   >
                     <option value="general">General Masjid Fund</option>
-                    <option value="construction">Masjid Construction</option>
-                    <option value="global_platform">Visionary Global Platform</option>
-                    <option value="madrasa">Madrasa / Islamic Education</option>
-                    <option value="mission_expansion">Mission Expansion</option>
-                    <option value="sadaqah_zakat">Sadaqah / Zakat for Needy</option>
+                    <option value="Masjid Construction">Masjid Construction</option>
+                    <option value="Global Platform">Global Platform</option>
+                    <option value="Madrasa">Madrasa / Islamic Education</option>
+                    <option value="Mission Expansion">Mission Expansion</option>
+                    <option value="zakat">Zakat</option>
+                    <option value="sadaqah">Sadaqah</option>
+                    {/* Dynamic campaigns from backend */}
                     {campaigns?.map(campaign => (
-                      <option key={campaign.id} value={campaign.name}>{campaign.name}</option>
+                      campaign.name !== "Masjid Construction" && 
+                      campaign.name !== "Global Platform" && 
+                      campaign.name !== "Madrasa" && 
+                      campaign.name !== "Mission Expansion" && (
+                        <option key={campaign.id} value={campaign.name}>{campaign.name}</option>
+                      )
                     ))}
                   </select>
                 </div>

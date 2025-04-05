@@ -345,17 +345,23 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // API routes for donations
   app.post("/api/donations", async (req, res) => {
     try {
-      const validationResult = insertDonationSchema.safeParse(req.body);
+      console.log("Received donation request:", req.body);
       
-      if (!validationResult.success) {
-        return res.status(400).json({ 
-          message: "Invalid donation data", 
-          errors: validationResult.error.format() 
+      // Check required fields manually since some of our form data might need preprocessing
+      if (!req.body.amount || !req.body.donationType || !req.body.firstName || !req.body.lastName || !req.body.email) {
+        return res.status(400).json({
+          message: "Missing required fields",
+          required: "amount, donationType, firstName, lastName, email"
         });
       }
       
+      // Convert amount to a valid numeric string if it's not already
+      if (typeof req.body.amount === 'number') {
+        req.body.amount = req.body.amount.toString();
+      }
+      
       // Handle crypto donation data
-      const donationData = validationResult.data;
+      let donationData = { ...req.body };
       if (donationData.paymentMethod === 'crypto_trc20' || donationData.paymentMethod === 'crypto_bnb') {
         if (!donationData.cryptoType || !donationData.cryptoAddress) {
           donationData.cryptoType = donationData.paymentMethod === 'crypto_trc20' ? 'trc20' : 'bnb';
@@ -365,13 +371,29 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       }
       
-      // Create the donation record
-      const donation = await storage.createDonation(donationData);
+      // Now try to validate the data with Zod schema
+      const validationResult = insertDonationSchema.safeParse(donationData);
       
-      // Send receipt email
+      if (!validationResult.success) {
+        console.error("Validation errors:", validationResult.error.format());
+        return res.status(400).json({ 
+          message: "Invalid donation data", 
+          errors: validationResult.error.format() 
+        });
+      }
+      
+      // Create the donation record
+      const finalDonationData = validationResult.data;
+      console.log("Processed donation data:", finalDonationData);
+      
+      const donation = await storage.createDonation(finalDonationData);
+      console.log("Donation created:", donation);
+      
+      // Send receipt email if we have a valid email
       if (donation.email) {
         try {
           await sendDonationReceipt(donation);
+          console.log("Receipt email sent to:", donation.email);
         } catch (emailError) {
           console.error("Failed to send receipt email:", emailError);
         }
@@ -379,6 +401,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         // Send thank you email
         try {
           await sendThankYouNotification(donation);
+          console.log("Thank you notification sent to:", donation.email);
         } catch (thankYouError) {
           console.error("Failed to send thank you notification:", thankYouError);
         }
@@ -398,6 +421,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
               campaign.id, 
               currentRaised + donationAmount
             );
+            console.log(`Updated campaign ${campaign.name} raised amount to ${currentRaised + donationAmount}`);
           }
         } catch (campaignError) {
           console.error("Failed to update campaign:", campaignError);

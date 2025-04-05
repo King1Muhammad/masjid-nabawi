@@ -212,10 +212,20 @@ export const insertUserSchema = createInsertSchema(users).pick({
   name: true,
 });
 
-export const insertDonationSchema = createInsertSchema(donations).omit({
-  id: true,
-  createdAt: true,
-});
+// For the Donation Schema, we need special handling of amount field to accept 
+// both number and string inputs for flexibility and prevent validation errors
+export const insertDonationSchema = createInsertSchema(donations)
+  .omit({
+    id: true,
+    createdAt: true,
+  })
+  .extend({
+    // Allow amount to be a string or a number
+    amount: z.union([
+      z.string().min(1, "Amount is required"),
+      z.number().min(1, "Amount must be greater than 0"),
+    ]),
+  });
 
 export const insertEnrollmentSchema = createInsertSchema(enrollments).omit({
   id: true,

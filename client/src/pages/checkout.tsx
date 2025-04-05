@@ -182,12 +182,21 @@ export default function Checkout() {
       }
       
       // Save donation to database with additional details
-      const donationResponse = await apiRequest('POST', '/api/donations', {
-        ...donationData,
+      const donationFormData = {
+        userId: null, // Not needed if anonymous donation
+        amount: donationData.amount.toString(),
         donationType: donationData.type, // Ensure the donation type is passed correctly
+        campaign: donationData.campaign,
+        firstName: donationData.firstName,
+        lastName: donationData.lastName,
+        email: donationData.email,
+        message: donationData.message || "",
+        anonymous: donationData.anonymous,
         paymentMethod,
         transactionId: transactionIdOrReference,
         paymentProofUrl: uploadedProofUrl,
+        cryptoType: donationData.cryptoType,
+        cryptoAddress: donationData.cryptoAddress,
         publicDisplayConsent: publicConsent,
         receiptDetails: {
           donorName: `${donationData.firstName} ${donationData.lastName}`.trim(),
@@ -197,7 +206,10 @@ export default function Checkout() {
           date: new Date().toISOString(),
           paymentMethod: paymentMethod,
         }
-      });
+      };
+      
+      console.log("Submitting donation data:", donationFormData);
+      const donationResponse = await apiRequest('POST', '/api/donations', donationFormData);
       
       // Show success message
       toast({
