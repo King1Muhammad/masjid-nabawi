@@ -442,8 +442,8 @@ const DonationPage = () => {
                 </div>
                 
                 <div className="mb-6 p-4 bg-[#F7F3E9] rounded-md">
-                  <h3 className="font-medium mb-2">Thank You</h3>
-                  <p className="text-sm">Thank you for your generous contribution! A confirmation receipt will be sent to your email address. JazakAllah Khair for your generosity!</p>
+                  <h3 className="font-medium mb-2 text-gray-800">Thank You</h3>
+                  <p className="text-sm text-gray-700">Thank you for your generous contribution! A confirmation receipt will be sent to your email address. JazakAllah Khair for your generosity!</p>
                 </div>
                 
                 <button 
@@ -553,12 +553,12 @@ const DonationPage = () => {
             
             <div className="grid md:grid-cols-2 gap-6 mb-8">
               <div className="bg-[#F7F3E9] p-6 rounded-lg">
-                <p className="italic mb-4">"Your support not only builds a masjid but strengthens the community for generations to come. Together, we create spaces of worship, education, and unity."</p>
-                <p className="font-medium">- Ahmed Khan, Regular Donor</p>
+                <p className="italic mb-4 text-gray-700">"Your support not only builds a masjid but strengthens the community for generations to come. Together, we create spaces of worship, education, and unity."</p>
+                <p className="font-medium text-gray-800">- Ahmed Khan, Regular Donor</p>
               </div>
               <div className="bg-[#F7F3E9] p-6 rounded-lg">
-                <p className="italic mb-4">"Every donation is a stepping stone toward a more compassionate world, reflecting the teachings of the Prophet Muhammad ﷺ."</p>
-                <p className="font-medium">- Fatima Ahmed, Monthly Donor</p>
+                <p className="italic mb-4 text-gray-700">"Every donation is a stepping stone toward a more compassionate world, reflecting the teachings of the Prophet Muhammad ﷺ."</p>
+                <p className="font-medium text-gray-800">- Fatima Ahmed, Monthly Donor</p>
               </div>
             </div>
             
@@ -566,12 +566,12 @@ const DonationPage = () => {
               <h3 className="font-heading text-xl text-[#0C6E4E] mb-4 text-center">Words of Wisdom</h3>
               <div className="space-y-4">
                 <div className="bg-[#F7F3E9] p-4 rounded-lg">
-                  <p className="text-center italic">"Build a mosque for Allah, and Allah will build a house for you in Paradise."</p>
-                  <p className="text-center font-medium mt-2">- Sahih Bukhari</p>
+                  <p className="text-center italic text-gray-700">"Build a mosque for Allah, and Allah will build a house for you in Paradise."</p>
+                  <p className="text-center font-medium mt-2 text-gray-800">- Sahih Bukhari</p>
                 </div>
                 <div className="bg-[#F7F3E9] p-4 rounded-lg">
-                  <p className="text-center italic">"The best charity is that which is given while you are in need."</p>
-                  <p className="text-center font-medium mt-2">- Prophet Muhammad ﷺ</p>
+                  <p className="text-center italic text-gray-700">"The best charity is that which is given while you are in need."</p>
+                  <p className="text-center font-medium mt-2 text-gray-800">- Prophet Muhammad ﷺ</p>
                 </div>
               </div>
             </div>
@@ -582,7 +582,7 @@ const DonationPage = () => {
             <h2 className="text-2xl font-heading text-[#0C6E4E] mb-6 text-center">Contact Us / Get Involved</h2>
             
             <div className="mb-6 text-center">
-              <p className="text-lg mb-4">We are here to answer your questions and help you get involved. Reach out to us to learn how you can support the masjid, contribute to the platform, or simply learn more about our mission.</p>
+              <p className="text-lg mb-4 text-gray-700">We are here to answer your questions and help you get involved. Reach out to us to learn how you can support the masjid, contribute to the platform, or simply learn more about our mission.</p>
             </div>
             
             <div className="grid md:grid-cols-4 gap-6">
@@ -592,9 +592,9 @@ const DonationPage = () => {
                     <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
                   </svg>
                 </div>
-                <h3 className="font-medium mb-2">Call Us</h3>
-                <p className="text-sm">+92 334-9214600</p>
-                <p className="text-sm">+92 346-8053268</p>
+                <h3 className="font-medium mb-2 text-gray-800">Call Us</h3>
+                <p className="text-sm text-gray-700">+92 334-9214600</p>
+                <p className="text-sm text-gray-700">+92 346-8053268</p>
               </div>
               <div className="text-center">
                 <div className="bg-[#0C6E4E] text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -603,9 +603,9 @@ const DonationPage = () => {
                     <polyline points="22,6 12,13 2,6"/>
                   </svg>
                 </div>
-                <h3 className="font-medium mb-2">Email Us</h3>
-                <p className="text-sm">admin@masjidenabawismodel.com</p>
-                <p className="text-sm">muhammadqureshi@masjidenabawismodel.com</p>
+                <h3 className="font-medium mb-2 text-gray-800">Email Us</h3>
+                <p className="text-sm text-gray-700">admin@masjidenabawismodel.com</p>
+                <p className="text-sm text-gray-700">muhammadqureshi@masjidenabawismodel.com</p>
               </div>
               <div className="text-center">
                 <div className="bg-[#0C6E4E] text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -614,9 +614,9 @@ const DonationPage = () => {
                     <circle cx="12" cy="10" r="3"/>
                   </svg>
                 </div>
-                <h3 className="font-medium mb-2">Visit Us</h3>
-                <p className="text-sm">Opposite D-13 Block FGEHF</p>
-                <p className="text-sm">G-11/4 Islamabad, Pakistan</p>
+                <h3 className="font-medium mb-2 text-gray-800">Visit Us</h3>
+                <p className="text-sm text-gray-700">Opposite D-13 Block FGEHF</p>
+                <p className="text-sm text-gray-700">G-11/4 Islamabad, Pakistan</p>
               </div>
               <div className="text-center">
                 <div className="bg-[#0C6E4E] text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -625,7 +625,7 @@ const DonationPage = () => {
                     <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path>
                   </svg>
                 </div>
-                <h3 className="font-medium mb-2">WhatsApp</h3>
+                <h3 className="font-medium mb-2 text-gray-800">WhatsApp</h3>
                 <a href="https://wa.me/923339214600" target="_blank" rel="noopener noreferrer" className="text-sm text-[#0C6E4E] hover:underline">+92 333-9214600</a>
               </div>
             </div>
