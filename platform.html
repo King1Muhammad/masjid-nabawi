@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Future is Now: A Global AI-Based Governance & Banking Revolution | Masjid-e-Nabawi Model</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #0C6E4E;
+      --secondary-color: #D4AF37;
+      --dark-color: #1A1A1A;
+      --gray-color: #f5f5f5;
+      --light-color: #ffffff;
+      --accent-color: #3498db;
+      --danger-color: #e74c3c;
+      --success-color: #27ae60;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Poppins', sans-serif;
+      line-height: 1.6;
+      color: var(--dark-color);
+      background-color: var(--light-color);
+    }
+    
+    h1, h2, h3, h4 {
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 1rem;
+      color: var(--primary-color);
+    }
+    
+    h1 {
+      font-size: 3rem;
+    }
+    
+    h2 {
+      font-size: 2.5rem;
+    }
+    
+    h3 {
+      font-size: 2rem;
+    }
+    
+    p {
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+    }
+    
+    a {
+      text-decoration: none;
+      color: var(--primary-color);
+    }
+    
+    ul, ol {
+      margin-bottom: 1.5rem;
+      padding-left: 1.5rem;
+    }
+    
+    li {
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+    }
+    
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+    
+    /* Hero section */
+    .hero {
+      background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://source.unsplash.com/random/1600x900/?world,global') no-repeat center center/cover;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: var(--light-color);
+      padding: 2rem;
+    }
+    
+    .hero h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--light-color);
+    }
+    
+    .hero p {
+      font-size: 1.5rem;
+      max-width: 800px;
+      margin-bottom: 2rem;
+    }
+    
+    .hero-btn {
+      display: inline-block;
+      background-color: var(--secondary-color);
+      color: var(--dark-color);
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+    }
+    
+    .hero-btn:hover {
+      background-color: var(--light-color);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Section styling */
+    .section {
+      padding: 5rem 0;
+    }
+    
+    .section-title {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    
+    .section-title h2 {
+      display: inline-block;
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+    
+    .section-title h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      height: 4px;
+      background-color: var(--secondary-color);
+    }
+    
+    .section-title p {
+      max-width: 800px;
+      margin: 0 auto;
+      font-size: 1.2rem;
+    }
+    
+    /* Problem Section */
+    .problems {
+      background-color: var(--gray-color);
+    }
+    
+    .problem-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    
+    .problem-card {
+      background-color: var(--light-color);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .problem-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    }
+    
+    .problem-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    
+    .problem-content {
+      padding: 1.5rem;
+    }
+    
+    .problem-content h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    /* AI Era Section */
+    .ai-era {
+      position: relative;
+    }
+    
+    .ai-content {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 2rem;
+    }
+    
+    .ai-text {
+      flex: 1;
+      min-width: 300px;
+    }
+    
+    .ai-image {
+      flex: 1;
+      min-width: 300px;
+    }
+    
+    .ai-image img {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .ai-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-top: 3rem;
+      text-align: center;
+    }
+    
+    .stat-item {
+      background-color: var(--primary-color);
+      color: var(--light-color);
+      padding: 1.5rem;
+      border-radius: 10px;
+    }
+    
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      color: var(--secondary-color);
+    }
+    
+    /* Solution Section */
+    .solution {
+      background: linear-gradient(rgba(12, 110, 78, 0.9), rgba(12, 110, 78, 0.9)), url('https://source.unsplash.com/random/1600x900/?technology,future') no-repeat center center/cover;
+      color: var(--light-color);
+    }
+    
+    .solution .section-title h2 {
+      color: var(--light-color);
+    }
+    
+    .solution-features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    
+    .feature {
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 2rem;
+      border-radius: 10px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+    
+    .feature:hover {
+      transform: translateY(-10px);
+    }
+    
+    .feature-icon {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+      color: var(--secondary-color);
+    }
+    
+    .feature h3 {
+      color: var(--light-color);
+    }
+    
+    /* Impact Section */
+    .impact {
+      position: relative;
+    }
+    
+    .impact-content {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 2rem;
+    }
+    
+    .impact-text {
+      flex: 1;
+      min-width: 300px;
+    }
+    
+    .impact-image {
+      flex: 1;
+      min-width: 300px;
+    }
+    
+    .impact-image img {
+      width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .impact-goals {
+      margin-top: 3rem;
+    }
+    
+    .impact-goal {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    
+    .goal-icon {
+      font-size: 1.5rem;
+      background-color: var(--primary-color);
+      color: var(--light-color);
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 1rem;
+      flex-shrink: 0;
+    }
+    
+    /* Join Section */
+    .join {
+      background-color: var(--gray-color);
+      text-align: center;
+    }
+    
+    .join-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    
+    .join-option {
+      background-color: var(--light-color);
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+    
+    .join-option:hover {
+      transform: translateY(-10px);
+    }
+    
+    .join-icon {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+      color: var(--primary-color);
+    }
+    
+    .join-btn {
+      display: inline-block;
+      background-color: var(--primary-color);
+      color: var(--light-color);
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-top: 1.5rem;
+      transition: all 0.3s ease;
+    }
+    
+    .join-btn:hover {
+      background-color: var(--secondary-color);
+      color: var(--dark-color);
+    }
+    
+    /* Donation Section */
+    .donation {
+      background-color: var(--light-color);
+    }
+    
+    .payment-methods {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    
+    .payment-method {
+      background-color: var(--gray-color);
+      padding: 2rem;
+      border-radius: 10px;
+    }
+    
+    .payment-method h3 {
+      margin-bottom: 1.5rem;
+      color: var(--primary-color);
+    }
+    
+    .account-details {
+      margin-bottom: 1rem;
+    }
+    
+    .account-details p {
+      margin-bottom: 0.5rem;
+    }
+    
+    .account-number {
+      font-family: monospace;
+      background-color: var(--light-color);
+      padding: 0.5rem;
+      border-radius: 5px;
+      font-weight: 600;
+    }
+    
+    /* Form Section */
+    .form-section {
+      background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('https://source.unsplash.com/random/1600x900/?teamwork,collaboration') no-repeat center center/cover;
+      padding: 5rem 0;
+      text-align: center;
+      color: var(--light-color);
+    }
+    
+    .form-section h2 {
+      color: var(--light-color);
+      margin-bottom: 2rem;
+    }
+    
+    .form-section p {
+      max-width: 800px;
+      margin: 0 auto 2rem;
+    }
+    
+    .form-btn {
+      display: inline-block;
+      background-color: var(--secondary-color);
+      color: var(--dark-color);
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .form-btn:hover {
+      background-color: var(--light-color);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Footer */
+    .footer {
+      background-color: var(--dark-color);
+      color: var(--light-color);
+      padding: 3rem 0;
+      text-align: center;
+    }
+    
+    .footer-logo {
+      margin-bottom: 1.5rem;
+    }
+    
+    .footer-logo h3 {
+      color: var(--light-color);
+      font-size: 1.8rem;
+    }
+    
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+    
+    .footer-link {
+      margin: 0 1rem;
+      color: var(--light-color);
+      transition: color 0.3s ease;
+    }
+    
+    .footer-link:hover {
+      color: var(--secondary-color);
+    }
+    
+    .footer-social {
+      margin-bottom: 1.5rem;
+    }
+    
+    .social-link {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      background-color: var(--primary-color);
+      border-radius: 50%;
+      margin: 0 0.5rem;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      transition: all 0.3s ease;
+    }
+    
+    .social-link:hover {
+      background-color: var(--secondary-color);
+      transform: translateY(-3px);
+    }
+    
+    .footer-copy {
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    /* Responsive Styles */
+    @media screen and (max-width: 992px) {
+      h1 {
+        font-size: 2.5rem;
+      }
+      
+      h2 {
+        font-size: 2rem;
+      }
+      
+      .hero h1 {
+        font-size: 2.8rem;
+      }
+      
+      .hero p {
+        font-size: 1.2rem;
+      }
+    }
+    
+    @media screen and (max-width: 768px) {
+      .section {
+        padding: 4rem 0;
+      }
+      
+      h1 {
+        font-size: 2.2rem;
+      }
+      
+      h2 {
+        font-size: 1.8rem;
+      }
+      
+      .hero h1 {
+        font-size: 2.2rem;
+      }
+      
+      .hero p {
+        font-size: 1.1rem;
+      }
+      
+      .impact-content, .ai-content {
+        flex-direction: column;
+      }
+      
+      .impact-image, .ai-image {
+        order: -1;
+      }
+    }
+    
+    @media screen and (max-width: 576px) {
+      .section {
+        padding: 3rem 0;
+      }
+      
+      h1 {
+        font-size: 2rem;
+      }
+      
+      h2 {
+        font-size: 1.6rem;
+      }
+      
+      .hero h1 {
+        font-size: 2rem;
+      }
+      
+      .hero p {
+        font-size: 1rem;
+      }
+      
+      .feature, .join-option, .payment-method {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container">
+      <h1>The Future is Now: A Global AI-Based Governance & Banking Revolution</h1>
+      <p>Transforming the world through transparent governance, decentralized banking, and AI-driven solutions inspired by Masjid-e-Nabawi's model</p>
+      <a href="#join" class="hero-btn">Join Our Movement</a>
+    </div>
+  </section>
+
+  <!-- Problem Section -->
+  <section class="section problems" id="problems">
+    <div class="container">
+      <div class="section-title">
+        <h2>Current World Crisis</h2>
+        <p>Our world faces unprecedented challenges that traditional systems are failing to address</p>
+      </div>
+      
+      <div class="problem-grid">
+        <div class="problem-card">
+          <img src="https://source.unsplash.com/random/600x400/?corruption,politics" alt="Political Corruption">
+          <div class="problem-content">
+            <h3>Political Corruption</h3>
+            <p>Corrupt leaders and systems siphon resources meant for public welfare, while ordinary citizens suffer from lack of basic necessities.</p>
+          </div>
+        </div>
+        
+        <div class="problem-card">
+          <img src="https://source.unsplash.com/random/600x400/?poverty,inequality" alt="Economic Inequality">
+          <div class="problem-content">
+            <h3>Economic Inequality</h3>
+            <p>The gap between rich and poor widens as centralized banking systems and currency manipulation benefit the elite few.</p>
+          </div>
+        </div>
+        
+        <div class="problem-card">
+          <img src="https://source.unsplash.com/random/600x400/?bureaucracy,paperwork" alt="Bureaucratic Inefficiency">
+          <div class="problem-content">
+            <h3>Bureaucratic Inefficiency</h3>
+            <p>Slow, outdated governmental processes and lack of transparency create barriers to progress and foster distrust.</p>
+          </div>
+        </div>
+        
+        <div class="problem-card">
+          <img src="https://source.unsplash.com/random/600x400/?inflation,economy" alt="Currency Manipulation">
+          <div class="problem-content">
+            <h3>Currency Manipulation</h3>
+            <p>Central banks and financial institutions control monetary policies that lead to inflation, devaluation, and economic instability.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI Era Section -->
+  <section class="section ai-era" id="ai-era">
+    <div class="container">
+      <div class="section-title">
+        <h2>The AI Revolution</h2>
+        <p>Artificial Intelligence is reshaping our world at unprecedented speed</p>
+      </div>
+      
+      <div class="ai-content">
+        <div class="ai-text">
+          <h3>The Dawn of a New Era</h3>
+          <p>We are witnessing the most transformative technological revolution in human history. Artificial Intelligence is not just changing how we work—it's fundamentally altering the structure of society itself.</p>
+          <p>From automated decision-making to predictive governance, AI technologies are already being deployed by governments and corporations worldwide. The pressing question is: will these powerful tools centralize power further, or can they be harnessed to create more equitable, transparent systems?</p>
+          <p>The choice we face is clear: allow AI to become a tool of further control and inequality, or proactively design AI systems that distribute power, increase transparency, and serve humanity's collective interests.</p>
+        </div>
+        
+        <div class="ai-image">
+          <img src="https://source.unsplash.com/random/600x400/?ai,technology,future" alt="AI Revolution">
+        </div>
+      </div>
+      
+      <div class="ai-stats">
+        <div class="stat-item">
+          <div class="stat-number">47%</div>
+          <p>Of jobs projected to be automated by AI in the next decade</p>
+        </div>
+        
+        <div class="stat-item">
+          <div class="stat-number">$15.7T</div>
+          <p>Potential contribution to the global economy by 2030</p>
+        </div>
+        
+        <div class="stat-item">
+          <div class="stat-number">90%</div>
+          <p>Reduction in bureaucratic inefficiency with AI governance</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solution Section -->
+  <section class="section solution" id="solution">
+    <div class="container">
+      <div class="section-title">
+        <h2>Our Revolutionary Platform</h2>
+        <p>A decentralized, AI-driven system inspired by the governance model of Masjid-e-Nabawi</p>
+      </div>
+      
+      <div class="solution-features">
+        <div class="feature">
+          <div class="feature-icon">
+            <i class="fas fa-vote-yea"></i>
+          </div>
+          <h3>AI-Powered Governance</h3>
+          <p>Transparent, decentralized decision-making through AI-driven voting systems that eliminate corruption and favoritism.</p>
+        </div>
+        
+        <div class="feature">
+          <div class="feature-icon">
+            <i class="fas fa-landmark"></i>
+          </div>
+          <h3>Blockchain Banking</h3>
+          <p>Secure, transparent financial systems that prevent currency manipulation and ensure equitable wealth distribution.</p>
+        </div>
+        
+        <div class="feature">
+          <div class="feature-icon">
+            <i class="fas fa-balance-scale"></i>
+          </div>
+          <h3>AI Justice System</h3>
+          <p>Fair, unbiased conflict resolution through AI analysis that eliminates human prejudice and corruption.</p>
+        </div>
+        
+        <div class="feature">
+          <div class="feature-icon">
+            <i class="fas fa-graduation-cap"></i>
+          </div>
+          <h3>Global Education</h3>
+          <p>Accessible, personalized learning through AI that adapts to individual needs and cultural contexts.</p>
+        </div>
+        
+        <div class="feature">
+          <div class="feature-icon">
+            <i class="fas fa-hand-holding-heart"></i>
+          </div>
+          <h3>Welfare Distribution</h3>
+          <p>AI-optimized resource allocation ensuring aid reaches those who need it most without bureaucratic delays.</p>
+        </div>
+        
+        <div class="feature">
+          <div class="feature-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h3>Transparent Accountability</h3>
+          <p>Real-time tracking of resource utilization and decision outcomes visible to all members of the community.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Impact Section -->
+  <section class="section impact" id="impact">
+    <div class="container">
+      <div class="section-title">
+        <h2>Why Our Platform Is Urgently Needed</h2>
+        <p>A solution for the pressing global challenges we face today</p>
+      </div>
+      
+      <div class="impact-content">
+        <div class="impact-text">
+          <h3>Creating a Just World</h3>
+          <p>Our platform doesn't just address symptoms—it fundamentally transforms the systems that produce global inequality and injustice.</p>
+          <p>By combining the ethical principles of Masjid-e-Nabawi's model with cutting-edge AI and blockchain technology, we're creating a system where:</p>
+          
+          <div class="impact-goals">
+            <div class="impact-goal">
+              <div class="goal-icon">
+                <i class="fas fa-check"></i>
+              </div>
+              <p>Corruption becomes technically impossible through transparent blockchain verification</p>
+            </div>
+            
+            <div class="impact-goal">
+              <div class="goal-icon">
+                <i class="fas fa-check"></i>
+              </div>
+              <p>Economic opportunities are distributed fairly through AI-optimized resource allocation</p>
+            </div>
+            
+            <div class="impact-goal">
+              <div class="goal-icon">
+                <i class="fas fa-check"></i>
+              </div>
+              <p>Governance decisions are made efficiently with community input and AI analysis</p>
+            </div>
+            
+            <div class="impact-goal">
+              <div class="goal-icon">
+                <i class="fas fa-check"></i>
+              </div>
+              <p>Financial systems become stable and accessible to all through decentralized technologies</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="impact-image">
+          <img src="https://source.unsplash.com/random/600x400/?future,society,peace" alt="Future Impact">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Join Section -->
+  <section class="section join" id="join">
+    <div class="container">
+      <div class="section-title">
+        <h2>Join Our Global Movement</h2>
+        <p>Together, we can build a more just, transparent, and prosperous world</p>
+      </div>
+      
+      <div class="join-options">
+        <div class="join-option">
+          <div class="join-icon">
+            <i class="fas fa-handshake"></i>
+          </div>
+          <h3>Become an Investor</h3>
+          <p>Support this revolutionary platform with financial resources and help scale our impact globally.</p>
+          <a href="#form-section" class="join-btn">Invest Now</a>
+        </div>
+        
+        <div class="join-option">
+          <div class="join-icon">
+            <i class="fas fa-laptop-code"></i>
+          </div>
+          <h3>Contribute Skills</h3>
+          <p>Lend your expertise in technology, design, governance, or other areas to help build the platform.</p>
+          <a href="#form-section" class="join-btn">Offer Skills</a>
+        </div>
+        
+        <div class="join-option">
+          <div class="join-icon">
+            <i class="fas fa-bullhorn"></i>
+          </div>
+          <h3>Spread the Message</h3>
+          <p>Share our vision with your network and help build global awareness about this solution.</p>
+          <a href="#form-section" class="join-btn">Become Ambassador</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Donation Section -->
+  <section class="section donation" id="donation">
+    <div class="container">
+      <div class="section-title">
+        <h2>Support Our Mission</h2>
+        <p>Your contribution will help build a platform that transforms governance and banking worldwide</p>
+      </div>
+      
+      <div class="payment-methods">
+        <div class="payment-method">
+          <h3>Bank Transfer</h3>
+          <div class="account-details">
+            <p><strong>Bank Name:</strong> MCB Islamic</p>
+            <p><strong>Account Title:</strong> Jamia Masjid Nabvi Qureshi Hashmi</p>
+            <p><strong>Account Number:</strong></p>
+            <p class="account-number">0541003765900001</p>
+            <p><strong>IBAN:</strong></p>
+            <p class="account-number">PK53MCIB0541003765900001</p>
+          </div>
+        </div>
+        
+        <div class="payment-method">
+          <h3>Mobile Wallets</h3>
+          <div class="account-details">
+            <p><strong>EasyPaisa:</strong></p>
+            <p class="account-number">03468053268</p>
+            <p><strong>JazzCash:</strong></p>
+            <p class="account-number">03468053268</p>
+            <p><strong>JS Bank Zindagi:</strong></p>
+            <p class="account-number">PK31JSBL9999903468053268</p>
+            <p><strong>Account Title:</strong> Muhammad Qureshi</p>
+          </div>
+        </div>
+        
+        <div class="payment-method">
+          <h3>Cryptocurrency</h3>
+          <div class="account-details">
+            <p><strong>USDT (TRC20):</strong></p>
+            <p class="account-number">TAYc66GdUqufsWcAHXxS6qgXRW2w73179f</p>
+            <p><strong>BNB:</strong></p>
+            <p class="account-number">0xd4f5912e37aa51402849acd7d9d4e7e9d94eb458</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Form Section -->
+  <section class="form-section" id="form-section">
+    <div class="container">
+      <h2>Become Part of the Solution</h2>
+      <p>Fill out our form to join as an investor, contributor, or supporter. We'll connect with you to discuss how you can be part of this global transformation.</p>
+      <a href="https://forms.gle/1234567890abcdef" target="_blank" class="form-btn">Join Us Form</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-logo">
+        <h3>Masjid-e-Nabawi Model</h3>
+      </div>
+      
+      <div class="footer-links">
+        <a href="#" class="footer-link">Home</a>
+        <a href="#problems" class="footer-link">Problems</a>
+        <a href="#solution" class="footer-link">Solution</a>
+        <a href="#join" class="footer-link">Join Us</a>
+        <a href="#donation" class="footer-link">Donate</a>
+      </div>
+      
+      <div class="footer-social">
+        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+      </div>
+      
+      <p class="footer-copy">
+        Contact: <a href="mailto:muhammadqureshi@masjidenabawismodel.com">muhammadqureshi@masjidenabawismodel.com</a> | Phone: +92 3339214600
+      </p>
+      
+      <p class="footer-copy">
+        &copy; 2025 Masjid-e-Nabawi Model. All rights reserved.
+      </p>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Masjid-e-Nabawi Model Vision</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+    header {
+      background-color: #0a3d62;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    section {
+      padding: 30px;
+      max-width: 1000px;
+      margin: auto;
+      background-color: white;
+      margin-top: 20px;
+    }
+    h2 {
+      color: #0a3d62;
+    }
+    img {
+      max-width: 100%;
+      margin: 20px 0;
+    }
+    .cta {
+      background-color: #38ada9;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+    .cta a {
+      background: white;
+      color: #38ada9;
+      padding: 10px 20px;
+      text-decoration: none;
+      font-weight: bold;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Global AI-Based Governance & Banking Revolution</h1>
+    <p>Powered by Masjid-e-Nabawi's Model Vision</p>
+  </header>  <section>
+    <h2>Current World Problems in Governance & Banking</h2>
+    <p>
+      Today’s systems are dominated by corruption, inequality, slow bureaucracy, centralized control,
+      unfair wealth distribution, unstable currencies, lack of global transparency, and elite control.
+      From rising inflation to unjust leadership and political chaos, the people suffer while few benefit.
+    </p>
+    <img src="https://i.ibb.co/NFgKt7s/current-system.jpg" alt="Corrupt Governance">
+  </section>  <section>
+    <h2>The Rise of the AI Era</h2>
+    <p>
+      Artificial Intelligence is reshaping the future. From automation to predictive governance,
+      it is already being used by big governments and corporations. The question is:
+      Will it be used to control the people, or empower them?
+    </p>
+    <img src="https://i.ibb.co/KjPjbLC/ai-era.jpg" alt="AI Revolution">
+  </section>  <section>
+    <h2>Our Solution: A Global AI-Driven Decentralized Platform</h2>
+    <p>
+      We are building a revolutionary platform inspired by the governance and transparency model of
+      Masjid-e-Nabawi. It integrates AI + Blockchain to enable a global decentralized system
+      for governance, banking, education, accountability, economy, and law.
+    </p>
+    <ul>
+      <li>Blockchain-based transparent banking and online payments</li>
+      <li>Smart AI-powered decentralized voting and leadership selection</li>
+      <li>Community and country-level decision-making through AI dashboards</li>
+      <li>AI judges for immediate case resolutions</li>
+      <li>Integrated education, charity, justice, and welfare systems</li>
+    </ul>
+    <img src="https://i.ibb.co/wcMMLyF/vision-platform.jpg" alt="Platform Vision">
+  </section>  <section>
+    <h2>Why the World Needs This Platform</h2>
+    <p>
+      Humanity is heading toward chaos and collapse if it doesn’t transition toward justice, transparency,
+      and global cooperation. This platform will:
+    </p>
+    <ul>
+      <li>End corruption and bureaucracy</li>
+      <li>Replace currency manipulation with blockchain-based fair economy</li>
+      <li>Empower every citizen equally</li>
+      <li>Allow global communities to vote, solve, and govern together</li>
+    </ul>
+  </section>  <section class="cta">
+    <h2>Join Our Mission</h2>
+    <p>
+      We invite you to join us in building this futuristic, life-changing platform. We need your support—
+      whether financial, technical, media, or advisory. Let’s rebuild the world with justice, AI, and purpose.
+    </p>
+    <a href="/join">Become a Supporter / Investor</a>
+  </section>
+</body>
+</html>
