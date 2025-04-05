@@ -1,0 +1,109 @@
+I want you to upgrade and rewrite the *Donation Page* of my website *masjidenabawismodel.com* to make it professional, emotional, inspiring, and visually appealing.
+
+Our masjid is *Jamia Masjid Nabvi Qureshi Hashmi, located in G-11/4 Islamabad. The donation page should reflect the **true impact of donating, include **active fundraising campaigns, and show **all payment methods*.
+
+---
+
+### OBJECTIVES:
+
+*1. New Hero Section:*
+- Strong, emotional title like “Give Sadaqah Jariyah – Build Your House in Jannah”
+- Background image of the masjid (use placeholder if needed)
+- Short powerful description
+- Donate Now button (anchor to donation options)
+
+---
+
+*2. Section: Why Donate?*
+Explain that every donation supports:
+
+- Masjid Operations & Maintenance (electricity, water, cleaning, etc.)
+- Madrasa & Quran Programs for children and adults
+- Community Support Services (Charity, Events, Islamic Guidance)
+- Expansion Projects (Hall, Wudu Area, Women's Section, Technology Setup)
+- Global Digital Darsgah Project (Online Islamic Learning for Worldwide Students)
+
+Include Hadith:
+> “Whoever builds a mosque for Allah, Allah will build for him a similar house in Paradise.” (Bukhari)
+
+Make this emotional, inspiring, and centered around reward in akhirah.
+
+---
+
+*3. Section: Active Fundraising Campaigns*
+
+Show current campaign like a visual *progress bar* or *donation goal chart*:
+
+#### *Masjid Construction Campaign*
+- *Goal:* PKR 10 Crore (100 Million)
+- *Raised So Far:* PKR 20 Lakh (2 Million)
+- *Remaining:* PKR 9.8 Crore
+- Status: Only 20% foundation and basic structure complete, remaining major work is paused due to lack of funds.
+- Visual: Use *masjid blueprint or construction photo* placeholder
+- Call to Action: “Help Complete the House of Allah”
+
+#### *Visionary Global Platform Campaign*
+- Funding Needed to launch AI-powered decentralized governance and Islamic learning platform
+- Use of Funds: Development, Design, Server, AI Tools, Teamwork
+- Goal: Flexible (any amount appreciated)
+- Visual: Globe with light beams connecting communities
+- Call to Action: “Support a Global Islamic Transformation”
+
+---
+
+*4. Section: How to Donate*
+
+Visually clean donation options. Use icons/logos if needed.
+
+*Bank Transfer:*
+- *Bank Name:* MCB Bank
+- *Account Title:* Jamia Masjid Nabvi Qureshi Hashmi
+- *Account Number:* [Insert Account Number]
+- *Branch Code:* [Insert Code]
+- *IBAN:* [Insert IBAN]
+- *SWIFT Code (for international):* [Insert SWIFT]
+
+*Other Methods (Account Title: Muhammad Qureshi – Admin/Nazim-e-Ala):*
+- *EasyPaisa:* [Insert Number]
+- *JazzCash:* [Insert Number]
+- *JS Bank:* [Insert Account Info]
+
+*Crypto Wallets for International Donors:*
+- *Bitcoin (BTC):* [Insert Wallet]
+- *Ethereum (ETH):* [Insert Wallet]
+- *USDT (TRC20):* [Insert Wallet]
+- *BNB / BUSD / Litecoin (Optional):* [Insert Wallets]
+
+Add *QR Codes* for each payment method (placeholder images or ready for future insertion).
+
+---
+
+*5. Section: Testimonials & Hadiths*
+Include:
+- Testimonials from donors
+- One or two powerful Hadiths or verses on charity
+
+---
+
+*6. Section: Contact Us / Get Involved*
+Let people contact via:
+- WhatsApp
+- Email
+- Volunteer Form (Optional)
+
+---
+
+*7. Footer CTA:*
+“Your contribution can build a Masjid, educate generations, and bring global change. Donate today and earn continuous reward (Sadaqah Jariyah).”
+
+---
+
+*Styling Guidelines:*
+- Clean, modern, spiritual design
+- Use Islamic-themed soft colors (green, white, gold)
+- Use CSS grid or Tailwind for responsive layout
+- Add animations on donation bars, CTA buttons
+
+---
+
+Generate all updated code for this donation page: HTML, CSS, JS, and placeholders for QR/visuals. Output should be complete and ready to paste into my existing Replit website project.

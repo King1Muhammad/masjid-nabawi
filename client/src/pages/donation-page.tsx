@@ -94,8 +94,27 @@ const DonationPage = () => {
   return (
     <div className="py-16 bg-[#F7F3E9]">
       <div className="container mx-auto px-4">
-        <h1 className="text-4xl md:text-5xl font-heading text-[#0C6E4E] text-center mb-4">Support Our Masjid</h1>
-        <p className="text-xl text-center max-w-3xl mx-auto mb-16">Your generous contributions help maintain our masjid, support educational programs, and provide community services.</p>
+        {/* Hero Section */}
+        <div className="relative rounded-2xl overflow-hidden mb-16">
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0C6E4E]/80 to-[#0C6E4E]/60 z-10"></div>
+          <div className="relative z-20 py-20 px-6 text-center">
+            <h1 className="text-4xl md:text-5xl font-heading text-white mb-4">Give Sadaqah Jariyah – Build Your House in Jannah</h1>
+            <p className="text-xl text-white/90 max-w-3xl mx-auto mb-8">
+              Join us in building a legacy of righteousness that continues to benefit generations to come.
+            </p>
+            <a 
+              href="#donation-form" 
+              className="inline-block bg-[#D4AF37] hover:bg-opacity-90 text-white font-medium py-3 px-8 rounded-md shadow-lg transition-all transform hover:scale-105"
+            >
+              Donate Now
+            </a>
+          </div>
+          <img 
+            src="/images/masjidnabvi.jpg" 
+            alt="Masjid Nabvi" 
+            className="absolute inset-0 w-full h-full object-cover" 
+          />
+        </div>
         
         <div className="grid md:grid-cols-2 gap-12">
           <div>
@@ -116,39 +135,103 @@ const DonationPage = () => {
             </div>
             
             <div className="bg-white rounded-lg shadow-lg p-8">
-              <h2 className="text-2xl font-heading text-[#0C6E4E] mb-6">Current Fundraising Campaigns</h2>
+              <h2 className="text-2xl font-heading text-[#0C6E4E] mb-6">Active Fundraising Campaigns</h2>
               
               {campaignsLoading ? (
                 <div className="flex justify-center items-center h-64">
                   <div className="animate-spin w-10 h-10 border-4 border-[#0C6E4E] border-t-transparent rounded-full"></div>
                 </div>
               ) : campaigns && campaigns.length > 0 ? (
-                <div className="space-y-6">
+                <div className="space-y-8">
                   {campaigns.map(campaign => (
-                    <div key={campaign.id} className="border border-gray-200 rounded-lg p-4">
+                    <div key={campaign.id} className="border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow">
                       <h3 className="text-xl font-medium text-[#0C6E4E] mb-2">{campaign.name}</h3>
                       <p className="mb-4">{campaign.description}</p>
-                      <div className="w-full bg-gray-200 rounded-full h-2.5 mb-2">
+                      <div className="w-full bg-gray-200 rounded-full h-4 mb-2 overflow-hidden">
                         <div 
-                          className="bg-[#D4AF37] h-2.5 rounded-full" 
+                          className="bg-[#D4AF37] h-4 rounded-full transition-all duration-1000 ease-in-out" 
                           style={{ width: `${Math.min(100, (Number(campaign.raised) / Number(campaign.goal)) * 100)}%` }}
                         ></div>
                       </div>
-                      <div className="flex justify-between text-sm">
-                        <span>PKR {Number(campaign.raised).toLocaleString()} raised</span>
+                      <div className="flex justify-between text-sm mb-4">
+                        <span className="font-medium">PKR {Number(campaign.raised).toLocaleString()} raised</span>
                         <span>Goal: PKR {Number(campaign.goal).toLocaleString()}</span>
                       </div>
+                      <button 
+                        onClick={() => {
+                          const donateSection = document.getElementById('donation-form');
+                          if (donateSection) {
+                            donateSection.scrollIntoView({ behavior: 'smooth' });
+                          }
+                        }}
+                        className="text-sm bg-[#0C6E4E] text-white px-4 py-2 rounded hover:bg-opacity-90 transition-colors"
+                      >
+                        Contribute to this Campaign
+                      </button>
                     </div>
                   ))}
                 </div>
               ) : (
-                <p>No active campaigns at the moment. Your general donation is always appreciated.</p>
+                <div className="space-y-8">
+                  {/* Masjid Construction Campaign */}
+                  <div className="border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow">
+                    <div className="flex items-center mb-2">
+                      <h3 className="text-xl font-medium text-[#0C6E4E]">Masjid Construction Campaign</h3>
+                      <span className="ml-2 bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded">Active</span>
+                    </div>
+                    <p className="mb-4">Only 20% foundation and basic structure complete. The remaining major work is paused due to lack of funds. Your support will help us complete the House of Allah.</p>
+                    <div className="w-full bg-gray-200 rounded-full h-4 mb-2 overflow-hidden">
+                      <div 
+                        className="bg-[#D4AF37] h-4 rounded-full transition-all duration-1000 ease-in-out" 
+                        style={{ width: '20%' }}
+                      ></div>
+                    </div>
+                    <div className="flex justify-between text-sm mb-4">
+                      <span className="font-medium">PKR 2,000,000 raised</span>
+                      <span>Goal: PKR 100,000,000</span>
+                    </div>
+                    <button 
+                      onClick={() => {
+                        const donateSection = document.getElementById('donation-form');
+                        if (donateSection) {
+                          donateSection.scrollIntoView({ behavior: 'smooth' });
+                        }
+                      }}
+                      className="text-sm bg-[#0C6E4E] text-white px-4 py-2 rounded hover:bg-opacity-90 transition-colors"
+                    >
+                      Help Complete the House of Allah
+                    </button>
+                  </div>
+                  
+                  {/* Global Platform Campaign */}
+                  <div className="border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow">
+                    <div className="flex items-center mb-2">
+                      <h3 className="text-xl font-medium text-[#0C6E4E]">Visionary Global Platform Campaign</h3>
+                      <span className="ml-2 bg-green-100 text-green-800 text-xs px-2 py-1 rounded">New</span>
+                    </div>
+                    <p className="mb-4">Funding needed to launch an AI-powered decentralized governance and Islamic learning platform. Your contribution will support development, design, server costs, AI tools, and teamwork.</p>
+                    <div className="mb-4 flex items-center justify-center">
+                      <img src="/images/global_platform.jpg" alt="Global Islamic Platform" className="h-40 object-contain rounded" />
+                    </div>
+                    <button 
+                      onClick={() => {
+                        const donateSection = document.getElementById('donation-form');
+                        if (donateSection) {
+                          donateSection.scrollIntoView({ behavior: 'smooth' });
+                        }
+                      }}
+                      className="text-sm bg-[#0C6E4E] text-white px-4 py-2 rounded hover:bg-opacity-90 transition-colors"
+                    >
+                      Support a Global Islamic Transformation
+                    </button>
+                  </div>
+                </div>
               )}
             </div>
           </div>
           
           <div>
-            <div className="bg-white rounded-lg shadow-lg p-8">
+            <div id="donation-form" className="bg-white rounded-lg shadow-lg p-8">
               <h2 className="text-2xl font-heading text-[#0C6E4E] mb-6 text-center">Make a Donation</h2>
               
               <form onSubmit={handleSubmit(onSubmit)}>
@@ -433,6 +516,88 @@ const DonationPage = () => {
                 </div>
               </div>
             </div>
+          </div>
+          
+          {/* Testimonials and Hadiths */}
+          <div className="bg-white rounded-lg shadow-lg p-8 mt-12">
+            <h2 className="text-2xl font-heading text-[#0C6E4E] mb-6 text-center">Testimonials & Inspiration</h2>
+            
+            <div className="grid md:grid-cols-2 gap-6 mb-8">
+              <div className="bg-[#F7F3E9] p-6 rounded-lg">
+                <p className="italic mb-4">"I've been donating to Jamia Masjid Nabvi Qureshi Hashmi for the past 2 years. The transparency and the impact they create with every rupee is remarkable. It gives me peace knowing my sadaqah is being used for such noble purposes."</p>
+                <p className="font-medium">- Ahmed Khan, Regular Donor</p>
+              </div>
+              <div className="bg-[#F7F3E9] p-6 rounded-lg">
+                <p className="italic mb-4">"Contributing to the madrasa program has been a blessing for our family. Knowing that we're helping provide Islamic education to children who otherwise wouldn't have access fills our hearts with joy."</p>
+                <p className="font-medium">- Fatima Ahmed, Monthly Donor</p>
+              </div>
+            </div>
+            
+            <div className="border-t border-gray-200 pt-6">
+              <h3 className="font-heading text-xl text-[#0C6E4E] mb-4 text-center">Words of Wisdom</h3>
+              <div className="space-y-4">
+                <div className="bg-[#F7F3E9] p-4 rounded-lg">
+                  <p className="text-center italic">"The likeness of those who spend their wealth in the way of Allah is as the likeness of a grain that grows seven ears, in every ear a hundred grains. And Allah multiplies [His reward] for whom He wills."</p>
+                  <p className="text-center font-medium mt-2">- Quran 2:261</p>
+                </div>
+                <div className="bg-[#F7F3E9] p-4 rounded-lg">
+                  <p className="text-center italic">"Charity does not decrease wealth, no one forgives another except that Allah increases his honor, and no one humbles himself for the sake of Allah except that Allah raises his status."</p>
+                  <p className="text-center font-medium mt-2">- Prophet Muhammad ﷺ (Sahih Muslim)</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          {/* Contact and Get Involved */}
+          <div className="bg-white rounded-lg shadow-lg p-8 mt-12">
+            <h2 className="text-2xl font-heading text-[#0C6E4E] mb-6 text-center">Contact Us / Get Involved</h2>
+            
+            <div className="grid md:grid-cols-3 gap-6">
+              <div className="text-center">
+                <div className="bg-[#0C6E4E] text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                  </svg>
+                </div>
+                <h3 className="font-medium mb-2">Call Us</h3>
+                <p className="text-sm">+92 334-9214600</p>
+                <p className="text-sm">+92 346-8053268</p>
+              </div>
+              <div className="text-center">
+                <div className="bg-[#0C6E4E] text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                    <polyline points="22,6 12,13 2,6"/>
+                  </svg>
+                </div>
+                <h3 className="font-medium mb-2">Email Us</h3>
+                <p className="text-sm">admin@masjidenabawismodel.com</p>
+                <p className="text-sm">muhammadqureshi@masjidenabawismodel.com</p>
+              </div>
+              <div className="text-center">
+                <div className="bg-[#0C6E4E] text-white w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                    <circle cx="12" cy="10" r="3"/>
+                  </svg>
+                </div>
+                <h3 className="font-medium mb-2">Visit Us</h3>
+                <p className="text-sm">Opposite D-13 Block FGEHF</p>
+                <p className="text-sm">G-11/4 Islamabad, Pakistan</p>
+              </div>
+            </div>
+          </div>
+          
+          {/* Footer CTA */}
+          <div className="mt-12 bg-[#0C6E4E] text-white rounded-lg shadow-lg p-10 text-center">
+            <h2 className="text-2xl md:text-3xl font-heading mb-4">Your contribution can build a Masjid, educate generations, and bring global change.</h2>
+            <p className="text-lg opacity-90 mb-8">Donate today and earn continuous reward (Sadaqah Jariyah).</p>
+            <a 
+              href="#donation-form" 
+              className="inline-block bg-[#D4AF37] hover:bg-opacity-90 text-white font-medium py-3 px-8 rounded-md shadow-lg transition-all transform hover:scale-105"
+            >
+              Donate Now
+            </a>
           </div>
         </div>
       </div>
