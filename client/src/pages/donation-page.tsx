@@ -390,12 +390,22 @@ const DonationPage = () => {
                     Select a payment option for further instructions on the next page.
                   </p>
                   <div className="grid grid-cols-2 gap-4">
+                    <div className="p-3 border-2 border-[#0C6E4E] bg-[#f0f9f5] text-[#0C6E4E] rounded-md flex items-center col-span-2 mb-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
+                        <rect width="20" height="14" x="2" y="5" rx="2" />
+                        <line x1="2" x2="22" y1="10" y2="10" />
+                      </svg>
+                      <div>
+                        <span className="font-bold">JS Bank (PKR & USD)</span>
+                        <p className="text-xs mt-1">IBAN: PK31JSBL9999903468053268 | Account Title: Muhammad Qureshi</p>
+                      </div>
+                    </div>
                     <div className="p-3 border border-[#0C6E4E] text-[#0C6E4E] rounded-md flex items-center">
                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
                         <rect width="20" height="14" x="2" y="5" rx="2" />
                         <line x1="2" x2="22" y1="10" y2="10" />
                       </svg>
-                      <span className="font-medium">Bank Transfer</span>
+                      <span className="font-medium">Other Bank</span>
                     </div>
                     <div className="p-3 border border-[#0C6E4E] text-[#0C6E4E] rounded-md flex items-center">
                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
@@ -404,7 +414,10 @@ const DonationPage = () => {
                         <path d="M12 12 2 6.46"/>
                         <path d="m22 6.5-10 5.5"/>
                       </svg>
-                      <span className="font-medium">EasyPaisa</span>
+                      <div>
+                        <span className="font-medium">EasyPaisa</span>
+                        <p className="text-xs mt-1">Account Title: Muhammad Qureshi | 03468053268</p>
+                      </div>
                     </div>
                     <div className="p-3 border border-[#0C6E4E] text-[#0C6E4E] rounded-md flex items-center">
                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
@@ -412,7 +425,10 @@ const DonationPage = () => {
                         <path d="M2 13h10"/>
                         <path d="m9 16 3-3-3-3"/>
                       </svg>
-                      <span className="font-medium">JazzCash</span>
+                      <div>
+                        <span className="font-medium">JazzCash</span>
+                        <p className="text-xs mt-1">Account Title: Muhammad Qureshi | 03468053268</p>
+                      </div>
                     </div>
                     <div className="p-3 border border-[#0C6E4E] text-[#0C6E4E] rounded-md flex items-center">
                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
@@ -420,7 +436,10 @@ const DonationPage = () => {
                         <circle cx="7" cy="12" r="1.5" fill="currentColor"/>
                         <circle cx="17" cy="12" r="1.5" fill="currentColor"/>
                       </svg>
-                      <span className="font-medium">NayaPay</span>
+                      <div>
+                        <span className="font-medium">Zindagi Bank</span>
+                        <p className="text-xs mt-1">Account Title: Muhammad Qureshi</p>
+                      </div>
                     </div>
                     <div className="p-3 border border-[#0C6E4E] text-[#0C6E4E] rounded-md flex items-center">
                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
@@ -428,7 +447,10 @@ const DonationPage = () => {
                         <line x1="16" x2="2" y1="8" y2="22"/>
                         <line x1="17.5" x2="9" y1="15" y2="15"/>
                       </svg>
-                      <span className="font-medium">Crypto (TRC20)</span>
+                      <div>
+                        <span className="font-medium">Crypto (TRC20)</span>
+                        <p className="text-xs mt-1">TAYc66GdUqufsWcAHXxS6qgXRW2w73179f</p>
+                      </div>
                     </div>
                     <div className="p-3 border border-[#0C6E4E] text-[#0C6E4E] rounded-md flex items-center">
                       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
@@ -436,7 +458,10 @@ const DonationPage = () => {
                         <path d="M12 6v12"/>
                         <path d="M8 10h8"/>
                       </svg>
-                      <span className="font-medium">Crypto (BNB)</span>
+                      <div>
+                        <span className="font-medium">Crypto (BNB)</span>
+                        <p className="text-xs mt-1">0xd4f5912e37aa51402849acd7d9d4e7e9d94eb458</p>
+                      </div>
                     </div>
                   </div>
                 </div>

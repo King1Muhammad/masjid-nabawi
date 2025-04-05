@@ -5,6 +5,8 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { apiRequest } from '@/lib/queryClient';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 
 // MCB Islamic Bank Logo
 const McbIslamicLogo = () => (
@@ -329,7 +331,7 @@ export default function Checkout() {
                         </div>
                         <div className="grid gap-2">
                           <div className="font-medium">Account Title</div>
-                          <div className="p-2 border rounded bg-gray-50">Jamia Masjid Nabvi Qureshi Hashmi</div>
+                          <div className="p-2 border rounded bg-gray-50">Muhammad Qureshi</div>
                         </div>
                       </div>
                       <div className="flex items-center justify-center">
@@ -456,7 +458,7 @@ export default function Checkout() {
                     </div>
                     <div className="grid gap-2">
                       <div className="font-medium">Account Title</div>
-                      <div className="p-2 border rounded bg-gray-50">Jamia Masjid Nabvi Qureshi Hashmi</div>
+                      <div className="p-2 border rounded bg-gray-50">Muhammad Qureshi</div>
                     </div>
                     <div className="mt-4">
                       <h3 className="font-medium mb-2">How to donate via JS Bank:</h3>
@@ -571,6 +573,32 @@ export default function Checkout() {
                 </Card>
               </TabsContent>
             </Tabs>
+            
+            {/* Transaction ID input field for bank transfers and mobile wallets */}
+            {['bank', 'easypaisa', 'jazzcash', 'nayapay'].includes(paymentMethod) && (
+              <div className="mt-6 p-4 border rounded-md bg-gray-50">
+                <div className="space-y-4">
+                  <div>
+                    <Label htmlFor="transactionId" className="font-medium">
+                      {paymentMethod === 'bank' ? 'Transaction Reference Number' : 'Transaction ID'}
+                    </Label>
+                    <p className="text-sm text-gray-500 mb-2">
+                      {paymentMethod === 'bank'
+                        ? 'Please enter the reference number from your bank transfer receipt'
+                        : 'Please enter the transaction ID you received after making payment'}
+                    </p>
+                    <Input
+                      id="transactionId"
+                      type="text"
+                      value={transactionIdOrReference}
+                      onChange={(e) => setTransactionIdOrReference(e.target.value)}
+                      placeholder={paymentMethod === 'bank' ? 'e.g. TRX12345678' : 'e.g. 12345678'}
+                      className="w-full"
+                    />
+                  </div>
+                </div>
+              </div>
+            )}
             
             <div className="mt-8 flex justify-between items-center">
               <Button 
