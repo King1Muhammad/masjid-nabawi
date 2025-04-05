@@ -18,7 +18,7 @@ import phase3Image from '@assets/IMG_20230318_151134_689.jpg';
 import constructionApprovalImage from '@assets/construction_approval.jpg';
 import masjidAdministrationImage from '@assets/masjidnabviadministration.jpg';
 // Import images directly from public folder
-const masjidPhilosophyImage = '/images/after-islam-kaaba.png';
+const masjidPhilosophyImage = '/images/after-islam-kaaba-new.webp';
 import bankAccountImage from '@assets/bank_account.jpg';
 
 const VisionPage = () => {
