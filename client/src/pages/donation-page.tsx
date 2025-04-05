@@ -282,16 +282,52 @@ const DonationPage = () => {
                   </p>
                   <div className="grid grid-cols-2 gap-4">
                     <div className="p-3 border border-[#0C6E4E] text-[#0C6E4E] rounded-md flex items-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
+                        <rect width="20" height="14" x="2" y="5" rx="2" />
+                        <line x1="2" x2="22" y1="10" y2="10" />
+                      </svg>
                       <span className="font-medium">Bank Transfer</span>
                     </div>
                     <div className="p-3 border border-[#0C6E4E] text-[#0C6E4E] rounded-md flex items-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
+                        <path d="M22 8a.76.76 0 0 0 0-.21v-.08a.77.77 0 0 0-.07-.16.35.35 0 0 0-.05-.08l-.1-.13-.08-.06-.12-.09-9-5a1 1 0 0 0-1 0l-9 5-.09.07-.11.08a.41.41 0 0 0-.09.11.39.39 0 0 0-.06.09.59.59 0 0 0-.06.14.3.3 0 0 0 0 .1A.76.76 0 0 0 2 8v8a1 1 0 0 0 .52.87l9 5a.75.75 0 0 0 .13.06h.1a1.06 1.06 0 0 0 .5 0h.1l.14-.06 9-5A1 1 0 0 0 22 16V8z"/>
+                        <path d="M12 22V12"/>
+                        <path d="M12 12 2 6.46"/>
+                        <path d="m22 6.5-10 5.5"/>
+                      </svg>
                       <span className="font-medium">EasyPaisa</span>
                     </div>
                     <div className="p-3 border border-[#0C6E4E] text-[#0C6E4E] rounded-md flex items-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
+                        <path d="M2 9V5c0-1.1.9-2 2-2h3.93a2 2 0 0 1 1.66.9l.82 1.2a2 2 0 0 0 1.66.9H20a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-1"/>
+                        <path d="M2 13h10"/>
+                        <path d="m9 16 3-3-3-3"/>
+                      </svg>
                       <span className="font-medium">JazzCash</span>
                     </div>
                     <div className="p-3 border border-[#0C6E4E] text-[#0C6E4E] rounded-md flex items-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
+                        <rect width="19" height="14" x="2.5" y="5" rx="2"/>
+                        <circle cx="7" cy="12" r="1.5" fill="currentColor"/>
+                        <circle cx="17" cy="12" r="1.5" fill="currentColor"/>
+                      </svg>
                       <span className="font-medium">NayaPay</span>
+                    </div>
+                    <div className="p-3 border border-[#0C6E4E] text-[#0C6E4E] rounded-md flex items-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
+                        <path d="M20.24 12.24a6 6 0 0 0-8.49-8.49L5 10.5V19h8.5z"/>
+                        <line x1="16" x2="2" y1="8" y2="22"/>
+                        <line x1="17.5" x2="9" y1="15" y2="15"/>
+                      </svg>
+                      <span className="font-medium">Crypto (TRC20)</span>
+                    </div>
+                    <div className="p-3 border border-[#0C6E4E] text-[#0C6E4E] rounded-md flex items-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mr-2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 6v12"/>
+                        <path d="M8 10h8"/>
+                      </svg>
+                      <span className="font-medium">Crypto (BNB)</span>
                     </div>
                   </div>
                 </div>

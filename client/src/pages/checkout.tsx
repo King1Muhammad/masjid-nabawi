@@ -38,6 +38,20 @@ const NayaPayLogo = () => (
   </div>
 );
 
+// Crypto TRC20 Logo
+const CryptoTrc20Logo = () => (
+  <div className="bg-blue-50 p-2 rounded-md inline-flex items-center justify-center">
+    <span className="text-blue-600 font-bold">USDT-TRC20</span>
+  </div>
+);
+
+// Crypto BNB Logo
+const CryptoBnbLogo = () => (
+  <div className="bg-yellow-50 p-2 rounded-md inline-flex items-center justify-center">
+    <span className="text-yellow-600 font-bold">BNB</span>
+  </div>
+);
+
 export default function Checkout() {
   const [donationData, setDonationData] = useState({
     amount: 0,
@@ -47,13 +61,41 @@ export default function Checkout() {
     lastName: '',
     email: '',
     message: '',
-    anonymous: false
+    anonymous: false,
+    cryptoType: '',
+    cryptoAddress: ''
   });
   
   const [paymentMethod, setPaymentMethod] = useState<string>('bank');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [, navigate] = useLocation();
   const { toast } = useToast();
+  
+  // Handle payment method selection and update the context
+  useEffect(() => {
+    if (paymentMethod === 'crypto_trc20') {
+      // Update donationData with crypto info for TRC20
+      setDonationData(prev => ({
+        ...prev,
+        cryptoType: 'trc20',
+        cryptoAddress: 'TAYc66GdUqufsWcAHXxS6qgXRW2w73179f'
+      }));
+    } else if (paymentMethod === 'crypto_bnb') {
+      // Update donationData with crypto info for BNB
+      setDonationData(prev => ({
+        ...prev,
+        cryptoType: 'bnb',
+        cryptoAddress: '0xd4f5912e37aa51402849acd7d9d4e7e9d94eb458'
+      }));
+    } else {
+      // Clear crypto fields if other payment methods are selected
+      setDonationData(prev => ({
+        ...prev,
+        cryptoType: '',
+        cryptoAddress: ''
+      }));
+    }
+  }, [paymentMethod]);
   
   // Parse URL query params
   useEffect(() => {
@@ -67,7 +109,9 @@ export default function Checkout() {
       lastName: params.get('lastName') || '',
       email: params.get('email') || '',
       message: params.get('message') || '',
-      anonymous: params.get('anonymous') === 'true'
+      anonymous: params.get('anonymous') === 'true',
+      cryptoType: '',
+      cryptoAddress: ''
     });
   }, []);
   
@@ -163,11 +207,13 @@ export default function Checkout() {
             <h2 className="text-2xl font-heading text-[#0C6E4E] mb-6">Select Payment Method</h2>
             
             <Tabs defaultValue="bank" onValueChange={setPaymentMethod} className="w-full">
-              <TabsList className="grid grid-cols-4 mb-8">
+              <TabsList className="grid grid-cols-6 mb-8">
                 <TabsTrigger value="bank">Bank Transfer</TabsTrigger>
                 <TabsTrigger value="easypaisa">EasyPaisa</TabsTrigger>
                 <TabsTrigger value="jazzcash">JazzCash</TabsTrigger>
                 <TabsTrigger value="nayapay">NayaPay</TabsTrigger>
+                <TabsTrigger value="crypto_trc20">TRC20</TabsTrigger>
+                <TabsTrigger value="crypto_bnb">BNB</TabsTrigger>
               </TabsList>
               
               <TabsContent value="bank">
@@ -339,6 +385,100 @@ export default function Checkout() {
                   <CardFooter>
                     <p className="text-sm text-gray-500">
                       After completing the payment, click "Complete Donation" below to register your contribution.
+                    </p>
+                  </CardFooter>
+                </Card>
+              </TabsContent>
+              
+              <TabsContent value="crypto_trc20">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center">
+                      <CryptoTrc20Logo />
+                      <span className="ml-2">USDT TRC20</span>
+                    </CardTitle>
+                    <CardDescription>Donate using USDT on the Tron Network (TRC20)</CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <div className="space-y-4">
+                        <div className="grid gap-2">
+                          <div className="font-medium">TRC20 Wallet Address</div>
+                          <div className="p-2 border rounded bg-gray-50 break-all">TAYc66GdUqufsWcAHXxS6qgXRW2w73179f</div>
+                        </div>
+                        <div className="mt-4">
+                          <h3 className="font-medium mb-2">How to donate via TRC20:</h3>
+                          <ol className="list-decimal list-inside space-y-1 text-sm">
+                            <li>Open your crypto wallet app</li>
+                            <li>Select USDT (TRC20) token</li>
+                            <li>Send to the address above or scan the QR code</li>
+                            <li>Enter amount equivalent to {donationData.amount} PKR</li>
+                            <li>Complete the transaction</li>
+                          </ol>
+                        </div>
+                      </div>
+                      <div className="flex items-center justify-center">
+                        <div className="bg-white p-4 rounded-lg border">
+                          <img 
+                            src="/images/trc20_wallet_qr.jpg" 
+                            alt="TRC20 Wallet QR Code" 
+                            className="max-w-full h-auto"
+                          />
+                          <div className="text-center mt-2 text-sm font-medium">Scan to pay with USDT (TRC20)</div>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                  <CardFooter>
+                    <p className="text-sm text-gray-500">
+                      After sending crypto, click "Complete Donation" below to register your contribution.
+                    </p>
+                  </CardFooter>
+                </Card>
+              </TabsContent>
+              
+              <TabsContent value="crypto_bnb">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center">
+                      <CryptoBnbLogo />
+                      <span className="ml-2">BNB Smart Chain</span>
+                    </CardTitle>
+                    <CardDescription>Donate using BNB or any BEP20 token</CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="grid md:grid-cols-2 gap-6">
+                      <div className="space-y-4">
+                        <div className="grid gap-2">
+                          <div className="font-medium">BNB Wallet Address</div>
+                          <div className="p-2 border rounded bg-gray-50 break-all">0xd4f5912e37aa51402849acd7d9d4e7e9d94eb458</div>
+                        </div>
+                        <div className="mt-4">
+                          <h3 className="font-medium mb-2">How to donate via BNB Chain:</h3>
+                          <ol className="list-decimal list-inside space-y-1 text-sm">
+                            <li>Open your crypto wallet app</li>
+                            <li>Select BNB Smart Chain network</li>
+                            <li>Send BNB or any BEP20 token to the address above or scan the QR code</li>
+                            <li>Enter amount equivalent to {donationData.amount} PKR</li>
+                            <li>Complete the transaction</li>
+                          </ol>
+                        </div>
+                      </div>
+                      <div className="flex items-center justify-center">
+                        <div className="bg-white p-4 rounded-lg border">
+                          <img 
+                            src="/images/bnb_wallet_qr.jpg" 
+                            alt="BNB Wallet QR Code" 
+                            className="max-w-full h-auto"
+                          />
+                          <div className="text-center mt-2 text-sm font-medium">Scan to pay with BNB or BEP20 tokens</div>
+                        </div>
+                      </div>
+                    </div>
+                  </CardContent>
+                  <CardFooter>
+                    <p className="text-sm text-gray-500">
+                      After sending crypto, click "Complete Donation" below to register your contribution.
                     </p>
                   </CardFooter>
                 </Card>

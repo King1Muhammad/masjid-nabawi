@@ -25,6 +25,12 @@ export const donations = pgTable("donations", {
   email: text("email").notNull(),
   message: text("message"),
   anonymous: boolean("anonymous").default(false),
+  paymentMethod: text("payment_method").default("bank_transfer"), // bank_transfer, easypaisa, jazzcash, nayapay, crypto_trc20, crypto_bnb
+  transactionId: text("transaction_id"), // Reference number or transaction ID
+  paymentProofUrl: text("payment_proof_url"), // URL to uploaded payment proof
+  cryptoType: text("crypto_type"), // trc20, bnb 
+  cryptoAddress: text("crypto_address"), // Wallet address used for payment
+  paymentStatus: text("payment_status").default("pending"), // pending, completed, failed
   createdAt: timestamp("created_at").defaultNow(),
 });
 

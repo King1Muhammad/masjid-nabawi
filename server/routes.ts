@@ -152,9 +152,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
       
-      const donation = await storage.createDonation(validationResult.data);
+      // Handle crypto donation data
+      const donationData = validationResult.data;
+      if (donationData.paymentMethod === 'crypto_trc20' || donationData.paymentMethod === 'crypto_bnb') {
+        if (!donationData.cryptoType || !donationData.cryptoAddress) {
+          donationData.cryptoType = donationData.paymentMethod === 'crypto_trc20' ? 'trc20' : 'bnb';
+          donationData.cryptoAddress = donationData.paymentMethod === 'crypto_trc20' 
+            ? 'TAYc66GdUqufsWcAHXxS6qgXRW2w73179f' 
+            : '0xd4f5912e37aa51402849acd7d9d4e7e9d94eb458';
+        }
+      }
+      
+      const donation = await storage.createDonation(donationData);
       res.status(201).json(donation);
     } catch (error) {
+      console.error("Donation error:", error);
       res.status(500).json({ message: "Failed to process donation" });
     }
   });
