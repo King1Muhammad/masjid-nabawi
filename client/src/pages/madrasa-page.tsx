@@ -1,5 +1,5 @@
 import { COURSES, EDUCATIONAL_PROGRAMS } from '@/lib/constants';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -71,6 +71,11 @@ const MadrasaPage = () => {
   const { toast } = useToast();
   const [location, navigate] = useLocation();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  // Scroll to top on component mount
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   
   // Extract courseId from URL query parameters if any
   const getQueryParam = (param: string) => {
@@ -165,8 +170,11 @@ const MadrasaPage = () => {
   return (
     <div className="py-16 bg-[#F7F3E9]">
       <div className="container mx-auto px-4">
-        <h1 className="text-4xl md:text-5xl font-heading text-[#0C6E4E] text-center mb-4">Our Madrasa</h1>
-        <p className="text-xl text-center max-w-3xl mx-auto mb-16">Providing comprehensive Islamic education through structured courses for students of all ages and backgrounds.</p>
+        <div className="mb-12 text-center">
+          <h1 className="text-4xl md:text-6xl font-heading text-[#0C6E4E] mb-4">دَرس و تربیت نبوی</h1>
+          <h2 className="text-2xl md:text-3xl font-heading text-[#0C6E4E] mb-6">Online Dars e Nizami Madersa Academy of Islamic Knowledge</h2>
+          <p className="text-xl text-center max-w-3xl mx-auto">Providing comprehensive Islamic education through structured courses from Quran, Hadith, Fiqh, and Arabic Grammar for students of all ages and backgrounds.</p>
+        </div>
         
         <div className="grid md:grid-cols-2 gap-12 items-center mb-16">
           <div>
@@ -179,6 +187,43 @@ const MadrasaPage = () => {
               <p>Jamia Masjid Nabvi Qureshi Hashmi's Madrasa is dedicated to providing high-quality Islamic education to Muslims of all ages and backgrounds. Our comprehensive curriculum is designed to nurture a deep understanding of Islamic teachings and practices while fostering spiritual growth and character development.</p>
               <p>Our experienced teachers are not only knowledgeable in Islamic sciences but also trained in effective teaching methodologies. We maintain small class sizes to ensure personalized attention for each student, and our facilities are designed to create a conducive learning environment.</p>
               <p>We believe that Islamic education should be accessible to everyone, which is why we offer flexible scheduling options, including weekend and evening classes, as well as online learning opportunities for those who cannot attend in person.</p>
+            </div>
+            
+            <div className="bg-white rounded-lg shadow-lg p-6 mb-6">
+              <h3 className="text-xl font-medium text-[#0C6E4E] mb-4">Teaching Methodology</h3>
+              <p className="mb-4">Our teaching methodology is based on the guidance of the Quran and Sunnah. We believe in a balanced approach that respects traditional Islamic scholarship while incorporating modern educational techniques.</p>
+              <ul className="space-y-2">
+                <li className="flex items-start">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#D4AF37] mt-0.5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  Video lessons with detailed explanations
+                </li>
+                <li className="flex items-start">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#D4AF37] mt-0.5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  Live interactive sessions with teachers
+                </li>
+                <li className="flex items-start">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#D4AF37] mt-0.5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  Self-paced learning materials
+                </li>
+                <li className="flex items-start">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#D4AF37] mt-0.5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  Regular assignments and assessments
+                </li>
+                <li className="flex items-start">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#D4AF37] mt-0.5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  Personalized feedback and progress tracking
+                </li>
+              </ul>
             </div>
             
             <div className="bg-white rounded-lg shadow-lg p-6">

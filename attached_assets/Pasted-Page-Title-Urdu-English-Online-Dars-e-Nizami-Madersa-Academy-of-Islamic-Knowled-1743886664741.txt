@@ -1,0 +1,251 @@
+Page Title
+Urdu: دَرس و تربیت نبوی
+
+English: Online Dars e Nizami Madersa Academy of Islamic Knowledge (from Quran, Hadith, Fiqh, and Arabic Grammar)
+
+Introduction Section
+Urdu Section
+دَرس و تربیت نبوی:
+ہمارا مقصد ایک ایسی تعلیمی فضا فراہم کرنا ہے جو قرآن و حدیث، فقہ، اور عربی گرامر کی تعلیمات پر مبنی ہو۔ یہ آن لائن اکیڈمی دنیا بھر کے طلبہ کو دَرسِ نظامی کی تعلیم فراہم کرے گی، تاکہ وہ اسلامی تعلیمات اور فکری ترقی کی جانب گامزن ہو سکیں۔
+
+English Section
+Online Dars e Nizami Madersa Academy:
+Our goal is to provide an educational environment based on the teachings of the Quran, Hadith, Fiqh, and Arabic Grammar. This online academy will offer Dars e Nizami education to students worldwide, enabling them to progress in Islamic knowledge and intellectual growth.
+
+Curriculum Details
+English:
+
+Quranic Tafsir (Interpretation)
+
+Knowledge of Hadith
+
+Islamic Jurisprudence (Fiqh)
+
+Arabic Grammar
+
+Islamic History and Contemporary Issues
+
+Teaching Methodology
+English:
+Our teaching methodology will be based on the guidance of the Quran and Sunnah. Online classes will include videos, live sessions, and self-paced learning to provide the best educational experience.
+
+Enrollment Process
+English:
+If you wish to enroll in this academy, please fill out the form below and contact us.
+
+Contact Information
+Include a contact form with fields for Name, Phone Number, Email, and Message.
+
+Contact Form
+Name: [Text Field]
+
+Phone Number: [Text Field]
+
+Email: [Text Field]
+
+Message: [Text Area]
+
+Submit Button: "Send Now"
+
+This structure will maintain professionalism while keeping the name in Urdu as requested. Let me know if you need help implementing this into Replit!
+
+
+
+
+
+
+You said:
+yar is content key sath main chahta houn key replit page ko professional khud ki intelligence sey banai our page key puraney content ko bhi delete na kerai
+
+
+ChatGPT said:
+To create a professional and intelligent page on Replit while keeping the existing content, you can follow these steps to achieve your goal. Here's how you can integrate the new content and style the page, keeping it sophisticated and responsive:
+
+1. Create a New HTML Page for the Madrasa Content
+First, create a new HTML file in your Replit project (for example: madrasa.html), which will contain the new madrasa content.
+
+2. Keep the Old Content Intact
+To ensure the existing content isn't deleted, make sure you're creating the new content in a separate file or section. You can link this new page to the existing one from your main site using a navigation menu.
+
+3. HTML Structure for the Madrasa Page
+Here's the HTML code with the content you've requested. You can copy-paste this into your madrasa.html file in Replit.
+
+html
+Copy
+Edit
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Madrasa - Online Dars e Nizami</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navbar to link to the home page or other pages -->
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="madrasa.html">Madrasa</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content Section -->
+    <section class="madrasa-content">
+        <h1>دَرس و تربیت نبوی</h1>
+        <h2>Online Dars e Nizami Madersa Academy of Islamic Knowledge (from Quran, Hadith, Fiqh, and Arabic Grammar)</h2>
+
+        <p>Our goal is to provide an educational environment based on the teachings of the Quran, Hadith, Fiqh, and Arabic Grammar. This online academy will offer Dars e Nizami education to students worldwide, enabling them to progress in Islamic knowledge and intellectual growth.</p>
+
+        <h3>Curriculum Details</h3>
+        <ul>
+            <li>Quranic Tafsir (Interpretation)</li>
+            <li>Knowledge of Hadith</li>
+            <li>Islamic Jurisprudence (Fiqh)</li>
+            <li>Arabic Grammar</li>
+            <li>Islamic History and Contemporary Issues</li>
+        </ul>
+
+        <h3>Teaching Methodology</h3>
+        <p>Our teaching methodology will be based on the guidance of the Quran and Sunnah. Online classes will include videos, live sessions, and self-paced learning to provide the best educational experience.</p>
+
+        <h3>Enrollment Process</h3>
+        <p>If you wish to enroll in this academy, please fill out the form below and contact us.</p>
+
+        <!-- Enrollment Contact Form -->
+        <form action="submit_form.php" method="post">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="phone">Phone Number:</label>
+            <input type="text" id="phone" name="phone" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" required></textarea>
+
+            <button type="submit">Send Now</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2023 Masjid Nabvi Qureshi Hashmi. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>
+4. Add a New CSS File to Style the Page
+In Replit, you can create a styles.css file to apply professional styling to the page. Below is a simple CSS example to give the page a clean, professional look.
+
+css
+Copy
+Edit
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+nav {
+    background-color: #333;
+    color: white;
+    padding: 15px;
+    text-align: center;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 10px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+section.madrasa-content {
+    margin: 30px auto;
+    padding: 20px;
+    max-width: 900px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul li {
+    padding: 8px;
+}
+
+form {
+    margin-top: 30px;
+}
+
+form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+form input, form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+form button {
+    padding: 10px 15px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #555;
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #333;
+    color: white;
+}
+5. Link the New Page and Keep the Old One
+In the HTML code above, I’ve included a navigation menu (nav) that links to different pages, ensuring the rest of your content is still accessible. You can add your current page (such as index.html) into this navigation as well.
+
+6. Preview and Test the Page
+After implementing the HTML and CSS in Replit, preview the page.
+
+Test the contact form (make sure the form action URL points to your backend script or Replit's server-side file for form submission).
+
+Ensure everything is responsive on both desktop and mobile.
+
+7. Deploy the Page
+Once you're satisfied with the design and functionality, deploy the page.
+
+By following these steps, you'll be able to add a new professional page without affecting your existing content, and ensure everything looks polished and functional for international students.
+
