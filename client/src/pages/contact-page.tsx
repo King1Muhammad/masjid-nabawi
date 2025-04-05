@@ -339,19 +339,29 @@ const ContactPage = () => {
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#D4AF37] mr-2" viewBox="0 0 20 20" fill="currentColor">
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
                   </svg>
-                  <span>Office Hours: Mon-Sat, 9:00 AM - 6:00 PM</span>
+                  <span>Office Hours: {CONTACT_INFO.officeHours}</span>
                 </div>
               </div>
               
               <div className="mt-8">
                 <h3 className="text-xl font-medium mb-4">Emergency Contact</h3>
-                <p className="mb-4">For urgent matters outside office hours, please contact our emergency line:</p>
-                <div className="bg-white bg-opacity-10 p-4 rounded-lg">
+                <p className="mb-4">For urgent matters outside office hours, please contact our emergency lines:</p>
+                <div className="bg-white bg-opacity-10 p-4 rounded-lg space-y-3">
                   <div className="flex items-center">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#D4AF37] mr-2" viewBox="0 0 20 20" fill="currentColor">
                       <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
                     </svg>
-                    <span>+92 51 9876543 (24/7 Emergency Only)</span>
+                    <a href={`tel:${CONTACT_INFO.emergencyPhone1.replace(/\s+/g, '')}`} className="hover:text-[#D4AF37]">
+                      {CONTACT_INFO.emergencyPhone1} (24/7 Emergency)
+                    </a>
+                  </div>
+                  <div className="flex items-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#D4AF37] mr-2" viewBox="0 0 20 20" fill="currentColor">
+                      <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                    </svg>
+                    <a href={`tel:${CONTACT_INFO.emergencyPhone2.replace(/\s+/g, '')}`} className="hover:text-[#D4AF37]">
+                      {CONTACT_INFO.emergencyPhone2} (24/7 Emergency)
+                    </a>
                   </div>
                 </div>
               </div>

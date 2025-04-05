@@ -261,10 +261,12 @@ export const CONTACT_INFO = {
   mapLink: 'https://maps.app.goo.gl/fS9FmcFzGBrCbveh7',
   phone: '+92 333 921 4600',
   email: 'jamiamasjidnabviqureshihashmi@gmail.com',
-  officeHours: 'Monday to Saturday: 9:00 AM - 6:00 PM\nSunday: Closed (except for prayers)',
+  officeHours: 'From Fajr to Isha (Daily)',
   easyPaisa: '03468053268',
   jazzCash: '03468053268',
-  bankAccount: 'Contact masjid administration for bank account details'
+  bankAccount: 'Contact masjid administration for bank account details',
+  emergencyPhone1: '+92 51 276 0316',
+  emergencyPhone2: '+92 333 921 4600'
 };
 
 // Default prayer times for Islamabad Hanafi timings (will be updated with API data)
