@@ -31,10 +31,10 @@ const JazzCashLogo = () => (
   </div>
 );
 
-// NayaPay Logo
-const NayaPayLogo = () => (
+// Zindagi Logo
+const ZindagiLogo = () => (
   <div className="bg-orange-50 p-2 rounded-md inline-flex items-center justify-center">
-    <span className="text-orange-600 font-bold">NayaPay</span>
+    <span className="text-orange-600 font-bold">Zindagi</span>
   </div>
 );
 
@@ -170,11 +170,11 @@ export default function Checkout() {
     setIsSubmitting(true);
     
     try {
-      // Check if transaction ID is entered for certain payment methods
-      if (['bank', 'easypaisa', 'jazzcash', 'nayapay'].includes(paymentMethod) && !transactionIdOrReference) {
+      // Check if transaction ID is entered or payment proof is uploaded
+      if (['bank', 'easypaisa', 'jazzcash', 'nayapay'].includes(paymentMethod) && !transactionIdOrReference && !uploadedProofUrl) {
         toast({
-          title: "Transaction ID Required",
-          description: "Please enter the transaction ID or reference number for your payment.",
+          title: "Transaction Information Required",
+          description: "Please enter the transaction ID or upload your payment receipt to complete your donation.",
           variant: "destructive",
         });
         setIsSubmitting(false);
@@ -298,7 +298,7 @@ export default function Checkout() {
                 <TabsTrigger value="bank">Bank Transfer</TabsTrigger>
                 <TabsTrigger value="easypaisa">EasyPaisa</TabsTrigger>
                 <TabsTrigger value="jazzcash">JazzCash</TabsTrigger>
-                <TabsTrigger value="nayapay">NayaPay</TabsTrigger>
+                <TabsTrigger value="nayapay">Zindagi</TabsTrigger>
                 <TabsTrigger value="crypto_trc20">TRC20</TabsTrigger>
                 <TabsTrigger value="crypto_bnb">BNB</TabsTrigger>
               </TabsList>
@@ -342,8 +342,8 @@ export default function Checkout() {
                             <div><span className="font-medium">A/c No:</span> 0541003765900001</div>
                             <div><span className="font-medium">IBAN:</span> PK53MCIB0541003765900001</div>
                             <div className="flex items-center">
-                              <div className="bg-orange-500 text-white rounded-full p-1 mr-1">NP</div>
-                              <span className="text-orange-500 font-medium">NAYAPAY:</span> 03468053268
+                              <div className="bg-blue-500 text-white rounded-full p-1 mr-1">JS</div>
+                              <span className="text-blue-500 font-medium">JS BANK:</span> PK31JSBL9999903468053268
                             </div>
                             <div className="flex items-center">
                               <div className="bg-green-500 text-white rounded-full p-1 mr-1">EP</div>
@@ -444,8 +444,8 @@ export default function Checkout() {
                 <Card>
                   <CardHeader>
                     <CardTitle className="flex items-center">
-                      <NayaPayLogo />
-                      <span className="ml-2">JS Bank</span>
+                      <ZindagiLogo />
+                      <span className="ml-2 font-bold text-blue-700">JS Bank</span>
                     </CardTitle>
                     <CardDescription>Send money using JS Bank Zindagi Account</CardDescription>
                   </CardHeader>
@@ -456,7 +456,10 @@ export default function Checkout() {
                     </div>
                     <div className="grid gap-2">
                       <div className="font-medium">Account Title</div>
-                      <div className="p-2 border rounded bg-gray-50">Jamia Masjid Nabvi Qureshi Hashmi</div>
+                      <div className="p-2 border rounded bg-gray-50">Muhammad Qureshi</div>
+                    </div>
+                    <div className="bg-blue-50 p-3 rounded-md border border-blue-200 mt-2">
+                      <p className="text-blue-700 text-sm font-medium">This account supports USD transactions as well. You can send your donation in USD from any international bank.</p>
                     </div>
                     <div className="mt-4">
                       <h3 className="font-medium mb-2">How to donate via JS Bank:</h3>
@@ -572,28 +575,73 @@ export default function Checkout() {
               </TabsContent>
             </Tabs>
             
-            <div className="mt-8 flex justify-between items-center">
-              <Button 
-                variant="outline" 
-                onClick={() => navigate('/donate')}
-              >
-                Back to Donation Form
-              </Button>
+            <div className="mt-8 bg-gray-50 p-6 rounded-lg border">
+              <h3 className="text-lg font-medium mb-4 text-gray-800">Complete Your Donation</h3>
               
-              <Button 
-                onClick={handleCompletePayment}
-                disabled={isSubmitting}
-                className="bg-[#D4AF37] hover:bg-opacity-90 text-white"
-              >
-                {isSubmitting ? (
+              <div className="space-y-4 mb-6">
+                <div>
+                  <label htmlFor="transactionId" className="block text-sm font-medium mb-1 text-gray-700">
+                    Transaction ID or Reference Number
+                  </label>
+                  <input
+                    type="text"
+                    id="transactionId"
+                    value={transactionIdOrReference}
+                    onChange={(e) => setTransactionIdOrReference(e.target.value)}
+                    className="w-full p-2 border rounded focus:ring-2 focus:ring-[#0C6E4E] focus:outline-none"
+                    placeholder="Enter transaction ID from your payment receipt"
+                  />
+                </div>
+                
+                <div>
+                  <label htmlFor="paymentProof" className="block text-sm font-medium mb-1 text-gray-700">
+                    Upload Payment Receipt (Optional)
+                  </label>
                   <div className="flex items-center">
-                    <div className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full mr-2"></div>
-                    Processing...
+                    <input
+                      type="file"
+                      id="paymentProof"
+                      onChange={handleFileChange}
+                      className="w-full p-2 border rounded"
+                    />
+                    <Button 
+                      variant="outline" 
+                      onClick={handleProofUpload}
+                      disabled={!paymentProof || isUploading}
+                      className="ml-2 whitespace-nowrap"
+                    >
+                      {isUploading ? 'Uploading...' : 'Upload'}
+                    </Button>
                   </div>
-                ) : (
-                  'Complete Donation'
-                )}
-              </Button>
+                  {uploadedProofUrl && (
+                    <p className="text-green-600 text-sm mt-1">✓ Receipt uploaded successfully</p>
+                  )}
+                </div>
+              </div>
+              
+              <div className="flex justify-between items-center">
+                <Button 
+                  variant="outline" 
+                  onClick={() => navigate('/donate')}
+                >
+                  Back to Donation Form
+                </Button>
+                
+                <Button 
+                  onClick={handleCompletePayment}
+                  disabled={isSubmitting}
+                  className="bg-[#D4AF37] hover:bg-opacity-90 text-white"
+                >
+                  {isSubmitting ? (
+                    <div className="flex items-center">
+                      <div className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full mr-2"></div>
+                      Processing...
+                    </div>
+                  ) : (
+                    'Complete Donation'
+                  )}
+                </Button>
+              </div>
             </div>
             
             <div className="mt-6 p-4 bg-yellow-50 rounded-md border border-yellow-200">

@@ -81,7 +81,7 @@ const sendDonationReceipt = async (donation: Donation) => {
     let paymentMethodDisplay = 'Bank Transfer';
     if (donation.paymentMethod === 'easypaisa') paymentMethodDisplay = 'EasyPaisa';
     if (donation.paymentMethod === 'jazzcash') paymentMethodDisplay = 'JazzCash';
-    if (donation.paymentMethod === 'nayapay') paymentMethodDisplay = 'NayaPay';
+    if (donation.paymentMethod === 'nayapay') paymentMethodDisplay = 'JS Bank Zindagi';
     if (donation.paymentMethod === 'crypto_trc20') paymentMethodDisplay = 'TRC20 Crypto';
     if (donation.paymentMethod === 'crypto_bnb') paymentMethodDisplay = 'BNB Crypto';
     
@@ -136,6 +136,12 @@ const sendDonationReceipt = async (donation: Donation) => {
               <tr>
                 <td style="padding: 8px 0; font-weight: bold;">Transaction ID:</td>
                 <td>${donation.transactionId}</td>
+              </tr>
+              ` : ''}
+              ${donation.paymentProofUrl ? `
+              <tr>
+                <td style="padding: 8px 0; font-weight: bold;">Payment Proof:</td>
+                <td><a href="${process.env.BASE_URL || 'https://masjidenabawismodel.com'}${donation.paymentProofUrl}" target="_blank" style="color: #0C6E4E;">View Receipt</a></td>
               </tr>
               ` : ''}
             </table>
