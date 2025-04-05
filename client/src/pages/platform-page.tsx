@@ -4,7 +4,6 @@ import { Link } from 'wouter';
 // Import images - using relative paths
 import bnbQRCode from '../assets/bnb ahmed wallet.jpg';
 import trc20QRCode from '../assets/trc20 ahmed wallet.jpg';
-import corruptionImage from '../assets/pre-islamic-arabia.webp';
 import globalPlatformImage from '../assets/global platform.jpg';
 import governanceImage from '../assets/masjidnabviadministration.jpg';
 import communityPlatformImage from '../assets/masajid governance.jpg';
@@ -58,7 +57,7 @@ const PlatformPage = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform hover:-translate-y-2">
               <div className="h-48 relative">
-                <img src={corruptionImage} alt="Political Corruption" className="w-full h-full object-cover" />
+                <img src="https://source.unsplash.com/random/600x400/?corruption,politics" alt="Political Corruption" className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-black/30"></div>
               </div>
               <div className="p-6">
