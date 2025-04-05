@@ -77,21 +77,21 @@ export const TIMELINE_ITEMS = [
     title: 'Pre-Islamic Arabia',
     description: 'Before Islam, Arabian society was marked by tribalism, warfare, idol worship, and injustice. The Kaaba in Mecca, originally built for monotheistic worship, had become a center for idolatry.',
     content: 'Pre-Islamic Arabian society was deeply divided along tribal lines, leading to frequent conflicts and warfare. Idol worship was prevalent, hindering spiritual development. Injustice and inequality were widespread, with the rights of common people, especially slaves, virtually non-existent.',
-    image: '@assets/pre-islamic-arabia.webp'
+    image: '@assets/DALL·E 2025-04-05 00.40.38 - A realistic and historical depiction of Pre-Islamic Arabian society, featuring tribal tents, camels, and a bustling marketplace in the desert. In the .webp'
   },
   {
     id: 2,
     title: 'Prophet Muhammad ﷺ',
     description: 'The life and teachings of Prophet Muhammad ﷺ brought monotheism, justice, education, and moral values to humanity, shifting society from tribalism to unity.',
     content: 'With the arrival of Islam and the message brought by Prophet Muhammad ﷺ, a transformation occurred. Muslims embraced monotheism (belief in one God), adopted a code of ethics, and gained a sense of unity as a community (Ummah). Islam emphasized equality, justice, improved the status of women, and promoted education and knowledge.',
-    image: '@assets/islamic-principles.webp'
+    image: '@assets/DALL·E 2025-04-05 00.40.25 - A symbolic image representing the themes of monotheism, justice, education, and unity. The scene features an open Quran at the center, surrounded by r.webp'
   },
   {
     id: 3,
     title: 'Masjid-e-Nabawi',
     description: 'Prophet Muhammad\'s migration to Madina in 622 CE led to the establishment of Masjid e Nabawi, which became more than just a place of worship - it was the center of a new nation.',
     content: 'Prophet Muhammad designated Masjid e Nabawi as the spiritual and administrative heart of the nascent Islamic state. It served as more than just a place of worship; it became a hub for decision-making, discussions, and community gatherings. The Constitution of Madina established a framework for a pluralistic society, where diverse communities coexisted harmoniously under Islamic governance.',
-    image: '@assets/masjidnabviadministration.jpg'
+    image: '@assets/our masjid project.webp'
   },
   {
     id: 4,
@@ -105,7 +105,7 @@ export const TIMELINE_ITEMS = [
     title: 'Our Masjid Project',
     description: 'Jamia Masjid Nabvi Qureshi Hashmi is reviving the true model of Masjid e Nabawi with comprehensive Islamic education and community governance.',
     content: 'Our masjid project aims to restore the comprehensive role that masajids played during the time of Prophet Muhammad ﷺ. We are creating a center for education, governance, social welfare, and economic activities, all governed by Islamic principles and transparent community participation.',
-    image: '@assets/masjidphilosophy.jpg'
+    image: '@assets/masjid logo.png'
   }
 ];
 
