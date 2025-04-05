@@ -5,7 +5,7 @@ import masjidEntryImage from "@assets/IMG_20230318_150311_747.jpg";
 import masjidAreaImage from "@assets/IMG_20230318_151124_594.jpg";
 import masjidGroundImage from "@assets/IMG_20230318_151137_544.jpg";
 import masjidPhilosophy from "@assets/masjidphilosophy.jpg";
-import masjidInteriorImage from "@assets/IMG_20230318_150704_129.jpg";
+import masjidInteriorImage from "@assets/IMG_20230318_150311_747.jpg";
 import masjidOutsideImage from "@assets/IMG_20230318_150712_252.jpg";
 import masjidExteriorImage from "@assets/IMG_20230318_151014_122.jpg";
 import masjidHeroImage from "@assets/1.png";

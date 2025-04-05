@@ -1,6 +1,6 @@
 
 import React from 'react';
-import preIslamicImage from '@assets/pre-islamic-arabia.webp';
+import preIslamicImage from '@assets/pre islamic arabia beti.webp';
 import islamicImage from '@assets/islamic-principles.webp';
 
 export const PreIslamicBackground = () => (
