@@ -370,7 +370,7 @@ export default function Checkout() {
                     </div>
                     <div className="grid gap-2">
                       <div className="font-medium">Account Title</div>
-                      <div className="p-2 border rounded bg-gray-50">Jamia Masjid Nabvi Qureshi Hashmi</div>
+                      <div className="p-2 border rounded bg-gray-50">Muhammad Qureshi</div>
                     </div>
                     <div className="mt-4">
                       <h3 className="font-medium mb-2">How to donate via EasyPaisa:</h3>
@@ -407,7 +407,7 @@ export default function Checkout() {
                     </div>
                     <div className="grid gap-2">
                       <div className="font-medium">Account Title</div>
-                      <div className="p-2 border rounded bg-gray-50">Jamia Masjid Nabvi Qureshi Hashmi</div>
+                      <div className="p-2 border rounded bg-gray-50">Muhammad Qureshi</div>
                     </div>
                     <div className="mt-4">
                       <h3 className="font-medium mb-2">How to donate via JazzCash:</h3>
@@ -433,25 +433,25 @@ export default function Checkout() {
                   <CardHeader>
                     <CardTitle className="flex items-center">
                       <NayaPayLogo />
-                      <span className="ml-2">NayaPay</span>
+                      <span className="ml-2">JS Bank</span>
                     </CardTitle>
-                    <CardDescription>Send money using NayaPay mobile wallet</CardDescription>
+                    <CardDescription>Send money using JS Bank Zindagi Account</CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="grid gap-2">
-                      <div className="font-medium">NayaPay Account Number</div>
-                      <div className="p-2 border rounded bg-gray-50">03468053268</div>
+                      <div className="font-medium">IBAN</div>
+                      <div className="p-2 border rounded bg-gray-50">PK31JSBL9999903468053268</div>
                     </div>
                     <div className="grid gap-2">
                       <div className="font-medium">Account Title</div>
                       <div className="p-2 border rounded bg-gray-50">Jamia Masjid Nabvi Qureshi Hashmi</div>
                     </div>
                     <div className="mt-4">
-                      <h3 className="font-medium mb-2">How to donate via NayaPay:</h3>
+                      <h3 className="font-medium mb-2">How to donate via JS Bank:</h3>
                       <ol className="list-decimal list-inside space-y-1 text-sm">
-                        <li>Open your NayaPay app</li>
-                        <li>Select "Send Money" option</li>
-                        <li>Enter the number: 03468053268</li>
+                        <li>Open your banking app</li>
+                        <li>Select "Funds Transfer" option</li>
+                        <li>Enter the IBAN: PK31JSBL9999903468053268</li>
                         <li>Enter amount: {donationData.amount}</li>
                         <li>Confirm the transaction</li>
                       </ol>

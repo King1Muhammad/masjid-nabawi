@@ -98,9 +98,9 @@ const DonationPage = () => {
         <div className="relative rounded-2xl overflow-hidden mb-16">
           <div className="absolute inset-0 bg-gradient-to-r from-[#0C6E4E]/80 to-[#0C6E4E]/60 z-10"></div>
           <div className="relative z-20 py-20 px-6 text-center">
-            <h1 className="text-4xl md:text-5xl font-heading text-white mb-4">Give Sadaqah Jariyah – Build Your House in Jannah</h1>
+            <h1 className="text-4xl md:text-5xl font-heading text-white mb-4">Build a Legacy of Endless Rewards</h1>
             <p className="text-xl text-white/90 max-w-3xl mx-auto mb-8">
-              Join us in building a legacy of righteousness that continues to benefit generations to come.
+              "Whoever builds a mosque for Allah, Allah will build for him a similar house in Paradise." (Sahih Bukhari)
             </p>
             <a 
               href="#donation-form" 
@@ -109,11 +109,24 @@ const DonationPage = () => {
               Donate Now
             </a>
           </div>
-          <img 
-            src="/images/masjidnabvi.jpg" 
-            alt="Masjid Nabvi" 
-            className="absolute inset-0 w-full h-full object-cover" 
-          />
+          <div className="absolute inset-0 w-full h-full">
+            <div className="absolute inset-0 w-full h-full flex">
+              <div className="w-1/2 h-full">
+                <img 
+                  src="/uploads/construction_site.jpg" 
+                  alt="Masjid Construction" 
+                  className="w-full h-full object-cover" 
+                />
+              </div>
+              <div className="w-1/2 h-full">
+                <img 
+                  src="/uploads/construction_panorama.jpg" 
+                  alt="Masjid Construction Panorama" 
+                  className="w-full h-full object-cover" 
+                />
+              </div>
+            </div>
+          </div>
         </div>
         
         <div className="grid md:grid-cols-2 gap-12">
@@ -290,6 +303,11 @@ const DonationPage = () => {
                     {...register('campaign')}
                   >
                     <option value="general">General Masjid Fund</option>
+                    <option value="construction">Masjid Construction</option>
+                    <option value="global_platform">Visionary Global Platform</option>
+                    <option value="madrasa">Madrasa / Islamic Education</option>
+                    <option value="mission_expansion">Mission Expansion</option>
+                    <option value="sadaqah_zakat">Sadaqah / Zakat for Needy</option>
                     {campaigns?.map(campaign => (
                       <option key={campaign.id} value={campaign.name}>{campaign.name}</option>
                     ))}
@@ -416,8 +434,8 @@ const DonationPage = () => {
                 </div>
                 
                 <div className="mb-6 p-4 bg-[#F7F3E9] rounded-md">
-                  <h3 className="font-medium mb-2">Donation Receipt</h3>
-                  <p className="text-sm">Upon successful donation, a receipt will be sent to your email address for tax deduction purposes. Our masjid is a registered non-profit organization.</p>
+                  <h3 className="font-medium mb-2">Confirmation</h3>
+                  <p className="text-sm">Upon successful donation, a receipt will be sent to your email address. JazakAllah Khair for your generosity!</p>
                 </div>
                 
                 <button 
