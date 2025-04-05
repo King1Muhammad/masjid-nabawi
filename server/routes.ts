@@ -19,6 +19,7 @@ import {
 import axios from "axios";
 import Stripe from "stripe";
 import { generateImage, generateMultipleImages } from "./image-generation";
+import { sendEnrollmentNotification } from "./email-service";
 
 if (!process.env.STRIPE_SECRET_KEY) {
   console.warn('Missing STRIPE_SECRET_KEY. Stripe payments will not be processed.');
@@ -454,8 +455,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       const enrollment = await storage.createEnrollment(validationResult.data);
+      
+      // Send enrollment notification email to masjid admin
+      try {
+        await sendEnrollmentNotification(enrollment);
+        console.log("Enrollment notification email sent successfully");
+      } catch (emailError) {
+        console.error("Failed to send enrollment notification email:", emailError);
+        // Continue process even if email fails
+      }
+      
       res.status(201).json(enrollment);
     } catch (error) {
+      console.error("Enrollment error:", error);
       res.status(500).json({ message: "Failed to process enrollment" });
     }
   });
