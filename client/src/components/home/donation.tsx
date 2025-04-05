@@ -58,25 +58,33 @@ const DonationSection = () => {
   
   const onSubmit = async (data: DonationFormData) => {
     try {
-      await apiRequest('POST', '/api/donations', data);
+      if (!data.amount || data.amount <= 0) {
+        toast({
+          title: "Invalid Amount",
+          description: "Please enter a valid donation amount.",
+          variant: "destructive",
+        });
+        return;
+      }
       
-      toast({
-        title: "Donation Successful",
-        description: "Thank you for your generous contribution!",
+      // Create query string with donation data
+      const params = new URLSearchParams({
+        amount: data.amount.toString(),
+        campaign: data.campaign || 'general',
+        type: data.donationType || 'one-time',
+        firstName: data.firstName || '',
+        lastName: data.lastName || '',
+        email: data.email || '',
+        message: data.message || '',
+        anonymous: data.anonymous ? 'true' : 'false'
       });
       
-      // Reset form
-      setSelectedAmount(null);
-      setCustomAmount('');
-      setValue('amount', 0);
-      setValue('firstName', '');
-      setValue('lastName', '');
-      setValue('email', '');
-      setValue('message', '');
+      // Redirect to checkout page with donation data
+      window.location.href = `/donate/checkout?${params.toString()}`;
     } catch (error) {
       toast({
-        title: "Donation Failed",
-        description: "There was an error processing your donation. Please try again.",
+        title: "Process Failed",
+        description: "There was an error processing your request. Please try again.",
         variant: "destructive",
       });
     }
