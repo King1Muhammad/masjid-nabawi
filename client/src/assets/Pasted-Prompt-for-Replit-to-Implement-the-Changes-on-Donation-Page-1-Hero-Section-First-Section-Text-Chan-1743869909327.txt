@@ -1,0 +1,110 @@
+Prompt for Replit to Implement the Changes on Donation Page
+1. Hero Section (First Section Text Change)
+New Text for Hero Section:
+
+"Your Contribution, Our Future: Building a Path to a Stronger Community and a Better Tomorrow"
+
+Join us in creating a masjid that not only serves as a space for worship but also empowers communities through education, transparency, and technology. By donating, you're contributing to the construction of a masjid based on the noble model of Masjid e Nabawi, as well as a visionary global platform for decentralized governance and transparent democracy that connects societies worldwide."
+
+Background: Use a high-quality image of Jamia Masjid Nabvi Qureshi Hashmi’s current construction and Masjid construction photo that captures the spirit of growth, progress, and community collaboration. Make sure to use the best possible resolution for clarity.
+
+2. Testimonials and Words of Wisdom Section
+Content for Testimonials:
+
+"Your support not only builds a masjid but strengthens the community for generations to come. Together, we create spaces of worship, education, and unity."
+
+"Every donation is a stepping stone toward a more compassionate world, reflecting the teachings of the Prophet Muhammad ﷺ."
+
+Add Inspirational Quotes from Leaders:
+
+"The best charity is that which is given while you are in need." – Prophet Muhammad ﷺ
+
+“Build a mosque for Allah, and Allah will build a house for you in Paradise.” – Sahih Bukhari
+
+Include personal testimonials from the community or masjid members describing the impact of donations and community-driven initiatives. Add images if possible.
+
+3. Donation Receipt Information
+Text to Remove:
+
+"Upon successful donation, a receipt will be sent to your email address for tax deduction purposes. Our masjid is a registered non-profit organization."
+
+This section can be integrated into the Thank You page after a donation is made. Here's an alternative message:
+
+"Thank you for your generous contribution! A receipt for tax deduction purposes has been sent to your email."
+
+4. Donation Options Section
+Donation Options:
+
+General Masjid Fund
+
+Masjid Construction Campaign
+
+Visionary Global Platform Fund (supporting AI-based decentralized governance system)
+
+Madrasa Education Fund
+
+Mission Expansion of Masjid-e-Nabawi’s Model
+
+Sadaqah & Zakat for the Needy (Sahib-e-Istatat)
+
+Bank Transfer Information:
+
+Account Title: Muhammad Qureshi (Admin & Nazim e Ala)
+
+JS Bank Account: (Details provided earlier)
+
+Mobile Payment Methods:
+
+EasyPaisa – Account Title: Muhammad Qureshi
+
+JazzCash – Account Title: Muhammad Qureshi
+
+International Donations:
+
+Cryptocurrency Wallet: Address (already provided) – for international donations in crypto.
+
+USD Donations: Enable donations in US Dollars through Bank Transfers or Cryptocurrency.
+
+Payment Gateway Setup: Ensure that all mobile wallets, bank transfers, and international payment methods (for crypto and USD) are connected to a secure, easy-to-use system. Set up secure gateways for mobile wallet payments.
+
+5. How Your Donations Help Section
+Text:
+
+"Your donations are instrumental in helping us build more than just a masjid – they are creating a global platform that connects communities through transparent governance, education, and support for those in need."
+
+"Every penny donated goes directly into the construction, education, charity, and innovative global platform designed to uplift societies worldwide."
+
+This section should also feature real-time progress tracking (donation tracker, construction tracker).
+
+6. Contact Us & Get Involved Section
+Text for Contact Section:
+
+"We are here to answer your questions and help you get involved. Reach out to us to learn how you can support the masjid, contribute to the platform, or simply learn more about our mission."
+
+Icons for Contact Information: Ensure all links for email, WhatsApp, and other communication platforms are linked properly.
+
+Email Address: [Insert official email for contact]
+
+WhatsApp: [Insert WhatsApp number for direct communication]
+
+Real Live Location: Provide accurate address and embed a Google Map for easy access.
+
+Phone Number: [Insert masjid’s contact number]
+
+7. Professional and Visual Enhancements
+Overall Design: Make sure the donation page looks clean and modern, aligning with your visionary global platform.
+
+Use light beige and green tones (or similar to the masjid's theme).
+
+Progress Bars for donation goals.
+
+Section Dividers to clearly define each donation campaign and allow easy navigation.
+
+8. Replit-specific Instructions:
+Add images dynamically: Ensure that the masjid photos and construction images are displayed dynamically based on the progress.
+
+Payment Gateway Integration: If not already done, integrate mobile wallets (EasyPaisa, JazzCash) and cryptocurrency as payment methods.
+
+Progress Tracking System: Implement a real-time donation tracking system that visually shows how much has been raised, and what target is still pending.
+
+Professional UI Elements: Use high-quality icons for WhatsApp, Email, Phone, and Location links

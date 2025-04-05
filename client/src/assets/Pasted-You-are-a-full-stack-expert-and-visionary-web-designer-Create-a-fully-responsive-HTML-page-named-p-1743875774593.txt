@@ -1,0 +1,76 @@
+You are a full-stack expert and visionary web designer. Create a fully responsive HTML page named "platform.html" as part of the website masjidenabawismodel.com.
+
+The page must be professionally designed and include the following sections:
+
+---
+
+1. *Title: "The Future is Now: A Global AI-Based Governance & Banking Revolution"*
+
+2. *Introduction Section*
+   - Clearly explain the current broken state of the world: political corruption, failed governance, inequality, central banking control, inflation, poverty, injustice, lack of transparency.
+   - Add visuals/images to show political chaos, economic collapse, and social inequality.
+   - Use strong, emotional language to connect with global readers.
+
+---
+
+3. *AI Era Section*
+   - Educate readers about the rise of Artificial Intelligence.
+   - Explain how AI is already disrupting jobs, systems, and economies.
+   - Add visuals showing AI, automation, robotics, and digital revolutions.
+   - Highlight both opportunities and dangers of AI.
+
+---
+
+4. *Our Visionary Solution*
+   - Introduce a new futuristic platform being created by the team at Masjid-e-Nabawi's Model.
+   - This platform will combine Artificial Intelligence, Blockchain, Transparency, and Decentralization to build a fair global system.
+   - Show features like: 
+     - AI-driven decentralized governance
+     - Blockchain-based banking and voting
+     - Transparent digital social services
+     - Real-time accountability dashboards
+     - Global collaboration & open data models
+
+---
+
+5. *Why This Platform Is Urgently Needed*
+   - Explain how it solves all the problems listed earlier.
+   - Share real-world impact examples: transparent government budgets, fair elections, secure banking for all.
+   - Explain how it will uplift poor communities, empower citizens, and bring justice to the world.
+   - Add future visuals: peaceful world, AI dashboards, fair digital systems.
+
+---
+
+6. *Join the Global Movement*
+   - Invite the reader to join this mission.
+   - Clearly explain that this is not just an idea, it is a practical, live project started by real people in Pakistan and ready to scale globally.
+   - Add a call to action:
+     - Support as an investor
+     - Collaborate as a developer, NGO, or government
+     - Help financially or physically
+
+---
+
+7. *Donation & Contact Section*
+   - Add donation options:
+     - MCIB Bank account in the legal name of "Jamia Masjid Nabvi Qureshi Hashmi"
+     - Easypaisa, JazzCash, and JS Zindagi accounts with title: "Muhammad Qureshi"
+     - Crypto wallets for Bitcoin, Ethereum, etc.
+   - Add contact email: muhammadqureshi@masjidenabawismodel.com
+
+---
+
+8. *Join Form Button*
+   - Add a "Join Us" button that links to a Google Form or a /join page where supporters can fill their info.
+
+---
+
+9. *Mobile Responsive Design*
+   - Make sure everything is responsive, clean, and globally appealing.
+   - Use beautiful fonts, layout, background, spacing, and elegant visuals.
+
+---
+
+10. *Output*
+   - Save this as platform.html so I can host and link it from the main website.
+   - Do not ask me any questions. Complete everything in one go with best design and functionality.
