@@ -74,7 +74,7 @@ const Madrasa = () => {
               ))}
             </div>
             
-            <Link href="/madrasa-page">
+            <Link href="/madrasa">
               <div className="mt-8 inline-block bg-[#0C6E4E] hover:bg-opacity-90 text-white px-6 py-3 rounded-md transition-colors cursor-pointer">
                 Enroll in Courses
               </div>
@@ -104,7 +104,7 @@ const Madrasa = () => {
                     <td className="py-3 px-4">{course.schedule}</td>
                     <td className="py-3 px-4">{course.instructor}</td>
                     <td className="py-3 px-4">
-                      <Link href={`/madrasa-page?course=${course.id}`}>
+                      <Link href={`/madrasa?course=${course.id}`}>
                         <span className="text-[#D4AF37] hover:underline cursor-pointer">Apply</span>
                       </Link>
                     </td>

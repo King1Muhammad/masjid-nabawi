@@ -86,7 +86,7 @@ const Services = () => {
         </div>
         
         <div className="text-center mt-10">
-          <Link href="/services-page">
+          <Link href="/services">
             <div className="inline-block bg-[#0C6E4E] hover:bg-opacity-90 text-white px-6 py-3 rounded-md transition-colors cursor-pointer">
               View All Services
             </div>
