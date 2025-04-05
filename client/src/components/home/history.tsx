@@ -2,6 +2,13 @@ import { TIMELINE_ITEMS } from '@/lib/constants';
 import { Link } from 'wouter';
 import { PreIslamicBackground, IslamicBackground } from '../history-bg';
 
+// Direct imports for images
+import preIslamicImage from '@assets/pre islamic arabia beti.webp';
+import prophetImage from '@assets/DALL·E 2025-04-05 00.40.25 - A symbolic image representing the themes of monotheism, justice, education, and unity. The scene features an open Quran at the center, surrounded by r.webp';
+import masjidNabwiImage from '@assets/our masjid project.webp';
+import islamicCivilizationImage from '@assets/islamic-civilization.webp';
+import masjidModelImage from '@assets/masjid logo.png';
+
 const History = () => {
   return (
     <section id="history" className="bg-[#0C6E4E] bg-opacity-5 py-16" style={{
@@ -113,25 +120,95 @@ const History = () => {
         </div>
         
         <div className="flex overflow-x-auto pb-4 space-x-6 snap-x">
-          {TIMELINE_ITEMS.map((item) => (
-            <div key={item.id} className="min-w-[300px] max-w-[350px] snap-start bg-white rounded-lg shadow-lg overflow-hidden">
-              <div className="h-48 overflow-hidden">
-                <img src={item.image.replace('@assets/', '')} alt={item.title} className="w-full h-full object-cover" />
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-heading text-[#0C6E4E] mb-2">{item.title}</h3>
-                <p className="text-sm mb-4">{item.description}</p>
-                <Link href="/history">
-                  <div className="text-[#D4AF37] hover:underline inline-block cursor-pointer">
-                    Learn more 
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 inline-block ml-1" viewBox="0 0 20 20" fill="currentColor">
-                      <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                    </svg>
-                  </div>
-                </Link>
-              </div>
+          <div className="min-w-[300px] max-w-[350px] snap-start bg-white rounded-lg shadow-lg overflow-hidden">
+            <div className="h-48 overflow-hidden">
+              <img src={preIslamicImage} alt="Pre-Islamic Arabia" className="w-full h-full object-cover" />
             </div>
-          ))}
+            <div className="p-6">
+              <h3 className="text-xl font-heading text-[#0C6E4E] mb-2">Pre-Islamic Arabia</h3>
+              <p className="text-sm mb-4">Before Islam, Arabian society was marked by tribalism, warfare, idol worship, and injustice. The Kaaba in Mecca, originally built for monotheistic worship, had become a center for idolatry.</p>
+              <Link href="/history">
+                <div className="text-[#D4AF37] hover:underline inline-block cursor-pointer">
+                  Learn more 
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 inline-block ml-1" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                  </svg>
+                </div>
+              </Link>
+            </div>
+          </div>
+          
+          <div className="min-w-[300px] max-w-[350px] snap-start bg-white rounded-lg shadow-lg overflow-hidden">
+            <div className="h-48 overflow-hidden">
+              <img src={prophetImage} alt="Prophet Muhammad ﷺ" className="w-full h-full object-cover" />
+            </div>
+            <div className="p-6">
+              <h3 className="text-xl font-heading text-[#0C6E4E] mb-2">Prophet Muhammad ﷺ</h3>
+              <p className="text-sm mb-4">The life and teachings of Prophet Muhammad ﷺ brought monotheism, justice, education, and moral values to humanity, shifting society from tribalism to unity.</p>
+              <Link href="/history">
+                <div className="text-[#D4AF37] hover:underline inline-block cursor-pointer">
+                  Learn more 
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 inline-block ml-1" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                  </svg>
+                </div>
+              </Link>
+            </div>
+          </div>
+          
+          <div className="min-w-[300px] max-w-[350px] snap-start bg-white rounded-lg shadow-lg overflow-hidden">
+            <div className="h-48 overflow-hidden">
+              <img src={masjidNabwiImage} alt="Masjid-e-Nabawi" className="w-full h-full object-cover" />
+            </div>
+            <div className="p-6">
+              <h3 className="text-xl font-heading text-[#0C6E4E] mb-2">Masjid-e-Nabawi</h3>
+              <p className="text-sm mb-4">Prophet Muhammad's migration to Madina in 622 CE led to the establishment of Masjid e Nabawi, which became more than just a place of worship - it was the center of a new nation.</p>
+              <Link href="/history">
+                <div className="text-[#D4AF37] hover:underline inline-block cursor-pointer">
+                  Learn more 
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 inline-block ml-1" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                  </svg>
+                </div>
+              </Link>
+            </div>
+          </div>
+          
+          <div className="min-w-[300px] max-w-[350px] snap-start bg-white rounded-lg shadow-lg overflow-hidden">
+            <div className="h-48 overflow-hidden">
+              <img src={islamicCivilizationImage} alt="Islamic Civilization" className="w-full h-full object-cover" />
+            </div>
+            <div className="p-6">
+              <h3 className="text-xl font-heading text-[#0C6E4E] mb-2">Islamic Civilization</h3>
+              <p className="text-sm mb-4">Islam encouraged education and knowledge, leading to the Islamic Golden Age with remarkable advancements in science, mathematics, medicine, and philosophy.</p>
+              <Link href="/history">
+                <div className="text-[#D4AF37] hover:underline inline-block cursor-pointer">
+                  Learn more 
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 inline-block ml-1" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                  </svg>
+                </div>
+              </Link>
+            </div>
+          </div>
+          
+          <div className="min-w-[300px] max-w-[350px] snap-start bg-white rounded-lg shadow-lg overflow-hidden">
+            <div className="h-48 overflow-hidden">
+              <img src={masjidModelImage} alt="Our Masjid Project" className="w-full h-full object-cover" />
+            </div>
+            <div className="p-6">
+              <h3 className="text-xl font-heading text-[#0C6E4E] mb-2">Our Masjid Project</h3>
+              <p className="text-sm mb-4">Jamia Masjid Nabvi Qureshi Hashmi is reviving the true model of Masjid e Nabawi with comprehensive Islamic education and community governance.</p>
+              <Link href="/history">
+                <div className="text-[#D4AF37] hover:underline inline-block cursor-pointer">
+                  Learn more 
+                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 inline-block ml-1" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                  </svg>
+                </div>
+              </Link>
+            </div>
+          </div>
         </div>
         
         <div className="text-center mt-8">
