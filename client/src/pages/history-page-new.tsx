@@ -1,11 +1,10 @@
-import { TIMELINE_ITEMS } from '@/lib/constants';
 import { useEffect } from 'react';
 
 // Import custom images
-import islamicCivilizationImage from '@assets/islamic-civilization.webp';
 import preIslamicImage from '@assets/DALL·E 2025-04-05 00.40.38 - A realistic and historical depiction of Pre-Islamic Arabian society, featuring tribal tents, camels, and a bustling marketplace in the desert. In the .webp';
 import prophetImage from '@assets/DALL·E 2025-04-05 00.40.25 - A symbolic image representing the themes of monotheism, justice, education, and unity. The scene features an open Quran at the center, surrounded by r.webp';
 import masjidNabwiImage from '@assets/our masjid project.webp';
+import islamicCivilizationImage from '@assets/islamic-civilization.webp';
 import masjidModelImage from '@assets/masjid logo.png';
 
 interface TimelineItemProps {
@@ -35,22 +34,49 @@ const TimelineItem = ({ title, description, image, isReversed = false, content }
   );
 };
 
-
-
 const HistoryPage = () => {
   // Scroll to top on component mount
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-  // Extended content for each timeline item with more details
-  const extendedContent = [
-    "The Arabian Peninsula before Islam was primarily a tribal society with a rich oral tradition. The majority of Arabs were polytheists, worshipping numerous deities through idols. The Kaaba in Makkah housed 360 idols and was a major pilgrimage site. Trade was the economic backbone, with Makkah serving as a commercial hub due to its location on trade routes connecting Yemen to Syria and beyond. Social justice was largely absent, with the strong oppressing the weak. The social structure was tribal, with loyalty to one's tribe considered the highest virtue, and warfare between tribes was common and often lasted for generations. Women had few rights, and female infanticide was practiced out of fear of poverty or dishonor. This period, known as 'Jahiliyyah' (age of ignorance), was characterized by tribal loyalty above all else and limited central authority.",
-    
-    "Prophet Muhammad ﷺ was born in Makkah around 570 CE to Abdullah and Amina of the respected Quraysh tribe. Orphaned at a young age, he was raised by his grandfather Abdul Muttalib and then his uncle Abu Talib. Even before prophethood, he was known for his exceptional character, earning the title 'Al-Amin' (the trustworthy). At age 40, while meditating in the Cave of Hira, he received his first revelation from Angel Jibril (Gabriel), marking the beginning of his prophetic mission. For 13 years in Makkah, he invited people to Islam, emphasizing monotheism and moral reform, despite severe opposition and persecution from the Quraysh tribe whose economic interests were tied to idol worship. In 622 CE, he migrated to Madinah (the Hijra), a journey that marks the beginning of the Islamic calendar. In Madinah, he established the first Islamic state based on brotherhood, justice, and equality, united the warring tribes, and established the Constitution of Madinah - the first written constitution in history that guaranteed rights for all citizens regardless of faith. He led by example, living simply despite his position of authority. Over time, Islam spread throughout Arabia through peaceful means and strategic alliances. Before his death in 632 CE, most of the Arabian Peninsula had embraced Islam, transforming from a divided, tribal society to a unified community guided by divine revelation.",
-    
-    "Masjid-e-Nabawi (the Prophet's Mosque) was built in Madinah shortly after the Prophet Muhammad's ﷺ migration from Makkah in 622 CE. The land where the mosque was built belonged to two orphans, and the Prophet ﷺ purchased it fairly rather than simply claiming it. Initially a simple structure measuring approximately 35 x 30 meters, it featured walls made of mud bricks, palm trunks as pillars, and a roof of palm leaves and mud. The mosque had three doors and an open courtyard with a shaded area (suffah) where poor Muslims and those dedicated to learning would reside. The eastern side contained apartments for the Prophet's family, built from the same humble materials. The Prophet ﷺ himself participated in its construction, carrying bricks and stones alongside his companions. Beyond a place of worship, it served as a community center where people gathered, a court where disputes were resolved, an educational institution where the Quran was taught, and the seat of the Prophet's government. After the Prophet's death in 632 CE, he was buried in his wife Aisha's room, which later became part of the mosque. Over centuries, various Islamic rulers expanded and beautified the mosque, with major renovations during the reigns of Caliph Umar, Caliph Uthman, the Umayyads, the Abbasids, and the Ottomans. The most distinctive modern feature, the green dome (Qubat al-Khadra), was added in 1818 CE. Today, it's one of Islam's most sacred sites, second only to the Kaaba, and can accommodate over a million worshippers during Hajj and Ramadan. The design and function of Masjid-e-Nabawi continues to inspire mosques worldwide and serves as a model for our own Jamia Masjid Nabvi Qureshi Hashmi.",
-    
-    "Islamic civilization experienced a golden age between the 8th and 14th centuries CE, a period characterized by remarkable scientific, cultural, and intellectual achievements. While Europe was in its Dark Ages, the Islamic world was a beacon of knowledge and innovation. Major centers like Baghdad, Córdoba, Cairo, and Damascus became global hubs of learning. The House of Wisdom (Bayt al-Hikmah) in Baghdad, established by Caliph Al-Ma'mun, was perhaps the greatest intellectual center of its time, attracting scholars from diverse backgrounds and faiths. Muslims made groundbreaking contributions across numerous fields: Ibn al-Haytham revolutionized optics, Al-Khwarizmi established algebra as a mathematical discipline, Ibn Sina's Canon of Medicine remained a standard medical text in Europe for centuries, Al-Zahrawi pioneered surgical instruments still used today, Al-Biruni accurately calculated Earth's circumference, and Ibn Khaldun developed early theories of sociology and economics. The period saw the establishment of the world's first degree-granting universities like Al-Qarawiyyin in Morocco (founded by a Muslim woman, Fatima al-Fihri) and libraries containing hundreds of thousands of volumes. Technological innovations included water-raising machines, astronomical instruments, and mechanical clocks. Islamic art flourished with distinctive styles in calligraphy, arabesque, geometric patterns, and architecture, while literature explored new genres and themes. This golden age was made possible by a culture that valued knowledge as a religious duty, practiced intellectual openness, provided institutional support for research, and embraced scholars regardless of faith or ethnicity. The contributions of this era not only enriched Islamic civilization but also laid much of the groundwork for the later European Renaissance."
+
+  // Timeline items data
+  const timelineItems = [
+    {
+      id: 1,
+      title: 'Pre-Islamic Arabia',
+      description: 'Before Islam, Arabian society was marked by tribalism, warfare, idol worship, and injustice. The Kaaba in Mecca, originally built for monotheistic worship, had become a center for idolatry.',
+      content: 'The Arabian Peninsula before Islam was primarily a tribal society with a rich oral tradition. The majority of Arabs were polytheists, worshipping numerous deities through idols. The Kaaba in Makkah housed 360 idols and was a major pilgrimage site. Trade was the economic backbone, with Makkah serving as a commercial hub due to its location on trade routes connecting Yemen to Syria and beyond. Social justice was largely absent, with the strong oppressing the weak. The social structure was tribal, with loyalty to one\'s tribe considered the highest virtue, and warfare between tribes was common and often lasted for generations. Women had few rights, and female infanticide was practiced out of fear of poverty or dishonor. This period, known as \'Jahiliyyah\' (age of ignorance), was characterized by tribal loyalty above all else and limited central authority.',
+      image: preIslamicImage
+    },
+    {
+      id: 2,
+      title: 'Prophet Muhammad ﷺ',
+      description: 'The life and teachings of Prophet Muhammad ﷺ brought monotheism, justice, education, and moral values to humanity, shifting society from tribalism to unity.',
+      content: 'Prophet Muhammad ﷺ was born in Makkah around 570 CE to Abdullah and Amina of the respected Quraysh tribe. Orphaned at a young age, he was raised by his grandfather Abdul Muttalib and then his uncle Abu Talib. Even before prophethood, he was known for his exceptional character, earning the title \'Al-Amin\' (the trustworthy). At age 40, while meditating in the Cave of Hira, he received his first revelation from Angel Jibril (Gabriel), marking the beginning of his prophetic mission. For 13 years in Makkah, he invited people to Islam, emphasizing monotheism and moral reform, despite severe opposition and persecution from the Quraysh tribe whose economic interests were tied to idol worship. In 622 CE, he migrated to Madinah (the Hijra), a journey that marks the beginning of the Islamic calendar. In Madinah, he established the first Islamic state based on brotherhood, justice, and equality, united the warring tribes, and established the Constitution of Madinah - the first written constitution in history that guaranteed rights for all citizens regardless of faith. He led by example, living simply despite his position of authority. Over time, Islam spread throughout Arabia through peaceful means and strategic alliances. Before his death in 632 CE, most of the Arabian Peninsula had embraced Islam, transforming from a divided, tribal society to a unified community guided by divine revelation.',
+      image: prophetImage
+    },
+    {
+      id: 3,
+      title: 'Masjid-e-Nabawi',
+      description: 'Prophet Muhammad\'s migration to Madina in 622 CE led to the establishment of Masjid e Nabawi, which became more than just a place of worship - it was the center of a new nation.',
+      content: 'Masjid-e-Nabawi (the Prophet\'s Mosque) was built in Madinah shortly after the Prophet Muhammad\'s ﷺ migration from Makkah in 622 CE. The land where the mosque was built belonged to two orphans, and the Prophet ﷺ purchased it fairly rather than simply claiming it. Initially a simple structure measuring approximately 35 x 30 meters, it featured walls made of mud bricks, palm trunks as pillars, and a roof of palm leaves and mud. The mosque had three doors and an open courtyard with a shaded area (suffah) where poor Muslims and those dedicated to learning would reside. The eastern side contained apartments for the Prophet\'s family, built from the same humble materials. The Prophet ﷺ himself participated in its construction, carrying bricks and stones alongside his companions. Beyond a place of worship, it served as a community center where people gathered, a court where disputes were resolved, an educational institution where the Quran was taught, and the seat of the Prophet\'s government. After the Prophet\'s death in 632 CE, he was buried in his wife Aisha\'s room, which later became part of the mosque. Over centuries, various Islamic rulers expanded and beautified the mosque, with major renovations during the reigns of Caliph Umar, Caliph Uthman, the Umayyads, the Abbasids, and the Ottomans. The most distinctive modern feature, the green dome (Qubat al-Khadra), was added in 1818 CE. Today, it\'s one of Islam\'s most sacred sites, second only to the Kaaba, and can accommodate over a million worshippers during Hajj and Ramadan. The design and function of Masjid-e-Nabawi continues to inspire mosques worldwide and serves as a model for our own Jamia Masjid Nabvi Qureshi Hashmi.',
+      image: masjidNabwiImage
+    },
+    {
+      id: 4,
+      title: 'Islamic Civilization',
+      description: 'Islam encouraged education and knowledge, leading to the Islamic Golden Age with remarkable advancements in science, mathematics, medicine, and philosophy.',
+      content: 'Islamic civilization experienced a golden age between the 8th and 14th centuries CE, a period characterized by remarkable scientific, cultural, and intellectual achievements. While Europe was in its Dark Ages, the Islamic world was a beacon of knowledge and innovation. Major centers like Baghdad, Córdoba, Cairo, and Damascus became global hubs of learning. The House of Wisdom (Bayt al-Hikmah) in Baghdad, established by Caliph Al-Ma\'mun, was perhaps the greatest intellectual center of its time, attracting scholars from diverse backgrounds and faiths. Muslims made groundbreaking contributions across numerous fields: Ibn al-Haytham revolutionized optics, Al-Khwarizmi established algebra as a mathematical discipline, Ibn Sina\'s Canon of Medicine remained a standard medical text in Europe for centuries, Al-Zahrawi pioneered surgical instruments still used today, Al-Biruni accurately calculated Earth\'s circumference, and Ibn Khaldun developed early theories of sociology and economics. The period saw the establishment of the world\'s first degree-granting universities like Al-Qarawiyyin in Morocco (founded by a Muslim woman, Fatima al-Fihri) and libraries containing hundreds of thousands of volumes. Technological innovations included water-raising machines, astronomical instruments, and mechanical clocks. Islamic art flourished with distinctive styles in calligraphy, arabesque, geometric patterns, and architecture, while literature explored new genres and themes. This golden age was made possible by a culture that valued knowledge as a religious duty, practiced intellectual openness, provided institutional support for research, and embraced scholars regardless of faith or ethnicity. The contributions of this era not only enriched Islamic civilization but also laid much of the groundwork for the later European Renaissance.',
+      image: islamicCivilizationImage
+    },
+    {
+      id: 5,
+      title: 'Our Masjid Project',
+      description: 'Jamia Masjid Nabvi Qureshi Hashmi is reviving the true model of Masjid e Nabawi with comprehensive Islamic education and community governance.',
+      content: 'Our masjid project aims to restore the comprehensive role that masajids played during the time of Prophet Muhammad ﷺ. We are creating a center for education, governance, social welfare, and economic activities, all governed by Islamic principles and transparent community participation.',
+      image: masjidModelImage
+    }
   ];
 
   return (
@@ -69,14 +95,14 @@ const HistoryPage = () => {
         </div>
         
         <div className="space-y-12">
-          {TIMELINE_ITEMS.map((item, index) => (
+          {timelineItems.map((item, index) => (
             <TimelineItem 
               key={item.id}
               title={item.title}
               description={item.description}
               image={item.image}
               isReversed={index % 2 !== 0}
-              content={extendedContent[index]}
+              content={item.content}
             />
           ))}
         </div>

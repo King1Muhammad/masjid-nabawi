@@ -7,7 +7,7 @@ import NotFound from "@/pages/not-found";
 import Header from "@/components/layout/header";
 import Footer from "@/components/layout/footer";
 import Home from "@/pages/home";
-import HistoryPage from "@/pages/history-page";
+import HistoryPage from "@/pages/history-page-new";
 import ServicesPage from "@/pages/services-page";
 import MadrasaPage from "@/pages/madrasa-page";
 import DonationPage from "@/pages/donation-page";
