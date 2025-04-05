@@ -260,7 +260,7 @@ export const SOCIETY_DETAILS = {
 };
 
 export const CONTACT_INFO = {
-  address: 'Jamia Masjid Nabvi Qureshi Hashmi, opposite D-13 Block FGEHF G-11/4 Islamabad, Pakistan',
+  address: 'Jamia Masjid Nabvi Qureshi Hashmi, Street 125 Street 148, opposite D-13 Block, G-11/4 G-11, Islamabad, 44100, Pakistan',
   mapLink: 'https://maps.app.goo.gl/rNPSWUBu4eEQvhQS7',
   phone: '+92 333 921 4600',
   email: 'jamiamasjidnabviqureshihashmi@gmail.com',
