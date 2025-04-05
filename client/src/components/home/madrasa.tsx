@@ -1,5 +1,6 @@
 import { COURSES, EDUCATIONAL_PROGRAMS } from '@/lib/constants';
 import { Link } from 'wouter';
+import madrasaImage from '@assets/madersa-modern.webp';
 
 interface ProgramIconProps {
   name: string;
@@ -54,7 +55,7 @@ const Madrasa = () => {
         
         <div className="grid md:grid-cols-2 gap-12 items-center">
           <div>
-            <img src="@assets/madersa-modern.webp" alt="Students at our Madrasa" className="rounded-lg shadow-lg w-full h-auto" />
+            <img src={madrasaImage} alt="Students at our Madrasa" className="rounded-lg shadow-lg w-full h-auto" />
           </div>
           
           <div>
