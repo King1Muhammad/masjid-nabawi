@@ -59,6 +59,7 @@ export const messages = pgTable("messages", {
   id: serial("id").primaryKey(),
   name: text("name").notNull(),
   email: text("email").notNull(),
+  phone: text("phone"), // Optional phone field
   subject: text("subject").notNull(),
   message: text("message").notNull(),
   status: text("status").default("unread"), // unread, read, replied

@@ -19,7 +19,7 @@ import {
 import axios from "axios";
 import Stripe from "stripe";
 import { generateImage, generateMultipleImages } from "./image-generation";
-import { sendEnrollmentNotification } from "./email-service";
+import { sendEnrollmentNotification, sendContactMessageNotification } from "./email-service";
 
 if (!process.env.STRIPE_SECRET_KEY) {
   console.warn('Missing STRIPE_SECRET_KEY. Stripe payments will not be processed.');
@@ -64,7 +64,7 @@ const createTransporter = () => {
   return nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: process.env.EMAIL_USER || 'admin@masjidenabawismodel.com',
+      user: 'jamiamasjidnabviqureshihashmi@gmail.com',
       pass: process.env.EMAIL_PASSWORD
     }
   });
@@ -166,9 +166,17 @@ const sendDonationReceipt = async (donation: Donation) => {
     
     // Send email
     await transporter.sendMail({
-      from: '"Masjid-e-Nabawi Islamabad" <admin@masjidenabawismodel.com>',
+      from: '"Masjid-e-Nabawi Islamabad" <jamiamasjidnabviqureshihashmi@gmail.com>',
       to: donation.email,
       subject: 'Thank You for Your Donation - Receipt',
+      html: htmlContent,
+    });
+    
+    // Also send a copy to masjid admin
+    await transporter.sendMail({
+      from: '"Masjid-e-Nabawi Islamabad" <jamiamasjidnabviqureshihashmi@gmail.com>',
+      to: 'jamiamasjidnabviqureshihashmi@gmail.com',
+      subject: `New Donation Received: ${donation.firstName} ${donation.lastName} - PKR ${formattedAmount}`,
       html: htmlContent,
     });
     
@@ -225,7 +233,7 @@ const sendThankYouNotification = async (donation: Donation) => {
     
     // Send email
     await transporter.sendMail({
-      from: '"Masjid-e-Nabawi Islamabad" <admin@masjidenabawismodel.com>',
+      from: '"Masjid-e-Nabawi Islamabad" <jamiamasjidnabviqureshihashmi@gmail.com>',
       to: donation.email,
       subject: 'JazakAllah Khair for Your Donation',
       html: htmlContent,
@@ -485,8 +493,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       const message = await storage.createMessage(validationResult.data);
+      
+      // Send email notification for new contact message
+      try {
+        await sendContactMessageNotification(message);
+        console.log("Contact message notification email sent successfully");
+      } catch (emailError) {
+        console.error("Failed to send contact message notification email:", emailError);
+        // Continue process even if email fails
+      }
+      
       res.status(201).json(message);
     } catch (error) {
+      console.error("Contact message error:", error);
       res.status(500).json({ message: "Failed to send message" });
     }
   });
