@@ -77,7 +77,7 @@ export const TIMELINE_ITEMS = [
     title: 'Pre-Islamic Arabia',
     description: 'Before Islam, Arabian society was marked by tribalism, warfare, idol worship, and injustice. The Kaaba in Mecca, originally built for monotheistic worship, had become a center for idolatry.',
     content: 'Pre-Islamic Arabian society was deeply divided along tribal lines, leading to frequent conflicts and warfare. Idol worship was prevalent, hindering spiritual development. Injustice and inequality were widespread, with the rights of common people, especially slaves, virtually non-existent.',
-    image: '@assets/DALL·E 2025-04-05 00.40.38 - A realistic and historical depiction of Pre-Islamic Arabian society, featuring tribal tents, camels, and a bustling marketplace in the desert. In the .webp'
+    image: '@assets/pre islamic arabia beti.webp'
   },
   {
     id: 2,

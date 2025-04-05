@@ -116,12 +116,12 @@ const History = () => {
           {TIMELINE_ITEMS.map((item) => (
             <div key={item.id} className="min-w-[300px] max-w-[350px] snap-start bg-white rounded-lg shadow-lg overflow-hidden">
               <div className="h-48 overflow-hidden">
-                <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
+                <img src={item.image.replace('@assets/', '')} alt={item.title} className="w-full h-full object-cover" />
               </div>
               <div className="p-6">
                 <h3 className="text-xl font-heading text-[#0C6E4E] mb-2">{item.title}</h3>
                 <p className="text-sm mb-4">{item.description}</p>
-                <Link href="/history-page">
+                <Link href="/history">
                   <div className="text-[#D4AF37] hover:underline inline-block cursor-pointer">
                     Learn more 
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 inline-block ml-1" viewBox="0 0 20 20" fill="currentColor">
@@ -135,7 +135,7 @@ const History = () => {
         </div>
         
         <div className="text-center mt-8">
-          <Link href="/history-page">
+          <Link href="/history">
             <div className="inline-block bg-[#0C6E4E] hover:bg-opacity-90 text-white px-6 py-3 rounded-md transition-colors cursor-pointer">
               Explore Full Timeline
             </div>
