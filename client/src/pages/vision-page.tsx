@@ -3,7 +3,7 @@ import { Link } from 'wouter';
 
 // Import custom images
 // Import images directly from public folder
-const preIslamicImage = '/images/pre-islamic-arabia.webp';
+const preIslamicImage = '/images/pre-islamic-arabia-new.webp';
 import islamicCivilizationImage from '@assets/islamic-principles.webp';
 import masjidConstructionImage from '@assets/IMG_20230124_151302_955.jpg';
 import chairmanImage from '@assets/chairman.png';
@@ -17,7 +17,8 @@ const phase2Image = '/images/global_platform.jpg';
 import phase3Image from '@assets/IMG_20230318_151134_689.jpg';
 import constructionApprovalImage from '@assets/construction_approval.jpg';
 import masjidAdministrationImage from '@assets/masjidnabviadministration.jpg';
-import masjidPhilosophyImage from '@assets/masjidphilosophy.jpg';
+// Import images directly from public folder
+const masjidPhilosophyImage = '/images/after-islam-kaaba.png';
 import bankAccountImage from '@assets/bank_account.jpg';
 
 const VisionPage = () => {
