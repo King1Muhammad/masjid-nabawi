@@ -1,0 +1,89 @@
+I have built a website called *masjidenabawismodel.com* on Replit. Please open the full project and inspect its structure, code, and content. I want you to *analyze and intelligently upgrade the entire website*, keeping the existing mission and theme intact while improving the design, loading speed, UI/UX, and code optimization. Also ensure it’s responsive, fast, SEO-ready, and can support future features like AI tools, blockchain integration, and live tracking.
+
+---
+
+### MISSION CONTEXT:
+
+This website represents the mission of *Masjid Nabvi Qureshi Hashmi, G11/4, Islamabad, founded by **Abdul Ghaffar Qureshi* and now led by his son *Muhammad Qureshi*.
+
+The masjid is based on the *model of Masjid-e-Nabawi* and now aims to *revolutionize the world’s governance, economic, and social system* by building a *global AI-powered decentralized platform* that will:
+
+- Connect people to their society’s center (Masjid, Church, Mandir, etc.)
+- Create *transparent decentralized democracy*
+- Include *blockchain-based banking and voting*
+- Offer *AI automation*, real-time tracking, and global financial relief
+- Include *social media, **job platforms, **food & ride delivery, **crypto, and **education systems*
+- Allow global citizens to *register businesses, run societies, and solve real-world problems through AI-based games*
+
+---
+
+### TASK #1 – UPGRADE ENTIRE SITE
+
+Please:
+- Improve visual design (modern, clean, professional, mobile-friendly)
+- Optimize the backend/frontend code (React, HTML, CSS, JS)
+- Add future-proof structure (folders, assets, components)
+- Suggest or add modular components like Navbars, Hero sections, Footers, etc.
+
+---
+
+### TASK #2 – ADD NEW PAGE: “The Broken System & The New Future”
+
+Create a powerful new page named:
+*/global-reform.html* or */future-platform*
+
+Page Purpose: *Educate and inspire the world* about:
+1. *History and reality* of today’s governance & banking system
+2. *Its failures, corruption, and inequality*
+3. The *urgency of global reform* in this AI-driven future
+4. Introduction to our *solution platform, its **features and impact*
+5. Why the world needs this now more than ever
+6. How people can join this mission as:
+   - Supporters
+   - Investors
+   - Donors
+   - Volunteers
+   - Partners
+
+---
+
+### Page Requirements:
+
+- Use clear *sections with bold headlines*
+- Include *visual elements*: infographics, timelines, system diagrams (use placeholders if needed)
+- Responsive and mobile-friendly
+- Include:
+   - Hero section with bold call to action
+   - A timeline of world governance & banking history
+   - Real stats and facts (or use placeholders)
+   - Comparison of "Old System vs New System"
+   - Benefits of AI-based Decentralized Transparent Governance
+   - A showcase of platform features (Live tracking, Transparent voting, Blockchain banking, Society-based admin panels, Real-world AI-based games etc.)
+   - Call-to-Action: “Join Us” with buttons for: Invest | Donate | Volunteer | Collaborate
+
+---
+
+### Example Headings:
+
+- “The Collapse of Trust in the Old System”
+- “How Did We Get Here? A Timeline of Global Governance Failure”
+- “The Future is Transparent, Decentralized & People-Centric”
+- “Introducing the One-Platform That Can Unify & Empower Humanity”
+- “Why This Mission Matters to Every Human on Earth”
+- “Support the Revolution: Let’s Build the Future Together”
+
+---
+
+### Design Style:
+
+Use:
+- Clean layout with soft animations
+- Light/Dark theme toggle (optional)
+- Modular CSS or Tailwind for styling
+- Responsive Flex/Grid layout
+- Use Bootstrap or React components if preferred
+- Code should be clean and ready to extend in future
+
+---
+
+Please complete these tasks and generate all code files, including any assets, images (use placeholders), and routes/pages necessary. Once completed, show me full file structure and provide preview.

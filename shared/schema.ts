@@ -225,7 +225,7 @@ export const insertMessageSchema = createInsertSchema(messages).omit({
 
 export const insertCampaignSchema = createInsertSchema(campaigns).omit({
   id: true,
-  raised: true,
+  raised: true as any,
   createdAt: true,
 });
 
