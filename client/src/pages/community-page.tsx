@@ -376,13 +376,13 @@ const CommunityPage = () => {
   ];
 
   return (
-    <div className="py-16 bg-[#F7F3E9]">
-      <div className="container mx-auto px-4">
-        <h1 className="text-4xl md:text-5xl font-heading text-[#0C6E4E] text-center mb-4">Community & Transparency</h1>
-        <p className="text-xl text-center max-w-3xl mx-auto mb-8">We believe in maintaining transparency and involving our community in masjid operations and decision-making.</p>
+    <div className="py-8 md:py-16 bg-[#F7F3E9]">
+      <div className="container mx-auto px-3 md:px-4">
+        <h1 className="text-2xl md:text-4xl font-heading text-[#0C6E4E] text-center mb-3 md:mb-4">Community & Transparency</h1>
+        <p className="text-base md:text-xl text-center max-w-3xl mx-auto mb-6 md:mb-8 px-3">We believe in maintaining transparency and involving our community in masjid operations and decision-making.</p>
         
         <Tabs defaultValue="society" className="mb-16" onValueChange={setActiveTab}>
-          <TabsList className="grid w-full grid-cols-5 mx-auto max-w-4xl">
+          <TabsList className="grid w-full grid-cols-2 md:grid-cols-5 gap-1 md:gap-2 text-xs md:text-sm mx-auto max-w-4xl">
             <TabsTrigger value="society">Society Overview</TabsTrigger>
             <TabsTrigger value="residents">Residents</TabsTrigger>
             <TabsTrigger value="finances">Finances</TabsTrigger>

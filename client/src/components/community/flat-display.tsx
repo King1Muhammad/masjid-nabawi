@@ -33,14 +33,14 @@ const FlatDisplay: React.FC<FlatProps> = ({
   
   return (
     <div 
-      className={`border-2 rounded-lg p-4 ${colorClass} hover:shadow-md transition-shadow`}
+      className={`border-2 rounded-lg p-3 md:p-4 ${colorClass} hover:shadow-md transition-shadow text-center md:text-left`}
     >
       <div className="flex justify-between items-start mb-2">
-        <h4 className="font-bold text-lg">{flatId}</h4>
+        <h4 className="font-bold text-base md:text-lg">{flatId}</h4>
         {statusIcon}
       </div>
       
-      <div className="text-sm space-y-1">
+      <div className="text-xs md:text-sm space-y-1">
         <div className="flex justify-between">
           <span>Status:</span>
           <span className="font-medium capitalize">{status}</span>
@@ -59,19 +59,19 @@ const FlatDisplay: React.FC<FlatProps> = ({
         )}
       </div>
       
-      <div className="mt-3 pt-2 border-t border-current/30 flex justify-between items-center">
+      <div className="mt-2 md:mt-3 pt-2 border-t border-current/30 flex justify-between items-center">
         {status === 'pending' ? (
-          <Button variant="outline" size="sm" className="w-full" onClick={onClick}>
+          <Button variant="outline" size="sm" className="w-full text-xs py-1" onClick={onClick}>
             <Send className="h-3 w-3 mr-1" />
             Pay Now
           </Button>
         ) : status === 'vacant' ? (
-          <Button variant="outline" size="sm" className="w-full" onClick={onClick}>
+          <Button variant="outline" size="sm" className="w-full text-xs py-1" onClick={onClick}>
             <UserPlus className="h-3 w-3 mr-1" />
             Register
           </Button>
         ) : (
-          <Button variant="outline" size="sm" className="w-full" onClick={onClick}>
+          <Button variant="outline" size="sm" className="w-full text-xs py-1" onClick={onClick}>
             <FileText className="h-3 w-3 mr-1" />
             Receipt
           </Button>
