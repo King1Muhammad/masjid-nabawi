@@ -62,8 +62,8 @@ const PlatformPage = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform hover:-translate-y-2">
               <div className="h-48 relative">
-                <img src="https://source.unsplash.com/random/600x400/?corruption,politics" alt="Political Corruption" className="w-full h-full object-cover" />
-                <div className="absolute inset-0 bg-black/30"></div>
+                <img src="/images/platform/political-corruption.webp" alt="Political Corruption" className="w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-black/10"></div>
               </div>
               <div className="p-6">
                 <h3 className="text-xl font-bold text-[#0C6E4E] mb-3">Political Corruption</h3>
@@ -74,8 +74,8 @@ const PlatformPage = () => {
             
             <div className="bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform hover:-translate-y-2">
               <div className="h-48 relative">
-                <img src="https://source.unsplash.com/random/600x400/?poverty,inequality" alt="Economic Inequality" className="w-full h-full object-cover" />
-                <div className="absolute inset-0 bg-black/30"></div>
+                <img src="/images/platform/economic-inequality.webp" alt="Economic Inequality" className="w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-black/10"></div>
               </div>
               <div className="p-6">
                 <h3 className="text-xl font-bold text-[#0C6E4E] mb-3">Economic Inequality</h3>
@@ -86,8 +86,8 @@ const PlatformPage = () => {
             
             <div className="bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform hover:-translate-y-2">
               <div className="h-48 relative">
-                <img src="https://source.unsplash.com/random/600x400/?bureaucracy,paperwork" alt="Bureaucratic Inefficiency" className="w-full h-full object-cover" />
-                <div className="absolute inset-0 bg-black/30"></div>
+                <img src="/images/platform/bureaucratic-inefficiency.webp" alt="Bureaucratic Inefficiency" className="w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-black/10"></div>
               </div>
               <div className="p-6">
                 <h3 className="text-xl font-bold text-[#0C6E4E] mb-3">Bureaucratic Inefficiency</h3>
@@ -98,8 +98,8 @@ const PlatformPage = () => {
             
             <div className="bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform hover:-translate-y-2">
               <div className="h-48 relative">
-                <img src="https://source.unsplash.com/random/600x400/?inflation,economy" alt="Currency Manipulation" className="w-full h-full object-cover" />
-                <div className="absolute inset-0 bg-black/30"></div>
+                <img src="/images/platform/currency-manipulation.webp" alt="Currency Manipulation" className="w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-black/10"></div>
               </div>
               <div className="p-6">
                 <h3 className="text-xl font-bold text-[#0C6E4E] mb-3">Currency Manipulation</h3>
