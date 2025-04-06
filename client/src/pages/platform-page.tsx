@@ -20,15 +20,20 @@ const PlatformPage = () => {
     <div className="bg-white">
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center bg-black">
-        <div className="absolute inset-0 z-0 bg-gradient-to-b from-black to-[#0C6E4E]/80">
-          {/* We'll use a background overlay instead of an image for simplicity */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="/images/platform-hero-bg.webp" 
+            alt="Platform Vision" 
+            className="w-full h-full object-cover opacity-80"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 to-[#0C6E4E]/70"></div>
         </div>
         <div className="container mx-auto px-4 z-10 text-center py-20">
-          <h1 className="text-4xl md:text-6xl font-heading text-white mb-6">
+          <h1 className="text-4xl md:text-6xl font-heading text-white mb-6 text-shadow-lg">
             <span className="text-[#D4AF37]">The Future is Now:</span><br/>
             <span className="font-light">A Global AI-Based Governance & Banking Revolution</span>
           </h1>
-          <p className="text-xl md:text-2xl text-white mb-12 max-w-3xl mx-auto">
+          <p className="text-xl md:text-2xl text-white mb-12 max-w-3xl mx-auto text-shadow-md">
             Transforming the world through transparent governance, decentralized banking, and AI-driven solutions inspired by Masjid-e-Nabawi's model
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
