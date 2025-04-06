@@ -20,34 +20,37 @@ import bankAccountImage from "@assets/bank_account.jpg";
 const Hero = () => {
   return (
     <section id="home" className="relative">
+      {/* Optimized Hero Section for mobile */}
       <div className="relative overflow-hidden flex flex-col">
         <div className="bg-white w-full">
-          <div className="h-[65vh] relative overflow-hidden">
+          <div className="h-[55vh] md:h-[65vh] relative overflow-hidden bg-[#f4f4f4]">
             <img 
               src={masjidHeroImage} 
               alt="Masjid Nabvi Qureshi Hashmi"
               className="w-full h-full object-contain"
+              loading="eager" 
             />
           </div>
         </div>
         
-        <div className="w-full bg-white py-10">
-          <div className="container mx-auto">
-            <div className="max-w-4xl mx-auto p-8 text-center">
-              <h1 className="text-4xl md:text-6xl font-heading font-bold mb-6">
+        {/* Reduced padding on mobile for better content density */}
+        <div className="w-full bg-white py-5 md:py-10">
+          <div className="mx-auto">
+            <div className="max-w-4xl mx-auto px-3 md:px-8 text-center">
+              <h1 className="text-3xl md:text-5xl lg:text-6xl font-heading font-bold mb-4 md:mb-6">
                 <span className="text-[#D4AF37]">Jamia Masjid Nabvi</span> 
                 <span className="text-black"> Qureshi Hashmi</span>
               </h1>
-              <p className="text-xl mb-6 font-bold text-black">مسجد نبوی كے طرز پر سارے اعمال كا آغاز مسجد ھٰذا سے</p>
-              <p className="text-xl mb-8 text-[#0C6E4E] font-semibold">Based on Masjid-E-Nabawi's Model</p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mt-6">
+              <p className="text-lg md:text-xl mb-3 md:mb-6 font-bold text-black">مسجد نبوی كے طرز پر سارے اعمال كا آغاز مسجد ھٰذا سے</p>
+              <p className="text-lg md:text-xl mb-5 md:mb-8 text-[#0C6E4E] font-semibold">Based on Masjid-E-Nabawi's Model</p>
+              <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center mt-4 md:mt-6">
                 <Link href="/donate">
-                  <div className="bg-[#D4AF37] hover:bg-opacity-90 text-white text-center px-8 py-4 rounded-md transition-colors font-medium cursor-pointer text-lg shadow-xl border border-[#D4AF37]">
+                  <div className="bg-[#D4AF37] hover:bg-opacity-90 text-white text-center px-5 md:px-8 py-3 md:py-4 rounded-md transition-colors font-medium cursor-pointer text-base md:text-lg shadow-lg md:shadow-xl border border-[#D4AF37]">
                     Support Our Masjid
                   </div>
                 </Link>
                 <Link href="/services">
-                  <div className="bg-[#0C6E4E] hover:bg-opacity-90 text-white text-center px-8 py-4 rounded-md transition-colors font-medium cursor-pointer text-lg shadow-xl border border-[#0C6E4E]">
+                  <div className="bg-[#0C6E4E] hover:bg-opacity-90 text-white text-center px-5 md:px-8 py-3 md:py-4 rounded-md transition-colors font-medium cursor-pointer text-base md:text-lg shadow-lg md:shadow-xl border border-[#0C6E4E]">
                     Our Services
                   </div>
                 </Link>
@@ -57,27 +60,28 @@ const Hero = () => {
         </div>
       </div>
       
-      <div className="container mx-auto px-4 py-16">
+      {/* Vision & Mission section with optimized spacing for mobile */}
+      <div className="mx-auto px-3 md:px-4 py-8 md:py-16">
         <div className="relative rounded-xl overflow-hidden bg-[#F7F3E9] shadow-lg">
           <div className="absolute inset-0 opacity-10 z-0">
-            <img src="@assets/masjid logo.png" alt="Masjid Logo Background" className="w-full h-full object-contain" />
+            <img src="@assets/masjid logo.png" alt="Masjid Logo Background" className="w-full h-full object-contain" loading="lazy" />
           </div>
           
-          <div className="relative z-10 px-8 py-12 md:py-16 text-center">
-            <h2 className="text-4xl font-heading text-[#0C6E4E] mb-8">Our Vision & Mission</h2>
+          <div className="relative z-10 px-4 md:px-8 py-8 md:py-12 text-center">
+            <h2 className="text-3xl md:text-4xl font-heading text-[#0C6E4E] mb-6 md:mb-8">Our Vision & Mission</h2>
             
             <div className="max-w-4xl mx-auto">
-              <p className="text-lg mb-6 text-center font-medium">
+              <p className="text-lg mb-5 text-center font-medium">
                 <span className="text-xl font-semibold text-[#D4AF37]">"مسجد نبوی كے طرز پر سارے اعمال كا آغاز مسجد ھٰذا سے"</span>
                 <br />
                 <span className="italic text-gray-600">Beginning all actions according to the model of Masjid-e-Nabawi from this masjid</span>
               </p>
               
-              <p className="text-lg mb-6">
+              <p className="text-base md:text-lg mb-6">
                 Chairman Haji Ghulam Yasin and Founder Molana Abdul Ghaffar Qureshi are driven by a profound vision: to revive the comprehensive role that Masjid-e-Nabawi played during the time of Prophet Muhammad ﷺ. Our mission extends beyond creating a prayer space—we aim to establish a complete societal framework where the masjid serves as the central institution for community development.
               </p>
               
-              <div className="grid md:grid-cols-2 gap-8 mt-10 text-left">
+              <div className="grid md:grid-cols-2 gap-4 md:gap-8 mt-8 md:mt-10 text-left">
                 <div className="bg-white/80 p-6 rounded-lg shadow-md">
                   <h3 className="text-2xl font-medium text-[#0C6E4E] mb-4 border-b-2 border-[#D4AF37] pb-2">Our Vision</h3>
                   <ul className="space-y-3">
@@ -159,150 +163,198 @@ const Hero = () => {
         </div>
       </div>
       
-      {/* Our Philosophy */}
-      <div className="bg-[#f8f8f8] py-16">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-heading text-center text-[#0C6E4E] mb-4">Our Philosophy & Platform</h2>
-          <p className="text-center max-w-3xl mx-auto mb-8">Understanding the core philosophy of our masjid and how we plan to transform masajid for the modern era</p>
+      {/* Our Philosophy - Optimized for mobile */}
+      <div className="bg-[#f8f8f8] py-8 md:py-16">
+        <div className="mx-auto px-3 md:px-4">
+          <h2 className="text-2xl md:text-3xl font-heading text-center text-[#0C6E4E] mb-3 md:mb-4">Our Philosophy & Platform</h2>
+          <p className="text-center text-sm md:text-base max-w-3xl mx-auto mb-4 md:mb-8">Understanding the core philosophy of our masjid and how we plan to transform masajid for the modern era</p>
           
-          <div className="bg-white rounded-xl shadow-2xl overflow-hidden my-8">
-            <div className="flex flex-col md:flex-col">
-              <div className="h-[450px] md:h-[550px] overflow-hidden bg-gray-50">
-                <img src={masjidPhilosophy} alt="Masjid Philosophy Diagram" className="w-full h-full object-contain p-4" />
+          <div className="bg-white rounded-xl shadow-xl md:shadow-2xl overflow-hidden my-4 md:my-8">
+            <div className="flex flex-col">
+              <div className="h-[300px] md:h-[450px] overflow-hidden bg-gray-50">
+                <img 
+                  src={masjidPhilosophy} 
+                  alt="Masjid Philosophy Diagram" 
+                  className="w-full h-full object-contain p-2 md:p-4"
+                  loading="lazy" 
+                />
               </div>
-              <div className="p-8">
-                <h3 className="text-2xl font-semibold text-[#D4AF37] mb-4">Masjid Nabvi's Model in Modern Times</h3>
-                <p className="mb-4">Our platform aims to translate the principles that made Masjid-e-Nabawi the center of society into a modern context through technology and community engagement.</p>
-                <ul className="list-disc pl-5 space-y-2 mb-6">
+              <div className="p-4 md:p-8">
+                <h3 className="text-xl md:text-2xl font-semibold text-[#D4AF37] mb-3 md:mb-4">Masjid Nabvi's Model in Modern Times</h3>
+                <p className="text-sm md:text-base mb-3 md:mb-4">Our platform aims to translate the principles that made Masjid-e-Nabawi the center of society into a modern context through technology and community engagement.</p>
+                <ul className="list-disc pl-5 space-y-1 md:space-y-2 mb-4 md:mb-6 text-sm md:text-base">
                   <li>Democratic governance system with transparent accounting</li>
                   <li>Live-tracking of masjid activities and construction progress</li>
                   <li>Integration of education, spirituality, and social services</li>
                   <li>Scientific approach to Islamic education</li>
                   <li>Using AI to enhance community participation</li>
                 </ul>
-                <p className="italic text-gray-600">Our mission is to create a model that can be replicated by masajid worldwide.</p>
+                <p className="italic text-gray-600 text-sm md:text-base">Our mission is to create a model that can be replicated by masajid worldwide.</p>
               </div>
             </div>
           </div>
           
-          {/* Construction Plans & Legal Documentation */}
-          <div className="mt-16 mb-8">
-            <h2 className="text-3xl font-heading text-center text-[#0C6E4E] mb-4">Construction Plans & Documentation</h2>
-            <p className="text-center max-w-3xl mx-auto mb-6">Our masjid construction is officially approved with all legal documentation in place</p>
+          {/* Construction Plans & Legal Documentation - Optimized for Mobile */}
+          <div className="mt-8 md:mt-16 mb-6 md:mb-8">
+            <h2 className="text-2xl md:text-3xl font-heading text-center text-[#0C6E4E] mb-3 md:mb-4">Construction Plans & Documentation</h2>
+            <p className="text-center text-sm md:text-base max-w-3xl mx-auto mb-4 md:mb-6">Our masjid construction is officially approved with all legal documentation in place</p>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
-              <div className="bg-white rounded-xl overflow-hidden shadow-lg">
-                <div className="h-48 overflow-hidden">
-                  <img src={blueprintImage} alt="Masjid Blueprint" className="w-full h-full object-contain" />
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6 mt-6 md:mt-12">
+              <div className="bg-white rounded-lg md:rounded-xl overflow-hidden shadow-md md:shadow-lg">
+                <div className="h-36 md:h-48 overflow-hidden">
+                  <img 
+                    src={blueprintImage} 
+                    alt="Masjid Blueprint" 
+                    className="w-full h-full object-contain"
+                    loading="lazy"
+                  />
                 </div>
-                <div className="p-4">
-                  <h3 className="text-lg font-semibold text-[#0C6E4E]">Official Masjid Blueprint</h3>
-                  <p className="text-sm text-gray-600">Approved architectural plans for Masjid Nabvi Qureshi Hashmi</p>
-                </div>
-              </div>
-              
-              <div className="bg-white rounded-xl overflow-hidden shadow-lg">
-                <div className="h-48 overflow-hidden">
-                  <img src={constructionApprovalImage} alt="Construction Approval Document" className="w-full h-full object-contain" />
-                </div>
-                <div className="p-4">
-                  <h3 className="text-lg font-semibold text-[#0C6E4E]">Construction Approval</h3>
-                  <p className="text-sm text-gray-600">Official authorization for the building of Masjid Nabvi Qureshi Hashmi</p>
+                <div className="p-3 md:p-4">
+                  <h3 className="text-base md:text-lg font-semibold text-[#0C6E4E]">Official Masjid Blueprint</h3>
+                  <p className="text-xs md:text-sm text-gray-600">Approved architectural plans for Masjid Nabvi Qureshi Hashmi</p>
                 </div>
               </div>
               
-              <div className="bg-white rounded-xl overflow-hidden shadow-lg">
-                <div className="h-48 overflow-hidden">
-                  <img src={bankAccountImage} alt="Bank Account Document" className="w-full h-full object-contain" />
+              <div className="bg-white rounded-lg md:rounded-xl overflow-hidden shadow-md md:shadow-lg">
+                <div className="h-36 md:h-48 overflow-hidden">
+                  <img 
+                    src={constructionApprovalImage} 
+                    alt="Construction Approval Document" 
+                    className="w-full h-full object-contain"
+                    loading="lazy"
+                  />
                 </div>
-                <div className="p-4">
-                  <h3 className="text-lg font-semibold text-[#0C6E4E]">Official Bank Account</h3>
-                  <p className="text-sm text-gray-600">MCB Islamic Bank Account: PK53 MCIB 0541 0037 6590 0001</p>
-                  <p className="text-sm font-bold text-[#D4AF37] mt-2">Account Number: 0541003765900001</p>
+                <div className="p-3 md:p-4">
+                  <h3 className="text-base md:text-lg font-semibold text-[#0C6E4E]">Construction Approval</h3>
+                  <p className="text-xs md:text-sm text-gray-600">Official authorization for the building of Masjid Nabvi Qureshi Hashmi</p>
+                </div>
+              </div>
+              
+              <div className="bg-white rounded-lg md:rounded-xl overflow-hidden shadow-md md:shadow-lg sm:col-span-2 lg:col-span-1">
+                <div className="h-36 md:h-48 overflow-hidden">
+                  <img 
+                    src={bankAccountImage} 
+                    alt="Bank Account Document" 
+                    className="w-full h-full object-contain"
+                    loading="lazy"
+                  />
+                </div>
+                <div className="p-3 md:p-4">
+                  <h3 className="text-base md:text-lg font-semibold text-[#0C6E4E]">Official Bank Account</h3>
+                  <p className="text-xs md:text-sm text-gray-600">MCB Islamic Bank Account: PK53 MCIB 0541 0037 6590 0001</p>
+                  <p className="text-xs md:text-sm font-bold text-[#D4AF37] mt-1 md:mt-2">Account Number: 0541003765900001</p>
                 </div>
               </div>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-              <div className="bg-white rounded-xl overflow-hidden shadow-lg">
-                <div className="h-48 overflow-hidden">
-                  <img src={constructionSiteImage} alt="Construction Site" className="w-full h-full object-cover" />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-6 mt-3 md:mt-6">
+              <div className="bg-white rounded-lg md:rounded-xl overflow-hidden shadow-md md:shadow-lg">
+                <div className="h-36 md:h-48 overflow-hidden">
+                  <img 
+                    src={constructionSiteImage} 
+                    alt="Construction Site" 
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
                 </div>
-                <div className="p-4">
-                  <h3 className="text-lg font-semibold text-[#0C6E4E]">Construction in Progress</h3>
-                  <p className="text-sm text-gray-600">Current construction work being done on the masjid site</p>
+                <div className="p-3 md:p-4">
+                  <h3 className="text-base md:text-lg font-semibold text-[#0C6E4E]">Construction in Progress</h3>
+                  <p className="text-xs md:text-sm text-gray-600">Current construction work being done on the masjid site</p>
                 </div>
               </div>
               
-              <div className="bg-white rounded-xl overflow-hidden shadow-lg">
-                <div className="h-48 overflow-hidden">
-                  <img src={constructionPanoramaImage} alt="Construction Site Panorama" className="w-full h-full object-cover" />
+              <div className="bg-white rounded-lg md:rounded-xl overflow-hidden shadow-md md:shadow-lg">
+                <div className="h-36 md:h-48 overflow-hidden">
+                  <img 
+                    src={constructionPanoramaImage} 
+                    alt="Construction Site Panorama" 
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
                 </div>
-                <div className="p-4">
-                  <h3 className="text-lg font-semibold text-[#0C6E4E]">Construction Site Overview</h3>
-                  <p className="text-sm text-gray-600">Panoramic view of the masjid construction area</p>
+                <div className="p-3 md:p-4">
+                  <h3 className="text-base md:text-lg font-semibold text-[#0C6E4E]">Construction Site Overview</h3>
+                  <p className="text-xs md:text-sm text-gray-600">Panoramic view of the masjid construction area</p>
                 </div>
               </div>
             </div>
             
-            <div className="mt-8 text-center">
+            <div className="mt-6 md:mt-8 text-center">
               <Link href="/donate">
-                <div className="inline-block bg-[#D4AF37] hover:bg-opacity-90 text-white px-8 py-4 rounded-md transition-colors font-bold text-lg shadow-xl">
+                <div className="inline-block bg-[#D4AF37] hover:bg-opacity-90 text-white px-5 md:px-8 py-3 md:py-4 rounded-md transition-colors font-bold text-base md:text-lg shadow-md md:shadow-xl">
                   Donate for Construction
                 </div>
               </Link>
-              <p className="mt-4 text-gray-700 font-medium">Bank Account: 0541003765900001 (MCB Islamic Bank)</p>
+              <p className="mt-3 md:mt-4 text-gray-700 font-medium text-sm md:text-base">Bank Account: 0541003765900001 (MCB Islamic Bank)</p>
             </div>
           </div>
           
-          <div className="mt-16 mb-8">
-            <h2 className="text-3xl font-heading text-center text-[#0C6E4E] mb-4">Our Beautiful Masjid</h2>
-            <p className="text-center max-w-3xl mx-auto mb-12">Explore our masjid facilities and surroundings in Islamabad, where we are building a community center inspired by Masjid-e-Nabawi's model.</p>
+          {/* Our Beautiful Masjid - Optimized for mobile */}
+          <div className="mt-8 md:mt-16 mb-5 md:mb-8">
+            <h2 className="text-2xl md:text-3xl font-heading text-center text-[#0C6E4E] mb-3 md:mb-4">Our Beautiful Masjid</h2>
+            <p className="text-center text-sm md:text-base max-w-3xl mx-auto mb-6 md:mb-12">Explore our masjid facilities and surroundings in Islamabad, where we are building a community center inspired by Masjid-e-Nabawi's model.</p>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-6">
-            <div className="bg-white rounded-xl overflow-hidden shadow-lg transform transition-transform hover:scale-105">
-              <div className="h-64 overflow-hidden">
-                <img src={masjidInteriorImage} alt="Masjid Interior" className="w-full h-full object-cover" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
+            <div className="bg-white rounded-lg md:rounded-xl overflow-hidden shadow-md md:shadow-lg transform transition-transform hover:scale-102 md:hover:scale-105">
+              <div className="h-48 md:h-64 overflow-hidden">
+                <img 
+                  src={masjidInteriorImage} 
+                  alt="Masjid Interior" 
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
               </div>
-              <div className="p-5">
-                <h3 className="text-xl font-semibold text-[#0C6E4E] mb-2">Prayer Hall Interior</h3>
-                <p className="text-gray-600">Our spacious prayer hall accommodates the community for daily prayers and special events.</p>
+              <div className="p-3 md:p-5">
+                <h3 className="text-lg md:text-xl font-semibold text-[#0C6E4E] mb-1 md:mb-2">Prayer Hall Interior</h3>
+                <p className="text-xs md:text-sm lg:text-base text-gray-600">Our spacious prayer hall accommodates the community for daily prayers and special events.</p>
               </div>
             </div>
             
-            <div className="bg-white rounded-xl overflow-hidden shadow-lg transform transition-transform hover:scale-105">
-              <div className="h-64 overflow-hidden">
-                <img src={masjidExteriorImage} alt="Masjid Exterior" className="w-full h-full object-cover" />
+            <div className="bg-white rounded-lg md:rounded-xl overflow-hidden shadow-md md:shadow-lg transform transition-transform hover:scale-102 md:hover:scale-105">
+              <div className="h-48 md:h-64 overflow-hidden">
+                <img 
+                  src={masjidExteriorImage} 
+                  alt="Masjid Exterior" 
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
               </div>
-              <div className="p-5">
-                <h3 className="text-xl font-semibold text-[#0C6E4E] mb-2">Masjid Exterior</h3>
-                <p className="text-gray-600">Our masjid features beautiful architecture and design reflecting Islamic traditions.</p>
+              <div className="p-3 md:p-5">
+                <h3 className="text-lg md:text-xl font-semibold text-[#0C6E4E] mb-1 md:mb-2">Masjid Exterior</h3>
+                <p className="text-xs md:text-sm lg:text-base text-gray-600">Our masjid features beautiful architecture and design reflecting Islamic traditions.</p>
               </div>
             </div>
             
-            <div className="bg-white rounded-xl overflow-hidden shadow-lg transform transition-transform hover:scale-105">
-              <div className="h-64 overflow-hidden">
-                <img src={masjidOutsideImage} alt="Masjid Building" className="w-full h-full object-cover" />
+            <div className="bg-white rounded-lg md:rounded-xl overflow-hidden shadow-md md:shadow-lg transform transition-transform hover:scale-102 md:hover:scale-105 sm:col-span-2 md:col-span-1">
+              <div className="h-48 md:h-64 overflow-hidden">
+                <img 
+                  src={masjidOutsideImage} 
+                  alt="Masjid Building" 
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
               </div>
-              <div className="p-5">
-                <h3 className="text-xl font-semibold text-[#0C6E4E] mb-2">Masjid Building</h3>
-                <p className="text-gray-600">Our new masjid building is designed to accommodate the growing Muslim community in Islamabad.</p>
+              <div className="p-3 md:p-5">
+                <h3 className="text-lg md:text-xl font-semibold text-[#0C6E4E] mb-1 md:mb-2">Masjid Building</h3>
+                <p className="text-xs md:text-sm lg:text-base text-gray-600">Our new masjid building is designed to accommodate the growing Muslim community in Islamabad.</p>
               </div>
             </div>
           </div>
           
-          <div className="mt-12 text-center">
-            <Link href="/donate">
-              <div className="inline-block bg-[#D4AF37] hover:bg-opacity-90 text-white px-8 py-4 rounded-md transition-colors font-medium mr-6 cursor-pointer text-lg shadow-xl">
-                Support Construction
-              </div>
-            </Link>
-            <Link href="/contact">
-              <div className="inline-block bg-[#0C6E4E] hover:bg-opacity-90 text-white px-8 py-4 rounded-md transition-colors font-medium cursor-pointer text-lg shadow-xl">
-                Visit Our Masjid
-              </div>
-            </Link>
+          <div className="mt-8 md:mt-12 text-center">
+            <div className="flex flex-col sm:flex-row justify-center gap-4 md:gap-6">
+              <Link href="/donate">
+                <div className="bg-[#D4AF37] hover:bg-opacity-90 text-white px-5 md:px-8 py-3 md:py-4 rounded-md transition-colors font-medium cursor-pointer text-base md:text-lg shadow-md md:shadow-xl">
+                  Support Construction
+                </div>
+              </Link>
+              <Link href="/contact">
+                <div className="bg-[#0C6E4E] hover:bg-opacity-90 text-white px-5 md:px-8 py-3 md:py-4 rounded-md transition-colors font-medium cursor-pointer text-base md:text-lg shadow-md md:shadow-xl">
+                  Visit Our Masjid
+                </div>
+              </Link>
+            </div>
           </div>
         </div>
       </div>

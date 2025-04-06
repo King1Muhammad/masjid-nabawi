@@ -43,9 +43,9 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-[#333333] text-white pt-10 pb-6">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
+    <footer className="bg-[#333333] text-white pt-8 pb-6 md:pt-10">
+      <div className="mx-auto px-3 md:px-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mb-6 md:mb-8">
           {/* Column 1: Masjid Info */}
           <div className="mb-6 sm:mb-0">
             <h3 className="text-xl font-heading mb-4">Jamia Masjid Nabvi Qureshi Hashmi</h3>
