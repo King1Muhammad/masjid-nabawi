@@ -60,7 +60,7 @@ const Header = () => {
       scrolled ? "shadow-lg" : "shadow-md"
     )}>
       {/* Prayer times ticker with reduced height for better mobile experience */}
-      <div className="max-h-10 overflow-hidden">
+      <div className="max-h-10 overflow-hidden bg-[#0C6E4E] text-white">
         <PrayerTimesTicker />
       </div>
       

@@ -153,8 +153,8 @@ const PrayerTimesTicker = () => {
       };
 
   return (
-    <div className="bg-[#0C6E4E] text-white py-2 overflow-hidden">
-      <div className="container mx-auto px-4">
+    <div className="bg-[#0C6E4E] text-white py-1 md:py-2 overflow-hidden">
+      <div className="container mx-auto px-2 md:px-4">
         {/* Top row with date and times - More compact for mobile */}
         <div className="flex flex-wrap justify-between items-center mb-2">
           {/* Gregorian date */}

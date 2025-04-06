@@ -1,0 +1,137 @@
+Objective: Build a community management platform for the society, where users can register, pay monthly contributions, vote on important matters, and have their decisions implemented by the Society Admin. The platform should provide transparency on decisions and finances for all society members.
+
+Steps & Features to Include:
+User Registration & Approval Process:
+
+Society Members: Allow users to register with their name, flat number, contact info, and the option to upload any necessary documents.
+
+Society Admins: Upon registration, the Society Admin will receive notifications about new users. The admin must approve or reject registrations based on criteria. Once approved, members will gain access to their dashboard.
+
+Dashboard for Society Members:
+
+Dashboard Interface: After approval, members should have access to their personalized dashboard, where they can:
+
+Raise issues/matters for discussion.
+
+View pending issues or matters raised by others.
+
+Participate in voting on matters.
+
+See their payment status for monthly contributions.
+
+Voting on Issues: Each matter raised by a member or admin can be voted on by all society members.
+
+The voting should be democratic: members can upvote or downvote issues.
+
+A final decision is made based on the votes, and the result should be visible to all members.
+
+Dashboard for Society Admin:
+
+Admin Approval of Users: Admins will receive a list of users requesting registration, which they can approve or reject. Once approved, the system should notify the user and grant them access to the dashboard.
+
+Payment Management: Admin will track all members' monthly contributions.
+
+Each member must pay 1500 monthly, and this payment is tracked in real-time.
+
+The admin can mark users who have paid with a green check and users who haven't paid by the red click.
+
+Implementation of Voting Decisions: The admin is responsible for implementing decisions made through voting.
+
+After a decision is reached, the admin ensures that the society staff executes it.
+
+Payment System:
+
+Integrate a payment gateway for society members to make monthly contributions (e.g., through a simple PayPal, Stripe, or other available payment systems).
+
+Payments must be tracked in real-time, and failure to pay by the 15th of the month should automatically mark a user with a red click (pending payment).
+
+Transparency:
+
+Public View of Contributions: All society members should be able to see how much has been contributed by each member.
+
+Public View of Voting Results: Voting decisions, including who voted, should be available to all members for transparency.
+
+Decision-Making System:
+
+Voting System: Issues raised by members or admins will be voted on by society members.
+
+For each vote, a majority decision will be reached.
+
+All decisions will be made based on the results of the votes.
+
+Action Based on Voting: Once the vote is complete, the admin should oversee that decisions are implemented and executed transparently by the society staff.
+
+User Stories & Requirements:
+Society Members:
+Can register with personal information.
+
+Can view matters for voting.
+
+Can raise issues for discussion.
+
+Can participate in voting.
+
+Can track their monthly payment status.
+
+Can view transparent financial and decision-making details.
+
+Society Admin:
+Can approve/reject society member registrations.
+
+Can track payment status for members (mark as green/red).
+
+Can view all raised issues and oversee votes.
+
+Responsible for implementing decisions made by members (based on voting).
+
+All decisions and financial contributions are publicly visible and traceable by all society members.
+
+Technologies & Tools for Implementation:
+Backend:
+
+Python: Use Python with Flask or Django for backend API development.
+
+Database: Use SQLite for simplicity or PostgreSQL for production, to store user data, payments, votes, and issues raised.
+
+Payment Integration: Integrate Stripe or PayPal API for collecting monthly contributions from members.
+
+Frontend:
+
+Use HTML5, CSS3, and JavaScript with a framework like React.js or Vue.js to create responsive, user-friendly dashboards.
+
+Bootstrap or Tailwind CSS for quick styling of the pages.
+
+WebSockets (or periodic AJAX calls) to display live voting and payment status updates.
+
+Admin Dashboard:
+
+Admins will have a dedicated dashboard where they can approve/reject users, track payments, and manage voting.
+
+Use AdminLTE or Django Admin for building an intuitive admin interface.
+
+Security:
+
+Implement user authentication (login/register system) and role-based access control (RBAC) to ensure that only approved members and admins can access the correct functionalities.
+
+Use JWT tokens or sessions for user authentication.
+
+Hosting:
+
+For Replit, deploy the system using Flask or Django on their platform.
+
+If needed, scale to Heroku or DigitalOcean for better performance and reliability.
+
+Final Prompt:
+"Create a Python web application using Flask/Django with the following features:
+
+User Registration with flat number and approval process by the Society Admin.
+
+A dashboard for both Society Admin and Society Members with functionality to raise issues, vote on matters, and track payments.
+
+A transparent payment system that requires a 1500 monthly contribution, with red/green checks based on payment status.
+
+A voting system where decisions are made democratically by all society members and implemented by the Society Admin.
+
+Real-time updates and transparency on voting results and payments.
+
+The platform should be user-friendly and visually appealing with minimalistic design using Bootstrap or Tailwind CSS."
