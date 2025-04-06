@@ -24,10 +24,10 @@ const AboutPage = () => {
             alt="Masjid Nabvi Vision" 
             className="w-full h-full object-cover opacity-90"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/60 to-[#0C6E4E]/70"></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-[#0C6E4E]/60"></div>
         </div>
-        <div className="container mx-auto px-4 z-10 text-center pt-8 pb-20">
-          <div className="bg-black/40 p-6 rounded-xl backdrop-blur-sm inline-block mb-5">
+        <div className="container mx-auto px-4 z-10 text-center pb-40 pt-4">
+          <div className="bg-black/30 p-5 rounded-xl backdrop-blur-sm inline-block mb-5 mt-8">
             <h1 className="text-4xl md:text-6xl font-heading text-white mb-6 text-shadow-lg">
               About <span className="text-[#D4AF37]">Masjid Nabvi</span> Qureshi Hashmi
             </h1>
