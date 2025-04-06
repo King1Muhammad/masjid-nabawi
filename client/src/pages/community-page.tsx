@@ -14,6 +14,7 @@ import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, Tabl
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { format } from 'date-fns';
 import { ArrowUpCircle, ArrowDownCircle, DollarSign, UserPlus, Building, Home, ChevronRight, FileText, CheckCircle, XCircle, AlertCircle, Send } from 'lucide-react';
+import FlatDisplay from '@/components/community/flat-display';
 
 // Society interfaces
 interface Society {
@@ -126,15 +127,19 @@ interface PendingContributionsData {
 
 interface FlatContributionStatus {
   memberId: number;
-  userId: number;
+  userId: number | null;
   blockName: string;
   flatNumber: string;
   fullAddress: string;
   expectedAmount: number;
   paidAmount: number;
-  status: 'paid' | 'pending';
+  status: 'paid' | 'pending' | 'vacant';
   pendingAmount: number;
-  phoneNumber: string;
+  phoneNumber: string | null;
+  isVacant: boolean;
+  paymentMethod?: string;
+  paymentReference?: string;
+  paymentDate?: string;
 }
 
 // Original interfaces for existing code
@@ -790,14 +795,32 @@ const CommunityPage = () => {
           <TabsContent value="residents" className="mt-6">
             <Card>
               <CardHeader>
-                <CardTitle>Society Residents</CardTitle>
+                <CardTitle>Society Blocks & Flats Status</CardTitle>
                 <CardDescription>
-                  ہمارے فیڈرل گورنمنٹ ایمپلائیز ہاؤسنگ فاؤنڈیشن D بلاکس جی-11/4 اسلام آباد میں 22 بلاکس (D-1 سے D-22) ہیں اور ہر بلاک میں 8 فلیٹس ہیں۔ کل 176 فلیٹس/فیملیز۔
+                  ہمارے فیڈرل گورنمنٹ ایمپلائیز ہاؤسنگ فاؤنڈیشن D بلاکس جی-11/4 اسلام آباد میں 22 بلاکس (D-1 سے D-22) ہیں اور ہر بلاک میں 8 فلیٹس ہیں۔ کل 176 فلیٹس/فیملیز۔ اگر آپ نے ہر ماہ 1500 روپے کی رقم ادا کر دی ہے تو آپ کا فلیٹ سبز رنگ میں دکھائے گا، اگر ادائیگی نہیں ہوئی تو سرخ رنگ میں، اور اگر فلیٹ خالی ہے تو سیاہ رنگ میں نظر آئے گا۔
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="mb-8">
-                  <h3 className="text-xl font-medium text-[#0C6E4E] mb-4">Society Blocks Overview</h3>
+                <div className="mb-6">
+                  <div className="flex flex-wrap gap-3 mb-4 items-center">
+                    <h3 className="text-xl font-medium text-[#0C6E4E]">Society Blocks Overview</h3>
+                    
+                    <div className="flex ml-auto items-center gap-4">
+                      <div className="flex items-center gap-1">
+                        <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                        <span className="text-xs">پیمنٹ مکمل</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                        <span className="text-xs">پیمنٹ نہیں</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <div className="w-3 h-3 bg-black rounded-full"></div>
+                        <span className="text-xs">خالی فلیٹ</span>
+                      </div>
+                    </div>
+                  </div>
+                  
                   <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3 mb-6">
                     {blocks && blocks.map(block => (
                       <Button 
@@ -836,34 +859,90 @@ const CommunityPage = () => {
                     <div className="animate-spin w-8 h-8 border-4 border-primary border-t-transparent rounded-full"></div>
                   </div>
                 ) : (
-                  <Table>
-                    <TableCaption>List of society members and residents</TableCaption>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead>Block</TableHead>
-                        <TableHead>Flat</TableHead>
-                        <TableHead>Status</TableHead>
-                        <TableHead>Phone</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {members && blocks && members
-                        .filter(member => !selectedBlock || (
-                          blocks.find(b => b.id === member.blockId)?.blockName === selectedBlock
-                        ))
-                        .map(member => {
-                          const block = blocks.find(b => b.id === member.blockId);
-                          return (
-                            <TableRow key={member.id}>
-                              <TableCell>Block {block?.blockName}</TableCell>
-                              <TableCell>{member.flatNumber}</TableCell>
-                              <TableCell>{member.isOwner ? 'Owner' : 'Tenant'}</TableCell>
-                              <TableCell>{member.phoneNumber}</TableCell>
-                            </TableRow>
-                          );
-                        })}
-                    </TableBody>
-                  </Table>
+                  <>
+                    {selectedBlock ? (
+                      <div>
+                        <h3 className="text-lg font-medium mb-4">Block {selectedBlock} - Flats Status</h3>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                          {Array.from({ length: 8 }, (_, i) => {
+                            const flatNumber = i + 1;
+                            const member = members?.find(m => 
+                              blocks?.find(b => b.id === m.blockId)?.blockName === selectedBlock && 
+                              m.flatNumber === String(flatNumber)
+                            );
+                            
+                            // Demo data - in production, this would come from backend
+                            const flatStatus: 'paid' | 'pending' | 'vacant' = 
+                              member ? (Math.random() > 0.5 ? 'paid' : 'pending') : 'vacant';
+                              
+                            const paymentDate = flatStatus === 'paid' ? 
+                              `${new Date().getDate()}-${new Date().getMonth() + 1}-${new Date().getFullYear()}` : 
+                              undefined;
+                              
+                            return (
+                              <FlatDisplay 
+                                key={`${selectedBlock}-${flatNumber}`}
+                                blockName={selectedBlock}
+                                flatNumber={flatNumber}
+                                status={flatStatus}
+                                paymentDate={paymentDate}
+                                onClick={() => {
+                                  toast({
+                                    title: `Flat ${selectedBlock}-${flatNumber}`,
+                                    description: flatStatus === 'paid' ? 
+                                      "Payment receipt details will be shown here" :
+                                      flatStatus === 'pending' ? 
+                                      "Payment options will be shown here" :
+                                      "Registration form will be shown here",
+                                  });
+                                }}
+                              />
+                            );
+                          })}
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="text-center p-8 bg-gray-50 rounded-lg">
+                        <Building className="h-12 w-12 mx-auto text-gray-400 mb-3" />
+                        <h3 className="text-lg font-medium mb-2">Please Select a Block</h3>
+                        <p className="text-gray-500">
+                          Select a block from above to view detailed information about all flats in that block
+                        </p>
+                      </div>
+                    )}
+                    
+                    <div className="mt-8">
+                      <h3 className="text-lg font-medium mb-4">All Society Members</h3>
+                      <Table>
+                        <TableCaption>List of society members and residents</TableCaption>
+                        <TableHeader>
+                          <TableRow>
+                            <TableHead>Block</TableHead>
+                            <TableHead>Flat</TableHead>
+                            <TableHead>Status</TableHead>
+                            <TableHead>Phone</TableHead>
+                          </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                          {members && blocks && members
+                            .filter(member => !selectedBlock || (
+                              blocks.find(b => b.id === member.blockId)?.blockName === selectedBlock
+                            ))
+                            .map(member => {
+                              const block = blocks.find(b => b.id === member.blockId);
+                              return (
+                                <TableRow key={member.id}>
+                                  <TableCell>Block {block?.blockName}</TableCell>
+                                  <TableCell>{member.flatNumber}</TableCell>
+                                  <TableCell>{member.isOwner ? 'Owner' : 'Tenant'}</TableCell>
+                                  <TableCell>{member.phoneNumber}</TableCell>
+                                </TableRow>
+                              );
+                            })}
+                        </TableBody>
+                      </Table>
+                    </div>
+                  </>
                 )}
               </CardContent>
             </Card>
