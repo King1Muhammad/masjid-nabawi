@@ -17,15 +17,20 @@ const AboutPage = () => {
   return (
     <div className="bg-white">
       {/* Hero Section */}
-      <section className="relative min-h-[50vh] flex items-center bg-[#0C6E4E]">
-        <div className="absolute inset-0 z-0 opacity-20 bg-pattern-light">
-          {/* Pattern background */}
+      <section className="relative min-h-[60vh] flex items-center bg-[#0C6E4E]">
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="/images/about-us-hero-bg.png" 
+            alt="Masjid Nabvi Vision" 
+            className="w-full h-full object-cover opacity-90"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/40 to-[#0C6E4E]/60"></div>
         </div>
         <div className="container mx-auto px-4 z-10 text-center py-20">
-          <h1 className="text-4xl md:text-6xl font-heading text-white mb-6">
+          <h1 className="text-4xl md:text-6xl font-heading text-white mb-6 text-shadow-lg">
             About <span className="text-[#D4AF37]">Masjid Nabvi</span> Qureshi Hashmi
           </h1>
-          <p className="text-xl text-white/90 mb-12 max-w-3xl mx-auto">
+          <p className="text-xl text-white mb-12 max-w-3xl mx-auto font-semibold text-shadow-md">
             مسجد نبوی كے طرز پر سارے اعمال كا آغاز مسجد ھٰذا سے
           </p>
         </div>
