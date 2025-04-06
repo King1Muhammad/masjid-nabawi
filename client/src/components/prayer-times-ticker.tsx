@@ -153,60 +153,61 @@ const PrayerTimesTicker = () => {
       };
 
   return (
-    <div className="bg-[#0C6E4E] text-white py-1 md:py-2 overflow-hidden">
-      <div className="container mx-auto px-2 md:px-4">
-        {/* Top row with date and times - More compact for mobile */}
-        <div className="flex flex-wrap justify-between items-center mb-2">
-          {/* Gregorian date */}
-          <div className="flex items-center mr-2 my-1">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 mr-1 text-[#D4AF37] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-            <span className="font-medium text-[10px] xs:text-xs sm:text-sm whitespace-nowrap">{currentDate}</span>
+    <div className="bg-[#0C6E4E] text-white py-1 overflow-hidden">
+      <div className="container mx-auto px-2">
+        {/* Single row layout with all information */}
+        <div className="flex items-center justify-between flex-wrap">
+          {/* Left section: Dates */}
+          <div className="flex items-center space-x-4">
+            <div className="flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 mr-1 text-[#D4AF37] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <span className="font-medium text-[10px] xs:text-xs whitespace-nowrap">{currentDate}</span>
+            </div>
+            
+            <div className="flex items-center hidden sm:flex">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 mr-1 text-[#D4AF37] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1z" />
+              </svg>
+              <IslamicDate />
+            </div>
           </div>
           
-          {/* Current time */}
-          <div className="flex items-center mx-2 my-1">
+          {/* Center section: Prayer times */}
+          <div className="flex items-center flex-wrap justify-center gap-x-2 md:gap-x-4">
+            {Object.entries(formattedTimes).map(([prayer, time]) => {
+              // Skip sunrise for display, but keep it for next prayer calculation
+              if (prayer === 'Sunrise') return null;
+              
+              // Handle special case for Juma (Friday prayer)
+              const prayerLabel = prayer === 'Dhuhr' ? 'Zuhr' : prayer;
+              
+              const isNext = prayer === nextPrayer;
+              
+              return (
+                <div 
+                  key={prayer} 
+                  className={`flex items-center px-1 xs:px-2 py-0.5 rounded-sm text-[10px] xs:text-xs ${isNext ? 'bg-[#D4AF37] text-black font-bold' : ''}`}
+                >
+                  <span>{prayerLabel}: {time}</span>
+                  {isNext && (
+                    <span className="ml-1 text-[9px] xs:text-xs">
+                      (Next)
+                    </span>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+          
+          {/* Right section: Current time */}
+          <div className="flex items-center">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 mr-1 text-[#D4AF37] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            <span className="font-medium text-[10px] xs:text-xs sm:text-sm whitespace-nowrap">{currentTime}</span>
+            <span className="font-medium text-[10px] xs:text-xs whitespace-nowrap">{currentTime}</span>
           </div>
-          
-          {/* Islamic date - Smaller and more compact for mobile */}
-          <div className="flex items-center ml-2 my-1">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 mr-1 text-[#D4AF37] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1z" />
-            </svg>
-            <IslamicDate />
-          </div>
-        </div>
-        
-        {/* Prayer times row - More compact for mobile */}
-        <div className="flex flex-wrap justify-center sm:justify-around gap-x-1 xs:gap-x-2 gap-y-1 w-full">
-          {Object.entries(formattedTimes).map(([prayer, time]) => {
-            // Skip sunrise for display, but keep it for next prayer calculation
-            if (prayer === 'Sunrise') return null;
-            
-            // Handle special case for Juma (Friday prayer)
-            const prayerLabel = prayer === 'Dhuhr' ? 'Zuhr' : prayer;
-            
-            const isNext = prayer === nextPrayer;
-            
-            return (
-              <div 
-                key={prayer} 
-                className={`flex items-center px-1 xs:px-2 py-0.5 xs:py-1 rounded-full text-[10px] xs:text-xs sm:text-sm ${isNext ? 'bg-[#D4AF37] text-black font-bold' : ''}`}
-              >
-                <span>{prayerLabel}: {time}</span>
-                {isNext && (
-                  <span className="ml-1 text-[9px] xs:text-xs">
-                    (Next)
-                  </span>
-                )}
-              </div>
-            );
-          })}
         </div>
       </div>
     </div>

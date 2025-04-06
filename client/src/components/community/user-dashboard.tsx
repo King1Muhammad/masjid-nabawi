@@ -373,7 +373,7 @@ const UserDashboard: React.FC<UserDashboardProps> = ({ userId, societyId }) => {
   
   const getStatusBadge = (status: string) => {
     if (status === 'approved' || status === 'resolved' || status === 'implemented' || status === 'completed') {
-      return <Badge className="bg-green-500">
+      return <Badge variant="success">
         <CheckCircle className="h-3 w-3 mr-1" /> {status}
       </Badge>;
     } else if (status === 'pending' || status === 'draft' || status === 'open' || status === 'voting') {
