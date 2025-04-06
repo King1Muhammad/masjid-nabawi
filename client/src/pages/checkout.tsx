@@ -294,13 +294,13 @@ export default function Checkout() {
             <h2 className="text-2xl font-heading text-[#0C6E4E] mb-6">Select Payment Method</h2>
             
             <Tabs defaultValue="bank" onValueChange={setPaymentMethod} className="w-full">
-              <TabsList className="grid grid-cols-6 mb-8">
-                <TabsTrigger value="bank">Bank Transfer</TabsTrigger>
-                <TabsTrigger value="easypaisa">EasyPaisa</TabsTrigger>
-                <TabsTrigger value="jazzcash">JazzCash</TabsTrigger>
-                <TabsTrigger value="nayapay">Zindagi</TabsTrigger>
-                <TabsTrigger value="crypto_trc20">TRC20</TabsTrigger>
-                <TabsTrigger value="crypto_bnb">BNB</TabsTrigger>
+              <TabsList className="grid grid-cols-3 md:grid-cols-6 gap-2 mb-8">
+                <TabsTrigger value="bank" className="text-xs md:text-sm px-2 py-1.5 md:px-3">Bank Transfer</TabsTrigger>
+                <TabsTrigger value="easypaisa" className="text-xs md:text-sm px-2 py-1.5 md:px-3">EasyPaisa</TabsTrigger>
+                <TabsTrigger value="jazzcash" className="text-xs md:text-sm px-2 py-1.5 md:px-3">JazzCash</TabsTrigger>
+                <TabsTrigger value="nayapay" className="text-xs md:text-sm px-2 py-1.5 md:px-3">Zindagi</TabsTrigger>
+                <TabsTrigger value="crypto_trc20" className="text-xs md:text-sm px-2 py-1.5 md:px-3">TRC20</TabsTrigger>
+                <TabsTrigger value="crypto_bnb" className="text-xs md:text-sm px-2 py-1.5 md:px-3">BNB</TabsTrigger>
               </TabsList>
               
               <TabsContent value="bank">
