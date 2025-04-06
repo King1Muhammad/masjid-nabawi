@@ -44,7 +44,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
     <div className="flex flex-col min-h-screen bg-background">
       {/* Prayer Times Ticker */}
       <div className="bg-primary text-primary-foreground">
-        <div className="container mx-auto px-3 md:px-4 flex flex-col md:flex-row justify-between items-center py-2 gap-2 md:gap-0 text-xs md:text-sm">
+        <div className="container flex flex-col md:flex-row justify-between items-center py-2 gap-2 md:gap-0 text-xs md:text-sm">
           <div className="flex items-center">
             <IslamicDate />
           </div>
@@ -53,8 +53,8 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
       </div>
       
       {/* Header */}
-      <header className="bg-background border-b w-full">
-        <div className="container mx-auto px-3 md:px-4 py-3 md:py-4">
+      <header className="bg-background border-b">
+        <div className="container py-3 md:py-4">
           <nav className="flex flex-col md:flex-row justify-between items-center">
             <div className="text-xl md:text-2xl font-bold mb-2 md:mb-0 text-center md:text-right w-full md:w-auto">
               <Link href="/">
@@ -113,8 +113,8 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
       </main>
       
       {/* Footer */}
-      <footer className="bg-muted py-6 md:py-8 w-full">
-        <div className="container mx-auto px-3 md:px-4">
+      <footer className="bg-muted py-6 md:py-8">
+        <div className="container px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
             <div className="space-y-3 md:space-y-4 text-center md:text-right">
               <h3 className="text-base md:text-lg font-bold">مسجد نبوی قریشی ہاشمی</h3>

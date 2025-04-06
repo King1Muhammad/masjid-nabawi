@@ -61,7 +61,7 @@ const Hero = () => {
       </div>
       
       {/* Vision & Mission section with optimized spacing for mobile */}
-      <div className="container mx-auto px-3 md:px-4 py-8 md:py-16">
+      <div className="mx-auto px-3 md:px-4 py-8 md:py-16">
         <div className="relative rounded-xl overflow-hidden bg-[#F7F3E9] shadow-lg">
           <div className="absolute inset-0 opacity-10 z-0">
             <img src="@assets/masjid logo.png" alt="Masjid Logo Background" className="w-full h-full object-contain" loading="lazy" />
@@ -165,7 +165,7 @@ const Hero = () => {
       
       {/* Our Philosophy - Optimized for mobile */}
       <div className="bg-[#f8f8f8] py-8 md:py-16">
-        <div className="container mx-auto px-3 md:px-4">
+        <div className="mx-auto px-3 md:px-4">
           <h2 className="text-2xl md:text-3xl font-heading text-center text-[#0C6E4E] mb-3 md:mb-4">Our Philosophy & Platform</h2>
           <p className="text-center text-sm md:text-base max-w-3xl mx-auto mb-4 md:mb-8">Understanding the core philosophy of our masjid and how we plan to transform masajid for the modern era</p>
           

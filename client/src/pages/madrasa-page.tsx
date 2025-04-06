@@ -168,8 +168,8 @@ const MadrasaPage = () => {
   ];
 
   return (
-    <div className="py-8 md:py-16 bg-[#F7F3E9] w-full">
-      <div className="container mx-auto px-3 md:px-4">
+    <div className="py-16 bg-[#F7F3E9]">
+      <div className="container mx-auto px-4">
         <div className="mb-12 text-center">
           <h1 className="text-4xl md:text-6xl font-heading text-[#0C6E4E] mb-4">دَرس و تربیت نبوی</h1>
           <h2 className="text-2xl md:text-3xl font-heading text-[#0C6E4E] mb-6">Online Dars e Nizami Madersa Academy of Islamic Knowledge</h2>

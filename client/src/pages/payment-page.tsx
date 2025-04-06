@@ -108,7 +108,7 @@ const PaymentPage = () => {
 
   return (
     <MainLayout>
-      <div className="container mx-auto px-3 md:px-4 py-8 max-w-6xl">
+      <div className="container py-8 max-w-6xl">
         <div className="flex justify-between items-center mb-8">
           <div>
             <h1 className="text-3xl font-bold mb-2">فیس ادائیگی</h1>
