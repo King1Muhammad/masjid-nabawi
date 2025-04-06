@@ -58,70 +58,101 @@ const Hero = () => {
       </div>
       
       <div className="container mx-auto px-4 py-16">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div>
-            <h2 className="text-3xl font-heading text-[#0C6E4E] mb-6">Our Vision & Mission</h2>
-            <p className="mb-4">Chairman Haji Ghulam Yasin, along with the founder, Khateeb, and Imam of Masjid Nabvi Qureshi Hashmi, Molana Abdul Ghaffar Qureshi, are inspired by the vision and mission of Masjid e Nabawi's model.</p>
-            <p className="mb-4">Masajids should serve as capitals for their societies, just like countries have their own capitals. The purpose of Masjid Nabvi Qureshi Hashmi is to replicate the Riasat e Madina's model created by Prophet Muhammad (S.A.W).</p>
-            <p className="mb-6">Muhammad Qureshi is on a mission to revolutionize the world's educational, political, and governance systems by connecting societies with their masajid. We are creating a platform with live-tracking, transparent accounts, and a democratic voting system to empower Muslims to improve their circumstances collectively.</p>
-            <p className="mb-6">Our platform aims to introduce scientific educational games to stimulate interest in science and technology, addressing global challenges like climate change, inequality, and access to education and healthcare.</p>
-            <div className="flex items-center space-x-4">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-[#D4AF37]" viewBox="0 0 20 20" fill="currentColor">
-                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-2 0a6 6 0 11-12 0 6 6 0 0112 0zm-1 0a5 5 0 11-10 0 5 5 0 0110 0z" clipRule="evenodd" />
-              </svg>
-              <div>
-                <h3 className="text-xl font-medium text-[#0C6E4E]">Daily Prayers & Services</h3>
-                <p>Open for all five daily prayers with qualified imams</p>
-              </div>
-            </div>
-            <div className="flex items-center space-x-4 mt-4">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-[#D4AF37]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-              </svg>
-              <div>
-                <h3 className="text-xl font-medium text-[#0C6E4E]">Islamic Education</h3>
-                <p>Comprehensive Quranic and Islamic studies for all ages</p>
-              </div>
-            </div>
-            <div className="flex items-center space-x-4 mt-4">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-[#D4AF37]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 00-3 0m-6-3V11m0-5.5v-1a1.5 1.5 0 013 0v1m0 0V11m0-5.5a1.5 1.5 0 013 0v3m0 0V11" />
-              </svg>
-              <div>
-                <h3 className="text-xl font-medium text-[#0C6E4E]">AI-Powered Community Platform</h3>
-                <p>Transparent, democratic system connecting Muslims worldwide</p>
-              </div>
-            </div>
+        <div className="relative rounded-xl overflow-hidden bg-[#F7F3E9] shadow-lg">
+          <div className="absolute inset-0 opacity-10 z-0">
+            <img src="@assets/masjid logo.png" alt="Masjid Logo Background" className="w-full h-full object-contain" />
           </div>
           
-          <div className="flex flex-col gap-6">
-            <div className="flex flex-row gap-6">
-              <div className="w-1/2">
-                <div className="rounded-xl overflow-hidden shadow-xl h-64">
-                  <img src={chairmanImage} alt="Chairman of Masjid Nabvi Qureshi Hashmi" className="w-full h-full object-cover" />
+          <div className="relative z-10 px-8 py-12 md:py-16 text-center">
+            <h2 className="text-4xl font-heading text-[#0C6E4E] mb-8">Our Vision & Mission</h2>
+            
+            <div className="max-w-4xl mx-auto">
+              <p className="text-lg mb-6 text-center font-medium">
+                <span className="text-xl font-semibold text-[#D4AF37]">"مسجد نبوی كے طرز پر سارے اعمال كا آغاز مسجد ھٰذا سے"</span>
+                <br />
+                <span className="italic text-gray-600">Beginning all actions according to the model of Masjid-e-Nabawi from this masjid</span>
+              </p>
+              
+              <p className="text-lg mb-6">
+                Chairman Haji Ghulam Yasin and Founder Molana Abdul Ghaffar Qureshi are driven by a profound vision: to revive the comprehensive role that Masjid-e-Nabawi played during the time of Prophet Muhammad ﷺ. Our mission extends beyond creating a prayer space—we aim to establish a complete societal framework where the masjid serves as the central institution for community development.
+              </p>
+              
+              <div className="grid md:grid-cols-2 gap-8 mt-10 text-left">
+                <div className="bg-white/80 p-6 rounded-lg shadow-md">
+                  <h3 className="text-2xl font-medium text-[#0C6E4E] mb-4 border-b-2 border-[#D4AF37] pb-2">Our Vision</h3>
+                  <ul className="space-y-3">
+                    <li className="flex items-start gap-2">
+                      <span className="text-[#D4AF37] font-bold mt-1">•</span>
+                      <span>To establish masajid as community capitals, serving as the central hub for spiritual, social, educational, and governance activities</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-[#D4AF37] font-bold mt-1">•</span>
+                      <span>To create a replicable model of Islamic community governance that can be implemented worldwide</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-[#D4AF37] font-bold mt-1">•</span>
+                      <span>To revive the comprehensive role of masajid in community development and problem-solving</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-[#D4AF37] font-bold mt-1">•</span>
+                      <span>To bridge traditional Islamic knowledge with modern technological advancements</span>
+                    </li>
+                  </ul>
                 </div>
-                <div className="bg-[#0C6E4E] text-white p-2 text-center rounded-b-xl">
-                  <p className="text-sm font-semibold">Haji Ghulam Yasin</p>
-                  <p className="text-xs">Chairman & Co-founder</p>
+                
+                <div className="bg-white/80 p-6 rounded-lg shadow-md">
+                  <h3 className="text-2xl font-medium text-[#0C6E4E] mb-4 border-b-2 border-[#D4AF37] pb-2">Our Mission</h3>
+                  <ul className="space-y-3">
+                    <li className="flex items-start gap-2">
+                      <span className="text-[#D4AF37] font-bold mt-1">•</span>
+                      <span>To develop a revolutionary community platform with live-tracking, transparent accounting, and democratic governance</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-[#D4AF37] font-bold mt-1">•</span>
+                      <span>To implement comprehensive educational programs combining Islamic traditions with scientific knowledge</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-[#D4AF37] font-bold mt-1">•</span>
+                      <span>To address global challenges through community-led initiatives and solutions based on Islamic principles</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-[#D4AF37] font-bold mt-1">•</span>
+                      <span>To create a self-sustaining community model that ensures economic prosperity and social welfare</span>
+                    </li>
+                  </ul>
                 </div>
               </div>
               
-              <div className="w-1/2">
-                <div className="rounded-xl overflow-hidden shadow-xl h-64">
-                  <img src={masjidAdminImage} alt="Masjid Administration" className="w-full h-full object-cover" />
+              <div className="grid grid-cols-3 gap-6 mt-10">
+                <div className="bg-white/80 p-5 rounded-lg shadow-md text-center">
+                  <div className="mx-auto bg-[#F7F3E9] w-14 h-14 rounded-full flex items-center justify-center mb-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-[#D4AF37]" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-2 0a6 6 0 11-12 0 6 6 0 0112 0zm-1 0a5 5 0 11-10 0 5 5 0 0110 0z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <h3 className="text-lg font-medium text-[#0C6E4E]">Daily Prayers & Services</h3>
+                  <p className="text-sm">Open for all five daily prayers with qualified imams</p>
                 </div>
-                <div className="bg-[#0C6E4E] text-white p-2 text-center rounded-b-xl">
-                  <p className="text-sm font-semibold">Molana Abdul Ghaffar Qureshi</p>
-                  <p className="text-xs">Founder & Imam</p>
+                
+                <div className="bg-white/80 p-5 rounded-lg shadow-md text-center">
+                  <div className="mx-auto bg-[#F7F3E9] w-14 h-14 rounded-full flex items-center justify-center mb-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-[#D4AF37]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
+                  </div>
+                  <h3 className="text-lg font-medium text-[#0C6E4E]">Islamic Education</h3>
+                  <p className="text-sm">Comprehensive Quranic and Islamic studies for all ages</p>
                 </div>
-              </div>
-            </div>
-            
-            <div className="rounded-xl overflow-hidden shadow-2xl">
-              <img src={masjidPlanImage} alt="Masjid Nabvi Qureshi Hashmi plan view" className="w-full h-auto" />
-              <div className="bg-[#D4AF37] text-black p-2 text-center">
-                <p className="font-semibold">Masjid Nabvi Qureshi Hashmi Plan</p>
-                <p className="text-xs">Under Construction</p>
+                
+                <div className="bg-white/80 p-5 rounded-lg shadow-md text-center">
+                  <div className="mx-auto bg-[#F7F3E9] w-14 h-14 rounded-full flex items-center justify-center mb-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-[#D4AF37]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 00-3 0m-6-3V11m0-5.5v-1a1.5 1.5 0 013 0v1m0 0V11m0-5.5a1.5 1.5 0 013 0v3m0 0V11" />
+                    </svg>
+                  </div>
+                  <h3 className="text-lg font-medium text-[#0C6E4E]">AI-Powered Platform</h3>
+                  <p className="text-sm">Transparent, democratic system connecting Muslims worldwide</p>
+                </div>
               </div>
             </div>
           </div>
