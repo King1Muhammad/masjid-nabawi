@@ -1,6 +1,10 @@
 import type { Express, Request, Response } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
+import { db } from "./db";
+import { eq } from "drizzle-orm";
+import { format } from "date-fns";
+import * as schema from "@shared/schema";
 import { 
   insertDonationSchema, 
   insertEnrollmentSchema, 
@@ -52,8 +56,6 @@ const uploadStorage = multer.diskStorage({
 
 const upload = multer({ storage: uploadStorage });
 
-import { eq } from "drizzle-orm";
-import { db } from "./db";
 import { donations, Donation } from "@shared/schema";
 
 // Nodemailer setup for sending emails
@@ -253,6 +255,174 @@ const sendThankYouNotification = async (donation: Donation) => {
 };
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Society API Routes
+  app.get('/api/society/:id', async (req: Request, res: Response) => {
+    try {
+      const societyId = parseInt(req.params.id);
+      const society = await db.query.society.findFirst({
+        where: eq(schema.society.id, societyId),
+      });
+      
+      if (!society) {
+        return res.status(404).json({ message: 'Society not found' });
+      }
+      
+      res.json(society);
+    } catch (error) {
+      console.error('Error fetching society:', error);
+      res.status(500).json({ message: 'Failed to fetch society' });
+    }
+  });
+  
+  app.get('/api/society/:id/blocks', async (req: Request, res: Response) => {
+    try {
+      const societyId = parseInt(req.params.id);
+      const blocks = await db.query.societyBlocks.findMany({
+        where: eq(schema.societyBlocks.societyId, societyId),
+      });
+      
+      res.json(blocks);
+    } catch (error) {
+      console.error('Error fetching blocks:', error);
+      res.status(500).json({ message: 'Failed to fetch blocks' });
+    }
+  });
+  
+  app.get('/api/society/:id/financial-summary', async (req: Request, res: Response) => {
+    try {
+      const societyId = parseInt(req.params.id);
+      const currentMonth = format(new Date(), 'yyyy-MM');
+      
+      // This would normally be calculated from real contribution records
+      const summary = {
+        societyId,
+        totalContributions: 158400,
+        totalExpenses: 102750,
+        balance: 55650,
+        currentMonth: {
+          expected: 264000,
+          actualCollection: 211500,
+          pendingAmount: 52500,
+          collectionRate: 80
+        },
+        previousMonth: {
+          expected: 264000,
+          actualCollection: 223800,
+          pendingAmount: 40200,
+          collectionRate: 85
+        }
+      };
+      
+      res.json(summary);
+    } catch (error) {
+      console.error('Error fetching financial summary:', error);
+      res.status(500).json({ message: 'Failed to fetch financial summary' });
+    }
+  });
+  
+  app.get('/api/society/member', async (req: Request, res: Response) => {
+    try {
+      // In a real implementation, this would check for logged in user
+      // and return their society member record
+      const memberInfo = {
+        id: 1,
+        name: 'Muhammad Qureshi',
+        blockName: 'D-8',
+        flatNumber: '4',
+        email: 'muhammad@example.com',
+        phoneNumber: '+923339214600',
+        isOwner: true,
+        status: 'active',
+        cnic: '12345-1234567-1',
+        personalNumber: '101-D8-4'
+      };
+      
+      res.json(memberInfo);
+    } catch (error) {
+      console.error('Error fetching member:', error);
+      res.status(500).json({ message: 'Failed to fetch society' });
+    }
+  });
+  
+  app.get('/api/society/member/contributions', async (req: Request, res: Response) => {
+    try {
+      // Mock contributions data - would be fetched from DB in real implementation
+      const contributions = [
+        {
+          id: 1,
+          month: 'April 2025',
+          amount: 1500,
+          paymentDate: '2025-04-05T00:00:00Z',
+          paymentMethod: 'Bank Transfer',
+          monthYear: '2025-04',
+          status: 'completed',
+          receiptNumber: 'SOC-25001'
+        },
+        {
+          id: 2,
+          month: 'March 2025',
+          amount: 1500,
+          paymentDate: '2025-03-03T00:00:00Z',
+          paymentMethod: 'EasyPaisa',
+          monthYear: '2025-03',
+          status: 'completed',
+          receiptNumber: 'SOC-24080'
+        },
+        {
+          id: 3,
+          month: 'February 2025',
+          amount: 1500,
+          paymentDate: '2025-02-05T00:00:00Z',
+          paymentMethod: 'Cash',
+          monthYear: '2025-02',
+          status: 'completed',
+          receiptNumber: 'SOC-24025'
+        }
+      ];
+      
+      res.json(contributions);
+    } catch (error) {
+      console.error('Error fetching contributions:', error);
+      res.status(500).json({ message: 'Failed to fetch contributions' });
+    }
+  });
+  
+  app.get('/api/society/member/notifications', async (req: Request, res: Response) => {
+    try {
+      // This would normally be fetched from a notifications table
+      const notifications = [
+        {
+          id: 1,
+          title: 'Monthly Contribution Due',
+          message: 'Your monthly contribution of PKR 1,500 for May 2025 is due. Please make the payment before the 10th.',
+          date: '2025-04-30T00:00:00Z',
+          isRead: false,
+          type: 'payment'
+        },
+        {
+          id: 2,
+          title: 'New Proposal Added',
+          message: 'A new proposal for "Playground Renovation" has been added. Please review and cast your vote.',
+          date: '2025-04-25T00:00:00Z',
+          isRead: true,
+          type: 'proposal'
+        },
+        {
+          id: 3,
+          title: 'Community Meeting',
+          message: 'A community meeting is scheduled for Sunday, May 5th at 7:30 PM in the community hall.',
+          date: '2025-04-20T00:00:00Z',
+          isRead: true,
+          type: 'event'
+        }
+      ];
+      
+      res.json(notifications);
+    } catch (error) {
+      console.error('Error fetching notifications:', error);
+      res.status(500).json({ message: 'Failed to fetch notifications' });
+    }
+  });
   // API routes for prayer times - updated to use Hanafi method for Islamabad
   app.get("/api/prayer-times", async (req, res) => {
     try {
