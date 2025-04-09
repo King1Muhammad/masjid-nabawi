@@ -96,18 +96,11 @@ const DonationPage = () => {
       <div className="container mx-auto px-4">
         {/* Hero Section */}
         <div className="relative rounded-2xl overflow-hidden mb-16">
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0C6E4E]/90 to-[#0C6E4E]/80 z-10"></div>
-          <div className="absolute inset-0 w-full h-full">
-            <img 
-              src="/images/masjid_bg.jpg"
-              alt="Masjid Background" 
-              className="w-full h-full object-cover opacity-70 brightness-75"
-            />
-          </div>
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0C6E4E]/90 to-[#0C6E4E]/70 z-10"></div>
           <div className="relative z-20 py-20 px-6 text-center">
-            <h1 className="text-4xl md:text-5xl font-heading text-white mb-4 drop-shadow-md">Your Contribution, Our Future</h1>
-            <h2 className="text-2xl md:text-3xl font-heading text-white/95 mb-4 drop-shadow-md">Building a Path to a Stronger Community and a Better Tomorrow</h2>
-            <p className="text-xl text-white/95 max-w-3xl mx-auto mb-8 drop-shadow-sm">
+            <h1 className="text-4xl md:text-5xl font-heading text-white mb-4">Your Contribution, Our Future</h1>
+            <h2 className="text-2xl md:text-3xl font-heading text-white/90 mb-4">Building a Path to a Stronger Community and a Better Tomorrow</h2>
+            <p className="text-xl text-white/90 max-w-3xl mx-auto mb-8">
               Join us in creating a masjid that not only serves as a space for worship but also empowers communities through education, transparency, and technology. By donating, you're contributing to the construction of a masjid based on the noble model of Masjid e Nabawi, as well as a visionary global platform for decentralized governance and transparent democracy that connects societies worldwide.
             </p>
             <a 
@@ -116,6 +109,24 @@ const DonationPage = () => {
             >
               Donate Now
             </a>
+          </div>
+          <div className="absolute inset-0 w-full h-full">
+            <div className="absolute inset-0 w-full h-full flex backdrop-blur-[2px]">
+              <div className="w-1/2 h-full">
+                <img 
+                  src="/uploads/construction_site.jpg" 
+                  alt="Masjid Construction" 
+                  className="w-full h-full object-cover opacity-90 brightness-[0.85] blur-[1px]" 
+                />
+              </div>
+              <div className="w-1/2 h-full">
+                <img 
+                  src="/uploads/construction_panorama.jpg" 
+                  alt="Masjid Construction Panorama" 
+                  className="w-full h-full object-cover opacity-90 brightness-[0.85] blur-[1px]" 
+                />
+              </div>
+            </div>
           </div>
         </div>
         
