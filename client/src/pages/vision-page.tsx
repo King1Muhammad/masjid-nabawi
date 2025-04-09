@@ -920,11 +920,11 @@ const VisionPage = () => {
               </div>
               <h3 className="text-xl font-semibold mb-4">Donate</h3>
               <p className="mb-6">Support the construction of our masjid and the development of our AI platform.</p>
-              <Link href="/donation-page">
-                <a className="inline-block bg-[#0C6E4E] text-white px-6 py-2 rounded-md font-semibold">
+              <a href="#donation-form" 
+                 onClick={() => window.location.href = '/donate#donation-form'}
+                 className="inline-block bg-[#0C6E4E] text-white px-6 py-2 rounded-md font-semibold">
                   Donate Now
                 </a>
-              </Link>
             </div>
             
             <div className="bg-white text-[#0C6E4E] rounded-xl p-6 shadow-lg transform transition-transform hover:scale-105">
@@ -935,9 +935,14 @@ const VisionPage = () => {
               </div>
               <h3 className="text-xl font-semibold mb-4">Volunteer</h3>
               <p className="mb-6">Join our team as a volunteer to contribute your skills and time to this noble cause.</p>
-              <button className="inline-block bg-[#0C6E4E] text-white px-6 py-2 rounded-md font-semibold">
+              <a href="/contact#volunteer-form" 
+                 onClick={(e) => {
+                   e.preventDefault();
+                   window.location.href = '/contact#volunteer-form';
+                 }}
+                 className="inline-block bg-[#0C6E4E] text-white px-6 py-2 rounded-md font-semibold">
                 Join as Volunteer
-              </button>
+              </a>
             </div>
             
             <div className="bg-white text-[#0C6E4E] rounded-xl p-6 shadow-lg transform transition-transform hover:scale-105">
@@ -948,9 +953,12 @@ const VisionPage = () => {
               </div>
               <h3 className="text-xl font-semibold mb-4">Spread the Word</h3>
               <p className="mb-6">Help us share this vision with others and grow our community of supporters.</p>
-              <button className="inline-block bg-[#0C6E4E] text-white px-6 py-2 rounded-md font-semibold">
+              <a href="https://wa.me/?text=Join%20the%20Masjid-e-Nabawi%20Model%20revolution!%20Discover%20how%20we%27re%20transforming%20communities%20with%20Islamic%20principles.%20Learn%20more%20at%20https%3A%2F%2Fmasjidenabawismodel.com"
+                 target="_blank" 
+                 rel="noopener noreferrer"
+                 className="inline-block bg-[#0C6E4E] text-white px-6 py-2 rounded-md font-semibold">
                 Share Our Mission
-              </button>
+              </a>
             </div>
           </div>
           

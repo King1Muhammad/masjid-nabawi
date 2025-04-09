@@ -69,7 +69,7 @@ const Header = () => {
           <Link href="/">
             <div className="flex items-center cursor-pointer">
               <div className="text-2xl md:text-3xl font-heading text-[#0C6E4E]">
-                <span className="font-arabic">جامع مسجد نبوی</span>
+                <span className="font-arabic">جامع مسجد نبوی قریشی ہاشمی</span>
                 <span className="text-xs md:text-sm block text-[#8D3333]">Jamia Masjid Nabvi Qureshi Hashmi</span>
               </div>
             </div>
