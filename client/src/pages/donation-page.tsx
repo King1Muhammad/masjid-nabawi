@@ -111,21 +111,12 @@ const DonationPage = () => {
             </a>
           </div>
           <div className="absolute inset-0 w-full h-full">
-            <div className="absolute inset-0 w-full h-full flex backdrop-blur-[2px]">
-              <div className="w-1/2 h-full">
-                <img 
-                  src="/uploads/construction_site.jpg" 
-                  alt="Masjid Construction" 
-                  className="w-full h-full object-cover opacity-90 brightness-[0.85] blur-[1px]" 
-                />
-              </div>
-              <div className="w-1/2 h-full">
-                <img 
-                  src="/uploads/construction_panorama.jpg" 
-                  alt="Masjid Construction Panorama" 
-                  className="w-full h-full object-cover opacity-90 brightness-[0.85] blur-[1px]" 
-                />
-              </div>
+            <div className="absolute inset-0 w-full h-full backdrop-blur-[1px]">
+              <img 
+                src="/uploads/masjid_hero.jpeg" 
+                alt="Masjid Nabvi" 
+                className="w-full h-full object-cover opacity-90 brightness-[0.85] blur-[1px]" 
+              />
             </div>
           </div>
         </div>
