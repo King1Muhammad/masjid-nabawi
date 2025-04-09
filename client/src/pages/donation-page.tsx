@@ -96,36 +96,28 @@ const DonationPage = () => {
       <div className="container mx-auto px-4">
         {/* Hero Section */}
         <div className="relative rounded-2xl overflow-hidden mb-16">
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0C6E4E]/90 to-[#0C6E4E]/70 z-10"></div>
-          <div className="relative z-20 py-20 px-6 text-center">
-            <h1 className="text-4xl md:text-5xl font-heading text-white mb-4">Your Contribution, Our Future</h1>
-            <h2 className="text-2xl md:text-3xl font-heading text-white/90 mb-4">Building a Path to a Stronger Community and a Better Tomorrow</h2>
-            <p className="text-xl text-white/90 max-w-3xl mx-auto mb-8">
-              Join us in creating a masjid that not only serves as a space for worship but also empowers communities through education, transparency, and technology. By donating, you're contributing to the construction of a masjid based on the noble model of Masjid e Nabawi, as well as a visionary global platform for decentralized governance and transparent democracy that connects societies worldwide.
-            </p>
-            <a 
-              href="#donation-form" 
-              className="inline-block bg-[#D4AF37] hover:bg-opacity-90 text-white font-medium py-3 px-8 rounded-md shadow-lg transition-all transform hover:scale-105"
-            >
-              Donate Now
-            </a>
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent to-transparent z-10"></div>
+          <div className="relative z-20 py-16 px-6 text-center">
+            <div className="md:w-1/2 lg:w-1/3 mx-auto bg-white/80 backdrop-blur-sm p-6 rounded-lg shadow-lg">
+              <h1 className="text-3xl md:text-4xl font-heading text-[#0C6E4E] mb-4">Support Our Mission</h1>
+              <p className="text-lg text-gray-800 mb-6">
+                Help us build Jamia Masjid Nabvi Qureshi Hashmi and strengthen our community through your generous contribution.
+              </p>
+              <a 
+                href="#donation-form" 
+                className="inline-block bg-[#0C6E4E] hover:bg-opacity-90 text-white font-medium py-3 px-8 rounded-md shadow-lg transition-all transform hover:scale-105"
+              >
+                Donate Now
+              </a>
+            </div>
           </div>
           <div className="absolute inset-0 w-full h-full">
-            <div className="absolute inset-0 w-full h-full flex backdrop-blur-[2px]">
-              <div className="w-1/2 h-full">
-                <img 
-                  src="/uploads/construction_site.jpg" 
-                  alt="Masjid Construction" 
-                  className="w-full h-full object-cover opacity-90 brightness-[0.85] blur-[1px]" 
-                />
-              </div>
-              <div className="w-1/2 h-full">
-                <img 
-                  src="/uploads/construction_panorama.jpg" 
-                  alt="Masjid Construction Panorama" 
-                  className="w-full h-full object-cover opacity-90 brightness-[0.85] blur-[1px]" 
-                />
-              </div>
+            <div className="absolute inset-0 w-full h-full">
+              <img 
+                src="/uploads/combined_masjid_ad.png" 
+                alt="Masjid Nabvi Qureshi Hashmi Donation" 
+                className="w-full h-full object-cover opacity-95" 
+              />
             </div>
           </div>
         </div>
