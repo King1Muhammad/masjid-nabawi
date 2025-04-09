@@ -407,32 +407,32 @@ const UserDashboard: React.FC<UserDashboardProps> = ({ userId, societyId }) => {
         </CardHeader>
         <CardContent>
           <Tabs value={activeTab} onValueChange={setActiveTab}>
-            <TabsList className="grid w-full grid-cols-6">
-              <TabsTrigger value="overview" className="flex items-center">
-                <Home className="h-4 w-4 mr-2" />
-                <span>Overview</span>
+            <TabsList className="grid w-full grid-cols-3 md:grid-cols-6 gap-1">
+              <TabsTrigger value="overview" className="flex items-center justify-center text-xs md:text-sm px-1 py-1 md:py-2">
+                <Home className="h-3 w-3 md:h-4 md:w-4 mr-1 md:mr-2" />
+                <span className="truncate">Overview</span>
               </TabsTrigger>
-              <TabsTrigger value="payments" className="flex items-center">
-                <DollarSign className="h-4 w-4 mr-2" />
-                <span>Payments</span>
+              <TabsTrigger value="payments" className="flex items-center justify-center text-xs md:text-sm px-1 py-1 md:py-2">
+                <DollarSign className="h-3 w-3 md:h-4 md:w-4 mr-1 md:mr-2" />
+                <span className="truncate">Payments</span>
               </TabsTrigger>
-              <TabsTrigger value="discussions" className="flex items-center">
-                <MessageSquare className="h-4 w-4 mr-2" />
-                <span>Discussions</span>
+              <TabsTrigger value="discussions" className="flex items-center justify-center text-xs md:text-sm px-1 py-1 md:py-2">
+                <MessageSquare className="h-3 w-3 md:h-4 md:w-4 mr-1 md:mr-2" />
+                <span className="truncate">Discussions</span>
               </TabsTrigger>
-              <TabsTrigger value="proposals" className="flex items-center">
-                <Vote className="h-4 w-4 mr-2" />
-                <span>Voting</span>
+              <TabsTrigger value="proposals" className="flex items-center justify-center text-xs md:text-sm px-1 py-1 md:py-2">
+                <Vote className="h-3 w-3 md:h-4 md:w-4 mr-1 md:mr-2" />
+                <span className="truncate">Voting</span>
               </TabsTrigger>
-              <TabsTrigger value="finances" className="flex items-center">
-                <BarChart4 className="h-4 w-4 mr-2" />
-                <span>Finances</span>
+              <TabsTrigger value="finances" className="flex items-center justify-center text-xs md:text-sm px-1 py-1 md:py-2">
+                <BarChart4 className="h-3 w-3 md:h-4 md:w-4 mr-1 md:mr-2" />
+                <span className="truncate">Finances</span>
               </TabsTrigger>
-              <TabsTrigger value="notifications" className="flex items-center relative">
-                <Bell className="h-4 w-4 mr-2" />
-                <span>Notifications</span>
+              <TabsTrigger value="notifications" className="flex items-center justify-center text-xs md:text-sm px-1 py-1 md:py-2 relative">
+                <Bell className="h-3 w-3 md:h-4 md:w-4 mr-1 md:mr-2" />
+                <span className="truncate">Alerts</span>
                 {unreadNotifications.length > 0 && (
-                  <span className="absolute top-0 right-2 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
+                  <span className="absolute top-0 right-0 md:right-2 bg-red-500 text-white text-[9px] md:text-xs rounded-full h-3 w-3 md:h-4 md:w-4 flex items-center justify-center">
                     {unreadNotifications.length}
                   </span>
                 )}

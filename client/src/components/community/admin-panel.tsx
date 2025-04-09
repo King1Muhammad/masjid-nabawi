@@ -482,8 +482,9 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ societyId }) => {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="flex space-x-4 mb-6">
-                    <div className="flex-1">
+                  {/* Mobile-friendly search & filter layout */}
+                  <div className="flex flex-col sm:flex-row gap-3 mb-6">
+                    <div className="w-full sm:flex-1">
                       <div className="relative">
                         <Search className="h-4 w-4 absolute left-3 top-3 text-muted-foreground" />
                         <Input 
@@ -494,7 +495,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ societyId }) => {
                         />
                       </div>
                     </div>
-                    <div className="w-1/4">
+                    <div className="w-full sm:w-1/3 md:w-1/4">
                       <Select value={selectedBlock} onValueChange={setSelectedBlock}>
                         <SelectTrigger className="w-full">
                           <div className="flex items-center">
@@ -666,35 +667,38 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ societyId }) => {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="flex space-x-4 mb-6">
-                    <div className="w-1/3">
-                      <Input 
-                        type="month" 
-                        value={selectedMonth}
-                        onChange={(e) => setSelectedMonth(e.target.value)}
-                        className="w-full"
-                      />
+                  {/* Mobile-friendly filter and action layout */}
+                  <div className="flex flex-col space-y-3 sm:space-y-0 sm:flex-row sm:space-x-4 mb-6">
+                    <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-row sm:gap-4 w-full sm:w-auto">
+                      <div className="w-full sm:w-40">
+                        <Input 
+                          type="month" 
+                          value={selectedMonth}
+                          onChange={(e) => setSelectedMonth(e.target.value)}
+                          className="w-full"
+                        />
+                      </div>
+                      <div className="w-full sm:w-40">
+                        <Select value={selectedBlock} onValueChange={setSelectedBlock}>
+                          <SelectTrigger className="w-full">
+                            <div className="flex items-center">
+                              <Building className="h-4 w-4 mr-2" />
+                              <SelectValue placeholder="Filter by block" />
+                            </div>
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="all">All Blocks</SelectItem>
+                            {blocks?.map((block) => (
+                              <SelectItem key={block.id} value={block.blockName}>
+                                {block.blockName}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </div>
                     </div>
-                    <div className="w-1/3">
-                      <Select value={selectedBlock} onValueChange={setSelectedBlock}>
-                        <SelectTrigger className="w-full">
-                          <div className="flex items-center">
-                            <Building className="h-4 w-4 mr-2" />
-                            <SelectValue placeholder="Filter by block" />
-                          </div>
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="all">All Blocks</SelectItem>
-                          {blocks?.map((block) => (
-                            <SelectItem key={block.id} value={block.blockName}>
-                              {block.blockName}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div className="flex-1 flex justify-end">
-                      <Button onClick={() => handleOpenContributionDialog(0)}>
+                    <div className="w-full sm:flex-1 sm:flex sm:justify-end">
+                      <Button onClick={() => handleOpenContributionDialog(0)} className="w-full sm:w-auto">
                         <DollarSign className="h-4 w-4 mr-2" />
                         Add New Contribution
                       </Button>

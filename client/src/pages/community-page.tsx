@@ -384,20 +384,20 @@ const CommunityPage = () => {
         <h1 className="text-4xl md:text-5xl font-heading text-[#0C6E4E] text-center mb-4">Community & Transparency</h1>
         <p className="text-lg md:text-xl text-center max-w-3xl mx-auto mb-8">We believe in maintaining transparency and involving our community in masjid operations and decision-making.</p>
         
-        {/* Role Selection Tabs - New Interface */}
+        {/* Role Selection Tabs - Improved Mobile Interface */}
         <Tabs defaultValue="user" className="mb-10">
-          <TabsList className="grid w-full grid-cols-3 mx-auto max-w-sm md:max-w-md">
-            <TabsTrigger value="user" className="flex items-center justify-center text-xs sm:text-sm px-1 sm:px-2">
-              <User className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
-              <span>User Dashboard</span>
+          <TabsList className="grid w-full grid-cols-3 mx-auto max-w-full sm:max-w-sm md:max-w-md gap-1">
+            <TabsTrigger value="user" className="flex items-center justify-center text-xs sm:text-sm px-0.5 sm:px-2 py-1 sm:py-2">
+              <User className="h-3 w-3 sm:h-4 sm:w-4 mr-0.5 sm:mr-2" />
+              <span className="truncate">User Dashboard</span>
             </TabsTrigger>
-            <TabsTrigger value="admin" className="flex items-center justify-center text-xs sm:text-sm px-1 sm:px-2">
-              <ShieldCheck className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
-              <span>Admin Panel</span>
+            <TabsTrigger value="admin" className="flex items-center justify-center text-xs sm:text-sm px-0.5 sm:px-2 py-1 sm:py-2">
+              <ShieldCheck className="h-3 w-3 sm:h-4 sm:w-4 mr-0.5 sm:mr-2" />
+              <span className="truncate">Admin Panel</span>
             </TabsTrigger>
-            <TabsTrigger value="society" className="flex items-center justify-center text-xs sm:text-sm px-1 sm:px-2">
-              <Users className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
-              <span>Society View</span>
+            <TabsTrigger value="society" className="flex items-center justify-center text-xs sm:text-sm px-0.5 sm:px-2 py-1 sm:py-2">
+              <Users className="h-3 w-3 sm:h-4 sm:w-4 mr-0.5 sm:mr-2" />
+              <span className="truncate">Society View</span>
             </TabsTrigger>
           </TabsList>
           
@@ -411,15 +411,25 @@ const CommunityPage = () => {
             <AdminPanel societyId={1} />
           </TabsContent>
           
-          {/* Society View Content - Original Interface */}
+          {/* Society View Content - Improved Mobile Interface */}
           <TabsContent value="society">
             <Tabs defaultValue="society" className="mb-10" onValueChange={setActiveTab}>
-              <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-5 mx-auto overflow-x-auto">
-                <TabsTrigger value="society" className="text-xs sm:text-sm whitespace-nowrap">Society Overview</TabsTrigger>
-                <TabsTrigger value="residents" className="text-xs sm:text-sm whitespace-nowrap">Residents</TabsTrigger>
-                <TabsTrigger value="finances" className="text-xs sm:text-sm whitespace-nowrap">Finances</TabsTrigger>
-                <TabsTrigger value="discussions" className="text-xs sm:text-sm whitespace-nowrap">Discussions</TabsTrigger>
-                <TabsTrigger value="proposals" className="text-xs sm:text-sm whitespace-nowrap">Proposals & Voting</TabsTrigger>
+              <TabsList className="grid w-full grid-cols-3 sm:grid-cols-5 gap-1 mx-auto">
+                <TabsTrigger value="society" className="text-xs sm:text-sm py-1.5 px-1">
+                  <span className="truncate">Overview</span>
+                </TabsTrigger>
+                <TabsTrigger value="residents" className="text-xs sm:text-sm py-1.5 px-1">
+                  <span className="truncate">Residents</span>
+                </TabsTrigger>
+                <TabsTrigger value="finances" className="text-xs sm:text-sm py-1.5 px-1">
+                  <span className="truncate">Finances</span>
+                </TabsTrigger>
+                <TabsTrigger value="discussions" className="text-xs sm:text-sm py-1.5 px-1">
+                  <span className="truncate">Discussions</span>
+                </TabsTrigger>
+                <TabsTrigger value="proposals" className="text-xs sm:text-sm py-1.5 px-1">
+                  <span className="truncate">Voting</span>
+                </TabsTrigger>
               </TabsList>
 
               {/* Original Society content */}
