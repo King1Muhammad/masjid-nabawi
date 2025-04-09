@@ -2,7 +2,7 @@ import type { Express, Request, Response } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
 import { db } from "./db";
-import { eq } from "drizzle-orm";
+import { eq, sql, and } from "drizzle-orm";
 import { format } from "date-fns";
 import * as schema from "@shared/schema";
 import { 
@@ -18,7 +18,8 @@ import {
   insertDiscussionSchema,
   insertDiscussionCommentSchema,
   insertProposalSchema,
-  insertVoteSchema
+  insertVoteSchema,
+  insertUserSchema
 } from "@shared/schema";
 import axios from "axios";
 import Stripe from "stripe";
@@ -293,23 +294,149 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const societyId = parseInt(req.params.id);
       const currentMonth = format(new Date(), 'yyyy-MM');
       
-      // This would normally be calculated from real contribution records
+      // Get society details
+      const society = await db.query.society.findFirst({
+        where: eq(schema.society.id, societyId)
+      });
+      
+      if (!society) {
+        return res.status(404).json({ message: 'Society not found' });
+      }
+      
+      // Get total contributions
+      const contributionsResult = await db.select({
+        total: sql`sum(${schema.societyContributions.amount})`
+      })
+      .from(schema.societyContributions)
+      .where(eq(schema.societyContributions.societyId, societyId));
+      
+      const totalContributions = Number(contributionsResult[0]?.total || 0);
+      
+      // Get total expenses
+      const expensesResult = await db.select({
+        total: sql`sum(${schema.societyExpenses.amount})`
+      })
+      .from(schema.societyExpenses)
+      .where(eq(schema.societyExpenses.societyId, societyId));
+      
+      const totalExpenses = Number(expensesResult[0]?.total || 0);
+      
+      // Calculate current balance
+      const currentBalance = totalContributions - totalExpenses;
+      
+      // Get contributions for current month
+      const currentMonthContributions = await db.select({
+        total: sql`sum(${schema.societyContributions.amount})`
+      })
+      .from(schema.societyContributions)
+      .where(
+        and(
+          eq(schema.societyContributions.societyId, societyId),
+          eq(schema.societyContributions.monthYear, currentMonth)
+        )
+      );
+      
+      const currentMonthTotal = Number(currentMonthContributions[0]?.total || 0);
+      
+      // Get member count for expected contribution calculation
+      const membersCount = await db.select({
+        count: sql`count(${schema.societyMembers.id})`
+      })
+      .from(schema.societyMembers)
+      .innerJoin(
+        schema.societyBlocks,
+        eq(schema.societyMembers.blockId, schema.societyBlocks.id)
+      )
+      .where(
+        and(
+          eq(schema.societyBlocks.societyId, societyId),
+          eq(schema.societyMembers.status, 'active')
+        )
+      );
+      
+      const activeMembers = Number(membersCount[0]?.count || 0);
+      const expectedMonthlyTotal = activeMembers * society.monthlyContribution;
+      
+      // Calculate collection rate
+      const collectionRate = expectedMonthlyTotal > 0 
+        ? Math.round((currentMonthTotal / expectedMonthlyTotal) * 100)
+        : 0;
+      
+      // Calculate previous month data
+      const prevDate = new Date();
+      prevDate.setMonth(prevDate.getMonth() - 1);
+      const prevMonth = format(prevDate, 'yyyy-MM');
+      
+      const prevMonthContributions = await db.select({
+        total: sql`sum(${schema.societyContributions.amount})`
+      })
+      .from(schema.societyContributions)
+      .where(
+        and(
+          eq(schema.societyContributions.societyId, societyId),
+          eq(schema.societyContributions.monthYear, prevMonth)
+        )
+      );
+      
+      const prevMonthTotal = Number(prevMonthContributions[0]?.total || 0);
+      
+      // Get expenses by category
+      const expensesByCategory = await db.select({
+        category: schema.societyExpenses.category,
+        total: sql`sum(${schema.societyExpenses.amount})`
+      })
+      .from(schema.societyExpenses)
+      .where(eq(schema.societyExpenses.societyId, societyId))
+      .groupBy(schema.societyExpenses.category);
+      
+      // Format expenses by category for easy frontend consumption
+      const expensesByCategoryObj: Record<string, number> = {};
+      expensesByCategory.forEach(item => {
+        expensesByCategoryObj[item.category] = Number(item.total);
+      });
+      
+      // Get contributions by month for chart
+      const contributionsByMonth = await db.select({
+        monthYear: schema.societyContributions.monthYear,
+        total: sql`sum(${schema.societyContributions.amount})`
+      })
+      .from(schema.societyContributions)
+      .where(eq(schema.societyContributions.societyId, societyId))
+      .groupBy(schema.societyContributions.monthYear)
+      .orderBy(schema.societyContributions.monthYear);
+      
+      // Format contributions by month for easy frontend consumption
+      const contributionsByMonthObj: Record<string, number> = {};
+      contributionsByMonth.forEach(item => {
+        contributionsByMonthObj[item.monthYear] = Number(item.total);
+      });
+      
+      // Calculate collection rate for previous month
+      const prevMonthRate = expectedMonthlyTotal > 0 
+        ? Math.round((prevMonthTotal / expectedMonthlyTotal) * 100)
+        : 0;
+      
+      // Build the summary object
       const summary = {
         societyId,
-        totalContributions: 158400,
-        totalExpenses: 102750,
-        balance: 55650,
+        totalContributions,
+        totalExpenses,
+        currentBalance,
+        contributionsByMonth: contributionsByMonthObj,
+        expensesByCategory: expensesByCategoryObj,
         currentMonth: {
-          expected: 264000,
-          actualCollection: 211500,
-          pendingAmount: 52500,
-          collectionRate: 80
+          monthYear: currentMonth,
+          expectedTotal: expectedMonthlyTotal,
+          actualCollection: currentMonthTotal,
+          pendingAmount: expectedMonthlyTotal - currentMonthTotal,
+          collectionRate
         },
         previousMonth: {
-          expected: 264000,
-          actualCollection: 223800,
-          pendingAmount: 40200,
-          collectionRate: 85
+          monthYear: prevMonth,
+          expectedTotal: expectedMonthlyTotal,
+          actualCollection: prevMonthTotal,
+          pendingAmount: expectedMonthlyTotal - prevMonthTotal,
+          collectionRate: prevMonthRate
         }
       };
       
@@ -421,6 +548,299 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error('Error fetching notifications:', error);
       res.status(500).json({ message: 'Failed to fetch notifications' });
+    }
+  });
+  
+  // Society Member Registration and Authentication
+  app.post('/api/society/register', async (req: Request, res: Response) => {
+    try {
+      const userValidation = insertUserSchema.safeParse(req.body);
+      
+      if (!userValidation.success) {
+        return res.status(400).json({ 
+          message: 'Invalid user data',
+          errors: userValidation.error.format()
+        });
+      }
+      
+      const { username, password, email, name } = userValidation.data;
+      
+      // Check if username already exists
+      const existingUser = await db.query.users.findFirst({
+        where: eq(schema.users.username, username)
+      });
+      
+      if (existingUser) {
+        return res.status(400).json({ message: 'Username already exists' });
+      }
+      
+      // Create user record
+      const [user] = await db.insert(schema.users)
+        .values({
+          username,
+          password, // In production, this should be hashed
+          email,
+          name,
+          role: 'society_member'
+        })
+        .returning();
+      
+      // Extract the member registration information
+      const { blockName, flatNumber, phoneNumber, isOwner = true } = req.body;
+      
+      // Find the society block
+      const block = await db.query.societyBlocks.findFirst({
+        where: eq(schema.societyBlocks.blockName, blockName)
+      });
+      
+      if (!block) {
+        return res.status(400).json({ message: 'Invalid block name' });
+      }
+      
+      // Create society member record
+      const [member] = await db.insert(schema.societyMembers)
+        .values({
+          userId: user.id,
+          blockId: block.id,
+          flatNumber,
+          isOwner,
+          phoneNumber,
+          status: 'pending', // Requires admin approval
+        })
+        .returning();
+      
+      // Return success response
+      res.status(201).json({
+        message: 'Registration successful. Your account is pending approval from society admin.',
+        userId: user.id,
+        memberId: member.id
+      });
+      
+    } catch (error) {
+      console.error('Error registering society member:', error);
+      res.status(500).json({ message: 'Failed to register society member' });
+    }
+  });
+  
+  // Process society member login
+  app.post('/api/society/login', async (req: Request, res: Response) => {
+    try {
+      const { username, password } = req.body;
+      
+      if (!username || !password) {
+        return res.status(400).json({ message: 'Username and password are required' });
+      }
+      
+      // Find user by username
+      const user = await db.query.users.findFirst({
+        where: eq(schema.users.username, username)
+      });
+      
+      if (!user) {
+        return res.status(401).json({ message: 'Invalid username or password' });
+      }
+      
+      // Check password (in production, compare hashed passwords)
+      if (user.password !== password) {
+        return res.status(401).json({ message: 'Invalid username or password' });
+      }
+      
+      // Find associated society member record
+      const societyMember = await db.query.societyMembers.findFirst({
+        where: eq(schema.societyMembers.userId, user.id)
+      });
+      
+      if (!societyMember) {
+        return res.status(403).json({ message: 'No society membership found for this user' });
+      }
+      
+      // Check if the member is approved
+      if (societyMember.status !== 'active') {
+        return res.status(403).json({ 
+          message: 'Your society membership is pending approval',
+          status: societyMember.status
+        });
+      }
+      
+      // Get the block information
+      const block = await db.query.societyBlocks.findFirst({
+        where: eq(schema.societyBlocks.id, societyMember.blockId)
+      });
+      
+      // Return user information with society details
+      res.json({
+        id: user.id,
+        username: user.username,
+        email: user.email,
+        name: user.name,
+        role: user.role,
+        society: {
+          memberId: societyMember.id,
+          blockId: societyMember.blockId,
+          blockName: block?.blockName,
+          flatNumber: societyMember.flatNumber,
+          isOwner: societyMember.isOwner,
+          status: societyMember.status,
+          phoneNumber: societyMember.phoneNumber,
+          isCommitteeMember: societyMember.isCommitteeMember,
+          memberRole: societyMember.role
+        }
+      });
+      
+    } catch (error) {
+      console.error('Error logging in society member:', error);
+      res.status(500).json({ message: 'Login failed' });
+    }
+  });
+  
+  // Admin endpoints for user registration approval
+  app.get('/api/society/user-registrations', async (req: Request, res: Response) => {
+    try {
+      const status = req.query.status || 'pending';
+      
+      // Get pending society member registrations with user details
+      const registrations = await db.select({
+        id: schema.societyMembers.id,
+        userId: schema.societyMembers.userId,
+        blockId: schema.societyMembers.blockId,
+        flatNumber: schema.societyMembers.flatNumber,
+        isOwner: schema.societyMembers.isOwner,
+        status: schema.societyMembers.status,
+        phoneNumber: schema.societyMembers.phoneNumber,
+        username: schema.users.username,
+        email: schema.users.email,
+        name: schema.users.name,
+        blockName: schema.societyBlocks.blockName,
+        registrationDate: schema.societyMembers.joinDate
+      })
+      .from(schema.societyMembers)
+      .innerJoin(schema.users, eq(schema.societyMembers.userId, schema.users.id))
+      .innerJoin(schema.societyBlocks, eq(schema.societyMembers.blockId, schema.societyBlocks.id))
+      .where(eq(schema.societyMembers.status, status as string));
+      
+      res.json(registrations);
+      
+    } catch (error) {
+      console.error('Error fetching user registrations:', error);
+      res.status(500).json({ message: 'Failed to fetch user registrations' });
+    }
+  });
+  
+  // Approve a user registration
+  app.post('/api/society/user-registrations/:memberId/approve', async (req: Request, res: Response) => {
+    try {
+      const memberId = parseInt(req.params.memberId);
+      
+      // Update society member status to active
+      const [updatedMember] = await db.update(schema.societyMembers)
+        .set({ status: 'active' })
+        .where(eq(schema.societyMembers.id, memberId))
+        .returning();
+      
+      if (!updatedMember) {
+        return res.status(404).json({ message: 'Member registration not found' });
+      }
+      
+      // Send notification email
+      const user = await db.query.users.findFirst({
+        where: eq(schema.users.id, updatedMember.userId)
+      });
+      
+      if (user && user.email) {
+        const transporter = createTransporter();
+        await transporter.sendMail({
+          from: '"Society Management" <jamiamasjidnabviqureshihashmi@gmail.com>',
+          to: user.email,
+          subject: 'Society Membership Approved',
+          html: `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #0C6E4E; border-radius: 8px; overflow: hidden;">
+              <div style="background-color: #0C6E4E; color: white; padding: 20px; text-align: center;">
+                <h1 style="margin: 0;">Membership Approved</h1>
+                <h2 style="margin: 5px 0 0 0;">Society Management System</h2>
+              </div>
+              
+              <div style="padding: 20px;">
+                <p>Dear ${user.name},</p>
+                
+                <p>Congratulations! Your society membership has been approved. You can now log in to the society portal and access all member features.</p>
+                
+                <p>Please use your username <strong>${user.username}</strong> to log in.</p>
+                
+                <p>Thank you for joining our society!</p>
+                
+                <p style="margin-top: 30px;">Regards,<br>Society Administration</p>
+              </div>
+            </div>
+          `
+        });
+      }
+      
+      res.json({ 
+        message: 'Member registration approved successfully',
+        member: updatedMember
+      });
+      
+    } catch (error) {
+      console.error('Error approving registration:', error);
+      res.status(500).json({ message: 'Failed to approve registration' });
+    }
+  });
+  
+  // Reject a user registration
+  app.post('/api/society/user-registrations/:memberId/reject', async (req: Request, res: Response) => {
+    try {
+      const memberId = parseInt(req.params.memberId);
+      
+      // Update society member status to rejected
+      const [updatedMember] = await db.update(schema.societyMembers)
+        .set({ status: 'rejected' })
+        .where(eq(schema.societyMembers.id, memberId))
+        .returning();
+      
+      if (!updatedMember) {
+        return res.status(404).json({ message: 'Member registration not found' });
+      }
+      
+      // Send notification email
+      const user = await db.query.users.findFirst({
+        where: eq(schema.users.id, updatedMember.userId)
+      });
+      
+      if (user && user.email) {
+        const transporter = createTransporter();
+        await transporter.sendMail({
+          from: '"Society Management" <jamiamasjidnabviqureshihashmi@gmail.com>',
+          to: user.email,
+          subject: 'Society Membership Application Status',
+          html: `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #0C6E4E; border-radius: 8px; overflow: hidden;">
+              <div style="background-color: #0C6E4E; color: white; padding: 20px; text-align: center;">
+                <h1 style="margin: 0;">Membership Status Update</h1>
+                <h2 style="margin: 5px 0 0 0;">Society Management System</h2>
+              </div>
+              
+              <div style="padding: 20px;">
+                <p>Dear ${user.name},</p>
+                
+                <p>Thank you for your interest in our society. After reviewing your application, we regret to inform you that your membership request could not be approved at this time.</p>
+                
+                <p>Please contact the society management office for more information or to submit additional documentation if needed.</p>
+                
+                <p style="margin-top: 30px;">Regards,<br>Society Administration</p>
+              </div>
+            </div>
+          `
+        });
+      }
+      
+      res.json({ 
+        message: 'Member registration rejected successfully',
+        member: updatedMember
+      });
+      
+    } catch (error) {
+      console.error('Error rejecting registration:', error);
+      res.status(500).json({ message: 'Failed to reject registration' });
     }
   });
   // API routes for prayer times - updated to use Hanafi method for Islamabad
