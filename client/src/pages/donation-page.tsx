@@ -111,13 +111,15 @@ const DonationPage = () => {
             </a>
           </div>
           <div className="absolute inset-0 w-full h-full">
-            <div className="absolute inset-0 w-full h-full backdrop-blur-[1px]">
+            <div className="absolute inset-0 w-full h-full z-0">
               <img 
-                src="/uploads/masjid_hero.jpeg" 
+                src="/images/masjid_hero.jpeg" 
                 alt="Masjid Nabvi" 
-                className="w-full h-full object-cover opacity-90 brightness-[0.85] blur-[1px]" 
+                className="w-full h-full object-cover" 
               />
             </div>
+            {/* Background gradient overlay to improve text contrast */}
+            <div className="absolute inset-0 bg-gradient-to-r from-[#0C6E4E]/90 to-[#0C6E4E]/70 z-5"></div>
           </div>
         </div>
         
