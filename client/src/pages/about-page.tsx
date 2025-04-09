@@ -20,7 +20,7 @@ const AboutPage = () => {
       <section className="relative min-h-[60vh] flex items-start bg-[#0C6E4E]">
         <div className="absolute inset-0 z-0">
           <img 
-            src="/images/IMG_20230318_151014_122.jpg" 
+            src="/images/about-us-hero-bg.png" 
             alt="Masjid Nabvi Vision" 
             className="w-full h-full object-cover opacity-90"
           />

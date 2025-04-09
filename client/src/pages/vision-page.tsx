@@ -33,7 +33,7 @@ const VisionPage = () => {
       <section className="relative min-h-[90vh] flex items-center bg-black">
         <div className="absolute inset-0 z-0">
           <img 
-            src="/images/about-us-hero-bg.png" 
+            src={masjidHeroImage} 
             alt="Masjid-e-Nabawi Model" 
             className="w-full h-full object-cover opacity-40"
           />
