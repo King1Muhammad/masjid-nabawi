@@ -397,8 +397,7 @@ const UserDashboard: React.FC<UserDashboardProps> = ({ userId, societyId }) => {
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center justify-between">
-            <span>آپ کا ڈیش بورڈ</span>
+          <CardTitle>
             <span>Your Dashboard</span>
           </CardTitle>
           <CardDescription>

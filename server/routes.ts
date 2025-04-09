@@ -449,10 +449,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
   
   app.get('/api/society/member', async (req: Request, res: Response) => {
     try {
-      // In a real implementation, this would check for logged in user
-      // and return their society member record
+      const userId = req.query.userId ? parseInt(req.query.userId as string) : 1;
+      
+      // In production, this would query the database to retrieve the member's details
+      // For now, return a mock user with consistent data
       const memberInfo = {
         id: 1,
+        userId: userId,
         name: 'Muhammad Qureshi',
         blockName: 'D-8',
         flatNumber: '4',
@@ -467,7 +470,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json(memberInfo);
     } catch (error) {
       console.error('Error fetching member:', error);
-      res.status(500).json({ message: 'Failed to fetch society' });
+      res.status(500).json({ message: 'Failed to fetch member information' });
     }
   });
   

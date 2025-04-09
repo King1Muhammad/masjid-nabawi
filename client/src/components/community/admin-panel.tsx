@@ -347,8 +347,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ societyId }) => {
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center justify-between">
-            <span>اظمِ اعلیٰ ڈیش بورڈ</span>
+          <CardTitle>
             <span>Admin Dashboard</span>
           </CardTitle>
           <CardDescription>
