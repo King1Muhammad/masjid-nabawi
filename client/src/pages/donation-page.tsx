@@ -96,7 +96,7 @@ const DonationPage = () => {
       <div className="container mx-auto px-4">
         {/* Hero Section */}
         <div className="relative rounded-2xl overflow-hidden mb-16">
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0C6E4E]/80 to-[#0C6E4E]/60 z-10"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0C6E4E]/90 to-[#0C6E4E]/70 z-10"></div>
           <div className="relative z-20 py-20 px-6 text-center">
             <h1 className="text-4xl md:text-5xl font-heading text-white mb-4">Your Contribution, Our Future</h1>
             <h2 className="text-2xl md:text-3xl font-heading text-white/90 mb-4">Building a Path to a Stronger Community and a Better Tomorrow</h2>
@@ -111,19 +111,19 @@ const DonationPage = () => {
             </a>
           </div>
           <div className="absolute inset-0 w-full h-full">
-            <div className="absolute inset-0 w-full h-full flex">
+            <div className="absolute inset-0 w-full h-full flex backdrop-blur-[2px]">
               <div className="w-1/2 h-full">
                 <img 
                   src="/uploads/construction_site.jpg" 
                   alt="Masjid Construction" 
-                  className="w-full h-full object-cover" 
+                  className="w-full h-full object-cover opacity-90 brightness-[0.85] blur-[1px]" 
                 />
               </div>
               <div className="w-1/2 h-full">
                 <img 
                   src="/uploads/construction_panorama.jpg" 
                   alt="Masjid Construction Panorama" 
-                  className="w-full h-full object-cover" 
+                  className="w-full h-full object-cover opacity-90 brightness-[0.85] blur-[1px]" 
                 />
               </div>
             </div>
