@@ -8,13 +8,19 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Badge } from "@/components/ui/badge";
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from "@/components/ui/dialog";
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 import { format } from 'date-fns';
-import { ArrowUpCircle, ArrowDownCircle, DollarSign, UserPlus, Building, Home, ChevronRight, FileText, CheckCircle, XCircle, AlertCircle, Send, User, Users, ShieldCheck, MessageSquare } from 'lucide-react';
+import { ArrowUpCircle, ArrowDownCircle, DollarSign, UserPlus, Building, Home, ChevronRight, FileText, CheckCircle, XCircle, AlertCircle, Send, User, Users, ShieldCheck, MessageSquare, LogIn } from 'lucide-react';
 import FlatDisplay from '@/components/community/flat-display';
 import AdminPanel from '@/components/community/admin-panel';
 import UserDashboard from '@/components/community/user-dashboard';
@@ -378,6 +384,95 @@ const CommunityPage = () => {
     }
   ];
 
+  // Form validation schemas
+  const loginSchema = z.object({
+    username: z.string().min(1, "Email is required"),
+    password: z.string().min(1, "CNIC is required"),
+  });
+
+  const registerSchema = z.object({
+    email: z.string().email("Invalid email address"),
+    cnic: z.string().min(13, "CNIC must be valid (13 characters without dashes)").max(15, "CNIC cannot exceed 15 characters"),
+    name: z.string().min(2, "Name must be at least 2 characters"),
+    phoneNumber: z.string().min(11, "Phone number must be at least 11 digits"),
+    blockName: z.string().min(1, "Block name is required"),
+    flatNumber: z.string().min(1, "Flat number is required"),
+    isOwner: z.boolean().default(true),
+    password: z.string().min(6, "Password must be at least 6 characters")
+  });
+
+  // User authentication state
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isRegistering, setIsRegistering] = useState(false);
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
+  const [loginOpen, setLoginOpen] = useState(false);
+  const [registerOpen, setRegisterOpen] = useState(false);
+
+  // Login form setup
+  const loginForm = useForm<z.infer<typeof loginSchema>>({
+    resolver: zodResolver(loginSchema),
+    defaultValues: {
+      username: "",
+      password: ""
+    }
+  });
+
+  // Registration form setup
+  const registerForm = useForm<z.infer<typeof registerSchema>>({
+    resolver: zodResolver(registerSchema),
+    defaultValues: {
+      email: "",
+      cnic: "",
+      name: "",
+      phoneNumber: "",
+      blockName: "",
+      flatNumber: "",
+      isOwner: true,
+      password: ""
+    }
+  });
+
+  // Login form submission
+  const handleLogin = (values: z.infer<typeof loginSchema>) => {
+    setIsLoggingIn(true);
+    
+    // This would be an actual API call in production
+    setTimeout(() => {
+      setIsLoggingIn(false);
+      setLoginOpen(false);
+      setIsAuthenticated(true);
+      toast({
+        title: "Login Successful",
+        description: "Welcome back to the community dashboard!",
+      });
+    }, 1000);
+  };
+
+  // Registration form submission
+  const handleRegister = (values: z.infer<typeof registerSchema>) => {
+    setIsRegistering(true);
+    
+    // This would be an actual API call in production
+    setTimeout(() => {
+      setIsRegistering(false);
+      setRegisterOpen(false);
+      toast({
+        title: "Registration Successful",
+        description: "Your account is pending approval from the community administrator.",
+      });
+      // Not setting authenticated here since registration requires approval
+    }, 1500);
+  };
+
+  // Handle logout
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    toast({
+      title: "Logged Out",
+      description: "You have been successfully logged out of your account.",
+    });
+  };
+
   return (
     <div className="py-16 bg-[#F7F3E9]">
       <div className="container mx-auto px-4 sm:px-6">
@@ -403,7 +498,331 @@ const CommunityPage = () => {
           
           {/* User Dashboard Content */}
           <TabsContent value="user">
-            <UserDashboard userId={1} societyId={1} />
+            {isAuthenticated ? (
+              <>
+                <div className="flex justify-end mb-4">
+                  <Button variant="outline" onClick={handleLogout}>
+                    Logout
+                  </Button>
+                </div>
+                <UserDashboard userId={1} societyId={1} />
+              </>
+            ) : (
+              <div className="flex flex-col items-center">
+                <div className="w-full max-w-3xl bg-white rounded-lg shadow-lg overflow-hidden">
+                  <div className="bg-[#0C6E4E] text-white p-4">
+                    <h2 className="text-2xl font-heading text-center">Community Member Portal</h2>
+                  </div>
+                  <div className="p-6 text-center">
+                    <p className="mb-6">Join our community management system to access member features, track payments, participate in discussions, and vote on community proposals.</p>
+                    
+                    <div className="flex flex-col sm:flex-row justify-center gap-4">
+                      <Button onClick={() => setLoginOpen(true)} className="flex-1 max-w-xs mx-auto">
+                        <LogIn className="h-4 w-4 mr-2" />
+                        Login
+                      </Button>
+                      <Button onClick={() => setRegisterOpen(true)} variant="outline" className="flex-1 max-w-xs mx-auto">
+                        <UserPlus className="h-4 w-4 mr-2" />
+                        Register
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Featured Community Information */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8 w-full max-w-3xl">
+                  <Card>
+                    <CardHeader className="pb-2">
+                      <CardTitle className="text-lg">Community Benefits</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <ul className="space-y-2">
+                        <li className="flex items-start">
+                          <CheckCircle className="h-5 w-5 text-green-600 mr-2 mt-0.5 flex-shrink-0" />
+                          <span>Track monthly contributions and payment history</span>
+                        </li>
+                        <li className="flex items-start">
+                          <CheckCircle className="h-5 w-5 text-green-600 mr-2 mt-0.5 flex-shrink-0" />
+                          <span>Participate in community discussions and decision making</span>
+                        </li>
+                        <li className="flex items-start">
+                          <CheckCircle className="h-5 w-5 text-green-600 mr-2 mt-0.5 flex-shrink-0" />
+                          <span>Vote on society improvement proposals</span>
+                        </li>
+                        <li className="flex items-start">
+                          <CheckCircle className="h-5 w-5 text-green-600 mr-2 mt-0.5 flex-shrink-0" />
+                          <span>Access society expense reports and financial summaries</span>
+                        </li>
+                      </ul>
+                    </CardContent>
+                  </Card>
+                  
+                  <Card>
+                    <CardHeader className="pb-2">
+                      <CardTitle className="text-lg">Registration Requirements</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <ul className="space-y-2">
+                        <li className="flex items-start">
+                          <ChevronRight className="h-5 w-5 text-[#0C6E4E] mr-2 mt-0.5 flex-shrink-0" />
+                          <span>Valid CNIC number</span>
+                        </li>
+                        <li className="flex items-start">
+                          <ChevronRight className="h-5 w-5 text-[#0C6E4E] mr-2 mt-0.5 flex-shrink-0" />
+                          <span>Email address for account activation</span>
+                        </li>
+                        <li className="flex items-start">
+                          <ChevronRight className="h-5 w-5 text-[#0C6E4E] mr-2 mt-0.5 flex-shrink-0" />
+                          <span>Residence details (Block/Flat number)</span>
+                        </li>
+                        <li className="flex items-start">
+                          <ChevronRight className="h-5 w-5 text-[#0C6E4E] mr-2 mt-0.5 flex-shrink-0" />
+                          <span>Contact phone number</span>
+                        </li>
+                      </ul>
+                    </CardContent>
+                  </Card>
+                </div>
+                
+                {/* Login Dialog */}
+                <Dialog open={loginOpen} onOpenChange={setLoginOpen}>
+                  <DialogContent className="sm:max-w-[425px]">
+                    <DialogHeader>
+                      <DialogTitle>Login to Community Portal</DialogTitle>
+                      <DialogDescription>
+                        Enter your email and CNIC to access your community dashboard.
+                      </DialogDescription>
+                    </DialogHeader>
+                    
+                    <Form {...loginForm}>
+                      <form onSubmit={loginForm.handleSubmit(handleLogin)} className="space-y-4 pt-4">
+                        <FormField
+                          control={loginForm.control}
+                          name="username"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Email</FormLabel>
+                              <FormControl>
+                                <Input placeholder="email@example.com" {...field} />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        
+                        <FormField
+                          control={loginForm.control}
+                          name="password"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>CNIC</FormLabel>
+                              <FormControl>
+                                <Input type="password" placeholder="Enter your CNIC" {...field} />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        
+                        <div className="pt-4 flex justify-between">
+                          <Button variant="outline" type="button" onClick={() => {
+                            setLoginOpen(false);
+                            setRegisterOpen(true);
+                          }}>
+                            Create Account
+                          </Button>
+                          <Button type="submit" disabled={isLoggingIn}>
+                            {isLoggingIn && (
+                              <div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent"></div>
+                            )}
+                            Login
+                          </Button>
+                        </div>
+                      </form>
+                    </Form>
+                  </DialogContent>
+                </Dialog>
+                
+                {/* Registration Dialog */}
+                <Dialog open={registerOpen} onOpenChange={setRegisterOpen}>
+                  <DialogContent className="sm:max-w-[600px]">
+                    <DialogHeader>
+                      <DialogTitle>Register for Community Portal</DialogTitle>
+                      <DialogDescription>
+                        Fill out the form below to register. Your application will be reviewed by society administrators.
+                      </DialogDescription>
+                    </DialogHeader>
+                    
+                    <Form {...registerForm}>
+                      <form onSubmit={registerForm.handleSubmit(handleRegister)} className="space-y-4 pt-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <FormField
+                            control={registerForm.control}
+                            name="name"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Full Name</FormLabel>
+                                <FormControl>
+                                  <Input placeholder="Muhammad Ahmed" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          
+                          <FormField
+                            control={registerForm.control}
+                            name="email"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Email</FormLabel>
+                                <FormControl>
+                                  <Input placeholder="email@example.com" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          
+                          <FormField
+                            control={registerForm.control}
+                            name="cnic"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>CNIC Number</FormLabel>
+                                <FormControl>
+                                  <Input placeholder="Without dashes" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          
+                          <FormField
+                            control={registerForm.control}
+                            name="phoneNumber"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Phone Number</FormLabel>
+                                <FormControl>
+                                  <Input placeholder="+92xxxxxxxxxx" {...field} />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          
+                          <FormField
+                            control={registerForm.control}
+                            name="blockName"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Block</FormLabel>
+                                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                  <FormControl>
+                                    <SelectTrigger>
+                                      <SelectValue placeholder="Select block" />
+                                    </SelectTrigger>
+                                  </FormControl>
+                                  <SelectContent>
+                                    {Array.from({ length: 22 }, (_, i) => (
+                                      <SelectItem key={i + 1} value={`D-${i + 1}`}>
+                                        D-{i + 1}
+                                      </SelectItem>
+                                    ))}
+                                  </SelectContent>
+                                </Select>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          
+                          <FormField
+                            control={registerForm.control}
+                            name="flatNumber"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel>Flat Number</FormLabel>
+                                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                  <FormControl>
+                                    <SelectTrigger>
+                                      <SelectValue placeholder="Select flat" />
+                                    </SelectTrigger>
+                                  </FormControl>
+                                  <SelectContent>
+                                    {Array.from({ length: 8 }, (_, i) => (
+                                      <SelectItem key={i + 1} value={`${i + 1}`}>
+                                        {i + 1}
+                                      </SelectItem>
+                                    ))}
+                                  </SelectContent>
+                                </Select>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+                        
+                        <FormField
+                          control={registerForm.control}
+                          name="password"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Password</FormLabel>
+                              <FormControl>
+                                <Input type="password" placeholder="Create a password" {...field} />
+                              </FormControl>
+                              <FormDescription>
+                                You'll use this password along with your email to login to your account.
+                              </FormDescription>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        
+                        <FormField
+                          control={registerForm.control}
+                          name="isOwner"
+                          render={({ field }) => (
+                            <FormItem className="flex flex-row items-start space-x-3 space-y-0 pt-2">
+                              <FormControl>
+                                <Checkbox 
+                                  checked={field.value}
+                                  onCheckedChange={field.onChange} 
+                                />
+                              </FormControl>
+                              <div className="space-y-1 leading-none">
+                                <FormLabel>
+                                  I am the owner of this flat
+                                </FormLabel>
+                                <FormDescription>
+                                  If you're a tenant, please uncheck this box
+                                </FormDescription>
+                              </div>
+                            </FormItem>
+                          )}
+                        />
+                        
+                        <DialogFooter className="pt-4">
+                          <Button variant="outline" type="button" onClick={() => {
+                            setRegisterOpen(false);
+                            setLoginOpen(true);
+                          }}>
+                            I already have an account
+                          </Button>
+                          <Button type="submit" disabled={isRegistering}>
+                            {isRegistering && (
+                              <div className="mr-2 h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent"></div>
+                            )}
+                            Register
+                          </Button>
+                        </DialogFooter>
+                      </form>
+                    </Form>
+                  </DialogContent>
+                </Dialog>
+              </div>
+            )}
           </TabsContent>
           
           {/* Admin Panel Content */}
