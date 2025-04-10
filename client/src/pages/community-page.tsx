@@ -512,83 +512,152 @@ const CommunityPage = () => {
           <div className="p-6 md:p-8">
             <div className="prose prose-lg max-w-none">
               <p className="lead text-xl text-[#0C6E4E] font-medium">
-                Our community platform is more than just a digital interface - it's a comprehensive system designed to revolutionize how communities govern themselves, inspired by the principles established at Masjid-e-Nabawi.
+                Our community platform is more than just a digital interface - it's a revolutionary global governance system designed to transform how communities, cities, countries, and ultimately the world governs itself, inspired by the principles established at Masjid-e-Nabawi.
               </p>
               
               <div className="grid md:grid-cols-2 gap-8 mt-6">
                 <div>
-                  <h3 className="text-xl font-semibold text-[#D4AF37] mb-3">The Problem We're Solving</h3>
+                  <h3 className="text-xl font-semibold text-[#D4AF37] mb-3">Current Global Challenges</h3>
                   <ul className="space-y-2">
                     <li className="flex items-start">
                       <AlertCircle className="h-5 w-5 text-red-600 mr-2 mt-1 flex-shrink-0" />
-                      <span>Current governance systems lack transparency and accountability</span>
+                      <span>Corrupt governance systems lacking transparency, justice and accountability</span>
                     </li>
                     <li className="flex items-start">
                       <AlertCircle className="h-5 w-5 text-red-600 mr-2 mt-1 flex-shrink-0" />
-                      <span>Citizens have limited participation in decision-making processes</span>
+                      <span>Economic inequality and currency manipulation by central authorities</span>
                     </li>
                     <li className="flex items-start">
                       <AlertCircle className="h-5 w-5 text-red-600 mr-2 mt-1 flex-shrink-0" />
-                      <span>Financial systems are opaque and controlled by centralized authorities</span>
+                      <span>Banking systems that promote interest-based economics causing global poverty</span>
                     </li>
                     <li className="flex items-start">
                       <AlertCircle className="h-5 w-5 text-red-600 mr-2 mt-1 flex-shrink-0" />
-                      <span>Communities lack tools for collective management and problem-solving</span>
+                      <span>Political bureaucracy that hinders genuine development and progress</span>
+                    </li>
+                    <li className="flex items-start">
+                      <AlertCircle className="h-5 w-5 text-red-600 mr-2 mt-1 flex-shrink-0" />
+                      <span>Communities without direct democratic representation in decision-making</span>
                     </li>
                   </ul>
                 </div>
                 
                 <div>
-                  <h3 className="text-xl font-semibold text-[#0C6E4E] mb-3">Our Solution</h3>
+                  <h3 className="text-xl font-semibold text-[#0C6E4E] mb-3">Our Transformative Solution</h3>
                   <ul className="space-y-2">
                     <li className="flex items-start">
                       <CheckCircle className="h-5 w-5 text-green-600 mr-2 mt-1 flex-shrink-0" />
-                      <span>A hierarchical, transparent governance system from local to global level</span>
+                      <span>A 5-level hierarchical governance system from society to global level with perfect transparency</span>
                     </li>
                     <li className="flex items-start">
                       <CheckCircle className="h-5 w-5 text-green-600 mr-2 mt-1 flex-shrink-0" />
-                      <span>Democratic voting on proposals with live-tracking of implementation</span>
+                      <span>Democratic voting on every proposal with live-tracking of implementation stages</span>
                     </li>
                     <li className="flex items-start">
                       <CheckCircle className="h-5 w-5 text-green-600 mr-2 mt-1 flex-shrink-0" />
-                      <span>Complete financial transparency with real-time monitoring of resources</span>
+                      <span>Complete financial transparency with blockchain-based transaction verification</span>
                     </li>
                     <li className="flex items-start">
                       <CheckCircle className="h-5 w-5 text-green-600 mr-2 mt-1 flex-shrink-0" />
-                      <span>AI-powered platform that connects communities worldwide</span>
+                      <span>Interest-free alternative economy with fair wealth distribution mechanisms</span>
+                    </li>
+                    <li className="flex items-start">
+                      <CheckCircle className="h-5 w-5 text-green-600 mr-2 mt-1 flex-shrink-0" />
+                      <span>AI-powered recommendation system for optimal resource allocation</span>
                     </li>
                   </ul>
                 </div>
               </div>
               
               <div className="mt-8">
-                <h3 className="text-xl font-semibold text-[#D4AF37] mb-3">The Hierarchical Structure</h3>
-                <p>Our system implements a pyramid structure of governance:</p>
+                <h3 className="text-xl font-semibold text-[#D4AF37] mb-3">How The System Functions</h3>
+                <p className="mb-4">Our global governance platform implements a comprehensive 5-level hierarchy that connects every individual to local, national and global governance:</p>
+                
+                <div className="bg-gray-50 p-5 rounded-lg mb-6">
+                  <h4 className="font-semibold text-[#0C6E4E] mb-2">Registration & Approval Flow:</h4>
+                  <ol className="list-decimal pl-5 space-y-2">
+                    <li>Any society (like apartment buildings, masjids, or community centers) registers on our platform</li>
+                    <li>Registration remains pending until approval from the city-level admin of that geographical area</li>
+                    <li>Once approved, society admins can add members who can participate in democratic governance</li>
+                    <li>New admins at any level require approval from the next higher level in the hierarchy</li>
+                    <li>The United Nations serves as the ultimate global administrator overseeing the entire system</li>
+                  </ol>
+                </div>
+                
+                <div className="bg-gray-50 p-5 rounded-lg mb-6">
+                  <h4 className="font-semibold text-[#0C6E4E] mb-2">Financial System Revolution:</h4>
+                  <ol className="list-decimal pl-5 space-y-2">
+                    <li>Interest-free financial operations eliminate economic exploitation</li>
+                    <li>Every transaction is publicly verifiable through blockchain technology</li>
+                    <li>Donation and contribution tracking ensures complete transparency</li>
+                    <li>Monthly contributions from each household fund community development</li>
+                    <li>Financial reports are automatically generated and accessible to all members</li>
+                  </ol>
+                </div>
+                
+                <div className="bg-gray-50 p-5 rounded-lg mb-6">
+                  <h4 className="font-semibold text-[#0C6E4E] mb-2">Democratic Decision Making:</h4>
+                  <ol className="list-decimal pl-5 space-y-2">
+                    <li>Any member can propose new ideas or projects for their community</li>
+                    <li>All proposals go through transparent voting by community members</li>
+                    <li>Implementation stages are tracked in real-time on the platform</li>
+                    <li>Resource utilization is monitored with complete accountability</li>
+                    <li>AI provides optimized solutions based on community needs and resources</li>
+                  </ol>
+                </div>
+                
+                <h3 className="text-xl font-semibold text-[#D4AF37] mb-3">The 5-Level Governance Hierarchy</h3>
+                <p className="mb-4">Our system implements a comprehensive pyramid structure of governance that connects every individual to the global level:</p>
+                
                 <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-4 mt-4">
                   <div className="bg-black text-white p-4 rounded-lg text-center">
                     <Globe className="h-8 w-8 mx-auto mb-2" />
                     <h4 className="font-medium">Global Level</h4>
                     <p className="text-sm opacity-80">United Nations Admin</p>
+                    <div className="text-xs mt-2 opacity-80">Oversees global policies and international coordination</div>
                   </div>
                   <div className="bg-red-700 text-white p-4 rounded-lg text-center">
                     <MapIcon className="h-8 w-8 mx-auto mb-2" />
                     <h4 className="font-medium">Country Level</h4>
-                    <p className="text-sm opacity-80">Country Admins</p>
+                    <p className="text-sm opacity-80">National Admins</p>
+                    <div className="text-xs mt-2 opacity-80">Manages country-specific policies and resource allocation</div>
                   </div>
                   <div className="bg-purple-700 text-white p-4 rounded-lg text-center">
                     <MapPinIcon className="h-8 w-8 mx-auto mb-2" />
                     <h4 className="font-medium">City Level</h4>
                     <p className="text-sm opacity-80">City Admins</p>
+                    <div className="text-xs mt-2 opacity-80">Coordinates local development and infrastructure</div>
                   </div>
                   <div className="bg-blue-700 text-white p-4 rounded-lg text-center">
                     <LibraryIcon className="h-8 w-8 mx-auto mb-2" />
                     <h4 className="font-medium">Community Level</h4>
                     <p className="text-sm opacity-80">Community Admins</p>
+                    <div className="text-xs mt-2 opacity-80">Facilitates specific interest group coordination</div>
                   </div>
                   <div className="bg-[#0C6E4E] text-white p-4 rounded-lg text-center">
                     <Building className="h-8 w-8 mx-auto mb-2" />
                     <h4 className="font-medium">Society/Masjid</h4>
-                    <p className="text-sm opacity-80">Society Admins</p>
+                    <p className="text-sm opacity-80">Local Admins</p>
+                    <div className="text-xs mt-2 opacity-80">Manages day-to-day operations of local organizations</div>
+                  </div>
+                </div>
+                
+                <div className="mt-8 p-5 bg-[#0C6E4E]/10 rounded-lg border border-[#0C6E4E]/30">
+                  <h4 className="font-semibold text-[#0C6E4E] mb-3">Join The Global Transformation</h4>
+                  <p className="mb-4">
+                    By implementing this system worldwide, we can revolutionize governance, eliminate corruption, ensure financial transparency, 
+                    and create a just society based on the principles of justice, equality, and mutual respect. Our platform doesn't just solve 
+                    local problems—it offers a complete alternative to the current global governance systems.
+                  </p>
+                  <div className="flex flex-wrap gap-4 mt-4">
+                    <Button onClick={() => setRegisterOpen(true)} className="bg-[#0C6E4E]">
+                      <UserPlus className="h-4 w-4 mr-2" />
+                      Register Your Society
+                    </Button>
+                    <Button variant="outline" className="border-[#0C6E4E] text-[#0C6E4E]">
+                      <Info className="h-4 w-4 mr-2" />
+                      Learn More About Implementation
+                    </Button>
                   </div>
                 </div>
               </div>

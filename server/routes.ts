@@ -5,6 +5,7 @@ import { db } from "./db";
 import { eq, sql, and } from "drizzle-orm";
 import { format } from "date-fns";
 import * as schema from "@shared/schema";
+import { recreateAdminHierarchy } from "./seed-admins";
 import 'express-session';
 
 // Extend Express Request type to include session
