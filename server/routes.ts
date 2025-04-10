@@ -345,8 +345,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Fetch admin users based on role/level if specified
       let adminUsers;
       if (level) {
+        // Convert front-end level to role format
+        let roleQuery = `${level}_admin`;
+        
+        // Support for legacy format where role might be passed as the full role name
+        if (level === 'global_admin' || level === 'country_admin' || 
+            level === 'city_admin' || level === 'community_admin' || 
+            level === 'society_admin') {
+          roleQuery = level as string;
+        }
+        
         adminUsers = await db.query.users.findMany({
-          where: eq(schema.users.role, level as string)
+          where: eq(schema.users.role, roleQuery)
         });
       } else {
         // Fetch all users with admin roles
