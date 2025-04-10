@@ -147,78 +147,81 @@ const AdminPanelSimplified: React.FC<AdminPanelProps> = ({ societyId }) => {
         </TabsList>
         
         <TabsContent value="admins">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {/* Admin Management Column */}
-            <div className="lg:col-span-2">
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between">
-                  <div>
-                    <CardTitle>Admin Management ({adminRole.charAt(0).toUpperCase() + adminRole.slice(1)} Level)</CardTitle>
-                    <CardDescription>
-                      Manage administrator accounts at {adminRole} level
-                    </CardDescription>
+          {/* Admin role selector buttons - stacked on mobile */}
+          <div className="mb-6">
+            <h3 className="text-sm font-medium text-muted-foreground mb-2">Select Admin Level:</h3>
+            <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
+              {adminRoles.map(role => (
+                <Button 
+                  key={role.id}
+                  variant={adminRole === role.id ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setAdminRole(role.id)}
+                  style={{ 
+                    backgroundColor: adminRole === role.id ? role.color : 'transparent',
+                    borderColor: role.color,
+                    color: adminRole === role.id ? 'white' : role.color
+                  }}
+                  className="justify-center h-auto py-2"
+                >
+                  <div className="flex flex-col items-center">
+                    {role.icon}
+                    <span className="mt-1 text-xs font-medium">{role.name}</span>
                   </div>
-                  <Button>
-                    <UserPlus className="h-4 w-4 mr-2" />
-                    Add New Admin
-                  </Button>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex space-x-2 mb-4">
-                    {adminRoles.map(role => (
-                      <Button 
-                        key={role.id}
-                        variant={adminRole === role.id ? "default" : "outline"}
-                        size="sm"
-                        onClick={() => setAdminRole(role.id)}
-                        style={{ 
-                          backgroundColor: adminRole === role.id ? role.color : 'transparent',
-                          borderColor: role.color,
-                          color: adminRole === role.id ? 'white' : role.color
-                        }}
-                      >
-                        {role.icon}
-                        <span className="ml-1">{role.name}</span>
-                      </Button>
-                    ))}
-                  </div>
-                  
-                  {adminsLoading ? (
-                    <div className="flex justify-center p-6">
-                      <div className="animate-spin w-8 h-8 border-4 border-[#0C6E4E] border-t-transparent rounded-full"></div>
-                    </div>
-                  ) : (
-                    <div className="text-center p-6 bg-muted rounded-md">
-                      <p className="text-muted-foreground">
-                        {!adminUsers || adminUsers.length === 0 
-                          ? "No admin accounts found at this level" 
-                          : `${adminUsers.length} admin accounts found`}
-                      </p>
-                    </div>
-                  )}
-                </CardContent>
-                <CardFooter className="flex justify-between">
-                  <div className="text-sm text-muted-foreground">
-                    Total {adminRole} admins: {adminUsers?.length || 0}
-                  </div>
-                </CardFooter>
-              </Card>
+                </Button>
+              ))}
             </div>
+          </div>
+          
+          <div className="grid grid-cols-1 gap-6">
+            {/* Admin Management Section */}
+            <Card>
+              <CardHeader className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div>
+                  <CardTitle>Admin Management ({adminRole.charAt(0).toUpperCase() + adminRole.slice(1)} Level)</CardTitle>
+                  <CardDescription>
+                    Manage administrator accounts at {adminRole} level
+                  </CardDescription>
+                </div>
+                <Button className="w-full sm:w-auto">
+                  <UserPlus className="h-4 w-4 mr-2" />
+                  Add New Admin
+                </Button>
+              </CardHeader>
+              <CardContent>
+                {adminsLoading ? (
+                  <div className="flex justify-center p-6">
+                    <div className="animate-spin w-8 h-8 border-4 border-[#0C6E4E] border-t-transparent rounded-full"></div>
+                  </div>
+                ) : (
+                  <div className="text-center p-6 bg-muted rounded-md">
+                    <p className="text-muted-foreground">
+                      {!adminUsers || adminUsers.length === 0 
+                        ? "No admin accounts found at this level" 
+                        : `${adminUsers.length} admin accounts found`}
+                    </p>
+                  </div>
+                )}
+              </CardContent>
+              <CardFooter className="flex justify-between">
+                <div className="text-sm text-muted-foreground">
+                  Total {adminRole} admins: {adminUsers?.length || 0}
+                </div>
+              </CardFooter>
+            </Card>
             
-            {/* Google Maps Integration Column */}
-            <div className="lg:col-span-1">
-              <GoogleMapsIntegration 
-                adminRole={adminRole}
-                adminLocations={adminUsers?.map(admin => ({
-                  role: admin.role,
-                  name: admin.name,
-                  // Mock locations for demo - in production these would come from the database
-                  lat: 30.3753 + (Math.random() * 2 - 1), 
-                  lng: 69.3451 + (Math.random() * 2 - 1),
-                  color: adminRoles.find(r => r.id === admin.role)?.color || '#0C6E4E'
-                }))}
-              />
-            </div>
+            {/* Google Maps Integration Section */}
+            <GoogleMapsIntegration 
+              adminRole={adminRole}
+              adminLocations={adminUsers?.map(admin => ({
+                role: admin.role,
+                name: admin.name,
+                // Mock locations for demo - in production these would come from the database
+                lat: 30.3753 + (Math.random() * 2 - 1), 
+                lng: 69.3451 + (Math.random() * 2 - 1),
+                color: adminRoles.find(r => r.id === admin.role)?.color || '#0C6E4E'
+              }))}
+            />
           </div>
         </TabsContent>
       </Tabs>

@@ -200,12 +200,12 @@ const GoogleMapsIntegration: React.FC<GoogleMapsIntegrationProps> = ({
 
   return (
     <Card className="w-full shadow-lg">
-      <CardHeader>
+      <CardHeader className="space-y-3">
         <CardTitle className="flex items-center gap-2">
           <Map className="h-5 w-5" />
           <span>Admin Geographical View</span>
         </CardTitle>
-        <div className="flex gap-2 mt-2">
+        <div className="flex flex-col sm:flex-row gap-2">
           <div className="relative flex-1">
             <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
             <Input
@@ -216,7 +216,7 @@ const GoogleMapsIntegration: React.FC<GoogleMapsIntegrationProps> = ({
               onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
             />
           </div>
-          <Button onClick={handleSearch}>
+          <Button onClick={handleSearch} className="sm:w-auto w-full">
             <MapPin className="h-4 w-4 mr-2" />
             Find
           </Button>
@@ -224,13 +224,13 @@ const GoogleMapsIntegration: React.FC<GoogleMapsIntegrationProps> = ({
       </CardHeader>
       <CardContent>
         {!isLoaded && (
-          <div className="h-[400px] flex items-center justify-center bg-muted rounded-md">
+          <div className="h-[300px] flex items-center justify-center bg-muted rounded-md">
             <div className="animate-spin w-8 h-8 border-4 border-primary border-t-transparent rounded-full"></div>
           </div>
         )}
         <div 
           ref={mapRef} 
-          className="h-[400px] w-full rounded-md overflow-hidden"
+          className="h-[300px] w-full rounded-md overflow-hidden"
           style={{ display: isLoaded ? 'block' : 'none' }}
         ></div>
         
