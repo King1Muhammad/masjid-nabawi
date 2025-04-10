@@ -200,6 +200,13 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ societyId }) => {
   
   // Fetch admin users based on role
   const { data: adminUsers, isLoading: adminsLoading } = useQuery<AdminUser[]>({
+    queryFn: async () => {
+      const res = await fetch(`/api/admins${adminRole ? `?level=${adminRole}` : ''}`);
+      if (!res.ok) {
+        throw new Error('Failed to fetch admin users');
+      }
+      return res.json();
+    },
     queryKey: ['/api/admins', { role: adminRole }],
     enabled: activeTab === 'admins',
   });
