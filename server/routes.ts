@@ -826,7 +826,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
         .where(
           and(
             eq(schema.users.id, adminId),
-            eq(schema.users.is_admin, true)
+            or(
+              eq(schema.users.role, 'global_admin'),
+              eq(schema.users.role, 'country_admin'),
+              eq(schema.users.role, 'city_admin'),
+              eq(schema.users.role, 'community_admin'),
+              eq(schema.users.role, 'society_admin')
+            )
           )
         )
         .returning();
