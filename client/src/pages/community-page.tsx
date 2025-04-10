@@ -718,14 +718,14 @@ const CommunityPage = () => {
                             render={({ field }) => (
                               <FormItem>
                                 <FormLabel>Block</FormLabel>
-                                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                <Select onValueChange={field.onChange} defaultValue={field.value || ""}>
                                   <FormControl>
                                     <SelectTrigger>
                                       <SelectValue placeholder="Select block" />
                                     </SelectTrigger>
                                   </FormControl>
                                   <SelectContent>
-                                    {Array.from({ length: 22 }, (_, i) => (
+                                    {[...Array(22)].map((_, i) => (
                                       <SelectItem key={i + 1} value={`D-${i + 1}`}>
                                         D-{i + 1}
                                       </SelectItem>
@@ -743,14 +743,14 @@ const CommunityPage = () => {
                             render={({ field }) => (
                               <FormItem>
                                 <FormLabel>Flat Number</FormLabel>
-                                <Select onValueChange={field.onChange} defaultValue={field.value}>
+                                <Select onValueChange={field.onChange} defaultValue={field.value || ""}>
                                   <FormControl>
                                     <SelectTrigger>
                                       <SelectValue placeholder="Select flat" />
                                     </SelectTrigger>
                                   </FormControl>
                                   <SelectContent>
-                                    {Array.from({ length: 8 }, (_, i) => (
+                                    {[...Array(8)].map((_, i) => (
                                       <SelectItem key={i + 1} value={`${i + 1}`}>
                                         {i + 1}
                                       </SelectItem>

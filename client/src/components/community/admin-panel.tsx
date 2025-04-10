@@ -61,7 +61,13 @@ import {
   CheckCircle,
   XCircle,
   FileBarChart,
-  Users
+  Users,
+  Globe,
+  Map,
+  MapPin,
+  Home as HomeIcon,
+  BookOpen,
+  ShieldCheck
 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -343,18 +349,106 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ societyId }) => {
   
   const filteredMembers = members ? filterMembersBySearch(filterMembersByBlock(members)) : [];
 
+  // Add state for admin role
+  const [adminRole, setAdminRole] = useState('society'); // Default is society level (masjid imam)
+  
+  // Admin role types and their descriptions
+  const adminRoles = [
+    {
+      id: 'society',
+      name: 'Society Admin',
+      icon: <Building className="h-5 w-5" />,
+      description: 'Masjid Imam level access - manage local society members and contributions',
+      color: '#0C6E4E'
+    },
+    {
+      id: 'community',
+      name: 'Community Admin',
+      icon: <Building className="h-5 w-5" />,
+      description: 'Manage multiple societies within a community or area',
+      color: '#2563EB'
+    },
+    {
+      id: 'city',
+      name: 'City Admin',
+      icon: <MapPin className="h-5 w-5" />,
+      description: 'Oversee all communities within a city',
+      color: '#9333EA'
+    },
+    {
+      id: 'country',
+      name: 'Country Admin',
+      icon: <Map className="h-5 w-5" />,
+      description: 'Coordinate all cities within a country',
+      color: '#E11D48'
+    },
+    {
+      id: 'global',
+      name: 'Global Admin',
+      icon: <Globe className="h-5 w-5" />,
+      description: 'Worldwide system administration (like UN level)',
+      color: '#18181B'
+    }
+  ];
+
   return (
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle>
-            <span>Admin Dashboard</span>
-          </CardTitle>
-          <CardDescription>
-            Manage society members, registrations, and contributions
-          </CardDescription>
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
+            <div>
+              <CardTitle className="flex items-center gap-2">
+                <ShieldCheck className="h-5 w-5" />
+                <span>Admin Dashboard</span>
+                <Badge variant="outline" className="ml-2">
+                  {adminRoles.find(role => role.id === adminRole)?.name}
+                </Badge>
+              </CardTitle>
+              <CardDescription>
+                Manage society members, registrations, and contributions
+              </CardDescription>
+            </div>
+            <div className="mt-4 md:mt-0">
+              <Select value={adminRole} onValueChange={setAdminRole}>
+                <SelectTrigger className="w-[180px]">
+                  <SelectValue placeholder="Select admin level" />
+                </SelectTrigger>
+                <SelectContent>
+                  {adminRoles.map(role => (
+                    <SelectItem key={role.id} value={role.id} className="flex items-center">
+                      <div className="flex items-center gap-2">
+                        {role.icon}
+                        <span>{role.name}</span>
+                      </div>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
         </CardHeader>
         <CardContent>
+          {/* Admin role description card */}
+          <div 
+            className="p-4 mb-6 rounded-lg flex items-start gap-4"
+            style={{ backgroundColor: `${adminRoles.find(role => role.id === adminRole)?.color}10` }}
+          >
+            <div 
+              className="p-3 rounded-full" 
+              style={{ backgroundColor: `${adminRoles.find(role => role.id === adminRole)?.color}20` }}
+            >
+              {adminRoles.find(role => role.id === adminRole)?.icon}
+            </div>
+            <div>
+              <h3 className="text-base font-medium mb-1">
+                {adminRoles.find(role => role.id === adminRole)?.name} Dashboard
+              </h3>
+              <p className="text-sm text-muted-foreground">
+                {adminRoles.find(role => role.id === adminRole)?.description}
+              </p>
+            </div>
+          </div>
+          
           <Tabs value={activeTab} onValueChange={setActiveTab}>
             <TabsList className="grid w-full grid-cols-4">
               <TabsTrigger value="registrations" className="flex items-center">
