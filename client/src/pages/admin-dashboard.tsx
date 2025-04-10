@@ -532,7 +532,34 @@ export default function AdminDashboard() {
         
         {/* Finances Tab */}
         <TabsContent value="finances" className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <Card>
+            <CardContent className="p-0">
+              <Tabs defaultValue="payment-verification" className="w-full">
+                <TabsList className="w-full justify-start rounded-none border-b bg-transparent p-0">
+                  <TabsTrigger 
+                    value="payment-verification" 
+                    className="rounded-none border-b-2 border-b-transparent px-4 py-3 data-[state=active]:border-b-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none"
+                  >
+                    Payment Verification
+                  </TabsTrigger>
+                  <TabsTrigger 
+                    value="expenses" 
+                    className="rounded-none border-b-2 border-b-transparent px-4 py-3 data-[state=active]:border-b-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none"
+                  >
+                    Expenses
+                  </TabsTrigger>
+                  <TabsTrigger 
+                    value="reports" 
+                    className="rounded-none border-b-2 border-b-transparent px-4 py-3 data-[state=active]:border-b-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none"
+                  >
+                    Financial Reports
+                  </TabsTrigger>
+                </TabsList>
+                <TabsContent value="payment-verification" className="p-6">
+                  <PaymentVerification />
+                </TabsContent>
+                <TabsContent value="expenses" className="p-6">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
             <Card>
               <CardHeader>
                 <CardTitle>Monthly Collections</CardTitle>
