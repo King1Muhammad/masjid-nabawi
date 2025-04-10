@@ -458,6 +458,42 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ societyId }) => {
   
   const filteredMembers = members ? filterMembersBySearch(filterMembersByBlock(members)) : [];
   
+  // Admin handlers
+  const handleRegisterAdmin = () => {
+    // Validation
+    if (newAdmin.password !== newAdmin.confirmPassword) {
+      toast({
+        title: "Error",
+        description: "Passwords do not match",
+        variant: "destructive"
+      });
+      return;
+    }
+    
+    // Omit confirmPassword from the submitted data
+    const { confirmPassword, ...adminData } = newAdmin;
+    registerAdminMutation.mutate(adminData);
+  };
+  
+  const handleApproveAdmin = (adminId: number) => {
+    approveAdminMutation.mutate(adminId);
+  };
+  
+  const handleSuspendAdmin = (adminId: number) => {
+    if (window.confirm('Are you sure you want to suspend this admin account?')) {
+      suspendAdminMutation.mutate(adminId);
+    }
+  };
+  
+  const handleOpenAdminForm = (role: 'society' | 'community' | 'city' | 'country' | 'global') => {
+    setAdminFormRole(role);
+    setNewAdmin({
+      ...newAdmin,
+      role: role
+    });
+    setIsAdminFormOpen(true);
+  };
+  
   // Admin role types and their descriptions
   const adminRoles = [
     {
@@ -499,6 +535,110 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ societyId }) => {
 
   return (
     <div className="space-y-6">
+    
+      {/* Admin Registration Dialog */}
+      <Dialog open={isAdminFormOpen} onOpenChange={setIsAdminFormOpen}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>Register New Admin</DialogTitle>
+            <DialogDescription>
+              Create a new administrator account at {adminFormRole} level
+            </DialogDescription>
+          </DialogHeader>
+          <div className="grid gap-4 py-4">
+            <div className="space-y-2">
+              <label htmlFor="admin-name" className="text-sm font-medium">Full Name</label>
+              <Input 
+                id="admin-name" 
+                placeholder="Enter admin's full name"
+                value={newAdmin.name}
+                onChange={(e) => setNewAdmin({...newAdmin, name: e.target.value})}
+              />
+            </div>
+            <div className="space-y-2">
+              <label htmlFor="admin-email" className="text-sm font-medium">Email Address</label>
+              <Input 
+                id="admin-email" 
+                type="email"
+                placeholder="Enter admin's email"
+                value={newAdmin.email}
+                onChange={(e) => setNewAdmin({...newAdmin, email: e.target.value})}
+              />
+            </div>
+            <div className="space-y-2">
+              <label htmlFor="admin-username" className="text-sm font-medium">Username</label>
+              <Input 
+                id="admin-username" 
+                placeholder="Create a username"
+                value={newAdmin.username}
+                onChange={(e) => setNewAdmin({...newAdmin, username: e.target.value})}
+              />
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <label htmlFor="admin-password" className="text-sm font-medium">Password</label>
+                <Input 
+                  id="admin-password" 
+                  type="password"
+                  placeholder="Create password"
+                  value={newAdmin.password}
+                  onChange={(e) => setNewAdmin({...newAdmin, password: e.target.value})}
+                />
+              </div>
+              <div className="space-y-2">
+                <label htmlFor="admin-confirm-password" className="text-sm font-medium">Confirm Password</label>
+                <Input 
+                  id="admin-confirm-password" 
+                  type="password"
+                  placeholder="Confirm password"
+                  value={newAdmin.confirmPassword}
+                  onChange={(e) => setNewAdmin({...newAdmin, confirmPassword: e.target.value})}
+                />
+              </div>
+            </div>
+            <div className="space-y-2">
+              <label className="text-sm font-medium">Role Level</label>
+              <Select 
+                value={newAdmin.role} 
+                onValueChange={(value: any) => setNewAdmin({...newAdmin, role: value})}
+                disabled={adminRole === 'society'}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select role level" />
+                </SelectTrigger>
+                <SelectContent>
+                  {adminRoles
+                    // Only show roles at or below the current admin's level
+                    .filter(role => {
+                      const roleOrder = ['society', 'community', 'city', 'country', 'global'];
+                      const currentRoleIndex = roleOrder.indexOf(adminRole);
+                      const targetRoleIndex = roleOrder.indexOf(role.id);
+                      
+                      // Can only create admins at their level or below
+                      return targetRoleIndex <= currentRoleIndex;
+                    })
+                    .map(role => (
+                      <SelectItem key={role.id} value={role.id}>
+                        <div className="flex items-center">
+                          {role.icon}
+                          <span className="ml-2">{role.name}</span>
+                        </div>
+                      </SelectItem>
+                    ))
+                  }
+                </SelectContent>
+              </Select>
+              <p className="text-xs text-muted-foreground mt-1">
+                You can only create admin accounts at your level or below
+              </p>
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setIsAdminFormOpen(false)}>Cancel</Button>
+            <Button onClick={handleRegisterAdmin}>Register Admin</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
       <Card>
         <CardHeader>
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center">
@@ -578,6 +718,142 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ societyId }) => {
                 <span>Reports</span>
               </TabsTrigger>
             </TabsList>
+            
+            {/* Admins Tab */}
+            <TabsContent value="admins">
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between">
+                  <div>
+                    <CardTitle>Admin Management ({adminRole.charAt(0).toUpperCase() + adminRole.slice(1)} Level)</CardTitle>
+                    <CardDescription>
+                      Manage administrator accounts at {adminRole} level
+                    </CardDescription>
+                  </div>
+                  <Button onClick={() => handleOpenAdminForm(adminRole as any)}>
+                    <UserPlus className="h-4 w-4 mr-2" />
+                    Add New Admin
+                  </Button>
+                </CardHeader>
+                <CardContent>
+                  {adminsLoading ? (
+                    <div className="flex justify-center p-6">
+                      <div className="animate-spin w-8 h-8 border-4 border-[#0C6E4E] border-t-transparent rounded-full"></div>
+                    </div>
+                  ) : !adminUsers || adminUsers.length === 0 ? (
+                    <div className="text-center p-6 bg-muted rounded-md">
+                      <div className="flex flex-col items-center gap-3">
+                        <ShieldCheck className="h-8 w-8 text-muted-foreground" />
+                        <p className="text-muted-foreground">No admin accounts found at this level</p>
+                        <Button variant="outline" onClick={() => handleOpenAdminForm(adminRole as any)}>
+                          <UserPlus className="h-4 w-4 mr-2" />
+                          Create First Admin
+                        </Button>
+                      </div>
+                    </div>
+                  ) : (
+                    <ScrollArea className="h-[400px]">
+                      <Table>
+                        <TableHeader>
+                          <TableRow>
+                            <TableHead>Admin</TableHead>
+                            <TableHead>Email</TableHead>
+                            <TableHead>Role</TableHead>
+                            <TableHead>Status</TableHead>
+                            <TableHead>Last Login</TableHead>
+                            <TableHead>Actions</TableHead>
+                          </TableRow>
+                        </TableHeader>
+                        <TableBody>
+                          {adminUsers.map((admin) => (
+                            <TableRow key={admin.id} style={{
+                              backgroundColor: admin.status === 'suspended' ? 'rgba(239, 68, 68, 0.05)' : undefined
+                            }}>
+                              <TableCell className="font-medium">
+                                <div className="flex flex-col">
+                                  <span>{admin.name}</span>
+                                  <span className="text-xs text-muted-foreground">@{admin.username}</span>
+                                </div>
+                              </TableCell>
+                              <TableCell>
+                                {admin.email}
+                              </TableCell>
+                              <TableCell>
+                                <Badge 
+                                  variant="outline" 
+                                  style={{ 
+                                    color: adminRoles.find(r => r.id === admin.role)?.color,
+                                    borderColor: adminRoles.find(r => r.id === admin.role)?.color
+                                  }}
+                                >
+                                  {adminRoles.find(r => r.id === admin.role)?.icon}
+                                  <span className="ml-1">{admin.role}</span>
+                                </Badge>
+                              </TableCell>
+                              <TableCell>
+                                {getStatusBadge(admin.status)}
+                              </TableCell>
+                              <TableCell>
+                                {admin.lastLogin 
+                                  ? new Date(admin.lastLogin).toLocaleString() 
+                                  : 'Never logged in'}
+                              </TableCell>
+                              <TableCell>
+                                <div className="flex space-x-2">
+                                  {admin.status === 'pending' && (
+                                    <Button 
+                                      variant="outline" 
+                                      size="sm" 
+                                      className="text-green-600"
+                                      onClick={() => handleApproveAdmin(admin.id)}
+                                    >
+                                      <UserCheck className="h-4 w-4 mr-1" />
+                                      Approve
+                                    </Button>
+                                  )}
+                                  
+                                  {admin.status === 'active' && (
+                                    <Button 
+                                      variant="outline" 
+                                      size="sm" 
+                                      className="text-red-600"
+                                      onClick={() => handleSuspendAdmin(admin.id)}
+                                    >
+                                      <UserX className="h-4 w-4 mr-1" />
+                                      Suspend
+                                    </Button>
+                                  )}
+                                  
+                                  {admin.status === 'suspended' && (
+                                    <Button 
+                                      variant="outline" 
+                                      size="sm" 
+                                      className="text-green-600"
+                                      onClick={() => handleApproveAdmin(admin.id)}
+                                    >
+                                      <UserCheck className="h-4 w-4 mr-1" />
+                                      Reactivate
+                                    </Button>
+                                  )}
+                                </div>
+                              </TableCell>
+                            </TableRow>
+                          ))}
+                        </TableBody>
+                      </Table>
+                    </ScrollArea>
+                  )}
+                </CardContent>
+                <CardFooter className="flex justify-between">
+                  <div className="text-sm text-muted-foreground">
+                    Total {adminRole} admins: {adminUsers?.length || 0}
+                  </div>
+                  <Button variant="outline" onClick={() => handleExportData('admins')}>
+                    <DownloadCloud className="h-4 w-4 mr-2" />
+                    Export Data
+                  </Button>
+                </CardFooter>
+              </Card>
+            </TabsContent>
             
             {/* Registrations Tab */}
             <TabsContent value="registrations">
