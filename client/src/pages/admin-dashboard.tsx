@@ -533,32 +533,27 @@ export default function AdminDashboard() {
         {/* Finances Tab */}
         <TabsContent value="finances" className="space-y-4">
           <Card>
-            <CardContent className="p-0">
+            <CardHeader>
+              <CardTitle>Financial Management</CardTitle>
+              <CardDescription>Track payments, expenses and financial reports</CardDescription>
+            </CardHeader>
+            <CardContent>
               <Tabs defaultValue="payment-verification" className="w-full">
-                <TabsList className="w-full justify-start rounded-none border-b bg-transparent p-0">
-                  <TabsTrigger 
-                    value="payment-verification" 
-                    className="rounded-none border-b-2 border-b-transparent px-4 py-3 data-[state=active]:border-b-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none"
-                  >
+                <TabsList className="w-full justify-start mb-4">
+                  <TabsTrigger value="payment-verification">
                     Payment Verification
                   </TabsTrigger>
-                  <TabsTrigger 
-                    value="expenses" 
-                    className="rounded-none border-b-2 border-b-transparent px-4 py-3 data-[state=active]:border-b-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none"
-                  >
+                  <TabsTrigger value="expenses">
                     Expenses
                   </TabsTrigger>
-                  <TabsTrigger 
-                    value="reports" 
-                    className="rounded-none border-b-2 border-b-transparent px-4 py-3 data-[state=active]:border-b-primary data-[state=active]:bg-transparent data-[state=active]:shadow-none"
-                  >
+                  <TabsTrigger value="reports">
                     Financial Reports
                   </TabsTrigger>
                 </TabsList>
-                <TabsContent value="payment-verification" className="p-6">
+                <TabsContent value="payment-verification">
                   <PaymentVerification />
                 </TabsContent>
-                <TabsContent value="expenses" className="p-6">
+                <TabsContent value="expenses">
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
             <Card>
               <CardHeader>
