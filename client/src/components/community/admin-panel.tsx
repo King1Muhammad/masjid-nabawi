@@ -123,17 +123,46 @@ interface SocietyContribution {
   flatNumber?: string;
 }
 
+interface AdminUser {
+  id: number;
+  username: string;
+  email: string;
+  name: string;
+  role: 'society' | 'community' | 'city' | 'country' | 'global';
+  status: 'active' | 'pending' | 'suspended';
+  createdAt: string;
+  lastLogin?: string;
+  managedEntities: string[];
+}
+
 interface AdminPanelProps {
   societyId: number;
 }
 
 const AdminPanel: React.FC<AdminPanelProps> = ({ societyId }) => {
+  // Basic state
   const [activeTab, setActiveTab] = useState('registrations');
   const [selectedMemberId, setSelectedMemberId] = useState<number | null>(null);
   const [selectedBlock, setSelectedBlock] = useState<string>('all');
   const [selectedMonth, setSelectedMonth] = useState<string>(format(new Date(), 'yyyy-MM'));
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [isContributionDialogOpen, setIsContributionDialogOpen] = useState(false);
+  const [isAdminFormOpen, setIsAdminFormOpen] = useState(false);
+  
+  // Admin state
+  const [adminRole, setAdminRole] = useState('society'); // Default is society level (masjid imam)
+  const [adminFormRole, setAdminFormRole] = useState<'society' | 'community' | 'city' | 'country' | 'global'>('society');
+  const [newAdmin, setNewAdmin] = useState({
+    username: '',
+    email: '',
+    name: '',
+    password: '',
+    confirmPassword: '',
+    role: 'society' as 'society' | 'community' | 'city' | 'country' | 'global',
+    managedEntities: []
+  });
+  
+  // Contributions state
   const [newContribution, setNewContribution] = useState({
     memberId: 0,
     amount: 1500,
@@ -169,7 +198,87 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ societyId }) => {
     enabled: activeTab === 'contributions',
   });
   
-  // Mutations
+  // Fetch admin users based on role
+  const { data: adminUsers, isLoading: adminsLoading } = useQuery<AdminUser[]>({
+    queryKey: ['/api/admins', { role: adminRole }],
+    enabled: activeTab === 'admins',
+  });
+  
+  // Admin mutations
+  const registerAdminMutation = useMutation({
+    mutationFn: async (data: any) => {
+      const res = await apiRequest('POST', '/api/admins/register', data);
+      return await res.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/admins'] });
+      setIsAdminFormOpen(false);
+      setNewAdmin({
+        username: '',
+        email: '',
+        name: '',
+        password: '',
+        confirmPassword: '',
+        role: 'society',
+        managedEntities: []
+      });
+      toast({
+        title: "Success",
+        description: "Admin account created successfully",
+      });
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Error",
+        description: error.message || "Failed to create admin account",
+        variant: "destructive",
+      });
+    }
+  });
+  
+  const approveAdminMutation = useMutation({
+    mutationFn: async (adminId: number) => {
+      const res = await apiRequest('POST', `/api/admins/${adminId}/approve`);
+      return await res.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/admins'] });
+      toast({
+        title: "Success",
+        description: "Admin account approved",
+      });
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Error",
+        description: error.message || "Failed to approve admin account",
+        variant: "destructive",
+      });
+    }
+  });
+  
+  const suspendAdminMutation = useMutation({
+    mutationFn: async (adminId: number) => {
+      const res = await apiRequest('POST', `/api/admins/${adminId}/suspend`);
+      return await res.json();
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/admins'] });
+      toast({
+        title: "Success",
+        description: "Admin account suspended",
+      });
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Error",
+        description: error.message || "Failed to suspend admin account",
+        variant: "destructive",
+      });
+    }
+  });
+  
+  // Regular user mutations
   const approveRegistrationMutation = useMutation({
     mutationFn: async (userId: number) => {
       const res = await apiRequest('POST', `/api/society/user-registrations/${userId}/approve`);
@@ -348,9 +457,6 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ societyId }) => {
   };
   
   const filteredMembers = members ? filterMembersBySearch(filterMembersByBlock(members)) : [];
-
-  // Add state for admin role
-  const [adminRole, setAdminRole] = useState('society'); // Default is society level (masjid imam)
   
   // Admin role types and their descriptions
   const adminRoles = [
@@ -450,7 +556,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ societyId }) => {
           </div>
           
           <Tabs value={activeTab} onValueChange={setActiveTab}>
-            <TabsList className="grid w-full grid-cols-4">
+            <TabsList className="grid w-full grid-cols-5">
               <TabsTrigger value="registrations" className="flex items-center">
                 <UserPlus className="h-4 w-4 mr-2" />
                 <span>Registrations</span>
@@ -462,6 +568,10 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ societyId }) => {
               <TabsTrigger value="contributions" className="flex items-center">
                 <DollarSign className="h-4 w-4 mr-2" />
                 <span>Contributions</span>
+              </TabsTrigger>
+              <TabsTrigger value="admins" className="flex items-center">
+                <ShieldCheck className="h-4 w-4 mr-2" />
+                <span>Admins</span>
               </TabsTrigger>
               <TabsTrigger value="reports" className="flex items-center">
                 <FileBarChart className="h-4 w-4 mr-2" />
