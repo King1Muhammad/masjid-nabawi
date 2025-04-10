@@ -305,7 +305,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         adminUsers = await db.query.users.findMany({
           where: and(
             eq(schema.users.role, level as string),
-            sql`${schema.users.isAdmin} = true`
+            sql`${schema.users.is_admin} = true`
           )
         });
       } else {

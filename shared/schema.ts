@@ -10,7 +10,7 @@ export const users = pgTable("users", {
   email: text("email").notNull(),
   name: text("name"),
   role: text("role").default("user"),
-  isAdmin: boolean("is_admin").default(false),
+  is_admin: boolean("is_admin").default(false),
   status: text("status").default("active"), // active, pending, suspended
   createdBy: integer("created_by"), // Reference to another user who created this user
   lastLogin: timestamp("last_login"),
