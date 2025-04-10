@@ -188,7 +188,7 @@ const CommunityPage = () => {
   const [selectedOption, setSelectedOption] = useState<string>('');
   const [isVoting, setIsVoting] = useState(false);
   const [activeTab, setActiveTab] = useState<string>('society');
-  const [selectedBlock, setSelectedBlock] = useState<string>('');
+  const [selectedBlock, setSelectedBlock] = useState<string>('all');
   const [newDiscussionOpen, setNewDiscussionOpen] = useState(false);
   const [newDiscussion, setNewDiscussion] = useState({ title: '', description: '' });
   const [newProposalOpen, setNewProposalOpen] = useState(false);
@@ -1068,7 +1068,7 @@ const CommunityPage = () => {
                               <SelectValue placeholder="Filter by block" />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem value="">All Blocks</SelectItem>
+                              <SelectItem value="all">All Blocks</SelectItem>
                               {blocks?.map(block => (
                                 <SelectItem key={block.id} value={block.blockName}>{block.blockName}</SelectItem>
                               ))}
@@ -1084,7 +1084,7 @@ const CommunityPage = () => {
                       ) : members && members.length > 0 ? (
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
                           {members
-                            .filter(member => !selectedBlock || member.blockId === parseInt(selectedBlock))
+                            .filter(member => selectedBlock === "all" || member.blockId === parseInt(selectedBlock))
                             .map(member => (
                               <div key={member.id} className="border rounded-lg p-4 bg-gray-50">
                                 <h4 className="font-medium">Flat {member.flatNumber}</h4>
