@@ -25,6 +25,26 @@ import axios from "axios";
 import Stripe from "stripe";
 import { generateImage, generateMultipleImages } from "./image-generation";
 import { sendEnrollmentNotification, sendContactMessageNotification } from "./email-service";
+import { scrypt, randomBytes, timingSafeEqual } from "crypto";
+import { promisify } from "util";
+import { or } from "drizzle-orm";
+
+const scryptAsync = promisify(scrypt);
+
+// Hash passwords for security
+async function hashPassword(password: string) {
+  const salt = randomBytes(16).toString("hex");
+  const buf = (await scryptAsync(password, salt, 64)) as Buffer;
+  return `${buf.toString("hex")}.${salt}`;
+}
+
+// Verify passwords
+async function comparePasswords(supplied: string, stored: string) {
+  const [hashed, salt] = stored.split(".");
+  const hashedBuf = Buffer.from(hashed, "hex");
+  const suppliedBuf = (await scryptAsync(supplied, salt, 64)) as Buffer;
+  return timingSafeEqual(hashedBuf, suppliedBuf);
+}
 
 if (!process.env.STRIPE_SECRET_KEY) {
   console.warn('Missing STRIPE_SECRET_KEY. Stripe payments will not be processed.');
@@ -256,6 +276,150 @@ const sendThankYouNotification = async (donation: Donation) => {
 };
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Admin API Routes
+  app.get('/api/admins', async (req: Request, res: Response) => {
+    try {
+      const { level } = req.query;
+      
+      // Fetch admin users based on role/level if specified
+      let adminUsers;
+      if (level) {
+        adminUsers = await db.query.users.findMany({
+          where: and(
+            eq(schema.users.role, level as string),
+            sql`${schema.users.isAdmin} = true`
+          )
+        });
+      } else {
+        adminUsers = await db.query.users.findMany({
+          where: sql`${schema.users.isAdmin} = true`
+        });
+      }
+      
+      // Map to safe admin objects (exclude password, etc.)
+      const safeAdmins = adminUsers.map(admin => ({
+        id: admin.id,
+        username: admin.username,
+        email: admin.email,
+        name: admin.name,
+        role: admin.role,
+        status: admin.status,
+        createdAt: admin.createdAt,
+        lastLogin: admin.lastLogin,
+        managedEntities: admin.managedEntities || []
+      }));
+      
+      res.json(safeAdmins);
+    } catch (error) {
+      console.error('Error fetching admins:', error);
+      res.status(500).json({ message: 'Failed to fetch admin users' });
+    }
+  });
+  
+  app.post('/api/admins', async (req: Request, res: Response) => {
+    try {
+      const { name, username, email, password, role, createdBy } = req.body;
+      
+      // Validate input
+      if (!name || !username || !email || !password || !role) {
+        return res.status(400).json({ message: 'Missing required fields' });
+      }
+      
+      // Check if username or email already exists
+      const existingUser = await db.query.users.findFirst({
+        where: or(
+          eq(schema.users.username, username),
+          eq(schema.users.email, email)
+        )
+      });
+      
+      if (existingUser) {
+        return res.status(409).json({ 
+          message: 'Username or email already exists' 
+        });
+      }
+      
+      // Create admin user
+      const hashedPassword = await hashPassword(password);
+      
+      const [newAdmin] = await db.insert(schema.users)
+        .values({
+          name,
+          username,
+          email,
+          password: hashedPassword,
+          role,
+          isAdmin: true,
+          status: 'pending', // New admins start as pending
+          createdAt: new Date().toISOString(),
+          createdBy: createdBy || null
+        })
+        .returning();
+      
+      // Return safe admin object (exclude password)
+      const safeAdmin = {
+        id: newAdmin.id,
+        username: newAdmin.username,
+        email: newAdmin.email,
+        name: newAdmin.name,
+        role: newAdmin.role,
+        status: newAdmin.status,
+        createdAt: newAdmin.createdAt
+      };
+      
+      res.status(201).json(safeAdmin);
+    } catch (error) {
+      console.error('Error creating admin:', error);
+      res.status(500).json({ message: 'Failed to create admin user' });
+    }
+  });
+  
+  app.patch('/api/admins/:id/status', async (req: Request, res: Response) => {
+    try {
+      const adminId = parseInt(req.params.id);
+      const { status } = req.body;
+      
+      // Validate status
+      if (!['active', 'pending', 'suspended'].includes(status)) {
+        return res.status(400).json({ message: 'Invalid status' });
+      }
+      
+      // Update admin status
+      const [updatedAdmin] = await db.update(schema.users)
+        .set({ 
+          status,
+          // If activating, set lastStatusChange
+          ...(status === 'active' ? { lastStatusChange: new Date().toISOString() } : {})
+        })
+        .where(
+          and(
+            eq(schema.users.id, adminId),
+            sql`${schema.users.isAdmin} = true`
+          )
+        )
+        .returning();
+      
+      if (!updatedAdmin) {
+        return res.status(404).json({ message: 'Admin not found' });
+      }
+      
+      // Return safe admin object
+      const safeAdmin = {
+        id: updatedAdmin.id,
+        username: updatedAdmin.username,
+        email: updatedAdmin.email,
+        name: updatedAdmin.name,
+        role: updatedAdmin.role,
+        status: updatedAdmin.status
+      };
+      
+      res.json(safeAdmin);
+    } catch (error) {
+      console.error('Error updating admin status:', error);
+      res.status(500).json({ message: 'Failed to update admin status' });
+    }
+  });
+  
   // Society API Routes
   app.get('/api/society/:id', async (req: Request, res: Response) => {
     try {
