@@ -1123,8 +1123,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(401).json({ message: 'Invalid username or password' });
       }
       
-      // Check password (in production, compare hashed passwords)
-      if (user.password !== password) {
+      // Check password using proper hash comparison
+      const isPasswordValid = await comparePasswords(password, user.password);
+      if (!isPasswordValid) {
         return res.status(401).json({ message: 'Invalid username or password' });
       }
       

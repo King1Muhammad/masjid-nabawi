@@ -43,8 +43,9 @@ function Router() {
           <Route path="/vision" component={VisionPage} />
           <Route path="/platform" component={PlatformPage} />
           <Route path="/about" component={AboutPage} />
-          <Route path="/admin" component={AdminPanel} />
+          <Route path="/admin" component={AdminDashboard} />
           <Route path="/admin/auth" component={AdminAuthPage} />
+          <Route path="/admin/panel" component={AdminPanel} />
           <Route path="/payment" component={PaymentPage} />
           <Route component={NotFound} />
         </Switch>
