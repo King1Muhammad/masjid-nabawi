@@ -3,6 +3,7 @@ import { useQuery, useMutation } from '@tanstack/react-query';
 import { apiRequest, queryClient } from '@/lib/queryClient';
 import { useRouter, useLocation } from 'wouter';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import PaymentVerification from '@/components/community/payment-verification';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -31,7 +32,10 @@ import {
   Globe,
   MapPin,
   Map,
-  LibraryBig
+  LibraryBig,
+  ArrowUpCircle,
+  ArrowDownCircle,
+  PlusCircle
 } from 'lucide-react';
 
 interface AdminUser {
