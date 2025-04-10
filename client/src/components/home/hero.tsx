@@ -8,7 +8,8 @@ import masjidPhilosophy from "@assets/masjidphilosophy.jpg";
 import masjidInteriorImage from "@assets/IMG_20230318_150311_747.jpg";
 import masjidOutsideImage from "@assets/IMG_20230318_150712_252.jpg";
 import masjidExteriorImage from "@assets/IMG_20230318_151014_122.jpg";
-import masjidHeroImage from "@assets/1.png";
+// Using the new hero image from public folder
+const masjidHeroImage = "/images/new-masjid-hero.png";
 import chairmanImage from "@assets/chairman_updated.png";
 import blueprintImage from "@assets/masjid_blueprint.jpg";
 import constructionApprovalImage from "@assets/construction_approval.jpg";
@@ -27,7 +28,7 @@ const Hero = () => {
             <img 
               src={masjidHeroImage} 
               alt="Masjid Nabvi Qureshi Hashmi"
-              className="w-full h-full object-contain"
+              className="w-full h-full object-cover"
               loading="eager" 
             />
           </div>
