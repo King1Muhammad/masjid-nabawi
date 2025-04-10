@@ -91,22 +91,42 @@ const GoogleMapsIntegration: React.FC<GoogleMapsIntegrationProps> = ({
       setIsLoaded(true);
     };
 
-    // Load Google Maps API
-    if (!document.getElementById('google-maps-script')) {
-      const script = document.createElement('script');
-      script.id = 'google-maps-script';
-      script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&callback=initMap`;
-      script.async = true;
-      script.defer = true;
-      document.head.appendChild(script);
-      
-      return () => {
-        const scriptTag = document.getElementById('google-maps-script');
-        if (scriptTag) document.head.removeChild(scriptTag);
-      };
-    } else if (window.google) {
-      window.initMap();
-    }
+    // Load Google Maps API - NOTE: For demo purposes only, using a placeholder div
+    // In a production environment, you would use a proper Google Maps API key
+    
+    // Simulate map loading for demo
+    setTimeout(() => {
+      if (mapRef.current) {
+        const demoMap = document.createElement('div');
+        demoMap.className = 'h-full w-full flex flex-col items-center justify-center bg-gray-100 rounded';
+        demoMap.innerHTML = `
+          <div class="text-center p-4">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="${getMapStyle().color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="10" r="3"></circle>
+              <path d="M12 21l-8-8a6 6 0 0 1 0-8.5 6 6 0 0 1 8.5 0 6 6 0 0 1 0 8.5L12 21z"></path>
+            </svg>
+            <h3 class="mt-2 text-lg font-medium" style="color: ${getMapStyle().color}">Admin Map View - ${adminRole} Level</h3>
+            <p class="mt-1 text-sm text-gray-500">Geographic visualization for ${adminLocations?.length || 0} admin locations</p>
+            <div class="mt-4 grid grid-cols-2 gap-2">
+              ${adminLocations?.map((loc, i) => `
+                <div class="text-sm p-2 rounded flex items-center" style="background-color: ${loc.color}20; color: ${loc.color}">
+                  <span class="inline-block w-3 h-3 mr-2 rounded-full" style="background-color: ${loc.color}"></span>
+                  ${loc.name}
+                </div>
+              `).join('') || ''}
+            </div>
+          </div>
+        `;
+        
+        // Clear the mapRef and append the demo element
+        while (mapRef.current.firstChild) {
+          mapRef.current.removeChild(mapRef.current.firstChild);
+        }
+        mapRef.current.appendChild(demoMap);
+        
+        setIsLoaded(true);
+      }
+    }, 1500);
   }, [adminRole, centerLat, centerLng, zoom]);
 
   // Add markers for admin locations
