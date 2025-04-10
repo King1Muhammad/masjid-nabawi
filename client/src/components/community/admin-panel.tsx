@@ -128,11 +128,12 @@ interface AdminUser {
   username: string;
   email: string;
   name: string;
-  role: 'society' | 'community' | 'city' | 'country' | 'global';
+  role: 'society' | 'community' | 'city' | 'country' | 'global' | 
+        'society_admin' | 'community_admin' | 'city_admin' | 'country_admin' | 'global_admin';
   status: 'active' | 'pending' | 'suspended';
   createdAt: string;
   lastLogin?: string;
-  managedEntities: string[];
+  managedEntities: any;
 }
 
 interface AdminPanelProps {
@@ -503,40 +504,94 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ societyId }) => {
   
   // Admin role types and their descriptions
   const adminRoles = [
+    // Society level - Green
     {
       id: 'society',
       name: 'Society Admin',
       icon: <Building className="h-5 w-5" />,
       description: 'Masjid Imam level access - manage local society members and contributions',
-      color: '#0C6E4E'
+      color: '#0C6E4E',
+      level: 1
     },
+    {
+      id: 'society_admin',
+      name: 'Society Admin',
+      icon: <Building className="h-5 w-5" />,
+      description: 'Masjid Imam level access - manage local society members and contributions',
+      color: '#0C6E4E',
+      level: 1
+    },
+    
+    // Community level - Blue
     {
       id: 'community',
       name: 'Community Admin',
-      icon: <Building className="h-5 w-5" />,
+      icon: <HomeIcon className="h-5 w-5" />,
       description: 'Manage multiple societies within a community or area',
-      color: '#2563EB'
+      color: '#2563EB',
+      level: 2
     },
+    {
+      id: 'community_admin',
+      name: 'Community Admin',
+      icon: <HomeIcon className="h-5 w-5" />,
+      description: 'Manage multiple societies within a community or area',
+      color: '#2563EB',
+      level: 2
+    },
+    
+    // City level - Purple
     {
       id: 'city',
       name: 'City Admin',
       icon: <MapPin className="h-5 w-5" />,
       description: 'Oversee all communities within a city',
-      color: '#9333EA'
+      color: '#9333EA',
+      level: 3
     },
+    {
+      id: 'city_admin',
+      name: 'City Admin',
+      icon: <MapPin className="h-5 w-5" />,
+      description: 'Oversee all communities within a city',
+      color: '#9333EA',
+      level: 3
+    },
+    
+    // Country level - Red
     {
       id: 'country',
       name: 'Country Admin',
       icon: <Map className="h-5 w-5" />,
       description: 'Coordinate all cities within a country',
-      color: '#E11D48'
+      color: '#E11D48',
+      level: 4
     },
+    {
+      id: 'country_admin',
+      name: 'Country Admin',
+      icon: <Map className="h-5 w-5" />,
+      description: 'Coordinate all cities within a country',
+      color: '#E11D48',
+      level: 4
+    },
+    
+    // Global level - Black
     {
       id: 'global',
       name: 'Global Admin',
       icon: <Globe className="h-5 w-5" />,
-      description: 'Worldwide system administration (like UN level)',
-      color: '#18181B'
+      description: 'Worldwide system administration (United Nations level)',
+      color: '#18181B',
+      level: 5
+    },
+    {
+      id: 'global_admin',
+      name: 'Global Admin',
+      icon: <Globe className="h-5 w-5" />,
+      description: 'Worldwide system administration (United Nations level)',
+      color: '#18181B',
+      level: 5
     }
   ];
 
@@ -681,24 +736,55 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ societyId }) => {
           </div>
         </CardHeader>
         <CardContent>
-          {/* Admin role description card */}
+          {/* Admin role description card with hierarchy visualization */}
           <div 
-            className="p-4 mb-6 rounded-lg flex items-start gap-4"
-            style={{ backgroundColor: `${adminRoles.find(role => role.id === adminRole)?.color}10` }}
+            className="p-4 mb-6 rounded-lg"
+            style={{ backgroundColor: `${adminRoles.find(role => role.id === adminRole)?.color}10`, borderLeft: `4px solid ${adminRoles.find(role => role.id === adminRole)?.color}` }}
           >
-            <div 
-              className="p-3 rounded-full" 
-              style={{ backgroundColor: `${adminRoles.find(role => role.id === adminRole)?.color}20` }}
-            >
-              {adminRoles.find(role => role.id === adminRole)?.icon}
+            <div className="flex items-start gap-4">
+              <div 
+                className="p-3 rounded-full" 
+                style={{ backgroundColor: `${adminRoles.find(role => role.id === adminRole)?.color}20` }}
+              >
+                {adminRoles.find(role => role.id === adminRole)?.icon}
+              </div>
+              <div>
+                <h3 className="text-base font-medium mb-1">
+                  {adminRoles.find(role => role.id === adminRole)?.name} Dashboard
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  {adminRoles.find(role => role.id === adminRole)?.description}
+                </p>
+              </div>
             </div>
-            <div>
-              <h3 className="text-base font-medium mb-1">
-                {adminRoles.find(role => role.id === adminRole)?.name} Dashboard
-              </h3>
-              <p className="text-sm text-muted-foreground">
-                {adminRoles.find(role => role.id === adminRole)?.description}
-              </p>
+            
+            {/* Hierarchy visualization */}
+            <div className="mt-4 pt-4 border-t border-border">
+              <h4 className="text-sm font-medium mb-2">Administration Hierarchy</h4>
+              <div className="flex items-center gap-2 overflow-x-auto pb-2">
+                {adminRoles
+                  .filter(role => ['global_admin', 'country_admin', 'city_admin', 'community_admin', 'society_admin'].includes(role.id))
+                  .sort((a, b) => b.level - a.level) // Sort from highest level to lowest
+                  .map((role, index, arr) => (
+                    <React.Fragment key={role.id}>
+                      <div 
+                        className={`flex items-center px-3 py-1.5 rounded-md ${role.id === adminRole || role.id.replace('_admin', '') === adminRole ? 'ring-2 ring-offset-2' : ''}`}
+                        style={{ 
+                          backgroundColor: `${role.color}15`,
+                          color: role.color,
+                          borderLeft: `3px solid ${role.color}`
+                        }}
+                      >
+                        <div className="mr-1.5">{role.icon}</div>
+                        <span className="text-xs font-medium whitespace-nowrap">{role.name}</span>
+                      </div>
+                      {index < arr.length - 1 && (
+                        <div className="text-muted-foreground">→</div>
+                      )}
+                    </React.Fragment>
+                  ))
+                }
+              </div>
             </div>
           </div>
           
@@ -785,16 +871,19 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ societyId }) => {
                                 {admin.email}
                               </TableCell>
                               <TableCell>
-                                <Badge 
-                                  variant="outline" 
-                                  style={{ 
-                                    color: adminRoles.find(r => r.id === admin.role)?.color,
-                                    borderColor: adminRoles.find(r => r.id === admin.role)?.color
-                                  }}
-                                >
-                                  {adminRoles.find(r => r.id === admin.role)?.icon}
-                                  <span className="ml-1">{admin.role}</span>
-                                </Badge>
+                                {admin.role && (
+                                  <div 
+                                    className="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium"
+                                    style={{ 
+                                      backgroundColor: `${adminRoles.find(r => r.id === admin.role)?.color}15`,
+                                      color: adminRoles.find(r => r.id === admin.role)?.color,
+                                      borderLeft: `3px solid ${adminRoles.find(r => r.id === admin.role)?.color}`
+                                    }}
+                                  >
+                                    <span className="mr-1">{adminRoles.find(r => r.id === admin.role)?.icon}</span>
+                                    {adminRoles.find(r => r.id === admin.role)?.name || admin.role}
+                                  </div>
+                                )}
                               </TableCell>
                               <TableCell>
                                 {getStatusBadge(admin.status)}
