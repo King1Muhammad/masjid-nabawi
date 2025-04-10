@@ -24,11 +24,11 @@ const Hero = () => {
       {/* Optimized Hero Section for mobile */}
       <div className="relative overflow-hidden flex flex-col">
         <div className="bg-white w-full">
-          <div className="h-[55vh] md:h-[65vh] relative overflow-hidden bg-[#f4f4f4]">
+          <div className="relative overflow-visible bg-[#f4f4f4]">
             <img 
               src={masjidHeroImage} 
               alt="Masjid Nabvi Qureshi Hashmi"
-              className="w-full h-full object-cover"
+              className="w-full max-h-[1000px]"
               loading="eager" 
             />
           </div>
