@@ -44,7 +44,7 @@ import {
   Library as LibraryIcon
 } from 'lucide-react';
 import FlatDisplay from '@/components/community/flat-display';
-import AdminPanel from '@/components/community/admin-panel';
+import AdminPanel from '@/components/community/admin-panel-simplified';
 import UserDashboard from '@/components/community/user-dashboard';
 import SocietyBlocksDashboard from '@/components/community/society-blocks-dashboard';
 
