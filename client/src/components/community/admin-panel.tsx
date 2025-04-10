@@ -73,6 +73,7 @@ import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { format } from 'date-fns';
+import GoogleMapsIntegration from './google-maps-integration';
 
 interface UserRegistration {
   id: number;

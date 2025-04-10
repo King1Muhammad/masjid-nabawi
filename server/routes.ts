@@ -657,12 +657,95 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
   
-  // Add a simple endpoint for approving admins
+  // Enhanced admin approval with hierarchical validation
   app.post('/api/admins/:id/approve', async (req: Request, res: Response) => {
     try {
+      // Authentication check
+      if (!req.session.adminUser) {
+        return res.status(401).json({ message: 'You must be logged in as an admin to approve other admins' });
+      }
+      
+      const approverRole = req.session.adminUser.role;
+      const approverId = req.session.adminUser.id;
       const adminId = parseInt(req.params.id);
       
-      // Update admin status to active
+      // Prevent self-approval
+      if (approverId === adminId) {
+        return res.status(400).json({ message: 'You cannot approve your own account' });
+      }
+      
+      // Get admin to be approved
+      const adminToApprove = await db.query.users.findFirst({
+        where: and(
+          eq(schema.users.id, adminId),
+          eq(schema.users.is_admin, true)
+        )
+      });
+      
+      if (!adminToApprove) {
+        return res.status(404).json({ message: 'Admin not found' });
+      }
+      
+      // Role level hierarchy for validation
+      const roleHierarchy = {
+        'global_admin': 5, 
+        'global': 5,
+        'country_admin': 4, 
+        'country': 4,
+        'city_admin': 3, 
+        'city': 3,
+        'community_admin': 2, 
+        'community': 2,
+        'society_admin': 1, 
+        'society': 1
+      };
+      
+      // Check if approver has high enough role to approve this admin
+      const approverLevel = roleHierarchy[approverRole] || 0;
+      const targetLevel = roleHierarchy[adminToApprove.role] || 0;
+      
+      if (approverLevel <= targetLevel) {
+        return res.status(403).json({ 
+          message: 'You do not have permission to approve an admin at this level. Only higher-level admins can approve.' 
+        });
+      }
+      
+      // Check geographical hierarchy using managed_entities
+      const managedEntities = adminToApprove.managedEntities ? 
+        (typeof adminToApprove.managedEntities === 'string' ? 
+          JSON.parse(adminToApprove.managedEntities) : adminToApprove.managedEntities) : {};
+      
+      const approverEntities = req.session.adminUser.managedEntities ?
+        (typeof req.session.adminUser.managedEntities === 'string' ? 
+          JSON.parse(req.session.adminUser.managedEntities) : req.session.adminUser.managedEntities) : {};
+          
+      // Determine if the admin to be approved is within the approver's jurisdiction
+      let isWithinJurisdiction = false;
+      
+      // Global admins can approve anyone
+      if (approverRole === 'global_admin' || approverRole === 'global') {
+        isWithinJurisdiction = true;
+      } 
+      // Country admins can approve admins whose country they manage
+      else if ((approverRole === 'country_admin' || approverRole === 'country') && managedEntities.country) {
+        isWithinJurisdiction = managedEntities.country === req.session.adminUser.username;
+      }
+      // City admins can approve admins in their city
+      else if ((approverRole === 'city_admin' || approverRole === 'city') && managedEntities.city) {
+        isWithinJurisdiction = managedEntities.city === req.session.adminUser.username;
+      }
+      // Community admins can approve admins in their community
+      else if ((approverRole === 'community_admin' || approverRole === 'community') && managedEntities.community) {
+        isWithinJurisdiction = managedEntities.community === req.session.adminUser.username;
+      }
+      
+      if (!isWithinJurisdiction) {
+        return res.status(403).json({ 
+          message: 'You do not have jurisdiction to approve this admin. Admins must be in your geographical area of authority.' 
+        });
+      }
+
+      // All checks passed, update admin status to active
       const [updatedAdmin] = await db.update(schema.users)
         .set({ 
           status: 'active',
@@ -671,26 +754,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
         .where(
           and(
             eq(schema.users.id, adminId),
-            sql`${schema.users.is_admin} = true`
+            eq(schema.users.is_admin, true)
           )
         )
         .returning();
-      
-      if (!updatedAdmin) {
-        return res.status(404).json({ message: 'Admin not found' });
-      }
       
       // Send notification email if we have user email
       if (updatedAdmin.email) {
         try {
           const transporter = createTransporter();
+          
+          // Determine admin level color for email template
+          let adminColor = '#0C6E4E'; // Default green for society level
+          if (updatedAdmin.role.includes('community')) adminColor = '#2563EB';  // Blue
+          if (updatedAdmin.role.includes('city')) adminColor = '#9333EA';       // Purple
+          if (updatedAdmin.role.includes('country')) adminColor = '#E11D48';    // Red
+          if (updatedAdmin.role.includes('global')) adminColor = '#18181B';     // Black
+          
           await transporter.sendMail({
             from: '"Society Management Admin" <jamiamasjidnabviqureshihashmi@gmail.com>',
             to: updatedAdmin.email,
             subject: 'Admin Account Approved',
             html: `
-              <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #0C6E4E; border-radius: 8px; overflow: hidden;">
-                <div style="background-color: #0C6E4E; color: white; padding: 20px; text-align: center;">
+              <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid ${adminColor}; border-radius: 8px; overflow: hidden;">
+                <div style="background-color: ${adminColor}; color: white; padding: 20px; text-align: center;">
                   <h1 style="margin: 0;">Admin Account Approved</h1>
                   <h2 style="margin: 5px 0 0 0;">Masjid Management System</h2>
                 </div>
@@ -698,11 +785,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
                 <div style="padding: 20px;">
                   <p>Dear ${updatedAdmin.name},</p>
                   
-                  <p>Your admin account has been approved. You can now login to the admin panel with your credentials.</p>
+                  <p>Your admin account has been approved by ${req.session.adminUser.name} (${req.session.adminUser.role}). You can now login to the admin panel with your credentials.</p>
                   
                   <p>Username: <strong>${updatedAdmin.username}</strong></p>
+                  <p>Role: <strong>${updatedAdmin.role}</strong></p>
                   
-                  <p>Thank you for being part of our team!</p>
+                  <p>Thank you for being part of our global Islamic community governance system!</p>
                   
                   <p style="margin-top: 30px;">Regards,<br>Admin Management</p>
                 </div>
@@ -728,7 +816,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
     } catch (error) {
       console.error('Error approving admin:', error);
-      res.status(500).json({ message: 'Failed to approve admin' });
+      res.status(500).json({ message: 'Failed to approve admin', error: error.message });
     }
   });
   

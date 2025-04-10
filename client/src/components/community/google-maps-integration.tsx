@@ -1,0 +1,244 @@
+import React, { useEffect, useRef, useState } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Search, MapPin, Map, Globe } from 'lucide-react';
+
+interface AdminLocation {
+  role: string;
+  name: string;
+  lat?: number; 
+  lng?: number;
+  color: string;
+}
+
+interface GoogleMapsIntegrationProps {
+  adminRole?: string;
+  adminLocations?: AdminLocation[];
+  centerLat?: number;
+  centerLng?: number;
+  zoom?: number;
+}
+
+declare global {
+  interface Window {
+    google: any;
+    initMap: () => void;
+  }
+}
+
+const GoogleMapsIntegration: React.FC<GoogleMapsIntegrationProps> = ({
+  adminRole = 'global_admin',
+  adminLocations = [],
+  centerLat = 30.3753, // Default to center of the world
+  centerLng = 69.3451, // (roughly Pakistan)
+  zoom = 3
+}) => {
+  const mapRef = useRef<HTMLDivElement>(null);
+  const [map, setMap] = useState<any>(null);
+  const [markers, setMarkers] = useState<any[]>([]);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  
+  // Role-based map styling and defaults
+  const getMapStyle = () => {
+    switch (adminRole) {
+      case 'society_admin':
+      case 'society':
+        return { zoom: 16, color: '#0C6E4E' }; // Green, very local view
+      case 'community_admin':
+      case 'community':
+        return { zoom: 14, color: '#2563EB' }; // Blue, neighborhood view
+      case 'city_admin':
+      case 'city':
+        return { zoom: 11, color: '#9333EA' }; // Purple, city view
+      case 'country_admin':
+      case 'country':
+        return { zoom: 5, color: '#E11D48' }; // Red, country view
+      case 'global_admin':
+      case 'global':
+      default:
+        return { zoom: 2, color: '#18181B' }; // Black, world view
+    }
+  };
+
+  // Initialize the map
+  useEffect(() => {
+    // Define initialization function
+    window.initMap = () => {
+      if (!mapRef.current) return;
+
+      const mapStyle = getMapStyle();
+      
+      const mapInstance = new window.google.maps.Map(mapRef.current, {
+        center: { lat: centerLat, lng: centerLng },
+        zoom: zoom || mapStyle.zoom,
+        styles: [
+          {
+            featureType: "all",
+            elementType: "labels.text.fill",
+            stylers: [{ color: mapStyle.color }]
+          },
+          {
+            featureType: "water",
+            elementType: "geometry.fill",
+            stylers: [{ color: `${mapStyle.color}10` }]
+          }
+        ]
+      });
+      
+      setMap(mapInstance);
+      setIsLoaded(true);
+    };
+
+    // Load Google Maps API
+    if (!document.getElementById('google-maps-script')) {
+      const script = document.createElement('script');
+      script.id = 'google-maps-script';
+      script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&callback=initMap`;
+      script.async = true;
+      script.defer = true;
+      document.head.appendChild(script);
+      
+      return () => {
+        const scriptTag = document.getElementById('google-maps-script');
+        if (scriptTag) document.head.removeChild(scriptTag);
+      };
+    } else if (window.google) {
+      window.initMap();
+    }
+  }, [adminRole, centerLat, centerLng, zoom]);
+
+  // Add markers for admin locations
+  useEffect(() => {
+    if (!isLoaded || !map || !window.google) return;
+    
+    // Clear existing markers
+    markers.forEach(marker => marker.setMap(null));
+    const newMarkers: any[] = [];
+    
+    // Add new markers
+    adminLocations.forEach((location) => {
+      if (!location.lat || !location.lng) return;
+      
+      const marker = new window.google.maps.Marker({
+        position: { lat: location.lat, lng: location.lng },
+        map: map,
+        title: `${location.name} (${location.role})`,
+        icon: {
+          path: window.google.maps.SymbolPath.CIRCLE,
+          fillColor: location.color || getMapStyle().color,
+          fillOpacity: 0.8,
+          strokeWeight: 2,
+          strokeColor: 'white',
+          scale: 8
+        }
+      });
+      
+      const infoWindow = new window.google.maps.InfoWindow({
+        content: `
+          <div style="padding: 8px;">
+            <strong>${location.name}</strong>
+            <p style="margin: 4px 0 0 0;">${location.role}</p>
+          </div>
+        `
+      });
+      
+      marker.addListener('click', () => {
+        infoWindow.open(map, marker);
+      });
+      
+      newMarkers.push(marker);
+    });
+    
+    setMarkers(newMarkers);
+  }, [isLoaded, map, adminLocations]);
+
+  // Handle search
+  const handleSearch = () => {
+    if (!isLoaded || !map || !window.google || !searchQuery) return;
+    
+    const geocoder = new window.google.maps.Geocoder();
+    geocoder.geocode({ address: searchQuery }, (results: any, status: string) => {
+      if (status === 'OK' && results[0]) {
+        map.setCenter(results[0].geometry.location);
+        map.setZoom(10); // Zoom in to found location
+        
+        // Add marker for the searched location
+        const marker = new window.google.maps.Marker({
+          position: results[0].geometry.location,
+          map: map,
+          title: searchQuery,
+          animation: window.google.maps.Animation.DROP
+        });
+        
+        markers.push(marker);
+        setMarkers([...markers]);
+      }
+    });
+  };
+
+  return (
+    <Card className="w-full shadow-lg">
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2">
+          <Map className="h-5 w-5" />
+          <span>Admin Geographical View</span>
+        </CardTitle>
+        <div className="flex gap-2 mt-2">
+          <div className="relative flex-1">
+            <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+            <Input
+              placeholder="Search for a location..."
+              className="pl-10"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && handleSearch()}
+            />
+          </div>
+          <Button onClick={handleSearch}>
+            <MapPin className="h-4 w-4 mr-2" />
+            Find
+          </Button>
+        </div>
+      </CardHeader>
+      <CardContent>
+        {!isLoaded && (
+          <div className="h-[400px] flex items-center justify-center bg-muted rounded-md">
+            <div className="animate-spin w-8 h-8 border-4 border-primary border-t-transparent rounded-full"></div>
+          </div>
+        )}
+        <div 
+          ref={mapRef} 
+          className="h-[400px] w-full rounded-md overflow-hidden"
+          style={{ display: isLoaded ? 'block' : 'none' }}
+        ></div>
+        
+        {isLoaded && (
+          <div className="mt-4 flex flex-wrap gap-2">
+            <p className="text-sm text-muted-foreground w-full mb-1">Admin Hierarchy Legend:</p>
+            {['Society Admin', 'Community Admin', 'City Admin', 'Country Admin', 'Global Admin'].map((role, index) => {
+              const colors = ['#0C6E4E', '#2563EB', '#9333EA', '#E11D48', '#18181B'];
+              return (
+                <div 
+                  key={role} 
+                  className="flex items-center text-xs px-2 py-1 rounded-full"
+                  style={{ 
+                    backgroundColor: `${colors[index]}15`,
+                    color: colors[index],
+                    borderLeft: `3px solid ${colors[index]}`
+                  }}
+                >
+                  <span className="inline-block w-3 h-3 mr-1 rounded-full" style={{ backgroundColor: colors[index] }}></span>
+                  {role}
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </CardContent>
+    </Card>
+  );
+};
+
+export default GoogleMapsIntegration;
