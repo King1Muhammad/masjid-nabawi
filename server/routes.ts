@@ -295,6 +295,48 @@ const sendThankYouNotification = async (donation: Donation) => {
 };
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Admin Hierarchy Reset Route
+  app.post('/api/admin/reset-hierarchy', async (req: Request, res: Response) => {
+    try {
+      // Check if user is authenticated as an admin
+      if (!req.session.adminUser) {
+        return res.status(401).json({ message: 'Unauthorized. You must be logged in as an admin.' });
+      }
+      
+      // Only process the request if there's an admin session
+      const result = await recreateAdminHierarchy();
+      
+      if (result.success) {
+        res.status(200).json({ 
+          message: 'Admin hierarchy reset successfully. Created United Nations global admin and full hierarchy.'
+        });
+      } else {
+        res.status(500).json({ message: result.message });
+      }
+    } catch (error) {
+      console.error('Error resetting admin hierarchy:', error);
+      res.status(500).json({ message: 'Failed to reset admin hierarchy' });
+    }
+  });
+
+  // For testing purposes, allow unauthenticated reset during development
+  app.post('/api/admin/reset-hierarchy-dev', async (req: Request, res: Response) => {
+    try {
+      const result = await recreateAdminHierarchy();
+      
+      if (result.success) {
+        res.status(200).json({ 
+          message: 'Admin hierarchy reset successfully. Created United Nations global admin and full hierarchy.'
+        });
+      } else {
+        res.status(500).json({ message: result.message });
+      }
+    } catch (error) {
+      console.error('Error resetting admin hierarchy:', error);
+      res.status(500).json({ message: 'Failed to reset admin hierarchy' });
+    }
+  });
+
   // Admin API Routes
   app.get('/api/admins', async (req: Request, res: Response) => {
     try {

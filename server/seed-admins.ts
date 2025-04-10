@@ -323,8 +323,10 @@ export async function recreateAdminHierarchy() {
   }
 }
 
-// Execute if this file is run directly
-if (require.main === module) {
+// For direct execution via command line
+// In ESM, we don't have require.main === module, so we'll use a direct call 
+// when running this file directly with node/tsx/ts-node
+if (import.meta.url.endsWith('/seed-admins.ts')) {
   recreateAdminHierarchy()
     .then(result => {
       console.log(result.message);

@@ -41,7 +41,8 @@ import {
   Globe,
   Map as MapIcon,
   MapPin as MapPinIcon,
-  Library as LibraryIcon
+  Library as LibraryIcon,
+  Info
 } from 'lucide-react';
 import FlatDisplay from '@/components/community/flat-display';
 import AdminPanel from '@/components/community/admin-panel-simplified';
