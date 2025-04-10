@@ -430,12 +430,104 @@ export default function AdminDashboard() {
                 <div>
                   <p className="text-sm font-medium">Admin Since</p>
                   <p className="text-sm text-muted-foreground">
-                    {new Date(currentAdmin.createdAt).toLocaleString()}
+                    {new Date(currentAdmin.createdAt).toLocaleDateString()}
                   </p>
                 </div>
               </CardContent>
+              <CardFooter>
+                <Button variant="outline" size="sm" className="w-full">
+                  <Settings className="h-4 w-4 mr-2" /> Account Settings
+                </Button>
+              </CardFooter>
             </Card>
           </div>
+        </TabsContent>
+        
+        {/* Members Tab */}
+        <TabsContent value="members" className="space-y-4">
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between">
+              <div>
+                <CardTitle>Member Management</CardTitle>
+                <CardDescription>Manage society members and registrations</CardDescription>
+              </div>
+              <Button size="sm" className="gap-2">
+                <UserPlus className="h-4 w-4" /> Add Member
+              </Button>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                <div className="flex flex-col md:flex-row gap-4 justify-between">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <Input placeholder="Search members..." />
+                    <Select defaultValue="all">
+                      <SelectTrigger>
+                        <SelectValue placeholder="Filter by block" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">All Blocks</SelectItem>
+                        <SelectItem value="D-1">D-1</SelectItem>
+                        <SelectItem value="D-2">D-2</SelectItem>
+                        {/* Add all blocks D-1 through D-22 */}
+                      </SelectContent>
+                    </Select>
+                    <Select defaultValue="all">
+                      <SelectTrigger>
+                        <SelectValue placeholder="Payment status" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">All Status</SelectItem>
+                        <SelectItem value="paid">Paid</SelectItem>
+                        <SelectItem value="pending">Pending</SelectItem>
+                        <SelectItem value="overdue">Overdue</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="flex gap-2">
+                    <Button variant="outline" size="sm">
+                      <FileText className="h-4 w-4 mr-2" /> Export
+                    </Button>
+                  </div>
+                </div>
+                
+                {/* Members table would go here */}
+                <div className="border rounded-md">
+                  <div className="py-12 text-center text-muted-foreground">
+                    <p>Member list will be displayed here</p>
+                    <p className="text-sm">Total members: {societyStats?.totalMembers || 0}</p>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+          
+          <Card>
+            <CardHeader>
+              <CardTitle>Pending Registrations</CardTitle>
+              <CardDescription>
+                New member registrations awaiting approval
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              {isLoadingSocietyStats ? (
+                <div className="flex justify-center py-8">
+                  <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+                </div>
+              ) : societyStats?.pendingRegistrations > 0 ? (
+                <div className="border rounded-md">
+                  {/* Registration approval interface would go here */}
+                  <div className="py-12 text-center text-muted-foreground">
+                    <p>Registration approval interface will be displayed here</p>
+                    <p className="text-sm">Pending registrations: {societyStats?.pendingRegistrations || 0}</p>
+                  </div>
+                </div>
+              ) : (
+                <div className="text-center py-8 text-muted-foreground">
+                  <p>No pending registrations</p>
+                </div>
+              )}
+            </CardContent>
+          </Card>
         </TabsContent>
         
         {/* Finances Tab */}
@@ -463,321 +555,132 @@ export default function AdminDashboard() {
                 </TabsContent>
                 <TabsContent value="expenses">
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                    <Card>
-                      <CardHeader>
-                        <CardTitle>Monthly Collections</CardTitle>
-                        <CardDescription>Current month contribution status</CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="space-y-4">
-                          <div>
-                            <p className="text-sm font-medium">Total Expected</p>
-                            <p className="text-2xl font-bold">
-                              PKR {(societyStats?.expectedCollections || 0).toLocaleString()}
-                            </p>
-                          </div>
-                          
-                          <div>
-                            <p className="text-sm font-medium">Collected</p>
-                            <p className="text-2xl font-bold text-green-600">
-                              PKR {(societyStats?.monthlyCollections || 0).toLocaleString()}
-                            </p>
-                            <p className="text-xs text-muted-foreground">
-                              {societyStats?.collectionRate || 0}% collection rate
-                            </p>
-                          </div>
-                          
-                          <div>
-                            <p className="text-sm font-medium">Remaining</p>
-                            <p className="text-2xl font-bold text-amber-600">
-                              PKR {((societyStats?.expectedCollections || 0) - (societyStats?.monthlyCollections || 0)).toLocaleString()}
-                            </p>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                    
-                    <Card>
-                      <CardHeader>
-                        <CardTitle>Expenses</CardTitle>
-                        <CardDescription>Monthly society expenses</CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="space-y-4">
-                          <div>
-                            <p className="text-sm font-medium">Total Expenses</p>
-                            <p className="text-2xl font-bold text-red-600">
-                              PKR {(societyStats?.monthlyExpenses || 0).toLocaleString()}
-                            </p>
-                          </div>
-                          
-                          <div>
-                            <p className="text-sm font-medium">Main Categories</p>
-                            <ul className="space-y-2 mt-2">
-                              <li className="flex justify-between">
-                                <span className="text-sm">Maintenance</span>
-                                <span className="text-sm font-medium">PKR {(societyStats?.expensesByCategory?.maintenance || 0).toLocaleString()}</span>
-                              </li>
-                              <li className="flex justify-between">
-                                <span className="text-sm">Utilities</span>
-                                <span className="text-sm font-medium">PKR {(societyStats?.expensesByCategory?.utilities || 0).toLocaleString()}</span>
-                              </li>
-                              <li className="flex justify-between">
-                                <span className="text-sm">Security</span>
-                                <span className="text-sm font-medium">PKR {(societyStats?.expensesByCategory?.security || 0).toLocaleString()}</span>
-                              </li>
-                              <li className="flex justify-between">
-                                <span className="text-sm">Other</span>
-                                <span className="text-sm font-medium">PKR {(societyStats?.expensesByCategory?.other || 0).toLocaleString()}</span>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                    
-                    <Card>
-                      <CardHeader>
-                        <CardTitle>Balance Summary</CardTitle>
-                        <CardDescription>Current financial status</CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="space-y-4">
-                          <div>
-                            <p className="text-sm font-medium">Available Balance</p>
-                            <p className="text-2xl font-bold">
-                              PKR {(societyStats?.availableBalance || 0).toLocaleString()}
-                            </p>
-                          </div>
-                          
-                          <div>
-                            <p className="text-sm font-medium">YTD Collections</p>
-                            <p className="text-lg font-medium text-green-600">
-                              PKR {(societyStats?.ytdCollections || 0).toLocaleString()}
-                            </p>
-                          </div>
-                          
-                          <div>
-                            <p className="text-sm font-medium">YTD Expenses</p>
-                            <p className="text-lg font-medium text-red-600">
-                              PKR {(societyStats?.ytdExpenses || 0).toLocaleString()}
-                            </p>
-                          </div>
-                          
-                          <div className="pt-2">
-                            <Button className="w-full gap-2">
-                              <FileText className="h-4 w-4" /> Generate Financial Report
-                            </Button>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle>Monthly Collections</CardTitle>
+                <CardDescription>Current month contribution status</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div>
+                    <p className="text-sm font-medium">Total Expected</p>
+                    <p className="text-2xl font-bold">
+                      PKR {(societyStats?.expectedCollections || 0).toLocaleString()}
+                    </p>
                   </div>
                   
-                  <Card>
-                    <CardHeader className="flex flex-row items-center justify-between">
-                      <div>
-                        <CardTitle>Record Transactions</CardTitle>
-                        <CardDescription>Add new contributions or expenses</CardDescription>
-                      </div>
-                      <div className="flex gap-2">
-                        <Button variant="outline" size="sm">Add Expense</Button>
-                        <Button size="sm">Record Contribution</Button>
-                      </div>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="border rounded-md">
-                        <div className="py-12 text-center text-muted-foreground">
-                          <p>Transaction recording interface will be displayed here</p>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </TabsContent>
-                <TabsContent value="reports">
-                  <div className="space-y-6">
-                    <div className="flex flex-col md:flex-row justify-between gap-4">
-                      <div>
-                        <h3 className="text-lg font-medium">Financial Reports</h3>
-                        <p className="text-sm text-muted-foreground">
-                          Generate and view financial reports for your society
-                        </p>
-                      </div>
-                      <div className="flex gap-2">
-                        <Select defaultValue="this-month">
-                          <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Select Period" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="this-month">This Month</SelectItem>
-                            <SelectItem value="last-month">Last Month</SelectItem>
-                            <SelectItem value="last-quarter">Last Quarter</SelectItem>
-                            <SelectItem value="year-to-date">Year to Date</SelectItem>
-                            <SelectItem value="last-year">Last Year</SelectItem>
-                            <SelectItem value="custom">Custom Range</SelectItem>
-                          </SelectContent>
-                        </Select>
-                        <Button className="gap-2">
-                          <FileText className="h-4 w-4" /> Generate Report
-                        </Button>
-                      </div>
-                    </div>
-                    
-                    <div className="border rounded-md p-6 bg-muted/30">
-                      <div className="text-center py-16">
-                        <FileText className="h-16 w-16 mx-auto mb-4 text-muted-foreground" />
-                        <h3 className="text-lg font-medium mb-2">No Reports Generated Yet</h3>
-                        <p className="text-sm text-muted-foreground max-w-md mx-auto mb-6">
-                          Generate your first financial report by selecting a period and clicking the "Generate Report" button above.
-                        </p>
-                        <Button>Generate Your First Report</Button>
-                      </div>
-                    </div>
+                  <div>
+                    <p className="text-sm font-medium">Collected</p>
+                    <p className="text-2xl font-bold text-green-600">
+                      PKR {(societyStats?.monthlyCollections || 0).toLocaleString()}
+                    </p>
+                    <p className="text-xs text-muted-foreground">
+                      {societyStats?.collectionRate || 0}% collection rate
+                    </p>
                   </div>
-                </TabsContent>
-              </Tabs>
-            </CardContent>
-          </Card>
-        </TabsContent>
-        
-        {/* Members Tab */}
-        <TabsContent value="members" className="space-y-4">
+                  
+                  <div>
+                    <p className="text-sm font-medium">Remaining</p>
+                    <p className="text-2xl font-bold text-amber-600">
+                      PKR {((societyStats?.expectedCollections || 0) - (societyStats?.monthlyCollections || 0)).toLocaleString()}
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            
+            <Card>
+              <CardHeader>
+                <CardTitle>Expenses</CardTitle>
+                <CardDescription>Monthly society expenses</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div>
+                    <p className="text-sm font-medium">Total Expenses</p>
+                    <p className="text-2xl font-bold text-red-600">
+                      PKR {(societyStats?.monthlyExpenses || 0).toLocaleString()}
+                    </p>
+                  </div>
+                  
+                  <div>
+                    <p className="text-sm font-medium">Main Categories</p>
+                    <ul className="space-y-2 mt-2">
+                      <li className="flex justify-between">
+                        <span className="text-sm">Maintenance</span>
+                        <span className="text-sm font-medium">PKR {(societyStats?.expensesByCategory?.maintenance || 0).toLocaleString()}</span>
+                      </li>
+                      <li className="flex justify-between">
+                        <span className="text-sm">Utilities</span>
+                        <span className="text-sm font-medium">PKR {(societyStats?.expensesByCategory?.utilities || 0).toLocaleString()}</span>
+                      </li>
+                      <li className="flex justify-between">
+                        <span className="text-sm">Security</span>
+                        <span className="text-sm font-medium">PKR {(societyStats?.expensesByCategory?.security || 0).toLocaleString()}</span>
+                      </li>
+                      <li className="flex justify-between">
+                        <span className="text-sm">Other</span>
+                        <span className="text-sm font-medium">PKR {(societyStats?.expensesByCategory?.other || 0).toLocaleString()}</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+            
+            <Card>
+              <CardHeader>
+                <CardTitle>Balance Summary</CardTitle>
+                <CardDescription>Current financial status</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div>
+                    <p className="text-sm font-medium">Available Balance</p>
+                    <p className="text-2xl font-bold">
+                      PKR {(societyStats?.availableBalance || 0).toLocaleString()}
+                    </p>
+                  </div>
+                  
+                  <div>
+                    <p className="text-sm font-medium">YTD Collections</p>
+                    <p className="text-lg font-medium text-green-600">
+                      PKR {(societyStats?.ytdCollections || 0).toLocaleString()}
+                    </p>
+                  </div>
+                  
+                  <div>
+                    <p className="text-sm font-medium">YTD Expenses</p>
+                    <p className="text-lg font-medium text-red-600">
+                      PKR {(societyStats?.ytdExpenses || 0).toLocaleString()}
+                    </p>
+                  </div>
+                  
+                  <div className="pt-2">
+                    <Button className="w-full gap-2">
+                      <FileText className="h-4 w-4" /> Generate Financial Report
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+          
           <Card>
             <CardHeader className="flex flex-row items-center justify-between">
               <div>
-                <CardTitle>Society Members</CardTitle>
-                <CardDescription>
-                  Manage members and their details
-                </CardDescription>
+                <CardTitle>Record Transactions</CardTitle>
+                <CardDescription>Add new contributions or expenses</CardDescription>
               </div>
-              <Button size="sm" className="gap-2">
-                <UserPlus className="h-4 w-4" /> Add New Member
-              </Button>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div className="flex flex-col md:flex-row gap-4 justify-between">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 flex-1">
-                    <Input placeholder="Search members..." />
-                    <Select defaultValue="all">
-                      <SelectTrigger>
-                        <SelectValue placeholder="Filter status" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="all">All Members</SelectItem>
-                        <SelectItem value="active">Active</SelectItem>
-                        <SelectItem value="pending">Pending Approval</SelectItem>
-                        <SelectItem value="inactive">Inactive</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-                
-                {/* Mock member list - would be fetched from API */}
-                <div className="border rounded-md">
-                  <div className="divide-y">
-                    <div className="px-4 py-3 flex justify-between items-center bg-muted/30">
-                      <div className="flex items-center gap-3">
-                        <div>
-                          <p className="font-medium">Muhammad Qureshi</p>
-                          <p className="text-sm text-muted-foreground">Block D-8, Flat 4</p>
-                          <Badge variant="default" className="mt-1 text-xs">Active</Badge>
-                        </div>
-                      </div>
-                      <div className="flex gap-2">
-                        <Button size="sm" variant="outline" className="gap-1">
-                          <FileText className="h-3 w-3" /> View Details
-                        </Button>
-                      </div>
-                    </div>
-                    
-                    <div className="px-4 py-3 flex justify-between items-center">
-                      <div className="flex items-center gap-3">
-                        <div>
-                          <p className="font-medium">Abdul Ghaffar</p>
-                          <p className="text-sm text-muted-foreground">Block D-15, Flat 2</p>
-                          <Badge variant="default" className="mt-1 text-xs">Active</Badge>
-                        </div>
-                      </div>
-                      <div className="flex gap-2">
-                        <Button size="sm" variant="outline" className="gap-1">
-                          <FileText className="h-3 w-3" /> View Details
-                        </Button>
-                      </div>
-                    </div>
-                    
-                    <div className="px-4 py-3 flex justify-between items-center">
-                      <div className="flex items-center gap-3">
-                        <div>
-                          <p className="font-medium">Ghulam Yasin</p>
-                          <p className="text-sm text-muted-foreground">Block D-3, Flat 7</p>
-                          <Badge variant="default" className="mt-1 text-xs">Active</Badge>
-                        </div>
-                      </div>
-                      <div className="flex gap-2">
-                        <Button size="sm" variant="outline" className="gap-1">
-                          <FileText className="h-3 w-3" /> View Details
-                        </Button>
-                      </div>
-                    </div>
-                    
-                    <div className="px-4 py-3 flex justify-between items-center">
-                      <div className="flex items-center gap-3">
-                        <div>
-                          <p className="font-medium">Hamid Qureshi</p>
-                          <p className="text-sm text-muted-foreground">Block D-10, Flat 1</p>
-                          <Badge variant="secondary" className="mt-1 text-xs">Pending</Badge>
-                        </div>
-                      </div>
-                      <div className="flex gap-2">
-                        <Button size="sm" variant="outline" className="gap-1">
-                          <CheckCircle className="h-3 w-3" /> Approve
-                        </Button>
-                        <Button size="sm" variant="destructive" className="gap-1">
-                          <XCircle className="h-3 w-3" /> Reject
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Pagination */}
-                <div className="flex justify-between items-center">
-                  <div className="text-sm text-muted-foreground">
-                    Showing 4 of 176 members
-                  </div>
-                  <div className="flex gap-2">
-                    <Button variant="outline" size="sm" disabled>Previous</Button>
-                    <Button variant="outline" size="sm">Next</Button>
-                  </div>
-                </div>
+              <div className="flex gap-2">
+                <Button variant="outline" size="sm">Add Expense</Button>
+                <Button size="sm">Record Contribution</Button>
               </div>
-            </CardContent>
-          </Card>
-          
-          <Card>
-            <CardHeader>
-              <CardTitle>Member Registration Requests</CardTitle>
-              <CardDescription>New member requests awaiting approval</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="border rounded-md">
-                <div className="divide-y">
-                  <div className="px-4 py-3 flex justify-between items-center">
-                    <div>
-                      <p className="font-medium">Hamid Qureshi</p>
-                      <p className="text-sm text-muted-foreground">Block D-10, Flat 1</p>
-                      <p className="text-xs text-muted-foreground">Requested: April 6, 2025</p>
-                    </div>
-                    <div className="flex gap-2">
-                      <Button size="sm" variant="outline" className="gap-1">
-                        <FileText className="h-3 w-3" /> Review Details
-                      </Button>
-                      <Button size="sm" variant="default" className="gap-1">
-                        <CheckCircle className="h-3 w-3" /> Approve
-                      </Button>
-                    </div>
-                  </div>
+                <div className="py-12 text-center text-muted-foreground">
+                  <p>Transaction recording interface will be displayed here</p>
                 </div>
               </div>
             </CardContent>
@@ -856,7 +759,7 @@ export default function AdminDashboard() {
                               <div className="flex items-center gap-2 mt-1">
                                 <Badge 
                                   variant={admin.status === 'active' ? 'default' : 
-                                          admin.status === 'pending' ? 'secondary' : 'destructive'}
+                                          admin.status === 'pending' ? 'outline' : 'destructive'}
                                   className="text-xs"
                                 >
                                   {admin.status === 'active' ? 'Active' : 
@@ -908,7 +811,7 @@ export default function AdminDashboard() {
               <p className="text-sm text-muted-foreground">
                 <strong>Note:</strong> As a {currentRoleInfo?.name.toLowerCase()}, you can manage administrators at your level or below.
               </p>
-              <Alert variant="secondary" className="mt-4">
+              <Alert variant="outline" className="mt-4">
                 <AlertCircle className="h-4 w-4" />
                 <AlertTitle>Admin Hierarchy System</AlertTitle>
                 <AlertDescription>
@@ -966,35 +869,26 @@ export default function AdminDashboard() {
                 </div>
                 
                 <div>
-                  <h3 className="text-lg font-medium">Admin Preferences</h3>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                    <div className="space-y-2">
-                      <label className="text-sm font-medium">Dashboard Theme</label>
-                      <Select defaultValue="system">
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select theme" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="light">Light Theme</SelectItem>
-                          <SelectItem value="dark">Dark Theme</SelectItem>
-                          <SelectItem value="system">System Default</SelectItem>
-                        </SelectContent>
-                      </Select>
+                  <h3 className="text-lg font-medium">Notifications</h3>
+                  <div className="mt-4 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="font-medium">Email Notifications</p>
+                        <p className="text-sm text-muted-foreground">
+                          Receive email alerts for important events
+                        </p>
+                      </div>
+                      <Button variant="outline" size="sm">Configure</Button>
                     </div>
-                    <div className="space-y-2">
-                      <label className="text-sm font-medium">Default Tab</label>
-                      <Select defaultValue="overview">
-                        <SelectTrigger>
-                          <SelectValue placeholder="Default tab" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="overview">Overview</SelectItem>
-                          <SelectItem value="members">Members</SelectItem>
-                          <SelectItem value="finances">Finances</SelectItem>
-                          <SelectItem value="admins">Admins</SelectItem>
-                          <SelectItem value="settings">Settings</SelectItem>
-                        </SelectContent>
-                      </Select>
+                    
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="font-medium">SMS Notifications</p>
+                        <p className="text-sm text-muted-foreground">
+                          Receive text messages for urgent notifications
+                        </p>
+                      </div>
+                      <Button variant="outline" size="sm">Configure</Button>
                     </div>
                   </div>
                 </div>
@@ -1002,7 +896,7 @@ export default function AdminDashboard() {
             </CardContent>
             <CardFooter className="flex justify-between">
               <Button variant="outline">Cancel</Button>
-              <Button>Save Settings</Button>
+              <Button>Save Changes</Button>
             </CardFooter>
           </Card>
           
@@ -1010,65 +904,41 @@ export default function AdminDashboard() {
             <Card>
               <CardHeader>
                 <CardTitle>Society Settings</CardTitle>
-                <CardDescription>
-                  Configure settings for {societyStats?.name || 'your society'}
-                </CardDescription>
+                <CardDescription>Manage society configuration</CardDescription>
               </CardHeader>
-              <CardContent>
-                <div className="space-y-6">
-                  <div>
-                    <h3 className="text-lg font-medium">Basic Information</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                      <div className="space-y-2">
-                        <label className="text-sm font-medium">Society Name</label>
-                        <Input defaultValue={societyStats?.name || 'Your Society Name'} />
-                      </div>
-                      <div className="space-y-2">
-                        <label className="text-sm font-medium">Society Description</label>
-                        <Input defaultValue={societyStats?.description || 'Brief description of your society'} />
-                      </div>
+              <CardContent className="space-y-6">
+                <div>
+                  <h3 className="text-lg font-medium">General Settings</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium">Society Name</label>
+                      <Input defaultValue="FGEHF D Blocks" />
+                    </div>
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium">Monthly Contribution Amount</label>
+                      <Input type="number" defaultValue="1500" />
                     </div>
                   </div>
-                  
-                  <div>
-                    <h3 className="text-lg font-medium">Contact Information</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                      <div className="space-y-2">
-                        <label className="text-sm font-medium">Contact Email</label>
-                        <Input defaultValue={societyStats?.contactEmail || 'society@example.com'} />
-                      </div>
-                      <div className="space-y-2">
-                        <label className="text-sm font-medium">Contact Phone</label>
-                        <Input defaultValue={societyStats?.contactPhone || '+92-333-1234567'} />
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div>
-                    <h3 className="text-lg font-medium">Financial Settings</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                      <div className="space-y-2">
-                        <label className="text-sm font-medium">Monthly Contribution Amount (PKR)</label>
-                        <Input type="number" defaultValue={societyStats?.monthlyContribution || 1500} />
-                      </div>
-                      <div className="space-y-2">
-                        <label className="text-sm font-medium">Payment Due Day</label>
-                        <Input type="number" min="1" max="31" defaultValue="5" />
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div>
-                    <h3 className="text-lg font-medium">Payment Methods</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                      <div className="col-span-2">
-                        <Button variant="outline" className="gap-2">
-                          <Settings className="h-4 w-4" />
-                          Payment Settings
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
+                </div>
+                
+                <div>
+                  <h3 className="text-lg font-medium">Block Management</h3>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Configure blocks and flats in your society
+                  </p>
+                  <Button variant="outline" size="sm">
+                    Manage Blocks
+                  </Button>
+                </div>
+                
+                <div>
+                  <h3 className="text-lg font-medium">Payment Settings</h3>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Configure payment methods, reminders, and notifications
+                  </p>
+                  <Button variant="outline" size="sm">
+                    Payment Settings
+                  </Button>
                 </div>
               </CardContent>
               <CardFooter className="flex justify-between">
