@@ -310,7 +310,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       } else {
         adminUsers = await db.query.users.findMany({
-          where: sql`${schema.users.isAdmin} = true`
+          where: sql`${schema.users.is_admin} = true`
         });
       }
       
@@ -474,7 +474,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           email,
           password: hashedPassword,
           role,
-          isAdmin: true,
+          is_admin: true, // Using correct column name is_admin
           status: 'pending', // New admins start as pending
           createdAt: new Date()
         })
@@ -511,7 +511,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const admin = await db.query.users.findFirst({
         where: and(
           eq(schema.users.username, username),
-          sql`${schema.users.isAdmin} = true`
+          sql`${schema.users.is_admin} = true`
         )
       });
       
