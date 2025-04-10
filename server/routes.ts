@@ -609,6 +609,81 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
   
+  // Add a simple endpoint for approving admins
+  app.post('/api/admins/:id/approve', async (req: Request, res: Response) => {
+    try {
+      const adminId = parseInt(req.params.id);
+      
+      // Update admin status to active
+      const [updatedAdmin] = await db.update(schema.users)
+        .set({ 
+          status: 'active',
+          lastStatusChange: new Date()
+        })
+        .where(
+          and(
+            eq(schema.users.id, adminId),
+            sql`${schema.users.isAdmin} = true`
+          )
+        )
+        .returning();
+      
+      if (!updatedAdmin) {
+        return res.status(404).json({ message: 'Admin not found' });
+      }
+      
+      // Send notification email if we have user email
+      if (updatedAdmin.email) {
+        try {
+          const transporter = createTransporter();
+          await transporter.sendMail({
+            from: '"Society Management Admin" <jamiamasjidnabviqureshihashmi@gmail.com>',
+            to: updatedAdmin.email,
+            subject: 'Admin Account Approved',
+            html: `
+              <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #0C6E4E; border-radius: 8px; overflow: hidden;">
+                <div style="background-color: #0C6E4E; color: white; padding: 20px; text-align: center;">
+                  <h1 style="margin: 0;">Admin Account Approved</h1>
+                  <h2 style="margin: 5px 0 0 0;">Masjid Management System</h2>
+                </div>
+                
+                <div style="padding: 20px;">
+                  <p>Dear ${updatedAdmin.name},</p>
+                  
+                  <p>Your admin account has been approved. You can now login to the admin panel with your credentials.</p>
+                  
+                  <p>Username: <strong>${updatedAdmin.username}</strong></p>
+                  
+                  <p>Thank you for being part of our team!</p>
+                  
+                  <p style="margin-top: 30px;">Regards,<br>Admin Management</p>
+                </div>
+              </div>
+            `
+          });
+        } catch (emailError) {
+          console.error('Error sending approval email:', emailError);
+          // Continue even if email fails
+        }
+      }
+      
+      res.json({ 
+        message: 'Admin approved successfully',
+        admin: {
+          id: updatedAdmin.id,
+          username: updatedAdmin.username,
+          email: updatedAdmin.email,
+          name: updatedAdmin.name,
+          role: updatedAdmin.role,
+          status: updatedAdmin.status
+        }
+      });
+    } catch (error) {
+      console.error('Error approving admin:', error);
+      res.status(500).json({ message: 'Failed to approve admin' });
+    }
+  });
+  
   // Society API Routes
   app.get('/api/society/:id', async (req: Request, res: Response) => {
     try {
