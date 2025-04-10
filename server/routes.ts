@@ -574,7 +574,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           where: eq(schema.users.id, req.session.adminUser.id)
         });
         
-        if (!admin || !admin.isAdmin || admin.status !== 'active') {
+        if (!admin || !admin.is_admin || admin.status !== 'active') {
           // Admin no longer exists or is not active
           if (req.session) {
             req.session.adminUser = undefined;
