@@ -351,7 +351,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           role,
           isAdmin: true,
           status: 'pending', // New admins start as pending
-          createdAt: new Date().toISOString(),
+          createdAt: new Date(),
           createdBy: createdBy || null
         })
         .returning();
@@ -410,7 +410,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           role,
           isAdmin: true,
           status: 'pending', // New admins start as pending
-          createdAt: new Date().toISOString()
+          createdAt: new Date()
         })
         .returning();
       
@@ -471,7 +471,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Update last login timestamp
       await db.update(schema.users)
         .set({ 
-          lastLogin: new Date().toISOString() 
+          lastLogin: new Date()
         })
         .where(eq(schema.users.id, admin.id));
       
@@ -560,7 +560,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         .set({ 
           status,
           // If activating, set lastStatusChange
-          ...(status === 'active' ? { lastStatusChange: new Date().toISOString() } : {})
+          ...(status === 'active' ? { lastStatusChange: new Date() } : {})
         })
         .where(
           and(
