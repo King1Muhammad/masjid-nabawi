@@ -374,6 +374,177 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
   
+  // Admin registration and authentication routes
+  app.post('/api/admin/register', async (req: Request, res: Response) => {
+    try {
+      const { name, username, email, password, role } = req.body;
+      
+      // Validate input
+      if (!name || !username || !email || !password || !role) {
+        return res.status(400).json({ message: 'Missing required fields' });
+      }
+      
+      // Check if username or email already exists
+      const existingUser = await db.query.users.findFirst({
+        where: or(
+          eq(schema.users.username, username),
+          eq(schema.users.email, email)
+        )
+      });
+      
+      if (existingUser) {
+        return res.status(409).json({ 
+          message: 'Username or email already exists' 
+        });
+      }
+      
+      // Create admin user with pending status
+      const hashedPassword = await hashPassword(password);
+      
+      const [newAdmin] = await db.insert(schema.users)
+        .values({
+          name,
+          username,
+          email,
+          password: hashedPassword,
+          role,
+          isAdmin: true,
+          status: 'pending', // New admins start as pending
+          createdAt: new Date().toISOString()
+        })
+        .returning();
+      
+      // Return safe admin object (exclude password)
+      const safeAdmin = {
+        id: newAdmin.id,
+        username: newAdmin.username,
+        email: newAdmin.email,
+        name: newAdmin.name,
+        role: newAdmin.role,
+        status: newAdmin.status,
+        createdAt: newAdmin.createdAt
+      };
+      
+      res.status(201).json(safeAdmin);
+    } catch (error) {
+      console.error('Error registering admin:', error);
+      res.status(500).json({ message: 'Failed to register admin account' });
+    }
+  });
+  
+  app.post('/api/admin/login', async (req: Request, res: Response) => {
+    try {
+      const { username, password } = req.body;
+      
+      // Validate input
+      if (!username || !password) {
+        return res.status(400).json({ message: 'Username and password are required' });
+      }
+      
+      // Find the admin user
+      const admin = await db.query.users.findFirst({
+        where: and(
+          eq(schema.users.username, username),
+          sql`${schema.users.isAdmin} = true`
+        )
+      });
+      
+      if (!admin) {
+        return res.status(401).json({ message: 'Invalid username or password' });
+      }
+      
+      // Check if account is not active
+      if (admin.status !== 'active') {
+        return res.status(403).json({ 
+          message: admin.status === 'pending' 
+            ? 'Your admin account is pending approval' 
+            : 'Your admin account is suspended' 
+        });
+      }
+      
+      // Verify password
+      const isPasswordValid = await comparePasswords(password, admin.password);
+      if (!isPasswordValid) {
+        return res.status(401).json({ message: 'Invalid username or password' });
+      }
+      
+      // Update last login timestamp
+      await db.update(schema.users)
+        .set({ 
+          lastLogin: new Date().toISOString() 
+        })
+        .where(eq(schema.users.id, admin.id));
+      
+      // Return safe admin object (exclude password)
+      const safeAdmin = {
+        id: admin.id,
+        username: admin.username,
+        email: admin.email,
+        name: admin.name,
+        role: admin.role,
+        status: admin.status,
+        lastLogin: new Date().toISOString(),
+        managedEntities: admin.managedEntities || []
+      };
+      
+      // Set session data
+      if (req.session) {
+        req.session.adminUser = safeAdmin;
+      }
+      
+      res.status(200).json(safeAdmin);
+    } catch (error) {
+      console.error('Error logging in admin:', error);
+      res.status(500).json({ message: 'Login failed' });
+    }
+  });
+  
+  app.get('/api/admin/current', async (req: Request, res: Response) => {
+    try {
+      // Check if user is logged in via session
+      if (req.session?.adminUser) {
+        // Get fresh data from database to ensure it's up to date
+        const admin = await db.query.users.findFirst({
+          where: eq(schema.users.id, req.session.adminUser.id)
+        });
+        
+        if (!admin || !admin.isAdmin || admin.status !== 'active') {
+          // Admin no longer exists or is not active
+          if (req.session) {
+            req.session.adminUser = undefined;
+          }
+          return res.status(401).json({ message: 'Unauthorized' });
+        }
+        
+        // Return safe admin object
+        const safeAdmin = {
+          id: admin.id,
+          username: admin.username,
+          email: admin.email,
+          name: admin.name,
+          role: admin.role,
+          status: admin.status,
+          lastLogin: admin.lastLogin,
+          managedEntities: admin.managedEntities || []
+        };
+        
+        return res.status(200).json(safeAdmin);
+      }
+      
+      res.status(401).json({ message: 'No active admin session' });
+    } catch (error) {
+      console.error('Error fetching current admin:', error);
+      res.status(500).json({ message: 'Failed to fetch current admin' });
+    }
+  });
+  
+  app.post('/api/admin/logout', (req: Request, res: Response) => {
+    if (req.session) {
+      req.session.adminUser = undefined;
+    }
+    res.status(200).json({ message: 'Logged out successfully' });
+  });
+  
   app.patch('/api/admins/:id/status', async (req: Request, res: Response) => {
     try {
       const adminId = parseInt(req.params.id);

@@ -19,6 +19,7 @@ import AboutPage from "@/pages/about-page";
 import Checkout from "@/pages/checkout";
 import DonationSuccess from "@/pages/donation-success";
 import AdminPanel from "@/pages/admin-panel";
+import AdminAuthPage from "@/pages/admin-auth-page";
 import PaymentPage from "@/pages/payment-page";
 
 function Router() {
@@ -42,6 +43,7 @@ function Router() {
           <Route path="/platform" component={PlatformPage} />
           <Route path="/about" component={AboutPage} />
           <Route path="/admin" component={AdminPanel} />
+          <Route path="/admin/auth" component={AdminAuthPage} />
           <Route path="/payment" component={PaymentPage} />
           <Route component={NotFound} />
         </Switch>
