@@ -631,7 +631,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         .where(
           and(
             eq(schema.users.id, adminId),
-            sql`${schema.users.isAdmin} = true`
+            sql`${schema.users.is_admin} = true`
           )
         )
         .returning();
@@ -671,7 +671,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         .where(
           and(
             eq(schema.users.id, adminId),
-            sql`${schema.users.isAdmin} = true`
+            sql`${schema.users.is_admin} = true`
           )
         )
         .returning();
