@@ -815,36 +815,39 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ societyId }) => {
             
             {/* Admins Tab */}
             <TabsContent value="admins">
-              <Card>
-                <CardHeader className="flex flex-row items-center justify-between">
-                  <div>
-                    <CardTitle>Admin Management ({adminRole.charAt(0).toUpperCase() + adminRole.slice(1)} Level)</CardTitle>
-                    <CardDescription>
-                      Manage administrator accounts at {adminRole} level
-                    </CardDescription>
-                  </div>
-                  <Button onClick={() => handleOpenAdminForm(adminRole as any)}>
-                    <UserPlus className="h-4 w-4 mr-2" />
-                    Add New Admin
-                  </Button>
-                </CardHeader>
-                <CardContent>
-                  {adminsLoading ? (
-                    <div className="flex justify-center p-6">
-                      <div className="animate-spin w-8 h-8 border-4 border-[#0C6E4E] border-t-transparent rounded-full"></div>
-                    </div>
-                  ) : !adminUsers || adminUsers.length === 0 ? (
-                    <div className="text-center p-6 bg-muted rounded-md">
-                      <div className="flex flex-col items-center gap-3">
-                        <ShieldCheck className="h-8 w-8 text-muted-foreground" />
-                        <p className="text-muted-foreground">No admin accounts found at this level</p>
-                        <Button variant="outline" onClick={() => handleOpenAdminForm(adminRole as any)}>
-                          <UserPlus className="h-4 w-4 mr-2" />
-                          Create First Admin
-                        </Button>
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                {/* Admin Management Column */}
+                <div className="lg:col-span-2">
+                  <Card>
+                    <CardHeader className="flex flex-row items-center justify-between">
+                      <div>
+                        <CardTitle>Admin Management ({adminRole.charAt(0).toUpperCase() + adminRole.slice(1)} Level)</CardTitle>
+                        <CardDescription>
+                          Manage administrator accounts at {adminRole} level
+                        </CardDescription>
                       </div>
-                    </div>
-                  ) : (
+                      <Button onClick={() => handleOpenAdminForm(adminRole as any)}>
+                        <UserPlus className="h-4 w-4 mr-2" />
+                        Add New Admin
+                      </Button>
+                    </CardHeader>
+                    <CardContent>
+                      {adminsLoading ? (
+                        <div className="flex justify-center p-6">
+                          <div className="animate-spin w-8 h-8 border-4 border-[#0C6E4E] border-t-transparent rounded-full"></div>
+                        </div>
+                      ) : !adminUsers || adminUsers.length === 0 ? (
+                        <div className="text-center p-6 bg-muted rounded-md">
+                          <div className="flex flex-col items-center gap-3">
+                            <ShieldCheck className="h-8 w-8 text-muted-foreground" />
+                            <p className="text-muted-foreground">No admin accounts found at this level</p>
+                            <Button variant="outline" onClick={() => handleOpenAdminForm(adminRole as any)}>
+                              <UserPlus className="h-4 w-4 mr-2" />
+                              Create First Admin
+                            </Button>
+                          </div>
+                        </div>
+                      ) : (
                     <ScrollArea className="h-[400px]">
                       <Table>
                         <TableHeader>
@@ -950,6 +953,23 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ societyId }) => {
                   </Button>
                 </CardFooter>
               </Card>
+                </div>
+                
+                {/* Google Maps Integration Column */}
+                <div className="lg:col-span-1">
+                  <GoogleMapsIntegration 
+                    adminRole={adminRole}
+                    adminLocations={adminUsers?.map(admin => ({
+                      role: admin.role,
+                      name: admin.name,
+                      // Mock locations for demo - in production these would come from the database
+                      lat: 30.3753 + (Math.random() * 2 - 1), 
+                      lng: 69.3451 + (Math.random() * 2 - 1),
+                      color: adminRoles.find(r => r.id === admin.role)?.color || '#0C6E4E'
+                    }))}
+                  />
+                </div>
+              </div>
             </TabsContent>
             
             {/* Registrations Tab */}
