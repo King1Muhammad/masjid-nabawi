@@ -21,6 +21,7 @@ import DonationSuccess from "@/pages/donation-success";
 import AdminPanel from "@/pages/admin-panel";
 import AdminAuthPage from "@/pages/admin-auth-page";
 import PaymentPage from "@/pages/payment-page";
+import AdminDashboard from "@/pages/admin-dashboard";
 
 function Router() {
   const [location] = useLocation();
