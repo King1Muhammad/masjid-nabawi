@@ -346,14 +346,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
       let adminUsers;
       if (level) {
         adminUsers = await db.query.users.findMany({
-          where: and(
-            eq(schema.users.role, level as string),
-            sql`${schema.users.is_admin} = true`
-          )
+          where: eq(schema.users.role, level as string)
         });
       } else {
+        // Fetch all users with admin roles
         adminUsers = await db.query.users.findMany({
-          where: sql`${schema.users.is_admin} = true`
+          where: or(
+            eq(schema.users.role, 'global_admin'),
+            eq(schema.users.role, 'country_admin'),
+            eq(schema.users.role, 'city_admin'),
+            eq(schema.users.role, 'community_admin'),
+            eq(schema.users.role, 'society_admin')
+          )
         });
       }
       
@@ -367,7 +371,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
         status: admin.status,
         createdAt: admin.createdAt,
         lastLogin: admin.lastLogin,
-        managedEntities: admin.managedEntities || []
+        location: admin.location,
+        approvedById: admin.approvedById,
+        latitude: admin.latitude,
+        longitude: admin.longitude,
+        cnic: admin.cnic,
+        phoneNumber: admin.phoneNumber
       }));
       
       res.json(safeAdmins);
@@ -410,7 +419,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           email,
           password: hashedPassword,
           role,
-          is_admin: true, // Using the correct column name is_admin
+          // is_admin field is no longer used, we check role instead
           status: 'pending', // New admins start as pending
           createdAt: new Date(),
           createdBy: createdBy || null
@@ -517,7 +526,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           email,
           password: hashedPassword,
           role,
-          is_admin: true, // Using correct column name is_admin
+          // is_admin field is no longer used, we check role instead
           status: 'pending', // New admins start as pending
           createdAt: new Date()
         })
@@ -550,11 +559,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ message: 'Username and password are required' });
       }
       
-      // Find the admin user
+      // Find the admin user with admin role
       const admin = await db.query.users.findFirst({
         where: and(
           eq(schema.users.username, username),
-          sql`${schema.users.is_admin} = true`
+          or(
+            eq(schema.users.role, 'global_admin'),
+            eq(schema.users.role, 'country_admin'),
+            eq(schema.users.role, 'city_admin'),
+            eq(schema.users.role, 'community_admin'),
+            eq(schema.users.role, 'society_admin')
+          )
         )
       });
       
@@ -617,7 +632,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
           where: eq(schema.users.id, req.session.adminUser.id)
         });
         
-        if (!admin || !admin.is_admin || admin.status !== 'active') {
+        // Check if user exists, has an admin role, and is active
+        const isAdminRole = admin?.role && ['global_admin', 'country_admin', 'city_admin', 'community_admin', 'society_admin'].includes(admin.role);
+        if (!admin || !isAdminRole || admin.status !== 'active') {
           // Admin no longer exists or is not active
           if (req.session) {
             req.session.adminUser = undefined;
@@ -674,7 +691,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
         .where(
           and(
             eq(schema.users.id, adminId),
-            sql`${schema.users.is_admin} = true`
+            or(
+              eq(schema.users.role, 'global_admin'),
+              eq(schema.users.role, 'country_admin'),
+              eq(schema.users.role, 'city_admin'),
+              eq(schema.users.role, 'community_admin'),
+              eq(schema.users.role, 'society_admin')
+            )
           )
         )
         .returning();
@@ -721,7 +744,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const adminToApprove = await db.query.users.findFirst({
         where: and(
           eq(schema.users.id, adminId),
-          eq(schema.users.is_admin, true)
+          or(
+            eq(schema.users.role, 'global_admin'),
+            eq(schema.users.role, 'country_admin'),
+            eq(schema.users.role, 'city_admin'),
+            eq(schema.users.role, 'community_admin'),
+            eq(schema.users.role, 'society_admin')
+          )
         )
       });
       
