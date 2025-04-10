@@ -24,6 +24,7 @@ import { ArrowUpCircle, ArrowDownCircle, DollarSign, UserPlus, Building, Home, C
 import FlatDisplay from '@/components/community/flat-display';
 import AdminPanel from '@/components/community/admin-panel';
 import UserDashboard from '@/components/community/user-dashboard';
+import SocietyBlocksDashboard from '@/components/community/society-blocks-dashboard';
 
 // Society interfaces
 interface Society {

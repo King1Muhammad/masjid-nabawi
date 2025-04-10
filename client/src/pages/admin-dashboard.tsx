@@ -234,7 +234,7 @@ export default function AdminDashboard() {
         </div>
         
         <div className="flex items-center gap-3">
-          <Badge variant="outline" className="gap-1">
+          <Badge className="gap-1 bg-green-100 text-green-800 hover:bg-green-200 border-0">
             <span className="w-2 h-2 rounded-full bg-green-500"></span>
             Active
           </Badge>

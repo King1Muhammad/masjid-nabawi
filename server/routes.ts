@@ -624,6 +624,133 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
   
+  // Add a new society block
+  app.post('/api/society-blocks', async (req: Request, res: Response) => {
+    try {
+      const { societyId, blockName, flatsCount } = req.body;
+      
+      // Validate input
+      if (!societyId || !blockName || !flatsCount) {
+        return res.status(400).json({ message: 'Missing required fields' });
+      }
+      
+      // Check if society exists
+      const society = await db.query.society.findFirst({
+        where: eq(schema.society.id, societyId),
+      });
+      
+      if (!society) {
+        return res.status(404).json({ message: 'Society not found' });
+      }
+      
+      // Check if block already exists
+      const existingBlock = await db.query.societyBlocks.findFirst({
+        where: and(
+          eq(schema.societyBlocks.societyId, societyId),
+          eq(schema.societyBlocks.blockName, blockName)
+        ),
+      });
+      
+      if (existingBlock) {
+        return res.status(409).json({ message: 'Block already exists' });
+      }
+      
+      // Create the block
+      const [newBlock] = await db.insert(schema.societyBlocks)
+        .values({
+          societyId,
+          blockName,
+          flatsCount,
+        })
+        .returning();
+      
+      res.status(201).json(newBlock);
+    } catch (error) {
+      console.error('Error creating society block:', error);
+      res.status(500).json({ message: 'Failed to create society block' });
+    }
+  });
+  
+  // Get all blocks (for admin purposes)
+  app.get('/api/society-blocks', async (req: Request, res: Response) => {
+    try {
+      const blocks = await db.query.societyBlocks.findMany();
+      res.json(blocks);
+    } catch (error) {
+      console.error('Error fetching all blocks:', error);
+      res.status(500).json({ message: 'Failed to fetch blocks' });
+    }
+  });
+  
+  // Update a society block
+  app.patch('/api/society-blocks/:id', async (req: Request, res: Response) => {
+    try {
+      const blockId = parseInt(req.params.id);
+      const { blockName, flatsCount } = req.body;
+      
+      // Ensure at least one field to update
+      if (!blockName && flatsCount === undefined) {
+        return res.status(400).json({ message: 'No fields to update' });
+      }
+      
+      // Create update object based on provided fields
+      const updateData: any = {};
+      if (blockName) updateData.blockName = blockName;
+      if (flatsCount !== undefined) updateData.flatsCount = flatsCount;
+      
+      // Update the block
+      const [updatedBlock] = await db.update(schema.societyBlocks)
+        .set(updateData)
+        .where(eq(schema.societyBlocks.id, blockId))
+        .returning();
+      
+      if (!updatedBlock) {
+        return res.status(404).json({ message: 'Block not found' });
+      }
+      
+      res.json(updatedBlock);
+    } catch (error) {
+      console.error('Error updating society block:', error);
+      res.status(500).json({ message: 'Failed to update society block' });
+    }
+  });
+  
+  // Delete a society block
+  app.delete('/api/society-blocks/:id', async (req: Request, res: Response) => {
+    try {
+      const blockId = parseInt(req.params.id);
+      
+      // Check if block exists
+      const block = await db.query.societyBlocks.findFirst({
+        where: eq(schema.societyBlocks.id, blockId),
+      });
+      
+      if (!block) {
+        return res.status(404).json({ message: 'Block not found' });
+      }
+      
+      // Check if block has members
+      const memberCount = await db.select({ count: sql`count(*)` })
+        .from(schema.societyMembers)
+        .where(eq(schema.societyMembers.blockId, blockId));
+      
+      if (memberCount[0].count > 0) {
+        return res.status(409).json({ 
+          message: 'Cannot delete block with members. Remove members first.' 
+        });
+      }
+      
+      // Delete the block
+      await db.delete(schema.societyBlocks)
+        .where(eq(schema.societyBlocks.id, blockId));
+      
+      res.status(200).json({ message: 'Block deleted successfully' });
+    } catch (error) {
+      console.error('Error deleting society block:', error);
+      res.status(500).json({ message: 'Failed to delete society block' });
+    }
+  });
+  
   app.get('/api/society/:id/financial-summary', async (req: Request, res: Response) => {
     try {
       const societyId = parseInt(req.params.id);
