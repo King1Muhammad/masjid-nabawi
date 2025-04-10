@@ -20,7 +20,29 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { format } from 'date-fns';
-import { ArrowUpCircle, ArrowDownCircle, DollarSign, UserPlus, Building, Home, ChevronRight, FileText, CheckCircle, XCircle, AlertCircle, Send, User, Users, ShieldCheck, MessageSquare, LogIn } from 'lucide-react';
+import { 
+  ArrowUpCircle, 
+  ArrowDownCircle, 
+  DollarSign, 
+  UserPlus, 
+  Building, 
+  Home, 
+  ChevronRight, 
+  FileText, 
+  CheckCircle, 
+  XCircle, 
+  AlertCircle, 
+  Send, 
+  User, 
+  Users, 
+  ShieldCheck, 
+  MessageSquare, 
+  LogIn,
+  Globe,
+  Map as MapIcon,
+  MapPin as MapPinIcon,
+  Library as LibraryIcon
+} from 'lucide-react';
 import FlatDisplay from '@/components/community/flat-display';
 import AdminPanel from '@/components/community/admin-panel';
 import UserDashboard from '@/components/community/user-dashboard';
@@ -477,8 +499,102 @@ const CommunityPage = () => {
   return (
     <div className="py-16 bg-[#F7F3E9]">
       <div className="container mx-auto px-4 sm:px-6">
-        <h1 className="text-4xl md:text-5xl font-heading text-[#0C6E4E] text-center mb-4">Community & Transparency</h1>
-        <p className="text-lg md:text-xl text-center max-w-3xl mx-auto mb-8">We believe in maintaining transparency and involving our community in masjid operations and decision-making.</p>
+        <h1 className="text-4xl md:text-5xl font-heading text-[#0C6E4E] text-center mb-4">Community & Governance Platform</h1>
+        <p className="text-lg md:text-xl text-center max-w-3xl mx-auto mb-8">Building a better world through transparent governance, community participation, and decentralized decision-making.</p>
+        
+        {/* Philosophical Section */}
+        <div className="bg-white rounded-xl shadow-lg overflow-hidden mb-10">
+          <div className="bg-gradient-to-r from-[#0C6E4E] to-[#0C6E4E]/80 text-white p-6">
+            <h2 className="text-2xl md:text-3xl font-heading mb-2">The Vision of Masjid-e-Nabawi's Global System</h2>
+            <p className="text-lg opacity-90">How our platform transforms society and governance</p>
+          </div>
+          
+          <div className="p-6 md:p-8">
+            <div className="prose prose-lg max-w-none">
+              <p className="lead text-xl text-[#0C6E4E] font-medium">
+                Our community platform is more than just a digital interface - it's a comprehensive system designed to revolutionize how communities govern themselves, inspired by the principles established at Masjid-e-Nabawi.
+              </p>
+              
+              <div className="grid md:grid-cols-2 gap-8 mt-6">
+                <div>
+                  <h3 className="text-xl font-semibold text-[#D4AF37] mb-3">The Problem We're Solving</h3>
+                  <ul className="space-y-2">
+                    <li className="flex items-start">
+                      <AlertCircle className="h-5 w-5 text-red-600 mr-2 mt-1 flex-shrink-0" />
+                      <span>Current governance systems lack transparency and accountability</span>
+                    </li>
+                    <li className="flex items-start">
+                      <AlertCircle className="h-5 w-5 text-red-600 mr-2 mt-1 flex-shrink-0" />
+                      <span>Citizens have limited participation in decision-making processes</span>
+                    </li>
+                    <li className="flex items-start">
+                      <AlertCircle className="h-5 w-5 text-red-600 mr-2 mt-1 flex-shrink-0" />
+                      <span>Financial systems are opaque and controlled by centralized authorities</span>
+                    </li>
+                    <li className="flex items-start">
+                      <AlertCircle className="h-5 w-5 text-red-600 mr-2 mt-1 flex-shrink-0" />
+                      <span>Communities lack tools for collective management and problem-solving</span>
+                    </li>
+                  </ul>
+                </div>
+                
+                <div>
+                  <h3 className="text-xl font-semibold text-[#0C6E4E] mb-3">Our Solution</h3>
+                  <ul className="space-y-2">
+                    <li className="flex items-start">
+                      <CheckCircle className="h-5 w-5 text-green-600 mr-2 mt-1 flex-shrink-0" />
+                      <span>A hierarchical, transparent governance system from local to global level</span>
+                    </li>
+                    <li className="flex items-start">
+                      <CheckCircle className="h-5 w-5 text-green-600 mr-2 mt-1 flex-shrink-0" />
+                      <span>Democratic voting on proposals with live-tracking of implementation</span>
+                    </li>
+                    <li className="flex items-start">
+                      <CheckCircle className="h-5 w-5 text-green-600 mr-2 mt-1 flex-shrink-0" />
+                      <span>Complete financial transparency with real-time monitoring of resources</span>
+                    </li>
+                    <li className="flex items-start">
+                      <CheckCircle className="h-5 w-5 text-green-600 mr-2 mt-1 flex-shrink-0" />
+                      <span>AI-powered platform that connects communities worldwide</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              
+              <div className="mt-8">
+                <h3 className="text-xl font-semibold text-[#D4AF37] mb-3">The Hierarchical Structure</h3>
+                <p>Our system implements a pyramid structure of governance:</p>
+                <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-4 mt-4">
+                  <div className="bg-black text-white p-4 rounded-lg text-center">
+                    <Globe className="h-8 w-8 mx-auto mb-2" />
+                    <h4 className="font-medium">Global Level</h4>
+                    <p className="text-sm opacity-80">United Nations Admin</p>
+                  </div>
+                  <div className="bg-red-700 text-white p-4 rounded-lg text-center">
+                    <MapIcon className="h-8 w-8 mx-auto mb-2" />
+                    <h4 className="font-medium">Country Level</h4>
+                    <p className="text-sm opacity-80">Country Admins</p>
+                  </div>
+                  <div className="bg-purple-700 text-white p-4 rounded-lg text-center">
+                    <MapPinIcon className="h-8 w-8 mx-auto mb-2" />
+                    <h4 className="font-medium">City Level</h4>
+                    <p className="text-sm opacity-80">City Admins</p>
+                  </div>
+                  <div className="bg-blue-700 text-white p-4 rounded-lg text-center">
+                    <LibraryIcon className="h-8 w-8 mx-auto mb-2" />
+                    <h4 className="font-medium">Community Level</h4>
+                    <p className="text-sm opacity-80">Community Admins</p>
+                  </div>
+                  <div className="bg-[#0C6E4E] text-white p-4 rounded-lg text-center">
+                    <Building className="h-8 w-8 mx-auto mb-2" />
+                    <h4 className="font-medium">Society/Masjid</h4>
+                    <p className="text-sm opacity-80">Society Admins</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         
         {/* Role Selection Tabs - Improved Mobile Interface */}
         <Tabs defaultValue="user" className="mb-10">
