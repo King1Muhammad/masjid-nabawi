@@ -367,12 +367,60 @@ export async function registerRoutes(app: Express): Promise<Server> {
           email,
           password: hashedPassword,
           role,
-          isAdmin: true,
+          is_admin: true, // Using the correct column name is_admin
           status: 'pending', // New admins start as pending
           createdAt: new Date(),
           createdBy: createdBy || null
         })
         .returning();
+      
+      // Send email notification to administrator
+      try {
+        const transporter = createTransporter();
+        await transporter.sendMail({
+          from: '"Society Management System" <jamiamasjidnabviqureshihashmi@gmail.com>',
+          to: 'jamiamasjidnabviqureshihashmi@gmail.com', // Send to main admin email
+          subject: 'New Admin Registration',
+          html: `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #0C6E4E; border-radius: 8px; overflow: hidden;">
+              <div style="background-color: #0C6E4E; color: white; padding: 20px; text-align: center;">
+                <h1 style="margin: 0;">New Admin Registration</h1>
+                <h2 style="margin: 5px 0 0 0;">Society Management System</h2>
+              </div>
+              
+              <div style="padding: 20px;">
+                <p>A new admin account registration has been submitted:</p>
+                
+                <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+                  <tr>
+                    <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;">Name:</td>
+                    <td style="padding: 8px; border-bottom: 1px solid #eee;">${name}</td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;">Email:</td>
+                    <td style="padding: 8px; border-bottom: 1px solid #eee;">${email}</td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;">Username:</td>
+                    <td style="padding: 8px; border-bottom: 1px solid #eee;">${username}</td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 8px; border-bottom: 1px solid #eee; font-weight: bold;">Role:</td>
+                    <td style="padding: 8px; border-bottom: 1px solid #eee;">${role}</td>
+                  </tr>
+                </table>
+                
+                <p>Please review and approve this admin account from the admin dashboard.</p>
+                
+                <p style="margin-top: 30px;">Regards,<br>Society Management System</p>
+              </div>
+            </div>
+          `
+        });
+      } catch (emailError) {
+        console.error('Error sending admin registration notification:', emailError);
+        // Continue even if email fails
+      }
       
       // Return safe admin object (exclude password)
       const safeAdmin = {

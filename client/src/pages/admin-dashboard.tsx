@@ -43,7 +43,7 @@ interface AdminUser {
   username: string;
   email: string;
   name: string;
-  role: 'society' | 'community' | 'city' | 'country' | 'global';
+  role: 'society' | 'community' | 'city' | 'country' | 'global' | 'global_admin' | 'country_admin' | 'city_admin' | 'community_admin' | 'society_admin';
   status: 'active' | 'pending' | 'suspended';
   createdAt: string;
   lastLogin?: string;
