@@ -1,0 +1,8 @@
+{
+    "terminal.integrated.defaultProfile.windows": "Command Prompt",
+    "Codegeex.Privacy": true,
+    "Codegeex.License": "",
+    "remote.SSH.remotePlatform": {
+        "d6196eb3-dab8-45e0-abf9-0511bcfbd287-00-19sgz7he3h2ev.worf.replit.dev": "linux"
+    }
+}

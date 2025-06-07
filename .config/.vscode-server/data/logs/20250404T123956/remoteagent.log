@@ -1,0 +1,16 @@
+2025-04-04 12:39:56.163 [info] 
+
+
+
+
+2025-04-04 12:39:56.163 [info] Extension host agent started.
+2025-04-04 12:39:56.169 [info] Started initializing default profile extensions in extensions installation folder. file:///home/runner/.vscode-server/extensions
+2025-04-04 12:39:56.194 [info] Completed initializing default profile extensions in extensions installation folder. file:///home/runner/.vscode-server/extensions
+2025-04-04 12:39:57.164 [info] [<unknown>][c055bcb3][ManagementConnection] New connection established.
+2025-04-04 12:39:57.165 [info] [<unknown>][aaaf7756][ExtensionHostConnection] New connection established.
+2025-04-04 12:39:57.224 [info] [<unknown>][aaaf7756][ExtensionHostConnection] <1616> Launched Extension Host Process.
+2025-04-04 12:40:25.731 [info] [<unknown>][c055bcb3][ManagementConnection] The client has disconnected gracefully, so the connection will be disposed.
+2025-04-04 12:40:25.787 [info] [<unknown>][aaaf7756][ExtensionHostConnection] <1616> Extension Host Process exited with code: 0, signal: null.
+2025-04-04 12:40:25.788 [info] Cancelling previous shutdown timeout
+2025-04-04 12:40:25.788 [info] Last EH closed, waiting before shutting down
+2025-04-04 12:45:25.789 [info] Last EH closed, shutting down

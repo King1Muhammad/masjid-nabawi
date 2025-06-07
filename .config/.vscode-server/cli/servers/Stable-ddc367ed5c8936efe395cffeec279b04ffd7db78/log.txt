@@ -1,0 +1,29 @@
+*
+* Visual Studio Code Server
+*
+* By using the software, you agree to
+* the Visual Studio Code Server License Terms (https://aka.ms/vscode-server-license) and
+* the Microsoft Privacy Statement (https://privacy.microsoft.com/en-US/privacystatement).
+*
+Server bound to /tmp/code-b9f571e7-ca9b-4cdb-a1aa-66814d4410eb
+Extension host agent listening on /tmp/code-b9f571e7-ca9b-4cdb-a1aa-66814d4410eb
+
+[12:39:56] 
+
+
+
+
+[12:39:56] Extension host agent started.
+[12:39:56] Started initializing default profile extensions in extensions installation folder. file:///home/runner/.vscode-server/extensions
+[12:39:56] Completed initializing default profile extensions in extensions installation folder. file:///home/runner/.vscode-server/extensions
+[12:39:57] [<unknown>][c055bcb3][ManagementConnection] New connection established.
+[12:39:57] [<unknown>][aaaf7756][ExtensionHostConnection] New connection established.
+[12:39:57] [<unknown>][aaaf7756][ExtensionHostConnection] <1616> Launched Extension Host Process.
+[12:40:25] [<unknown>][c055bcb3][ManagementConnection] The client has disconnected gracefully, so the connection will be disposed.
+[12:40:25] [<unknown>][aaaf7756][ExtensionHostConnection] <1616> Extension Host Process exited with code: 0, signal: null.
+Cancelling previous shutdown timeout
+[12:40:25] Cancelling previous shutdown timeout
+Last EH closed, waiting before shutting down
+[12:40:25] Last EH closed, waiting before shutting down
+Last EH closed, shutting down
+[12:45:25] Last EH closed, shutting down
