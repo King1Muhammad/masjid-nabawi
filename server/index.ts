@@ -1,9 +1,22 @@
 import 'dotenv/config';
 import express, { type Request, Response, NextFunction } from "express";
+import session from 'express-session';
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 
 const app = express();
+
+// Session configuration
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'masjid_nabawi_secret_key_2024',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    secure: process.env.NODE_ENV === 'production',
+    maxAge: 24 * 60 * 60 * 1000 // 24 hours
+  }
+}));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -61,7 +74,10 @@ app.use((req, res, next) => {
   // this serves both the API and the client.
   // It is the only port that is not firewalled.
   const port = 5000;
-  server.listen(port, () => {
+  server.listen({
+    port,
+    host: "127.0.0.1"
+  }, () => {
     log(`serving on port ${port}`);
   });
 })();

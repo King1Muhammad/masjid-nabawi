@@ -106,7 +106,7 @@ const createTransporter = () => {
   return nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: 'jamiamasjidnabviqureshihashmi@gmail.com',
+      user: process.env.EMAIL_USER || 'jamiamasjidnabviqureshihashmi@gmail.com',
       pass: process.env.EMAIL_PASSWORD
     }
   });
@@ -196,7 +196,7 @@ const sendDonationReceipt = async (donation: Donation) => {
           
           <div style="margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px; font-size: 12px; color: #666; text-align: center;">
             <p>For any inquiries, please contact us at:<br>
-            Email: admin@masjidenabawismodel.com<br>
+            Email: ${process.env.EMAIL_ADMIN || 'admin@masjidenabawismodel.com'}<br>
             Phone: +92 3339214600</p>
             
             <p>Jamia Masjid Nabvi Qureshi Hashmi<br>
@@ -208,7 +208,7 @@ const sendDonationReceipt = async (donation: Donation) => {
     
     // Send email
     await transporter.sendMail({
-      from: '"Masjid-e-Nabawi Islamabad" <jamiamasjidnabviqureshihashmi@gmail.com>',
+      from: process.env.EMAIL_FROM || '"Masjid-e-Nabawi Islamabad" <jamiamasjidnabviqureshihashmi@gmail.com>',
       to: donation.email,
       subject: 'Thank You for Your Donation - Receipt',
       html: htmlContent,
@@ -216,8 +216,8 @@ const sendDonationReceipt = async (donation: Donation) => {
     
     // Also send a copy to masjid admin
     await transporter.sendMail({
-      from: '"Masjid-e-Nabawi Islamabad" <jamiamasjidnabviqureshihashmi@gmail.com>',
-      to: 'jamiamasjidnabviqureshihashmi@gmail.com',
+      from: process.env.EMAIL_FROM || '"Masjid-e-Nabawi Islamabad" <jamiamasjidnabviqureshihashmi@gmail.com>',
+      to: process.env.EMAIL_ADMIN || 'jamiamasjidnabviqureshihashmi@gmail.com',
       subject: `New Donation Received: ${donation.firstName} ${donation.lastName} - PKR ${formattedAmount}`,
       html: htmlContent,
     });
@@ -251,7 +251,7 @@ const sendThankYouNotification = async (donation: Donation) => {
         <div style="padding: 20px; text-align: center;">
           <p style="font-size: 18px;">Assalamu Alaikum ${donation.firstName} ${donation.lastName},</p>
           
-          <p style="font-size: 16px;">We are deeply grateful for your generous contribution of <strong>PKR ${parseFloat(donation.amount.toString()).toLocaleString()}</strong> to our ${donation.campaign} campaign.</p>
+          <p style="font-size: 16px;">We are deeply grateful for your generous contribution of <strong>PKR ${parseFloat(donation.amount.toString()).toLocaleString()}</strong> to our ${donation.campaign}
           
           <div style="margin: 30px 0;">
             <p style="font-style: italic; font-size: 20px; color: #0C6E4E;">
@@ -266,7 +266,7 @@ const sendThankYouNotification = async (donation: Donation) => {
           
           <div style="margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px; font-size: 12px; color: #666;">
             <p>For any inquiries, please contact us at:<br>
-            Email: admin@masjidenabawismodel.com<br>
+            Email: ${process.env.EMAIL_ADMIN || 'admin@masjidenabawismodel.com'}<br>
             Phone: +92 3339214600</p>
           </div>
         </div>
@@ -275,7 +275,7 @@ const sendThankYouNotification = async (donation: Donation) => {
     
     // Send email
     await transporter.sendMail({
-      from: '"Masjid-e-Nabawi Islamabad" <jamiamasjidnabviqureshihashmi@gmail.com>',
+      from: process.env.EMAIL_FROM || '"Masjid-e-Nabawi Islamabad" <jamiamasjidnabviqureshihashmi@gmail.com>',
       to: donation.email,
       subject: 'JazakAllah Khair for Your Donation',
       html: htmlContent,
@@ -2825,6 +2825,222 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Error processing payment:", error);
       res.status(500).json({ message: "Failed to process payment submission" });
+    }
+  });
+
+  // Add this near the top of the file, after imports
+  const handleError = (res: Response, error: any) => {
+    console.error('Error:', error);
+    res.status(500).json({
+      success: false,
+      message: error.message || 'An error occurred. Please try again later.'
+    });
+  };
+
+  // Update the contact form route
+  app.post("/api/contact", async (req: Request, res: Response) => {
+    try {
+      const { name, email, subject, message } = req.body;
+      
+      // Validate required fields
+      if (!name || !email || !subject || !message) {
+        return res.status(400).json({ 
+          success: false, 
+          message: "All fields are required" 
+        });
+      }
+      
+      // Create message record
+      const [newMessage] = await db.insert(schema.messages)
+        .values({
+          name,
+          email,
+          subject,
+          message,
+          status: 'unread',
+          createdAt: new Date()
+        })
+        .returning();
+      
+      // Send email notification
+      try {
+        const transporter = createTransporter();
+        await transporter.sendMail({
+          from: process.env.EMAIL_FROM || '"Masjid-e-Nabawi Islamabad" <jamiamasjidnabviqureshihashmi@gmail.com>',
+          to: process.env.EMAIL_ADMIN || 'jamiamasjidnabviqureshihashmi@gmail.com',
+          subject: `New Contact Form Submission: ${subject}`,
+          html: `
+            <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid #0C6E4E; border-radius: 8px; overflow: hidden;">
+              <div style="background-color: #0C6E4E; color: white; padding: 20px; text-align: center;">
+                <h1 style="margin: 0;">New Contact Form Submission</h1>
+                <h2 style="margin: 5px 0 0 0;">Jamia Masjid Nabvi Qureshi Hashmi</h2>
+              </div>
+              
+              <div style="padding: 20px;">
+                <p><strong>From:</strong> ${name} (${email})</p>
+                <p><strong>Subject:</strong> ${subject}</p>
+                <p><strong>Message:</strong></p>
+                <div style="background-color: #f5f5f5; padding: 15px; border-radius: 8px; margin: 10px 0;">
+                  ${message}
+                </div>
+                
+                <p style="margin-top: 30px;">This is an automated notification for a new contact form submission.</p>
+              </div>
+            </div>
+          `
+        });
+        
+        res.json({ 
+          success: true, 
+          message: "Message sent successfully" 
+        });
+      } catch (emailError) {
+        console.error('Email sending failed:', emailError);
+        // Still return success to user even if email fails
+        res.json({ 
+          success: true, 
+          message: "Message received. We'll get back to you soon.",
+          emailSent: false 
+        });
+      }
+    } catch (error) {
+      console.error('Contact form error:', error);
+      res.status(500).json({ 
+        success: false, 
+        message: "Failed to send message" 
+      });
+    }
+  });
+
+  // Update the enrollment form route
+  app.post("/api/enroll", async (req: Request, res: Response) => {
+    try {
+      const enrollmentData = insertEnrollmentSchema.parse(req.body);
+      const [enrollment] = await db.insert(enrollments).values(enrollmentData).returning();
+      
+      try {
+        await sendEnrollmentNotification(enrollment);
+        res.json({ success: true, message: "Enrollment submitted successfully" });
+      } catch (emailError) {
+        console.error('Email sending failed:', emailError);
+        // Still return success to user even if email fails
+        res.json({ 
+          success: true, 
+          message: "Enrollment received. We'll contact you soon.",
+          emailSent: false 
+        });
+      }
+    } catch (error) {
+      handleError(res, error);
+    }
+  });
+
+  // Update the registration route
+  app.post("/api/register", async (req: Request, res: Response) => {
+    try {
+      const { username, password, email, name } = insertUserSchema.parse(req.body);
+      
+      // Check if user already exists
+      const existingUser = await db.query.users.findFirst({
+        where: or(eq(users.username, username), eq(users.email, email))
+      });
+      
+      if (existingUser) {
+        return res.status(400).json({
+          success: false,
+          message: "Username or email already exists"
+        });
+      }
+      
+      // Hash password
+      const hashedPassword = await hashPassword(password);
+      
+      // Create user
+      const [user] = await db.insert(users)
+        .values({
+          username,
+          password: hashedPassword,
+          email,
+          name,
+          role: "user",
+          status: "active"
+        })
+        .returning();
+      
+      // Set session
+      req.session.adminUser = {
+        id: user.id,
+        username: user.username,
+        role: user.role
+      };
+      
+      res.json({
+        success: true,
+        message: "Registration successful",
+        user: {
+          id: user.id,
+          username: user.username,
+          email: user.email,
+          name: user.name,
+          role: user.role
+        }
+      });
+    } catch (error) {
+      handleError(res, error);
+    }
+  });
+
+  // Update the login route
+  app.post("/api/login", async (req: Request, res: Response) => {
+    try {
+      const { username, password } = req.body;
+      
+      // Find user
+      const user = await db.query.users.findFirst({
+        where: eq(users.username, username)
+      });
+      
+      if (!user) {
+        return res.status(401).json({
+          success: false,
+          message: "Invalid username or password"
+        });
+      }
+      
+      // Verify password
+      const isValid = await comparePasswords(password, user.password);
+      if (!isValid) {
+        return res.status(401).json({
+          success: false,
+          message: "Invalid username or password"
+        });
+      }
+      
+      // Update last login
+      await db.update(users)
+        .set({ lastLogin: new Date() })
+        .where(eq(users.id, user.id));
+      
+      // Set session
+      req.session.adminUser = {
+        id: user.id,
+        username: user.username,
+        role: user.role
+      };
+      
+      res.json({
+        success: true,
+        message: "Login successful",
+        user: {
+          id: user.id,
+          username: user.username,
+          email: user.email,
+          name: user.name,
+          role: user.role
+        }
+      });
+    } catch (error) {
+      handleError(res, error);
     }
   });
 

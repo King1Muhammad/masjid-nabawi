@@ -96,7 +96,7 @@ const MadrasaPage = () => {
   const onSubmit = async (data: EnrollmentFormData) => {
     try {
       setIsSubmitting(true);
-      await apiRequest('POST', '/api/enrollments', data);
+      await apiRequest('POST', '/api/enroll', data);
       
       toast({
         title: "Enrollment Submitted",
@@ -105,6 +105,7 @@ const MadrasaPage = () => {
       
       reset();
     } catch (error) {
+      console.error('Enrollment submission error:', error);
       toast({
         title: "Enrollment Failed",
         description: "There was an error submitting your enrollment. Please try again.",

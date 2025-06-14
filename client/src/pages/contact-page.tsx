@@ -20,7 +20,7 @@ const ContactPage = () => {
   const onSubmit = async (data: ContactFormData) => {
     try {
       setIsSubmitting(true);
-      await apiRequest('POST', '/api/messages', data);
+      await apiRequest('POST', '/api/contact', data);
       
       toast({
         title: "Message Sent",
@@ -30,6 +30,7 @@ const ContactPage = () => {
       // Reset form
       reset();
     } catch (error) {
+      console.error('Form submission error:', error);
       toast({
         title: "Error",
         description: "Failed to send your message. Please try again later.",

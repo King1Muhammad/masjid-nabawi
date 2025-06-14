@@ -2,7 +2,7 @@ import {
   users, type User, type InsertUser,
   donations, type Donation, type InsertDonation,
   enrollments, type Enrollment, type InsertEnrollment,
-  messages, type Message, type InsertMessage,
+  schemaMessages, type Message, type InsertMessage,
   campaigns, type Campaign, type InsertCampaign,
   subscribers, type Subscriber, type InsertSubscriber,
   society, type Society, type InsertSociety,
@@ -17,6 +17,7 @@ import {
 } from "@shared/schema";
 import { db } from "./db";
 import { eq, and, desc, asc, sql } from "drizzle-orm";
+import * as schema from '@shared/schema';
 
 export interface IStorage {
   // User methods
@@ -126,6 +127,7 @@ export class DatabaseStorage implements IStorage {
   async createDonation(insertDonation: InsertDonation): Promise<Donation> {
     const [donation] = await db.insert(donations).values({
       ...insertDonation,
+      amount: typeof insertDonation.amount === 'number' ? insertDonation.amount.toString() : insertDonation.amount,
       createdAt: new Date()
     }).returning();
     
@@ -187,7 +189,7 @@ export class DatabaseStorage implements IStorage {
   
   // Message methods
   async createMessage(insertMessage: InsertMessage): Promise<Message> {
-    const [message] = await db.insert(messages).values({
+    const [message] = await db.insert(schema.messages).values({
       ...insertMessage,
       status: "unread",
       createdAt: new Date()
@@ -196,20 +198,20 @@ export class DatabaseStorage implements IStorage {
   }
   
   async getMessages(): Promise<Message[]> {
-    return db.select().from(messages).orderBy(desc(messages.createdAt));
+    return db.select().from(schema.messages).orderBy(desc(schema.messages.createdAt));
   }
   
   async updateMessageStatus(id: number, status: string): Promise<Message | undefined> {
-    const [message] = await db.update(messages)
+    const [message] = await db.update(schema.messages)
       .set({ status })
-      .where(eq(messages.id, id))
+      .where(eq(schema.messages.id, id))
       .returning();
     return message;
   }
   
   // Campaign methods
   async createCampaign(insertCampaign: InsertCampaign): Promise<Campaign> {
-    const [campaign] = await db.insert(campaigns).values([insertCampaign]).returning();
+    const [campaign] = await db.insert(campaigns).values(insertCampaign).returning();
     return campaign;
   }
   

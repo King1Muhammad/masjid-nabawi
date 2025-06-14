@@ -250,7 +250,6 @@ export const insertCampaignSchema = createInsertSchema(campaigns).omit({
   id: true,
   raised: true,
   startDate: true,
-  createdAt: true,
 });
 
 export const insertSubscriberSchema = createInsertSchema(subscribers).omit({
