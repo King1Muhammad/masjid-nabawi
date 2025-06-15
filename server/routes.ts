@@ -10,7 +10,7 @@ import 'express-session';
 import { Session, SessionData } from 'express-session';
 
 // Use the User type from schema
-type AdminUser = schema.User;
+type AdminUser = Omit<schema.User, 'password'>;
 
 declare module 'express-session' {
   interface SessionData {
@@ -374,22 +374,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       // Map to safe admin objects (exclude password, etc.)
-      const safeAdmins = adminUsers.map(admin => ({
-        id: admin.id,
-        username: admin.username,
-        email: admin.email,
-        name: admin.name,
-        role: admin.role,
-        status: admin.status,
-        createdAt: admin.createdAt,
-        lastLogin: admin.lastLogin,
-        location: admin.location,
-        approvedById: admin.approvedById,
-        latitude: admin.latitude,
-        longitude: admin.longitude,
-        cnic: admin.cnic,
-        phoneNumber: admin.phoneNumber
-      }));
+      const safeAdmins = adminUsers.map(admin => {
+        const { password, ...adminDetails } = admin;
+        return {
+          ...adminDetails,
+          lastLogin: admin.lastLogin ? new Date(admin.lastLogin) : null,
+          createdAt: admin.createdAt ? new Date(admin.createdAt) : null,
+          lastStatusChange: admin.lastStatusChange ? new Date(admin.lastStatusChange) : null,
+        };
+      });
       
       res.json(safeAdmins);
     } catch (error) {
@@ -487,14 +480,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       // Return safe admin object (exclude password)
+      const { password, ...adminDetails } = newAdmin;
       const safeAdmin = {
-        id: newAdmin.id,
-        username: newAdmin.username,
-        email: newAdmin.email,
-        name: newAdmin.name,
-        role: newAdmin.role,
-        status: newAdmin.status,
-        createdAt: newAdmin.createdAt
+        ...adminDetails,
+        lastLogin: newAdmin.lastLogin ? new Date(newAdmin.lastLogin) : null,
+        createdAt: newAdmin.createdAt ? new Date(newAdmin.createdAt) : null,
+        lastStatusChange: newAdmin.lastStatusChange ? new Date(newAdmin.lastStatusChange) : null,
+      const { password, ...adminDetails } = newAdmin;
+      const safeAdmin = {
+        ...adminDetails,
+        lastLogin: newAdmin.lastLogin ? new Date(newAdmin.lastLogin) : null,
+        createdAt: newAdmin.createdAt ? new Date(newAdmin.createdAt) : null,
+        lastStatusChange: newAdmin.lastStatusChange ? new Date(newAdmin.lastStatusChange) : null,
       };
       
       res.status(201).json(safeAdmin);
@@ -612,23 +609,29 @@ export async function registerRoutes(app: Express): Promise<Server> {
         .where(eq(schema.users.id, admin.id));
       
       // Return safe admin object (exclude password)
-      const safeAdmin = {
-        id: admin.id,
-        username: admin.username,
-        email: admin.email,
-        name: admin.name,
-        role: admin.role,
-        status: admin.status,
-        lastLogin: new Date().toISOString(),
+      const { password, ...adminDetails } = admin;
+      const safeAdminResponse = { // For HTTP response, can use ISO string for date
+        ...adminDetails,
+        lastLogin: new Date().toISOString(), // Current time as ISO string for response
+        createdAt: admin.createdAt ? new Date(admin.createdAt).toISOString() : null,
+        lastStatusChange: admin.lastStatusChange ? new Date(admin.lastStatusChange).toISOString() : null,
+        managedEntities: admin.managedEntities || []
+      };
+
+      const safeAdminForSession = { // For session, must use Date object
+        ...adminDetails,
+        lastLogin: new Date(), // Current time as Date object
+        createdAt: admin.createdAt ? new Date(admin.createdAt) : null,
+        lastStatusChange: admin.lastStatusChange ? new Date(admin.lastStatusChange) : null,
         managedEntities: admin.managedEntities || []
       };
       
       // Set session data
       if (req.session) {
-        req.session.adminUser = safeAdmin;
+        req.session.adminUser = safeAdminForSession;
       }
       
-      res.status(200).json(safeAdmin);
+      res.status(200).json(safeAdminResponse);
     } catch (error) {
       console.error('Error logging in admin:', error);
       res.status(500).json({ message: 'Login failed' });
@@ -655,17 +658,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
         
         // Return safe admin object
+        const { password, ...adminDetails } = admin;
         const safeAdmin = {
-          id: admin.id,
-          username: admin.username,
-          email: admin.email,
-          name: admin.name,
-          role: admin.role,
-          status: admin.status,
-          lastLogin: admin.lastLogin,
+          ...adminDetails,
+          lastLogin: admin.lastLogin ? new Date(admin.lastLogin) : null,
+          createdAt: admin.createdAt ? new Date(admin.createdAt) : null,
+          lastStatusChange: admin.lastStatusChange ? new Date(admin.lastStatusChange) : null,
           managedEntities: admin.managedEntities || []
         };
         
+        // Update session with potentially refreshed admin data (especially managedEntities)
+        if (req.session) {
+          req.session.adminUser = safeAdmin;
+        }
+
         return res.status(200).json(safeAdmin);
       }
       
@@ -719,13 +725,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       // Return safe admin object
+      const { password, ...adminDetails } = updatedAdmin;
       const safeAdmin = {
-        id: updatedAdmin.id,
-        username: updatedAdmin.username,
-        email: updatedAdmin.email,
-        name: updatedAdmin.name,
-        role: updatedAdmin.role,
-        status: updatedAdmin.status
+        ...adminDetails,
+        lastLogin: updatedAdmin.lastLogin ? new Date(updatedAdmin.lastLogin) : null,
+        createdAt: updatedAdmin.createdAt ? new Date(updatedAdmin.createdAt) : null,
+        lastStatusChange: updatedAdmin.lastStatusChange ? new Date(updatedAdmin.lastStatusChange) : null,
       };
       
       res.json(safeAdmin);
@@ -786,7 +791,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       // Check if approver has high enough role to approve this admin
       const approverLevel = roleHierarchy[approverRole]?.level || 0;
-      const targetLevel = roleHierarchy[adminToApprove.role]?.level || 0;
+      const targetRole = adminToApprove.role;
+      const targetLevel = targetRole ? (roleHierarchy[targetRole]?.level || 0) : 0;
       
       if (approverLevel <= targetLevel) {
         return res.status(403).json({ 
@@ -856,10 +862,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
           
           // Determine admin level color for email template
           let adminColor = '#0C6E4E'; // Default green for society level
-          if (updatedAdmin.role.includes('community')) adminColor = '#2563EB';  // Blue
-          if (updatedAdmin.role.includes('city')) adminColor = '#9333EA';       // Purple
-          if (updatedAdmin.role.includes('country')) adminColor = '#E11D48';    // Red
-          if (updatedAdmin.role.includes('global')) adminColor = '#18181B';     // Black
+          if (updatedAdmin.role) {
+            if (updatedAdmin.role.includes('community')) adminColor = '#2563EB';  // Blue
+            if (updatedAdmin.role.includes('city')) adminColor = '#9333EA';       // Purple
+            if (updatedAdmin.role.includes('country')) adminColor = '#E11D48';    // Red
+            if (updatedAdmin.role.includes('global')) adminColor = '#18181B';     // Black
+          }
           
           await transporter.sendMail({
             from: '"Society Management Admin" <jamiamasjidnabviqureshihashmi@gmail.com>',
@@ -873,12 +881,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
                 </div>
                 
                 <div style="padding: 20px;">
-                  <p>Dear ${updatedAdmin.name},</p>
+                  <p>Dear ${updatedAdmin.name || 'Admin'},</p>
                   
                   <p>Your admin account has been approved by ${req.session.adminUser.name} (${req.session.adminUser.role}). You can now login to the admin panel with your credentials.</p>
                   
                   <p>Username: <strong>${updatedAdmin.username}</strong></p>
-                  <p>Role: <strong>${updatedAdmin.role}</strong></p>
+                  <p>Role: <strong>${updatedAdmin.role || 'N/A'}</strong></p>
                   
                   <p>Thank you for being part of our global Islamic community governance system!</p>
                   
@@ -901,12 +909,25 @@ export async function registerRoutes(app: Express): Promise<Server> {
           email: updatedAdmin.email,
           name: updatedAdmin.name,
           role: updatedAdmin.role,
-          status: updatedAdmin.status
+          status: updatedAdmin.status,
+          is_admin: updatedAdmin.is_admin,
+          createdBy: updatedAdmin.createdBy,
+          lastLogin: updatedAdmin.lastLogin ? new Date(updatedAdmin.lastLogin) : null,
+          lastStatusChange: updatedAdmin.lastStatusChange ? new Date(updatedAdmin.lastStatusChange) : null,
+          managedEntities: updatedAdmin.managedEntities,
+          createdAt: updatedAdmin.createdAt ? new Date(updatedAdmin.createdAt) : null,
+          location: updatedAdmin.location,
+          approvedById: updatedAdmin.approvedById,
+          latitude: updatedAdmin.latitude,
+          longitude: updatedAdmin.longitude,
+          cnic: updatedAdmin.cnic,
+          phoneNumber: updatedAdmin.phoneNumber
         }
       });
     } catch (error) {
       console.error('Error approving admin:', error);
-      res.status(500).json({ message: 'Failed to approve admin', error: error.message });
+      const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred during admin approval.';
+      res.status(500).json({ message: 'Failed to approve admin', error: errorMessage });
     }
   });
   
@@ -1091,7 +1112,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       .from(schema.societyContributions)
       .where(eq(schema.societyContributions.societyId, societyId));
       
-      const totalContributions = Number(contributionsResult[0]?.total || 0);
+      const totalContributionsRaw = contributionsResult[0]?.total;
+      const totalContributions = Number(typeof totalContributionsRaw === 'string' || typeof totalContributionsRaw === 'number' ? totalContributionsRaw : 0);
       
       // Get total expenses
       const expensesResult = await db.select({
@@ -1100,7 +1122,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       .from(schema.societyExpenses)
       .where(eq(schema.societyExpenses.societyId, societyId));
       
-      const totalExpenses = Number(expensesResult[0]?.total || 0);
+      const totalExpensesRaw = expensesResult[0]?.total;
+      const totalExpenses = Number(typeof totalExpensesRaw === 'string' || typeof totalExpensesRaw === 'number' ? totalExpensesRaw : 0);
       
       // Calculate current balance
       const currentBalance = totalContributions - totalExpenses;
@@ -1136,7 +1159,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       );
       
       const activeMembers = Number(membersCount[0]?.count || 0);
-      const expectedMonthlyTotal = activeMembers * society.monthlyContribution;
+      const monthlyContributionAmount = Number(society.monthlyContribution);
+      const expectedMonthlyTotal = activeMembers * monthlyContributionAmount;
       
       // Calculate collection rate
       const collectionRate = expectedMonthlyTotal > 0 
@@ -1931,11 +1955,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       // Return client secret to the client
       res.json({ clientSecret: paymentIntent.client_secret });
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Error creating payment intent:", error);
+      const errorMessage = error instanceof Error ? error.message : "Failed to create payment intent due to an unexpected error.";
       res.status(500).json({ 
         message: "Error creating payment intent", 
-        error: error.message 
+        error: errorMessage
       });
     }
   });
@@ -1957,11 +1982,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       const imagePath = await generateImage(prompt, filename);
       res.json({ path: imagePath });
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Error generating image:", error);
+      const errorMessage = error instanceof Error ? error.message : "Failed to generate image due to an unexpected error.";
       res.status(500).json({ 
         message: "Error generating image", 
-        error: error.message 
+        error: errorMessage
       });
     }
   });
@@ -1983,11 +2009,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       const imagePaths = await generateMultipleImages(promptsWithFilenames);
       res.json({ paths: imagePaths });
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Error generating multiple images:", error);
+      const errorMessage = error instanceof Error ? error.message : "Failed to generate multiple images due to an unexpected error.";
       res.status(500).json({ 
         message: "Error generating multiple images", 
-        error: error.message 
+        error: errorMessage
       });
     }
   });
@@ -2027,11 +2054,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       const imagePaths = await generateMultipleImages(themedPrompts);
       res.json({ paths: imagePaths });
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Error generating themed images:", error);
+      const errorMessage = error instanceof Error ? error.message : "Failed to generate themed images due to an unexpected error.";
       res.status(500).json({ 
         message: "Error generating themed images", 
-        error: error.message 
+        error: errorMessage
       });
     }
   });
@@ -2075,11 +2103,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       const imagePaths = await generateMultipleImages(historicalPrompts);
       res.json({ paths: imagePaths });
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Error generating historical images:", error);
+      const errorMessage = error instanceof Error ? error.message : "Failed to generate historical images due to an unexpected error.";
       res.status(500).json({ 
         message: "Error generating historical images", 
-        error: error.message 
+        error: errorMessage
       });
     }
   });
@@ -2715,7 +2744,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
           contribution => contribution.memberId === member.id
         );
         
-        const blockName = member.blockId && blockMap[member.blockId] ? blockMap[member.blockId] : 'Unknown';
+        const currentBlockId = member.blockId;
+        const blockName = currentBlockId !== null && blockMap[currentBlockId] ? blockMap[currentBlockId] : 'Unknown';
         
         return {
           memberId: member.id,
@@ -2916,7 +2946,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/enroll", async (req: Request, res: Response) => {
     try {
       const enrollmentData = insertEnrollmentSchema.parse(req.body);
-      const [enrollment] = await db.insert(enrollments).values(enrollmentData).returning();
+      const [enrollment] = await db.insert(schema.enrollments).values(enrollmentData).returning();
       
       try {
         await sendEnrollmentNotification(enrollment);
@@ -2942,7 +2972,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       // Check if user already exists
       const existingUser = await db.query.users.findFirst({
-        where: or(eq(users.username, username), eq(users.email, email))
+        where: or(eq(schema.users.username, username), eq(schema.users.email, email))
       });
       
       if (existingUser) {
@@ -2956,7 +2986,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const hashedPassword = await hashPassword(password);
       
       // Create user
-      const [user] = await db.insert(users)
+      const [user] = await db.insert(schema.users)
         .values({
           username,
           password: hashedPassword,
@@ -2968,10 +2998,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
         .returning();
       
       // Set session
+      const { password, ...userDetails } = user;
       req.session.adminUser = {
-        id: user.id,
-        username: user.username,
-        role: user.role
+        ...userDetails,
+        lastLogin: user.lastLogin ? new Date(user.lastLogin) : null,
+        createdAt: user.createdAt ? new Date(user.createdAt) : null,
+        lastStatusChange: user.lastStatusChange ? new Date(user.lastStatusChange) : null,
+      const { password, ...userDetails } = user;
+      req.session.adminUser = {
+        ...userDetails,
+        // Ensure all other required fields from Omit<schema.User, 'password'> are present
+        // For example, if these can be null from DB but schema.User expects Date | null
+        lastLogin: user.lastLogin ? new Date(user.lastLogin) : null,
+        createdAt: user.createdAt ? new Date(user.createdAt) : null,
+        lastStatusChange: user.lastStatusChange ? new Date(user.lastStatusChange) : null,
+        // Add any other potentially missing fields that are part of schema.User but not in userDetails yet
+        // is_admin: user.is_admin, // if applicable and not already spread
+        // createdBy: user.createdBy, // if applicable
+        // managedEntities: user.managedEntities, // if applicable
+        // location: user.location, // if applicable
+        // approvedById: user.approvedById, // if applicable
+        // latitude: user.latitude, // if applicable
+        // longitude: user.longitude, // if applicable
+        // cnic: user.cnic, // if applicable
+        // phoneNumber: user.phoneNumber // if applicable
       };
       
       res.json({
@@ -2997,7 +3047,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       // Find user
       const user = await db.query.users.findFirst({
-        where: eq(users.username, username)
+        where: eq(schema.users.username, username)
       });
       
       if (!user) {
@@ -3017,9 +3067,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       // Update last login
-      await db.update(users)
+      await db.update(schema.users)
         .set({ lastLogin: new Date() })
-        .where(eq(users.id, user.id));
+        .where(eq(schema.users.id, user.id));
       
       // Set session
       req.session.adminUser = {

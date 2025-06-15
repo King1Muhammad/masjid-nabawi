@@ -162,8 +162,9 @@ export class DatabaseStorage implements IStorage {
   
   // Enrollment methods
   async createEnrollment(insertEnrollment: InsertEnrollment): Promise<Enrollment> {
-    const [enrollment] = await db.insert(enrollments).values({
+    const [enrollment] = await db.insert(schema.enrollments).values({
       ...insertEnrollment,
+      age: Number(insertEnrollment.age), // Ensure age is a number
       status: "pending",
       createdAt: new Date()
     }).returning();
