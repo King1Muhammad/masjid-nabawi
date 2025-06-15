@@ -4,10 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { apiRequest } from '@/lib/queryClient';
 import { useToast } from '@/hooks/use-toast';
 import { CONTACT_INFO } from '@/lib/constants';
-import { z } from 'zod';
-import { insertMessageSchema } from '@shared/schema';
-
-type ContactFormData = z.infer<typeof insertMessageSchema>;
+import { insertMessageSchema, type ContactFormData } from '@/lib/schema';
 
 const ContactPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -15,12 +12,22 @@ const ContactPage = () => {
   
   const { register, handleSubmit, reset, formState: { errors } } = useForm<ContactFormData>({
     resolver: zodResolver(insertMessageSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      subject: '',
+      message: '',
+    }
   });
 
   const onSubmit = async (data: ContactFormData) => {
     try {
       setIsSubmitting(true);
-      await apiRequest('POST', '/api/contact', data);
+      const response = await apiRequest('POST', '/api/contact', data);
+      
+      if (!response.ok) {
+        throw new Error('Failed to send message');
+      }
       
       toast({
         title: "Message Sent",
@@ -52,35 +59,41 @@ const ContactPage = () => {
             <div className="bg-white rounded-lg shadow-lg p-8">
               <h2 className="text-2xl font-heading text-[#0C6E4E] mb-6">Send Us a Message</h2>
               
-              <form onSubmit={handleSubmit(onSubmit)}>
-                <div className="grid md:grid-cols-2 gap-4 mb-4">
-                  <div>
-                    <label className="block text-sm font-medium mb-2" htmlFor="name">Name</label>
+              <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <label className="block text-sm font-medium text-gray-700" htmlFor="name">Name</label>
                     <input 
                       type="text" 
                       id="name" 
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#0C6E4E]"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#0C6E4E] focus:border-transparent"
+                      placeholder="Your name"
                       {...register('name')}
                     />
-                    {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>}
+                    {errors.name && (
+                      <p className="text-red-500 text-sm">{errors.name.message}</p>
+                    )}
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium mb-2" htmlFor="email">Email</label>
+                  <div className="space-y-2">
+                    <label className="block text-sm font-medium text-gray-700" htmlFor="email">Email</label>
                     <input 
                       type="email" 
                       id="email" 
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#0C6E4E]"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#0C6E4E] focus:border-transparent"
+                      placeholder="your.email@example.com"
                       {...register('email')}
                     />
-                    {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>}
+                    {errors.email && (
+                      <p className="text-red-500 text-sm">{errors.email.message}</p>
+                    )}
                   </div>
                 </div>
                 
-                <div className="mb-4">
-                  <label className="block text-sm font-medium mb-2" htmlFor="subject">Subject</label>
+                <div className="space-y-2">
+                  <label className="block text-sm font-medium text-gray-700" htmlFor="subject">Subject</label>
                   <select 
                     id="subject" 
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#0C6E4E]"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#0C6E4E] focus:border-transparent"
                     {...register('subject')}
                   >
                     <option value="">Select a subject</option>
@@ -92,23 +105,28 @@ const ContactPage = () => {
                     <option value="Prayer Times">Prayer Times</option>
                     <option value="Other">Other</option>
                   </select>
-                  {errors.subject && <p className="text-red-500 text-sm mt-1">{errors.subject.message}</p>}
+                  {errors.subject && (
+                    <p className="text-red-500 text-sm">{errors.subject.message}</p>
+                  )}
                 </div>
                 
-                <div className="mb-6">
-                  <label className="block text-sm font-medium mb-2" htmlFor="message">Message</label>
+                <div className="space-y-2">
+                  <label className="block text-sm font-medium text-gray-700" htmlFor="message">Message</label>
                   <textarea 
                     id="message" 
                     rows={6} 
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#0C6E4E]"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#0C6E4E] focus:border-transparent"
+                    placeholder="Your message here..."
                     {...register('message')}
                   ></textarea>
-                  {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message.message}</p>}
+                  {errors.message && (
+                    <p className="text-red-500 text-sm">{errors.message.message}</p>
+                  )}
                 </div>
                 
                 <button 
                   type="submit" 
-                  className="bg-[#0C6E4E] hover:bg-opacity-90 text-white px-6 py-3 rounded-md transition-colors disabled:opacity-50 flex items-center"
+                  className="w-full bg-[#0C6E4E] hover:bg-opacity-90 text-white px-6 py-3 rounded-md transition-colors disabled:opacity-50 flex items-center justify-center"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? (
@@ -170,7 +188,7 @@ const ContactPage = () => {
                   <div className="flex items-start">
                     <div className="bg-[#0C6E4E] bg-opacity-10 p-3 rounded-full mr-4">
                       <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-[#0C6E4E]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.435 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                       </svg>
                     </div>
                     <div>

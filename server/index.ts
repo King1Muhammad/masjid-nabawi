@@ -50,7 +50,8 @@ app.use((req, res, next) => {
   next();
 });
 
-(async () => {
+// Initialize the application
+const init = async () => {
   const server = await registerRoutes(app);
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
@@ -61,23 +62,29 @@ app.use((req, res, next) => {
     throw err;
   });
 
-  // importantly only setup vite in development and after
-  // setting up all the other routes so the catch-all route
-  // doesn't interfere with the other routes
-  if (app.get("env") === "development") {
-    await setupVite(app, server);
-  } else {
+  // Setup static file serving
+  if (process.env.NODE_ENV === 'production') {
     serveStatic(app);
+  } else {
+    await setupVite(app, server);
   }
 
-  // ALWAYS serve the app on port 5000
-  // this serves both the API and the client.
-  // It is the only port that is not firewalled.
-  const port = 5000;
-  server.listen({
-    port,
-    host: "127.0.0.1"
-  }, () => {
-    log(`serving on port ${port}`);
-  });
-})();
+  // Get port from environment variable or use default
+  const port = process.env.PORT || 5000;
+  
+  // Only start the server if we're not in a serverless environment
+  if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
+    server.listen({
+      port,
+      host: process.env.NODE_ENV === 'production' ? "127.0.0.1" : "0.0.0.0"
+    }, () => {
+      log(`serving on port ${port}`);
+    });
+  }
+};
+
+// Start the application
+init();
+
+// Export the Express app for Vercel
+export default app;
