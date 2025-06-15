@@ -1,6 +1,5 @@
-import { Handler } from '@netlify/functions';
+import type { Handler } from '@netlify/functions';
 import express from 'express';
-import serverless from 'serverless-http';
 import cors from 'cors';
 import { routes } from '../../server/routes';
 
@@ -15,9 +14,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api', routes);
 
 // Create serverless handler
-const handler = serverless(app);
-
-export const api: Handler = async (event, context) => {
+const handler: Handler = async (event, context) => {
   // Add CORS headers
   const headers = {
     'Access-Control-Allow-Origin': '*',
@@ -35,11 +32,25 @@ export const api: Handler = async (event, context) => {
   }
 
   try {
-    const result = await handler(event, context);
+    // Handle the request using Express
+    const response = await new Promise((resolve) => {
+      app(event, context, (err, result) => {
+        if (err) {
+          resolve({
+            statusCode: 500,
+            headers,
+            body: JSON.stringify({ error: 'Internal Server Error' })
+          });
+        } else {
+          resolve(result);
+        }
+      });
+    });
+
     return {
-      ...result,
+      ...response,
       headers: {
-        ...result.headers,
+        ...response.headers,
         ...headers
       }
     };
@@ -51,4 +62,6 @@ export const api: Handler = async (event, context) => {
       body: JSON.stringify({ error: 'Internal Server Error' })
     };
   }
-}; 
+};
+
+export { handler }; 

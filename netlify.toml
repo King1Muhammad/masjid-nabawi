@@ -1,10 +1,11 @@
 [build]
-  command = "npm run build"
+  command = "npm install && npm run build"
   publish = "dist/public"
   functions = "netlify/functions"
 
 [build.environment]
   NODE_VERSION = "18.17.0"
+  NPM_FLAGS = "--legacy-peer-deps"
 
 [[redirects]]
   from = "/api/*"
@@ -14,4 +15,8 @@
 [[redirects]]
   from = "/*"
   to = "/index.html"
-  status = 200 
+  status = 200
+
+[functions]
+  node_bundler = "esbuild"
+  external_node_modules = ["express", "cors", "pg", "bcryptjs", "jsonwebtoken", "passport", "passport-local", "express-session", "connect-pg-simple", "memorystore", "multer", "nodemailer", "openai", "stripe", "ws", "zod", "drizzle-orm", "drizzle-zod", "prisma", "@prisma/client"] 
