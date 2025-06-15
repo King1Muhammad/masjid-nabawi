@@ -8,6 +8,7 @@ import * as schema from "@shared/schema";
 import { recreateAdminHierarchy } from "./seed-admins";
 import 'express-session';
 import { Session, SessionData } from 'express-session';
+import express, { Router } from 'express';
 
 // Type definitions
 type SafeAdmin = {
@@ -319,9 +320,11 @@ const sendThankYouNotification = async (donation: Donation) => {
   }
 };
 
-export async function registerRoutes(app: Express): Promise<Server> {
+export function registerRoutes(app: Express): Router {
+  const router = Router();
+
   // Admin Hierarchy Reset Route
-  app.post('/api/admin/reset-hierarchy', async (req: Request, res: Response) => {
+  router.post('/api/admin/reset-hierarchy', async (req: Request, res: Response) => {
     try {
       // Check if user is authenticated as an admin
       if (!req.session.adminUser) {
@@ -345,7 +348,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // For testing purposes, allow unauthenticated reset during development
-  app.post('/api/admin/reset-hierarchy-dev', async (req: Request, res: Response) => {
+  router.post('/api/admin/reset-hierarchy-dev', async (req: Request, res: Response) => {
     try {
       const result = await recreateAdminHierarchy();
       
@@ -363,7 +366,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Admin API Routes
-  app.get('/api/admins', async (req: Request, res: Response) => {
+  router.get('/api/admins', async (req: Request, res: Response) => {
     try {
       const { level } = req.query;
       
@@ -424,7 +427,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
   
-  app.post('/api/admins', async (req: Request, res: Response) => {
+  router.post('/api/admins', async (req: Request, res: Response) => {
     try {
       const { name, username, email, password, role, createdBy } = req.body;
       
@@ -531,7 +534,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Admin registration and authentication routes
-  app.post('/api/admin/register', async (req: Request, res: Response) => {
+  router.post('/api/admin/register', async (req: Request, res: Response) => {
     try {
       const { name, username, email, password, role } = req.body;
       
@@ -589,7 +592,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Admin login route
-  app.post('/api/admin/login', async (req: Request, res: Response) => {
+  router.post('/api/admin/login', async (req: Request, res: Response) => {
     try {
       const { username, password } = req.body;
       
@@ -667,7 +670,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Current admin route
-  app.get('/api/admin/current', async (req: Request, res: Response) => {
+  router.get('/api/admin/current', async (req: Request, res: Response) => {
     try {
       // Check if user is logged in via session
       if (req.session?.adminUser) {
@@ -717,14 +720,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
   
-  app.post('/api/admin/logout', (req: Request, res: Response) => {
+  router.post('/api/admin/logout', (req: Request, res: Response) => {
     if (req.session) {
       req.session.adminUser = undefined;
     }
     res.status(200).json({ message: 'Logged out successfully' });
   });
   
-  app.patch('/api/admins/:id/status', async (req: Request, res: Response) => {
+  router.patch('/api/admins/:id/status', async (req: Request, res: Response) => {
     try {
       const adminId = parseInt(req.params.id);
       const { status } = req.body;
@@ -788,7 +791,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Enhanced admin approval with hierarchical validation
-  app.post('/api/admins/:id/approve', async (req: Request, res: Response) => {
+  router.post('/api/admins/:id/approve', async (req: Request, res: Response) => {
     try {
       // Authentication check
       if (!req.session.adminUser) {
@@ -934,7 +937,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Society API Routes
-  app.get('/api/society/:id', async (req: Request, res: Response) => {
+  router.get('/api/society/:id', async (req: Request, res: Response) => {
     try {
       const societyId = parseInt(req.params.id);
       const society = await db.query.society.findFirst({
@@ -952,7 +955,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
   
-  app.get('/api/society/:id/blocks', async (req: Request, res: Response) => {
+  router.get('/api/society/:id/blocks', async (req: Request, res: Response) => {
     try {
       const societyId = parseInt(req.params.id);
       const blocks = await db.query.societyBlocks.findMany({
@@ -967,7 +970,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Add a new society block
-  app.post('/api/society-blocks', async (req: Request, res: Response) => {
+  router.post('/api/society-blocks', async (req: Request, res: Response) => {
     try {
       const { societyId, blockName, flatsCount } = req.body;
       
@@ -1014,7 +1017,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Get all blocks (for admin purposes)
-  app.get('/api/society-blocks', async (req: Request, res: Response) => {
+  router.get('/api/society-blocks', async (req: Request, res: Response) => {
     try {
       const blocks = await db.query.societyBlocks.findMany();
       res.json(blocks);
@@ -1025,7 +1028,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Update a society block
-  app.patch('/api/society-blocks/:id', async (req: Request, res: Response) => {
+  router.patch('/api/society-blocks/:id', async (req: Request, res: Response) => {
     try {
       const blockId = parseInt(req.params.id);
       const { blockName, flatsCount } = req.body;
@@ -1058,7 +1061,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Delete a society block
-  app.delete('/api/society-blocks/:id', async (req: Request, res: Response) => {
+  router.delete('/api/society-blocks/:id', async (req: Request, res: Response) => {
     try {
       const blockId = parseInt(req.params.id);
       
@@ -1093,7 +1096,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
   
-  app.get('/api/society/:id/financial-summary', async (req: Request, res: Response) => {
+  router.get('/api/society/:id/financial-summary', async (req: Request, res: Response) => {
     try {
       const societyId = parseInt(req.params.id);
       const currentMonth = format(new Date(), 'yyyy-MM');
@@ -1251,7 +1254,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
   
-  app.get('/api/society/member', async (req: Request, res: Response) => {
+  router.get('/api/society/member', async (req: Request, res: Response) => {
     try {
       const userId = req.query.userId ? parseInt(req.query.userId as string) : 1;
       
@@ -1278,7 +1281,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
   
-  app.get('/api/society/member/contributions', async (req: Request, res: Response) => {
+  router.get('/api/society/member/contributions', async (req: Request, res: Response) => {
     try {
       // Mock contributions data - would be fetched from DB in real implementation
       const contributions = [
@@ -1321,7 +1324,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
   
-  app.get('/api/society/member/notifications', async (req: Request, res: Response) => {
+  router.get('/api/society/member/notifications', async (req: Request, res: Response) => {
     try {
       // This would normally be fetched from a notifications table
       const notifications = [
@@ -1359,7 +1362,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Society Member Registration and Authentication
-  app.post('/api/society/register', async (req: Request, res: Response) => {
+  router.post('/api/society/register', async (req: Request, res: Response) => {
     try {
       const userValidation = insertUserSchema.safeParse(req.body);
       
@@ -1430,7 +1433,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Process society member login
-  app.post('/api/society/login', async (req: Request, res: Response) => {
+  router.post('/api/society/login', async (req: Request, res: Response) => {
     try {
       const { username, password } = req.body;
       
@@ -1502,7 +1505,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Admin endpoints for user registration approval
-  app.get('/api/society/user-registrations', async (req: Request, res: Response) => {
+  router.get('/api/society/user-registrations', async (req: Request, res: Response) => {
     try {
       const status = req.query.status || 'pending';
       
@@ -1535,7 +1538,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Approve a user registration
-  app.post('/api/society/user-registrations/:memberId/approve', async (req: Request, res: Response) => {
+  router.post('/api/society/user-registrations/:memberId/approve', async (req: Request, res: Response) => {
     try {
       const memberId = parseInt(req.params.memberId);
       
@@ -1595,7 +1598,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Reject a user registration
-  app.post('/api/society/user-registrations/:memberId/reject', async (req: Request, res: Response) => {
+  router.post('/api/society/user-registrations/:memberId/reject', async (req: Request, res: Response) => {
     try {
       const memberId = parseInt(req.params.memberId);
       
@@ -1652,7 +1655,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
   // API routes for prayer times - updated to use Hanafi method for Islamabad
-  app.get("/api/prayer-times", async (req, res) => {
+  router.get("/api/prayer-times", async (req, res) => {
     try {
       const { city = "Islamabad", country = "Pakistan" } = req.query;
       
@@ -1715,7 +1718,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // API routes for campaigns
-  app.get("/api/campaigns", async (req, res) => {
+  router.get("/api/campaigns", async (req, res) => {
     try {
       const campaigns = await storage.getCampaigns();
       res.json(campaigns);
@@ -1724,7 +1727,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
   
-  app.get("/api/campaigns/:id", async (req, res) => {
+  router.get("/api/campaigns/:id", async (req, res) => {
     try {
       const campaignId = parseInt(req.params.id);
       const campaign = await storage.getCampaignById(campaignId);
@@ -1740,7 +1743,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Upload payment proof endpoint
-  app.post("/api/upload-proof", upload.single('file'), async (req, res) => {
+  router.post("/api/upload-proof", upload.single('file'), async (req, res) => {
     try {
       if (!req.file) {
         return res.status(400).json({ message: "No file uploaded" });
@@ -1756,7 +1759,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // API routes for donations
-  app.post("/api/donations", async (req, res) => {
+  router.post("/api/donations", async (req, res) => {
     try {
       console.log("Received donation request:", req.body);
       
@@ -1849,7 +1852,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // API routes for enrollments
-  app.post("/api/enrollments", async (req, res) => {
+  router.post("/api/enrollments", async (req, res) => {
     try {
       const validationResult = insertEnrollmentSchema.safeParse(req.body);
       
@@ -1879,7 +1882,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // API routes for contact messages
-  app.post("/api/messages", async (req, res) => {
+  router.post("/api/messages", async (req, res) => {
     try {
       const validationResult = insertMessageSchema.safeParse(req.body);
       
@@ -1909,7 +1912,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // API routes for newsletter subscribers
-  app.post("/api/subscribers", async (req, res) => {
+  router.post("/api/subscribers", async (req, res) => {
     try {
       const validationResult = insertSubscriberSchema.safeParse(req.body);
       
@@ -1928,7 +1931,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Stripe payment routes
-  app.post("/api/create-payment-intent", async (req, res) => {
+  router.post("/api/create-payment-intent", async (req, res) => {
     try {
       if (!stripe) {
         return res.status(503).json({ 
@@ -1964,7 +1967,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // API routes for image generation
-  app.post("/api/generate-image", async (req: Request, res: Response) => {
+  router.post("/api/generate-image", async (req: Request, res: Response) => {
     try {
       if (!process.env.OPENAI_API_KEY) {
         return res.status(503).json({ 
@@ -1990,7 +1993,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // API route for generating multiple images
-  app.post("/api/generate-multiple-images", async (req: Request, res: Response) => {
+  router.post("/api/generate-multiple-images", async (req: Request, res: Response) => {
     try {
       if (!process.env.OPENAI_API_KEY) {
         return res.status(503).json({ 
@@ -2016,7 +2019,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // API route to generate themed images for the site
-  app.post("/api/generate-themed-images", async (req: Request, res: Response) => {
+  router.post("/api/generate-themed-images", async (req: Request, res: Response) => {
     try {
       if (!process.env.OPENAI_API_KEY) {
         return res.status(503).json({ 
@@ -2060,7 +2063,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // API route to generate historical Islamic images
-  app.post("/api/generate-history-images", async (req: Request, res: Response) => {
+  router.post("/api/generate-history-images", async (req: Request, res: Response) => {
     try {
       if (!process.env.OPENAI_API_KEY) {
         return res.status(503).json({ 
@@ -2110,7 +2113,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // ============== SOCIETY API ROUTES ==============
   
   // Create or initialize society
-  app.post("/api/society", async (req, res) => {
+  router.post("/api/society", async (req, res) => {
     try {
       const validationResult = insertSocietySchema.safeParse(req.body);
       
@@ -2129,7 +2132,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Get society by ID
-  app.get("/api/society/:id", async (req, res) => {
+  router.get("/api/society/:id", async (req, res) => {
     try {
       const societyId = parseInt(req.params.id);
       const society = await storage.getSocietyById(societyId);
@@ -2145,7 +2148,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Update society
-  app.patch("/api/society/:id", async (req, res) => {
+  router.patch("/api/society/:id", async (req, res) => {
     try {
       const societyId = parseInt(req.params.id);
       const society = await storage.getSocietyById(societyId);
@@ -2162,7 +2165,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Create society block
-  app.post("/api/society-blocks", async (req, res) => {
+  router.post("/api/society-blocks", async (req, res) => {
     try {
       const validationResult = insertSocietyBlockSchema.safeParse(req.body);
       
@@ -2181,7 +2184,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Get society blocks by society ID
-  app.get("/api/society/:societyId/blocks", async (req, res) => {
+  router.get("/api/society/:societyId/blocks", async (req, res) => {
     try {
       const societyId = parseInt(req.params.societyId);
       const blocks = await storage.getSocietyBlocks(societyId);
@@ -2192,7 +2195,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Get society block by ID
-  app.get("/api/society-blocks/:id", async (req, res) => {
+  router.get("/api/society-blocks/:id", async (req, res) => {
     try {
       const blockId = parseInt(req.params.id);
       const block = await storage.getSocietyBlockById(blockId);
@@ -2208,7 +2211,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Create society member
-  app.post("/api/society-members", async (req, res) => {
+  router.post("/api/society-members", async (req, res) => {
     try {
       const validationResult = insertSocietyMemberSchema.safeParse(req.body);
       
@@ -2227,7 +2230,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Get society members by society ID
-  app.get("/api/society/:societyId/members", async (req, res) => {
+  router.get("/api/society/:societyId/members", async (req, res) => {
     try {
       const societyId = parseInt(req.params.societyId);
       const members = await storage.getSocietyMembers(societyId);
@@ -2238,7 +2241,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Get society member by ID
-  app.get("/api/society-members/:id", async (req, res) => {
+  router.get("/api/society-members/:id", async (req, res) => {
     try {
       const memberId = parseInt(req.params.id);
       const member = await storage.getSocietyMemberById(memberId);
@@ -2254,7 +2257,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Get society member by user ID
-  app.get("/api/society-members/user/:userId", async (req, res) => {
+  router.get("/api/society-members/user/:userId", async (req, res) => {
     try {
       const userId = parseInt(req.params.userId);
       const member = await storage.getSocietyMemberByUserId(userId);
@@ -2270,7 +2273,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Update society member
-  app.patch("/api/society-members/:id", async (req, res) => {
+  router.patch("/api/society-members/:id", async (req, res) => {
     try {
       const memberId = parseInt(req.params.id);
       const member = await storage.getSocietyMemberById(memberId);
@@ -2287,7 +2290,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Create society contribution/payment
-  app.post("/api/society-contributions", async (req, res) => {
+  router.post("/api/society-contributions", async (req, res) => {
     try {
       const validationResult = insertSocietyContributionSchema.safeParse(req.body);
       
@@ -2306,7 +2309,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Get society contributions by society ID
-  app.get("/api/society/:societyId/contributions", async (req, res) => {
+  router.get("/api/society/:societyId/contributions", async (req, res) => {
     try {
       const societyId = parseInt(req.params.societyId);
       const contributions = await storage.getSocietyContributions(societyId);
@@ -2317,7 +2320,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Get society contributions by member ID
-  app.get("/api/society-members/:memberId/contributions", async (req, res) => {
+  router.get("/api/society-members/:memberId/contributions", async (req, res) => {
     try {
       const memberId = parseInt(req.params.memberId);
       const contributions = await storage.getSocietyContributionsByMember(memberId);
@@ -2328,7 +2331,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Get society contribution by ID
-  app.get("/api/society-contributions/:id", async (req, res) => {
+  router.get("/api/society-contributions/:id", async (req, res) => {
     try {
       const contributionId = parseInt(req.params.id);
       const contribution = await storage.getSocietyContributionById(contributionId);
@@ -2344,7 +2347,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Create society expense
-  app.post("/api/society-expenses", async (req, res) => {
+  router.post("/api/society-expenses", async (req, res) => {
     try {
       const validationResult = insertSocietyExpenseSchema.safeParse(req.body);
       
@@ -2363,7 +2366,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Get society expenses by society ID
-  app.get("/api/society/:societyId/expenses", async (req, res) => {
+  router.get("/api/society/:societyId/expenses", async (req, res) => {
     try {
       const societyId = parseInt(req.params.societyId);
       const expenses = await storage.getSocietyExpenses(societyId);
@@ -2374,7 +2377,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Get society expense by ID
-  app.get("/api/society-expenses/:id", async (req, res) => {
+  router.get("/api/society-expenses/:id", async (req, res) => {
     try {
       const expenseId = parseInt(req.params.id);
       const expense = await storage.getSocietyExpenseById(expenseId);
@@ -2390,7 +2393,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Create discussion
-  app.post("/api/discussions", async (req, res) => {
+  router.post("/api/discussions", async (req, res) => {
     try {
       const validationResult = insertDiscussionSchema.safeParse(req.body);
       
@@ -2409,7 +2412,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Get discussions by society ID
-  app.get("/api/society/:societyId/discussions", async (req, res) => {
+  router.get("/api/society/:societyId/discussions", async (req, res) => {
     try {
       const societyId = parseInt(req.params.societyId);
       const discussions = await storage.getDiscussions(societyId);
@@ -2420,7 +2423,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Get discussion by ID
-  app.get("/api/discussions/:id", async (req, res) => {
+  router.get("/api/discussions/:id", async (req, res) => {
     try {
       const discussionId = parseInt(req.params.id);
       const discussion = await storage.getDiscussionById(discussionId);
@@ -2436,7 +2439,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Update discussion status
-  app.patch("/api/discussions/:id/status", async (req, res) => {
+  router.patch("/api/discussions/:id/status", async (req, res) => {
     try {
       const discussionId = parseInt(req.params.id);
       const { status } = req.body;
@@ -2458,7 +2461,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Create discussion comment
-  app.post("/api/discussion-comments", async (req, res) => {
+  router.post("/api/discussion-comments", async (req, res) => {
     try {
       const validationResult = insertDiscussionCommentSchema.safeParse(req.body);
       
@@ -2477,7 +2480,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Get discussion comments by discussion ID
-  app.get("/api/discussions/:discussionId/comments", async (req, res) => {
+  router.get("/api/discussions/:discussionId/comments", async (req, res) => {
     try {
       const discussionId = parseInt(req.params.discussionId);
       const comments = await storage.getDiscussionComments(discussionId);
@@ -2488,7 +2491,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Create proposal
-  app.post("/api/proposals", async (req, res) => {
+  router.post("/api/proposals", async (req, res) => {
     try {
       const validationResult = insertProposalSchema.safeParse(req.body);
       
@@ -2507,7 +2510,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Get proposals by society ID
-  app.get("/api/society/:societyId/proposals", async (req, res) => {
+  router.get("/api/society/:societyId/proposals", async (req, res) => {
     try {
       const societyId = parseInt(req.params.societyId);
       const proposals = await storage.getProposals(societyId);
@@ -2518,7 +2521,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Get proposal by ID
-  app.get("/api/proposals/:id", async (req, res) => {
+  router.get("/api/proposals/:id", async (req, res) => {
     try {
       const proposalId = parseInt(req.params.id);
       const proposal = await storage.getProposalById(proposalId);
@@ -2534,7 +2537,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Update proposal status
-  app.patch("/api/proposals/:id/status", async (req, res) => {
+  router.patch("/api/proposals/:id/status", async (req, res) => {
     try {
       const proposalId = parseInt(req.params.id);
       const { status } = req.body;
@@ -2556,7 +2559,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Create vote
-  app.post("/api/votes", async (req, res) => {
+  router.post("/api/votes", async (req, res) => {
     try {
       const validationResult = insertVoteSchema.safeParse(req.body);
       
@@ -2589,7 +2592,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Get votes by proposal ID
-  app.get("/api/proposals/:proposalId/votes", async (req, res) => {
+  router.get("/api/proposals/:proposalId/votes", async (req, res) => {
     try {
       const proposalId = parseInt(req.params.proposalId);
       const votes = await storage.getVotesByProposal(proposalId);
@@ -2600,7 +2603,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Get user vote on specific proposal
-  app.get("/api/proposals/:proposalId/votes/:userId", async (req, res) => {
+  router.get("/api/proposals/:proposalId/votes/:userId", async (req, res) => {
     try {
       const proposalId = parseInt(req.params.proposalId);
       const userId = parseInt(req.params.userId);
@@ -2618,7 +2621,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // API to summarize monthly contributions and expenses for a society
-  app.get("/api/society/:societyId/financial-summary", async (req, res) => {
+  router.get("/api/society/:societyId/financial-summary", async (req, res) => {
     try {
       const societyId = parseInt(req.params.societyId);
       
@@ -2696,7 +2699,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // API to get pending contributions for each flat in the current month
-  app.get("/api/society/:societyId/pending-contributions", async (req, res) => {
+  router.get("/api/society/:societyId/pending-contributions", async (req, res) => {
     try {
       const societyId = parseInt(req.params.societyId);
       
@@ -2770,7 +2773,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Initialize Society with Blocks API for Masjid Society
-  app.post("/api/initialize-masjid-society", async (req, res) => {
+  router.post("/api/initialize-masjid-society", async (req, res) => {
     try {
       // 1. Create the society
       const societyData = {
@@ -2808,7 +2811,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // Handle payment submissions for both community and madrasa fees
-  app.post("/api/payments/submit", upload.single("receipt"), async (req, res) => {
+  router.post("/api/payments/submit", upload.single("receipt"), async (req, res) => {
     try {
       // Extract data from request
       const { reference, date, amount, type, notes } = req.body;
@@ -2861,7 +2864,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   };
 
   // Update the contact form route
-  app.post("/api/contact", async (req: Request, res: Response) => {
+  router.post("/api/contact", async (req: Request, res: Response) => {
     try {
       const { name, email, subject, message } = req.body;
       
@@ -2936,7 +2939,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Update the enrollment form route
-  app.post("/api/enroll", async (req: Request, res: Response) => {
+  router.post("/api/enroll", async (req: Request, res: Response) => {
     try {
       const enrollmentData = insertEnrollmentSchema.parse(req.body);
       const [enrollment] = await db.insert(enrollments).values(enrollmentData).returning();
@@ -2959,7 +2962,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Update the registration route
-  app.post("/api/register", async (req: Request, res: Response) => {
+  router.post("/api/register", async (req: Request, res: Response) => {
     try {
       const { username, password, email, name } = insertUserSchema.parse(req.body);
       
@@ -3014,7 +3017,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Update the login route
-  app.post("/api/login", async (req: Request, res: Response) => {
+  router.post("/api/login", async (req: Request, res: Response) => {
     try {
       const { username, password } = req.body;
       
@@ -3068,7 +3071,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Contact form submission
-  app.post('/api/contact', async (req: Request, res: Response) => {
+  router.post('/api/contact', async (req: Request, res: Response) => {
     try {
       const validatedData = insertMessageSchema.parse(req.body);
       
@@ -3088,7 +3091,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Madrasa enrollment form submission
-  app.post('/api/enroll', async (req: Request, res: Response) => {
+  router.post('/api/enroll', async (req: Request, res: Response) => {
     try {
       const validatedData = insertEnrollmentSchema.parse(req.body);
       
@@ -3108,7 +3111,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Donation form submission
-  app.post('/api/donate', upload.single('paymentProof'), async (req: Request, res: Response) => {
+  router.post('/api/donate', upload.single('paymentProof'), async (req: Request, res: Response) => {
     try {
       const validatedData = insertDonationSchema.parse(req.body);
       
@@ -3139,6 +3142,5 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  const httpServer = createServer(app);
-  return httpServer;
+  return router;
 }

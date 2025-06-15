@@ -33,5 +33,15 @@ export default defineConfig({
   build: {
     outDir: path.resolve(__dirname, "dist/public"),
     emptyOutDir: true,
+    rollupOptions: {
+      input: {
+        main: path.resolve(__dirname, "client/src/main.tsx")
+      }
+    }
+  },
+  server: {
+    proxy: {
+      '/api': 'http://localhost:5000',
+    },
   },
 });

@@ -1,14 +1,30 @@
-import 'dotenv/config';
-import express, { type Request, Response, NextFunction } from "express";
+import express, { Request, Response, NextFunction } from 'express';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+import dotenv from 'dotenv';
 import session from 'express-session';
 import { registerRoutes } from "./routes";
-import { setupVite, serveStatic, log } from "./vite";
+import { setupVite, serveStatic } from "./vite";
+import http from 'http';
+
+// Load environment variables
+dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const app = express();
+const server = http.createServer(app);
+const port = process.env.PORT || 5000;
+
+// Middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // Session configuration
 app.use(session({
-  secret: process.env.SESSION_SECRET || 'masjid_nabawi_secret_key_2024',
+  secret: process.env.SESSION_SECRET || 'your-secret-key',
   resave: false,
   saveUninitialized: false,
   cookie: {
@@ -16,9 +32,6 @@ app.use(session({
     maxAge: 24 * 60 * 60 * 1000 // 24 hours
   }
 }));
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
 
 app.use((req, res, next) => {
   const start = Date.now();
@@ -43,48 +56,48 @@ app.use((req, res, next) => {
         logLine = logLine.slice(0, 79) + "…";
       }
 
-      log(logLine);
+      console.log(logLine);
     }
   });
 
   next();
 });
 
+// Conditionally disable Stripe if STRIPE_SECRET_KEY is missing
+if (!process.env.STRIPE_SECRET_KEY) {
+  console.warn("Missing STRIPE_SECRET_KEY. Stripe payments will not be processed.");
+}
+
 // Initialize the application
 const init = async () => {
-  const server = await registerRoutes(app);
+  // Register routes
+  const router = registerRoutes(app);
+  app.use('/api', router);
 
-  app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
-    const status = err.status || err.statusCode || 500;
-    const message = err.message || "Internal Server Error";
-
-    res.status(status).json({ message });
-    throw err;
+  // Error handling middleware
+  app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+    console.error(err.stack);
+    res.status(500).json({ error: 'Something went wrong!' });
   });
 
-  // Setup static file serving
   if (process.env.NODE_ENV === 'production') {
     serveStatic(app);
   } else {
     await setupVite(app, server);
   }
 
-  // Get port from environment variable or use default
-  const port = process.env.PORT || 5000;
-  
-  // Only start the server if we're not in a serverless environment
-  if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
-    server.listen({
-      port,
-      host: process.env.NODE_ENV === 'production' ? "127.0.0.1" : "0.0.0.0"
-    }, () => {
-      log(`serving on port ${port}`);
-    });
-  }
+  // Start server
+  server.listen(port, () => {
+    console.log(`[express] Server running in ${process.env.NODE_ENV || 'development'} mode`);
+    console.log(`[express] serving on port ${port}`);
+  });
 };
 
 // Start the application
-init();
+init().catch(err => {
+  console.error('Failed to start server:', err);
+  process.exit(1);
+});
 
 // Export the Express app for Vercel
 export default app;
