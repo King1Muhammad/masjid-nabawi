@@ -63,3 +63,9 @@ lerna-debug.log*
 server/public
 vite.config.ts.*
 *.tar.gz
+
+# Replit specific
+.replit/
+
+# VS Code server/config specific
+.config/
