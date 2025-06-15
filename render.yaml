@@ -2,17 +2,29 @@ services:
   - type: web
     name: masjid-nabawi
     env: node
-    buildCommand: |
-      npm install
-      npm install -g vite esbuild
-      npm run build
-    startCommand: NODE_ENV=production npm start
+    nodeVersion: 18.17.0
+    buildCommand: npm install && npm run build
+    startCommand: npm start
     envVars:
       - key: NODE_ENV
         value: production
-      - key: PORT
-        value: 10000
-      - key: SESSION_SECRET
-        generateValue: true
       - key: DATABASE_URL
-        sync: false 
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: STRIPE_SECRET_KEY
+        sync: false
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false
+      - key: SESSION_SECRET
+        sync: false
+      - key: SENDGRID_API_KEY
+        sync: false
+      - key: EMAIL_FROM
+        sync: false
+      - key: EMAIL_TO
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: PORT
+        value: 10000 
