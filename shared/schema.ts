@@ -17,6 +17,12 @@ export const users = pgTable("users", {
   lastStatusChange: timestamp("last_status_change"),
   managedEntities: jsonb("managed_entities"), // IDs of entities managed by this user
   createdAt: timestamp("created_at").defaultNow(),
+  location: text("location"),
+  approvedById: integer("approved_by"),
+  latitude: numeric("latitude"),
+  longitude: numeric("longitude"),
+  cnic: text("cnic"),
+  phoneNumber: text("phone_number")
 });
 
 // Donation schema

@@ -7,23 +7,25 @@ import { format } from "date-fns";
 import * as schema from "@shared/schema";
 import { recreateAdminHierarchy } from "./seed-admins";
 import 'express-session';
+import { Session, SessionData } from 'express-session';
 
-// Extend Express Request type to include session
+// Use the User type from schema
+type AdminUser = schema.User;
+
 declare module 'express-session' {
   interface SessionData {
-    adminUser?: any;
+    adminUser?: AdminUser;
   }
 }
 
 declare global {
   namespace Express {
     interface Request {
-      session: {
-        adminUser?: any;
-      }
+      session: Session & Partial<SessionData>;
     }
   }
 }
+
 import { 
   insertDonationSchema, 
   insertEnrollmentSchema, 
@@ -769,22 +771,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       // Role level hierarchy for validation
-      const roleHierarchy = {
-        'global_admin': 5, 
-        'global': 5,
-        'country_admin': 4, 
-        'country': 4,
-        'city_admin': 3, 
-        'city': 3,
-        'community_admin': 2, 
-        'community': 2,
-        'society_admin': 1, 
-        'society': 1
+      const roleHierarchy: Record<string, { level: number; parent: string | null }> = {
+        global_admin: { level: 1, parent: null },
+        global: { level: 2, parent: 'global_admin' },
+        country_admin: { level: 3, parent: 'global' },
+        country: { level: 4, parent: 'country_admin' },
+        city_admin: { level: 5, parent: 'country' },
+        city: { level: 6, parent: 'city_admin' },
+        community_admin: { level: 7, parent: 'city' },
+        community: { level: 8, parent: 'community_admin' },
+        society_admin: { level: 9, parent: 'community' },
+        society: { level: 10, parent: 'society_admin' }
       };
       
       // Check if approver has high enough role to approve this admin
-      const approverLevel = roleHierarchy[approverRole] || 0;
-      const targetLevel = roleHierarchy[adminToApprove.role] || 0;
+      const approverLevel = roleHierarchy[approverRole]?.level || 0;
+      const targetLevel = roleHierarchy[adminToApprove.role]?.level || 0;
       
       if (approverLevel <= targetLevel) {
         return res.status(403).json({ 
@@ -2828,13 +2830,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Add this near the top of the file, after imports
-  const handleError = (res: Response, error: any) => {
+  // Fix the error handling type
+  const handleError = (res: Response, error: unknown) => {
     console.error('Error:', error);
-    res.status(500).json({
-      success: false,
-      message: error.message || 'An error occurred. Please try again later.'
-    });
+    const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred';
+    res.status(500).json({ error: errorMessage });
   };
 
   // Update the contact form route
