@@ -4,12 +4,13 @@
   functions = "netlify/functions"
 
 [build.environment]
-  NODE_VERSION = "18.17.0"
+  NODE_VERSION = "18"
   NPM_FLAGS = "--legacy-peer-deps"
+  NODE_ENV = "production"
 
 [[redirects]]
   from = "/api/*"
-  to = "/.netlify/functions/:splat"
+  to = "/.netlify/functions/api/:splat"
   status = 200
 
 [[redirects]]
@@ -19,4 +20,28 @@
 
 [functions]
   node_bundler = "esbuild"
-  external_node_modules = ["express", "cors", "pg", "bcryptjs", "jsonwebtoken", "passport", "passport-local", "express-session", "connect-pg-simple", "memorystore", "multer", "nodemailer", "openai", "stripe", "ws", "zod", "drizzle-orm", "drizzle-zod", "prisma", "@prisma/client"] 
+  external_node_modules = [
+    "@neondatabase/serverless",
+    "@prisma/client",
+    "bcryptjs",
+    "cors",
+    "express",
+    "express-session",
+    "jsonwebtoken",
+    "multer",
+    "nodemailer",
+    "openai",
+    "passport",
+    "passport-local",
+    "pg",
+    "stripe",
+    "ws"
+  ]
+
+[dev]
+  command = "npm run dev"
+  port = 8888
+  targetPort = 5173
+  publish = "dist/public"
+  functions = "netlify/functions"
+  functionsPort = 9999 

@@ -63,3 +63,6 @@ lerna-debug.log*
 server/public
 vite.config.ts.*
 *.tar.gz
+
+# Local Netlify folder
+.netlify

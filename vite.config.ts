@@ -16,7 +16,7 @@ export default defineConfig({
     ...(process.env.NODE_ENV !== "production" &&
     process.env.REPL_ID !== undefined
       ? [
-          await import("@replit/vite-plugin-cartographer").then((m) =>
+          import("@replit/vite-plugin-cartographer").then((m) =>
             m.cartographer(),
           ),
         ]
@@ -36,8 +36,16 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: path.resolve(__dirname, "client/src/main.tsx")
+      },
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom', 'react-router-dom'],
+          ui: ['@radix-ui/react-*'],
+          utils: ['date-fns', 'zod', 'axios']
+        }
       }
-    }
+    },
+    chunkSizeWarningLimit: 1000
   },
   server: {
     proxy: {
