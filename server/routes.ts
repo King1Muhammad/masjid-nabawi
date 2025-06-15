@@ -9,6 +9,29 @@ import { recreateAdminHierarchy } from "./seed-admins";
 import 'express-session';
 import { Session, SessionData } from 'express-session';
 
+// Type definitions
+type SafeAdmin = {
+  id: number;
+  username: string;
+  email: string;
+  name: string | null;
+  role: string | null;
+  status: string | null;
+  lastLogin: Date | null;
+  managedEntities: Record<string, any> | null;
+  is_admin: boolean;
+  createdBy: number | null;
+  lastStatusChange: Date | null;
+  phoneNumber: string | null;
+};
+
+type RoleHierarchy = {
+  [key: string]: {
+    level: number;
+    parent: string | null;
+  };
+};
+
 // Use the User type from schema
 type AdminUser = schema.User;
 
@@ -374,27 +397,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       // Map to safe admin objects (exclude password, etc.)
-      const safeAdmins = adminUsers.map(admin => ({
+      const safeAdmins: SafeAdmin[] = adminUsers.map(admin => ({
         id: admin.id,
         username: admin.username,
         email: admin.email,
         name: admin.name,
         role: admin.role,
         status: admin.status,
-        createdAt: admin.createdAt,
         lastLogin: admin.lastLogin,
-        location: admin.location,
-        approvedById: admin.approvedById,
-        latitude: admin.latitude,
-        longitude: admin.longitude,
-        cnic: admin.cnic,
+        managedEntities: admin.managedEntities,
+        is_admin: admin.is_admin,
+        createdBy: admin.createdBy,
+        lastStatusChange: admin.lastStatusChange,
         phoneNumber: admin.phoneNumber
       }));
       
       res.json(safeAdmins);
     } catch (error) {
-      console.error('Error fetching admins:', error);
-      res.status(500).json({ message: 'Failed to fetch admin users' });
+      if (error instanceof Error) {
+        console.error('Error fetching admins:', error.message);
+        res.status(500).json({ message: 'Failed to fetch admin users', error: error.message });
+      } else {
+        console.error('Unknown error fetching admins');
+        res.status(500).json({ message: 'Failed to fetch admin users' });
+      }
     }
   });
   
@@ -562,16 +588,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
   
+  // Admin login route
   app.post('/api/admin/login', async (req: Request, res: Response) => {
     try {
       const { username, password } = req.body;
       
-      // Validate input
-      if (!username || !password) {
-        return res.status(400).json({ message: 'Username and password are required' });
-      }
-      
-      // Find the admin user with admin role
+      // Find admin user
       const admin = await db.query.users.findFirst({
         where: and(
           eq(schema.users.username, username),
@@ -612,29 +634,39 @@ export async function registerRoutes(app: Express): Promise<Server> {
         .where(eq(schema.users.id, admin.id));
       
       // Return safe admin object (exclude password)
-      const safeAdmin = {
+      const safeAdmin: SafeAdmin = {
         id: admin.id,
         username: admin.username,
         email: admin.email,
         name: admin.name,
         role: admin.role,
         status: admin.status,
-        lastLogin: new Date().toISOString(),
-        managedEntities: admin.managedEntities || []
+        lastLogin: new Date(),
+        managedEntities: admin.managedEntities || {},
+        is_admin: admin.is_admin,
+        createdBy: admin.createdBy,
+        lastStatusChange: admin.lastStatusChange,
+        phoneNumber: admin.phoneNumber
       };
       
       // Set session data
       if (req.session) {
-        req.session.adminUser = safeAdmin;
+        req.session.adminUser = admin; // Store full admin object in session
       }
       
       res.status(200).json(safeAdmin);
     } catch (error) {
-      console.error('Error logging in admin:', error);
-      res.status(500).json({ message: 'Login failed' });
+      if (error instanceof Error) {
+        console.error('Error logging in admin:', error.message);
+        res.status(500).json({ message: 'Login failed', error: error.message });
+      } else {
+        console.error('Unknown error during admin login');
+        res.status(500).json({ message: 'Login failed' });
+      }
     }
   });
   
+  // Current admin route
   app.get('/api/admin/current', async (req: Request, res: Response) => {
     try {
       // Check if user is logged in via session
@@ -655,7 +687,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
         
         // Return safe admin object
-        const safeAdmin = {
+        const safeAdmin: SafeAdmin = {
           id: admin.id,
           username: admin.username,
           email: admin.email,
@@ -663,7 +695,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
           role: admin.role,
           status: admin.status,
           lastLogin: admin.lastLogin,
-          managedEntities: admin.managedEntities || []
+          managedEntities: admin.managedEntities || {},
+          is_admin: admin.is_admin,
+          createdBy: admin.createdBy,
+          lastStatusChange: admin.lastStatusChange,
+          phoneNumber: admin.phoneNumber
         };
         
         return res.status(200).json(safeAdmin);
@@ -671,8 +707,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       res.status(401).json({ message: 'No active admin session' });
     } catch (error) {
-      console.error('Error fetching current admin:', error);
-      res.status(500).json({ message: 'Failed to fetch current admin' });
+      if (error instanceof Error) {
+        console.error('Error fetching current admin:', error.message);
+        res.status(500).json({ message: 'Failed to fetch current admin', error: error.message });
+      } else {
+        console.error('Unknown error fetching current admin');
+        res.status(500).json({ message: 'Failed to fetch current admin' });
+      }
     }
   });
   
@@ -719,19 +760,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       // Return safe admin object
-      const safeAdmin = {
+      const safeAdmin: SafeAdmin = {
         id: updatedAdmin.id,
         username: updatedAdmin.username,
         email: updatedAdmin.email,
         name: updatedAdmin.name,
         role: updatedAdmin.role,
-        status: updatedAdmin.status
+        status: updatedAdmin.status,
+        lastLogin: updatedAdmin.lastLogin,
+        managedEntities: updatedAdmin.managedEntities || {},
+        is_admin: updatedAdmin.is_admin,
+        createdBy: updatedAdmin.createdBy,
+        lastStatusChange: updatedAdmin.lastStatusChange,
+        phoneNumber: updatedAdmin.phoneNumber
       };
       
       res.json(safeAdmin);
     } catch (error) {
-      console.error('Error updating admin status:', error);
-      res.status(500).json({ message: 'Failed to update admin status' });
+      if (error instanceof Error) {
+        console.error('Error updating admin status:', error.message);
+        res.status(500).json({ message: 'Failed to update admin status', error: error.message });
+      } else {
+        console.error('Unknown error updating admin status');
+        res.status(500).json({ message: 'Failed to update admin status' });
+      }
     }
   });
   
@@ -771,7 +823,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       // Role level hierarchy for validation
-      const roleHierarchy: Record<string, { level: number; parent: string | null }> = {
+      const roleHierarchy: RoleHierarchy = {
         global_admin: { level: 1, parent: null },
         global: { level: 2, parent: 'global_admin' },
         country_admin: { level: 3, parent: 'global' },
@@ -785,8 +837,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       };
       
       // Check if approver has high enough role to approve this admin
-      const approverLevel = roleHierarchy[approverRole]?.level || 0;
-      const targetLevel = roleHierarchy[adminToApprove.role]?.level || 0;
+      const approverLevel = approverRole ? roleHierarchy[approverRole]?.level || 0 : 0;
+      const targetLevel = adminToApprove.role ? roleHierarchy[adminToApprove.role]?.level || 0 : 0;
       
       if (approverLevel <= targetLevel) {
         return res.status(403).json({ 
@@ -802,7 +854,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const approverEntities = req.session.adminUser.managedEntities ?
         (typeof req.session.adminUser.managedEntities === 'string' ? 
           JSON.parse(req.session.adminUser.managedEntities) : req.session.adminUser.managedEntities) : {};
-          
+        
       // Determine if the admin to be approved is within the approver's jurisdiction
       let isWithinJurisdiction = false;
       
@@ -849,64 +901,35 @@ export async function registerRoutes(app: Express): Promise<Server> {
         )
         .returning();
       
-      // Send notification email if we have user email
-      if (updatedAdmin.email) {
-        try {
-          const transporter = createTransporter();
-          
-          // Determine admin level color for email template
-          let adminColor = '#0C6E4E'; // Default green for society level
-          if (updatedAdmin.role.includes('community')) adminColor = '#2563EB';  // Blue
-          if (updatedAdmin.role.includes('city')) adminColor = '#9333EA';       // Purple
-          if (updatedAdmin.role.includes('country')) adminColor = '#E11D48';    // Red
-          if (updatedAdmin.role.includes('global')) adminColor = '#18181B';     // Black
-          
-          await transporter.sendMail({
-            from: '"Society Management Admin" <jamiamasjidnabviqureshihashmi@gmail.com>',
-            to: updatedAdmin.email,
-            subject: 'Admin Account Approved',
-            html: `
-              <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; border: 1px solid ${adminColor}; border-radius: 8px; overflow: hidden;">
-                <div style="background-color: ${adminColor}; color: white; padding: 20px; text-align: center;">
-                  <h1 style="margin: 0;">Admin Account Approved</h1>
-                  <h2 style="margin: 5px 0 0 0;">Masjid Management System</h2>
-                </div>
-                
-                <div style="padding: 20px;">
-                  <p>Dear ${updatedAdmin.name},</p>
-                  
-                  <p>Your admin account has been approved by ${req.session.adminUser.name} (${req.session.adminUser.role}). You can now login to the admin panel with your credentials.</p>
-                  
-                  <p>Username: <strong>${updatedAdmin.username}</strong></p>
-                  <p>Role: <strong>${updatedAdmin.role}</strong></p>
-                  
-                  <p>Thank you for being part of our global Islamic community governance system!</p>
-                  
-                  <p style="margin-top: 30px;">Regards,<br>Admin Management</p>
-                </div>
-              </div>
-            `
-          });
-        } catch (emailError) {
-          console.error('Error sending approval email:', emailError);
-          // Continue even if email fails
-        }
+      if (!updatedAdmin) {
+        return res.status(404).json({ message: 'Admin not found' });
       }
       
-      res.json({ 
-        message: 'Admin approved successfully',
-        admin: {
-          id: updatedAdmin.id,
-          username: updatedAdmin.username,
-          email: updatedAdmin.email,
-          name: updatedAdmin.name,
-          role: updatedAdmin.role,
-          status: updatedAdmin.status
-        }
-      });
+      // Return safe admin object
+      const safeAdmin: SafeAdmin = {
+        id: updatedAdmin.id,
+        username: updatedAdmin.username,
+        email: updatedAdmin.email,
+        name: updatedAdmin.name,
+        role: updatedAdmin.role,
+        status: updatedAdmin.status,
+        lastLogin: updatedAdmin.lastLogin,
+        managedEntities: updatedAdmin.managedEntities || {},
+        is_admin: updatedAdmin.is_admin,
+        createdBy: updatedAdmin.createdBy,
+        lastStatusChange: updatedAdmin.lastStatusChange,
+        phoneNumber: updatedAdmin.phoneNumber
+      };
+      
+      res.json(safeAdmin);
     } catch (error) {
-      console.error('Error approving admin:', error);
-      res.status(500).json({ message: 'Failed to approve admin', error: error.message });
+      if (error instanceof Error) {
+        console.error('Error approving admin:', error.message);
+        res.status(500).json({ message: 'Failed to approve admin', error: error.message });
+      } else {
+        console.error('Unknown error approving admin');
+        res.status(500).json({ message: 'Failed to approve admin' });
+      }
     }
   });
   
@@ -3040,6 +3063,78 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
       });
     } catch (error) {
+      handleError(res, error);
+    }
+  });
+
+  // Contact form submission
+  app.post('/api/contact', async (req: Request, res: Response) => {
+    try {
+      const validatedData = insertMessageSchema.parse(req.body);
+      
+      // Insert into database
+      const [message] = await db.insert(schema.messages)
+        .values(validatedData)
+        .returning();
+      
+      // Send email notification
+      await sendContactMessageNotification(message);
+      
+      res.json({ success: true, message: 'Message sent successfully' });
+    } catch (error) {
+      console.error('Contact form submission error:', error);
+      handleError(res, error);
+    }
+  });
+
+  // Madrasa enrollment form submission
+  app.post('/api/enroll', async (req: Request, res: Response) => {
+    try {
+      const validatedData = insertEnrollmentSchema.parse(req.body);
+      
+      // Insert into database
+      const [enrollment] = await db.insert(schema.enrollments)
+        .values(validatedData)
+        .returning();
+      
+      // Send email notification
+      await sendEnrollmentNotification(enrollment);
+      
+      res.json({ success: true, message: 'Enrollment submitted successfully' });
+    } catch (error) {
+      console.error('Enrollment form submission error:', error);
+      handleError(res, error);
+    }
+  });
+
+  // Donation form submission
+  app.post('/api/donate', upload.single('paymentProof'), async (req: Request, res: Response) => {
+    try {
+      const validatedData = insertDonationSchema.parse(req.body);
+      
+      // Handle payment proof upload
+      if (req.file) {
+        validatedData.paymentProofUrl = `/uploads/${req.file.filename}`;
+      }
+      
+      // Insert into database
+      const [donation] = await db.insert(schema.donations)
+        .values(validatedData)
+        .returning();
+      
+      // Send email notifications
+      await Promise.all([
+        sendDonationNotification(donation),
+        sendDonationReceipt(donation)
+      ]);
+      
+      res.json({ 
+        success: true, 
+        message: 'Donation submitted successfully',
+        donationId: donation.id
+      });
+    } catch (error) {
+      console.error('Donation form submission error:', error);
       handleError(res, error);
     }
   });

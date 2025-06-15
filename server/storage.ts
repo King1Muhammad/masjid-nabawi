@@ -13,7 +13,8 @@ import {
   proposals, type Proposal, type InsertProposal,
   votes, type Vote, type InsertVote,
   societyExpenses, type SocietyExpense, type InsertSocietyExpense,
-  societyContributions, type SocietyContribution, type InsertSocietyContribution
+  societyContributions, type SocietyContribution, type InsertSocietyContribution,
+  messages
 } from "@shared/schema";
 import { db } from "./db";
 import { eq, and, desc, asc, sql } from "drizzle-orm";
@@ -189,7 +190,7 @@ export class DatabaseStorage implements IStorage {
   
   // Message methods
   async createMessage(insertMessage: InsertMessage): Promise<Message> {
-    const [message] = await db.insert(schema.messages).values({
+    const [message] = await db.insert(messages).values({
       ...insertMessage,
       status: "unread",
       createdAt: new Date()
@@ -198,13 +199,13 @@ export class DatabaseStorage implements IStorage {
   }
   
   async getMessages(): Promise<Message[]> {
-    return db.select().from(schema.messages).orderBy(desc(schema.messages.createdAt));
+    return db.select().from(messages).orderBy(desc(messages.createdAt));
   }
   
   async updateMessageStatus(id: number, status: string): Promise<Message | undefined> {
-    const [message] = await db.update(schema.messages)
+    const [message] = await db.update(messages)
       .set({ status })
-      .where(eq(schema.messages.id, id))
+      .where(eq(messages.id, id))
       .returning();
     return message;
   }

@@ -11,8 +11,11 @@ const createTransporter = () => {
   return nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: process.env.EMAIL_USER,
+      user: process.env.EMAIL_USER || 'jamiamasjidnabviqureshihashmi@gmail.com',
       pass: process.env.EMAIL_PASSWORD
+    },
+    tls: {
+      rejectUnauthorized: false
     }
   });
 };
@@ -46,8 +49,8 @@ ${JSON.stringify(data, null, 2)}
     `;
     
     const mailOptions = {
-      from: `"Masjid-e-Nabawi Islamabad" <${process.env.EMAIL_FROM || process.env.EMAIL_USER}>`,
-      to: process.env.EMAIL_TO || process.env.EMAIL_USER,
+      from: `"Masjid-e-Nabawi Islamabad" <${process.env.EMAIL_USER}>`,
+      to: 'jamiamasjidnabviqureshihashmi@gmail.com',
       subject: `New ${formType} Submission Received`,
       html: htmlContent,
     };
@@ -63,7 +66,7 @@ ${JSON.stringify(data, null, 2)}
     return true;
   } catch (error) {
     console.error(`Failed to send ${formType} notification:`, error);
-    throw error; // Re-throw the error to be handled by the route handler
+    throw error;
   }
 };
 

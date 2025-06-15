@@ -210,6 +210,12 @@ export default function AdminDashboard() {
     );
   }
   
+  const handleStatusChange = (messageId: number, newStatus: 'pending' | 'in_progress' | 'resolved') => {
+    setMessages(messages.map(msg => 
+      msg.id === messageId ? { ...msg, status: newStatus } : msg
+    ));
+  };
+  
   return (
     <div className="container mx-auto p-4 space-y-6 pb-16" 
       style={{ 

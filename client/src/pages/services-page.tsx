@@ -61,6 +61,36 @@ const ServiceIcon = ({ name, size = 'md' }: ServiceIconProps) => {
   }
 };
 
+interface ExtendedService {
+  id: number;
+  name: string;
+  description: string;
+  schedules?: {
+    fajr: string;
+    zuhr: string;
+    asr: string;
+    maghrib: string;
+    isha: string;
+    juma: string;
+  };
+  courses?: Array<{
+    name: string;
+    description: string;
+  }>;
+  levels?: Array<{
+    name: string;
+    description: string;
+  }>;
+  services?: Array<{
+    name: string;
+    description: string;
+  }>;
+  platforms?: Array<{
+    name: string;
+    description: string;
+  }>;
+}
+
 const ServicesPage = () => {
   // Additional service details for extended content
   const servicesExtended = [
@@ -286,14 +316,12 @@ const ServicesPage = () => {
                     {service.id === 'daily-prayers' && extendedService && (
                       <div className="mb-6">
                         <h4 className="font-medium mb-2">Prayer Times</h4>
-                        <div className="grid md:grid-cols-3 gap-4">
-                          {Object.entries(extendedService.times).map(([prayer, time]) => (
-                            <div key={prayer} className="bg-[#F7F3E9] p-3 rounded">
-                              <div className="font-medium capitalize">{prayer}</div>
-                              <div>{time}</div>
-                            </div>
-                          ))}
-                        </div>
+                        {extendedService.times && Object.entries(extendedService.times).map(([prayer, time]) => (
+                          <div key={prayer} className="flex justify-between items-center py-2">
+                            <span className="font-medium capitalize">{prayer}</span>
+                            <span>{time}</span>
+                          </div>
+                        ))}
                       </div>
                     )}
                     
@@ -310,7 +338,7 @@ const ServicesPage = () => {
                               </tr>
                             </thead>
                             <tbody>
-                              {extendedService.schedules.map((schedule, index) => (
+                              {extendedService.schedules?.map((schedule, index) => (
                                 <tr key={index} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
                                   <td className="px-4 py-2 border border-gray-200">{schedule.level}</td>
                                   <td className="px-4 py-2 border border-gray-200">{schedule.days}</td>
@@ -327,12 +355,12 @@ const ServicesPage = () => {
                       <div className="mb-6">
                         <h4 className="font-medium mb-2">Available Courses</h4>
                         <ul className="grid md:grid-cols-2 gap-2">
-                          {extendedService.courses.map((course, index) => (
+                          {extendedService.courses?.map((course, index) => (
                             <li key={index} className="flex items-center">
                               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#D4AF37] mr-2" viewBox="0 0 20 20" fill="currentColor">
                                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                               </svg>
-                              {course}
+                              {course.name}
                             </li>
                           ))}
                         </ul>
@@ -343,13 +371,13 @@ const ServicesPage = () => {
                       <div className="mb-6">
                         <h4 className="font-medium mb-2">Course Levels</h4>
                         <div className="space-y-2">
-                          {extendedService.levels.map((level, index) => (
+                          {extendedService.levels?.map((level, index) => (
                             <div key={index} className="bg-[#F7F3E9] p-3 rounded">
                               <div className="flex items-start">
                                 <div className="bg-[#0C6E4E] text-white rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0 mt-0.5">
                                   {index + 1}
                                 </div>
-                                <div>{level}</div>
+                                <div>{level.name}</div>
                               </div>
                             </div>
                           ))}
@@ -361,12 +389,12 @@ const ServicesPage = () => {
                       <div className="mb-6">
                         <h4 className="font-medium mb-2">Support Services</h4>
                         <ul className="space-y-2">
-                          {extendedService.services.map((item, index) => (
+                          {extendedService.services?.map((item, index) => (
                             <li key={index} className="flex items-start">
                               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#D4AF37] mt-0.5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                               </svg>
-                              {item}
+                              {item.name}
                             </li>
                           ))}
                         </ul>
@@ -377,12 +405,12 @@ const ServicesPage = () => {
                       <div className="mb-6">
                         <h4 className="font-medium mb-2">Digital Platforms</h4>
                         <ul className="space-y-2">
-                          {extendedService.platforms.map((platform, index) => (
+                          {extendedService.platforms?.map((platform, index) => (
                             <li key={index} className="flex items-start">
                               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-[#D4AF37] mt-0.5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                                 <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                               </svg>
-                              {platform}
+                              {platform.name}
                             </li>
                           ))}
                         </ul>
