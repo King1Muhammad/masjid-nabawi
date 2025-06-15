@@ -2,7 +2,7 @@ import {
   users, type User, type InsertUser,
   donations, type Donation, type InsertDonation,
   enrollments, type Enrollment, type InsertEnrollment,
-  schemaMessages, type Message, type InsertMessage,
+  type Message, type InsertMessage, // Removed schemaMessages
   campaigns, type Campaign, type InsertCampaign,
   subscribers, type Subscriber, type InsertSubscriber,
   society, type Society, type InsertSociety,

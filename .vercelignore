@@ -1,0 +1,69 @@
+# Git and GitHub specific files
+.git/
+.github/
+
+# IDE and local environment configurations
+.vscode/
+.replit/
+.config/
+
+# Documentation files (unless part of the deployed site)
+*.md
+LICENSE
+
+# Node modules (Vercel installs its own based on package.json for the serverless function)
+# This prevents local node_modules from being uploaded.
+node_modules/
+
+# Client-specific node_modules (if they exist separately)
+client/node_modules/
+
+# Client source code - Vercel's static build handles the client.
+# These aren't needed directly by the serverless function for API routes.
+client/src/
+# client/public/ is handled by the static build output to dist/public
+
+# Large asset folders not directly used by the server at runtime.
+# Client assets are aliased and bundled by Vite into dist/public.
+attached_assets/
+
+# Test files and directories
+*.test.ts
+*.spec.ts
+*.test.tsx
+*.spec.tsx
+tests/
+__tests__/
+cypress/
+
+# Storybook or other local development tools' output
+.storybook/
+storybook-static/
+
+# Environment files (these should be configured in Vercel's UI)
+.env
+.env.*
+!.env.example
+!.env.production.template
+
+# Drizzle kit local files (migrations are fine, but other temp files)
+# drizzle/ # Be cautious if this contains essential non-migration files
+
+# Log files, local cache files
+*.log
+logs/
+.cache/
+.eslintcache
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# TypeScript build info
+*.tsbuildinfo
+
+# Temporary files from OS or editors
+.DS_Store
+*.swp
+*.swo

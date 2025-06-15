@@ -61,9 +61,53 @@ const ServiceIcon = ({ name, size = 'md' }: ServiceIconProps) => {
   }
 };
 
+// Define interfaces for extended service items
+interface BaseExtendedService {
+  id: string;
+  additionalInfo: string;
+}
+
+interface DailyPrayersExtended extends BaseExtendedService {
+  id: 'daily-prayers';
+  times: { [key: string]: string };
+}
+
+interface QuranClassesExtended extends BaseExtendedService {
+  id: 'quran-classes';
+  schedules: Array<{ level: string; days: string; time: string }>;
+}
+
+interface IslamicStudiesExtended extends BaseExtendedService {
+  id: 'islamic-studies';
+  courses: string[];
+}
+
+interface ArabicLanguageExtended extends BaseExtendedService {
+  id: 'arabic-language';
+  levels: string[];
+}
+
+interface CommunitySupportExtended extends BaseExtendedService {
+  id: 'community-support';
+  services: string[];
+}
+
+interface OnlineServicesExtended extends BaseExtendedService {
+  id: 'online-services';
+  platforms: string[];
+}
+
+type ServiceExtendedItem =
+  | DailyPrayersExtended
+  | QuranClassesExtended
+  | IslamicStudiesExtended
+  | ArabicLanguageExtended
+  | CommunitySupportExtended
+  | OnlineServicesExtended;
+
 const ServicesPage = () => {
   // Additional service details for extended content
-  const servicesExtended = [
+  const servicesExtended: ServiceExtendedItem[] = [
     {
       id: 'daily-prayers',
       times: {
@@ -283,7 +327,7 @@ const ServicesPage = () => {
                   <div className="border-t border-gray-200 pt-6">
                     <h3 className="text-xl font-medium text-[#0C6E4E] mb-4">What We Offer</h3>
                     
-                    {service.id === 'daily-prayers' && extendedService && (
+                    {service.id === 'daily-prayers' && extendedService && 'times' in extendedService && (
                       <div className="mb-6">
                         <h4 className="font-medium mb-2">Prayer Times</h4>
                         <div className="grid md:grid-cols-3 gap-4">
@@ -297,7 +341,7 @@ const ServicesPage = () => {
                       </div>
                     )}
                     
-                    {service.id === 'quran-classes' && extendedService && (
+                    {service.id === 'quran-classes' && extendedService && 'schedules' in extendedService && (
                       <div className="mb-6">
                         <h4 className="font-medium mb-2">Class Schedule</h4>
                         <div className="overflow-x-auto">
@@ -323,7 +367,7 @@ const ServicesPage = () => {
                       </div>
                     )}
                     
-                    {service.id === 'islamic-studies' && extendedService && (
+                    {service.id === 'islamic-studies' && extendedService && 'courses' in extendedService && (
                       <div className="mb-6">
                         <h4 className="font-medium mb-2">Available Courses</h4>
                         <ul className="grid md:grid-cols-2 gap-2">
@@ -339,7 +383,7 @@ const ServicesPage = () => {
                       </div>
                     )}
                     
-                    {service.id === 'arabic-language' && extendedService && (
+                    {service.id === 'arabic-language' && extendedService && 'levels' in extendedService && (
                       <div className="mb-6">
                         <h4 className="font-medium mb-2">Course Levels</h4>
                         <div className="space-y-2">
@@ -357,7 +401,7 @@ const ServicesPage = () => {
                       </div>
                     )}
                     
-                    {service.id === 'community-support' && extendedService && (
+                    {service.id === 'community-support' && extendedService && 'services' in extendedService && (
                       <div className="mb-6">
                         <h4 className="font-medium mb-2">Support Services</h4>
                         <ul className="space-y-2">
@@ -373,7 +417,7 @@ const ServicesPage = () => {
                       </div>
                     )}
                     
-                    {service.id === 'online-services' && extendedService && (
+                    {service.id === 'online-services' && extendedService && 'platforms' in extendedService && (
                       <div className="mb-6">
                         <h4 className="font-medium mb-2">Digital Platforms</h4>
                         <ul className="space-y-2">

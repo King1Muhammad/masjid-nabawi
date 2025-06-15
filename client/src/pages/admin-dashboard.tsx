@@ -856,7 +856,7 @@ export default function AdminDashboard() {
                               <div className="flex items-center gap-2 mt-1">
                                 <Badge 
                                   variant={admin.status === 'active' ? 'default' : 
-                                          admin.status === 'pending' ? 'secondary' : 'destructive'}
+                                          admin.status === 'pending' ? 'default' : 'destructive'}
                                   className="text-xs"
                                 >
                                   {admin.status === 'active' ? 'Active' : 

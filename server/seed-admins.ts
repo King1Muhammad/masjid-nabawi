@@ -319,7 +319,8 @@ export async function recreateAdminHierarchy() {
     return { success: true, message: 'Admin hierarchy reset and recreated successfully!' };
   } catch (error) {
     console.error('Error recreating admin hierarchy:', error);
-    return { success: false, message: `Error: ${error.message}` };
+    const errorMessage = error instanceof Error ? error.message : 'An unknown error occurred while recreating admin hierarchy.';
+    return { success: false, message: `Error: ${errorMessage}` };
   }
 }
 
